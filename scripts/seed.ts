@@ -10,7 +10,7 @@
  *
  *   npm run db:seed
  */
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 import { config } from "dotenv";
 
 import type { Database } from "../src/types/database";
@@ -47,8 +47,6 @@ if (!isLocal && process.env.SEED_CONFIRM_REMOTE !== "yes") {
 const db = createClient<Database>(SUPABASE_URL, SERVICE_ROLE_KEY, {
   auth: { persistSession: false, autoRefreshToken: false },
 });
-
-type Db = SupabaseClient<Database>;
 
 /**
  * Throws on the first database error instead of silently seeding half a menu.

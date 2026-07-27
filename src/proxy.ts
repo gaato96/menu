@@ -9,7 +9,7 @@ import type { StaffRole } from "@/types/database";
  * This is a UX layer, not the security boundary — RLS is. Someone who defeats
  * this still reads nothing, because every policy scopes on the JWT claims.
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(

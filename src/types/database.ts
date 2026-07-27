@@ -376,6 +376,18 @@ export type Database = {
       next_order_code: { Args: { p_business_id: string }; Returns: string };
       business_is_servable: { Args: { p_business_id: string }; Returns: boolean };
       order_status_rank: { Args: { p_status: string }; Returns: number };
+      create_priced_order: { Args: { p_business_id: string; p_order: Json }; Returns: Json };
+      upsert_push_subscription: {
+        Args: {
+          p_business_id: string;
+          p_profile_id: string;
+          p_endpoint: string;
+          p_p256dh: string;
+          p_auth: string;
+          p_user_agent: string | null;
+        };
+        Returns: undefined;
+      };
     };
     Enums: Record<never, never>;
     CompositeTypes: Record<never, never>;

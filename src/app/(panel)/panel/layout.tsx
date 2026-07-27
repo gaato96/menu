@@ -28,12 +28,14 @@ export default async function PanelLayout({ children }: { children: React.ReactN
   return (
     <div
       className="flex min-h-full flex-col"
-      // Each business themes its own panel. Set here so every nested component
-      // can use bg-brand / text-brand without knowing whose panel it is.
+      // Each business themes its own panel. --color-brand itself is
+      // redeclared here (not a --brand indirection) so descendants actually
+      // pick it up — see the comment on --color-brand in globals.css.
       style={
         {
-          "--brand": business.brand_color,
-          "--brand-fg": "#ffffff",
+          "--color-brand": business.brand_color,
+          "--color-brand-fg": "#ffffff",
+          "--color-brand-soft": `color-mix(in srgb, ${business.brand_color} 14%, white)`,
         } as React.CSSProperties
       }
     >

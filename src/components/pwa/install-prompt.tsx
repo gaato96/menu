@@ -48,6 +48,13 @@ export function InstallPrompt({ label, storageKey, className }: InstallPromptPro
     if (window.localStorage.getItem(storageKey) === "dismissed") return;
 
     if (isIos()) {
+      // iOS never fires beforeinstallprompt, so there is no event to key off
+      // of — this IS the whole decision. A lazy useState initializer would
+      // read the same navigator/localStorage checks without the extra
+      // render, but it would also run during SSR, where neither exists, and
+      // crash the render. The effect exists specifically to defer this to
+      // the client.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVisible(true);
       return;
     }

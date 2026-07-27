@@ -118,8 +118,28 @@ tiene que seguir a `supabase/migrations/`.
 ## Estado
 
 - [x] Fase 0 — Esquema, RLS, hook de JWT, base PWA, motor de precios
-- [ ] Fase 1 — Menú público y toma de pedido
+- [x] Fase 1 — Menú público y toma de pedido
 - [ ] Fase 2 — Tablero de comandas
 - [ ] Fase 3 — Operación diaria
 - [ ] Fase 4 — Panel del negocio
 - [ ] Fase 5 — Panel de superadmin
+
+### Fase 1 — qué incluye
+
+- Menú público (`/m/[slug]`) con categorías, ficha de producto con variantes/extras/quitar
+  ingredientes, validación en vivo de grupos obligatorios y máximos.
+- Carrito persistente (Zustand + localStorage), checkout en 4 pasos (modalidad → datos → pago
+  → notas).
+- `POST /api/orders`: recalcula precios en el servidor con `src/lib/pricing.ts` — el navegador
+  nunca manda precios — y crea el pedido de forma atómica vía la función SQL
+  `create_priced_order` (persiste antes de redirigir, así el pedido existe aunque el cliente
+  nunca llegue a enviar el WhatsApp).
+- Página de confirmación con el motivo visual del "ticket rasgado" (`TicketEdge`, SVG
+  determinístico) y redirección automática a WhatsApp con fallback manual.
+- Manifest dinámico por negocio (`/m/[slug]/manifest.webmanifest`): cada local se instala con
+  su propio nombre, ícono y color, no como "Menú Digital".
+- Sistema de diseño propio (ver `globals.css`): paleta kraft/parchment en vez de la cream+serif
+  genérica de moda, tipografía Big Shoulders (display) + Schibsted Grotesk (texto) + IBM Plex
+  Mono (precios/códigos), colores de estado donde la saturación mapea a urgencia.
+- Suite E2E de Playwright que arma un pedido real con opciones, completa el checkout y verifica
+  que llegue a WhatsApp con el pedido ya persistido (`tests/e2e/ordering.spec.ts`).

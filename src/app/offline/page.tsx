@@ -6,7 +6,9 @@ export default function OfflinePage() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
       <WifiOff className="size-12 text-ink-300" aria-hidden />
-      <h1 className="text-xl font-semibold text-ink-900">Sin conexión</h1>
+      <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink-900">
+        Sin conexión
+      </h1>
       <p className="max-w-sm text-sm text-ink-500">
         No pudimos conectarnos. El tablero de comandas necesita internet para mostrarte
         pedidos reales — preferimos avisarte antes que mostrarte una comanda vieja.

@@ -71,7 +71,7 @@ export function ServiceWorkerRegistrar() {
   if (!updateReady) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-between gap-3 bg-ink-900 px-4 py-3 text-ink-50 shadow-lg">
+    <div className="shadow-ticket fixed inset-x-0 bottom-0 z-50 flex items-center justify-between gap-3 bg-ink-900 px-4 py-3 text-ink-50">
       <p className="text-sm">Hay una versión nueva de la app.</p>
       <button
         type="button"

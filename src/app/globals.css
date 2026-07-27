@@ -1,55 +1,94 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
 
 /* ---------------------------------------------------------------------------
    Menú Digital — design tokens
 
-   Deliberately light-only. This is counter/kitchen software: a cashier at 9pm
-   on a Friday must never wonder why the screen looks different than yesterday.
-   Auto dark mode is a liability here, not a feature.
+   Vernacular: the deli price tag and the register receipt, not the SaaS
+   dashboard. This product's whole pitch is "turn WhatsApp chaos into an
+   organized paper ticket" — the palette, type and the torn-edge ticket motif
+   (see .ticket-edge below) all come from that object, not from a generic
+   app-icon aesthetic. Warm kraft-paper neutrals (not bakery cream), a
+   condensed industrial display face for signage moments, a grotesque for
+   reading, and a mono face reserved for anything that is actually a number
+   on a receipt: price, code, quantity, timestamp.
+
+   Deliberately light-only, on every surface including the staff board. This
+   is counter/kitchen software read at a glance across a room under kitchen
+   lighting — legibility beats mood, and a cashier at 9pm on a Friday must
+   never wonder why the screen looks different than yesterday.
 --------------------------------------------------------------------------- */
 
 @theme {
-  /* Neutrals — warm-tinted grey, softer than pure slate under kitchen lights */
-  --color-ink-950: #17130f;
-  --color-ink-900: #241d17;
-  --color-ink-700: #4a3f35;
-  --color-ink-500: #7a6c5f;
-  --color-ink-300: #c4b8ac;
-  --color-ink-200: #e2dad1;
-  --color-ink-100: #f0eae3;
-  --color-ink-50: #faf7f4;
+  /* Neutrals — kraft paper, not bakery cream. Warm brown-grey, not pink. */
+  --color-ink-950: #1c1611;
+  --color-ink-900: #241b14;
+  --color-ink-700: #4a3c2f;
+  --color-ink-500: #6b5d4f;
+  --color-ink-300: #b8a98f;
+  --color-ink-200: #ded2bd;
+  --color-ink-100: #ece3d1;
+  --color-ink-50: #f1ebdd;
 
-  /* Brand — overridden per business at runtime via --brand on a wrapper */
-  --color-brand: var(--brand, #d1420a);
-  --color-brand-fg: var(--brand-fg, #ffffff);
-  --color-brand-soft: var(--brand-soft, #fdeee7);
+  /*
+   * Brand — Menú Digital's own colour by default: a bottle green pulled from
+   * a deli awning / apron, not the terracotta that every AI food-app demo
+   * reaches for. A tenant's panel and public menu OVERRIDE these three
+   * tokens directly (not through a --brand indirection) on their root
+   * wrapper — see (panel)/panel/layout.tsx and (public)/m/[slug]/menu-client.tsx.
+   *
+   * Redeclaring --color-brand itself on the wrapper matters: Tailwind's
+   * @theme only emits these declarations once, here at :root. A var(--brand,
+   * fallback) indirection would resolve using :root's OWN (unset) --brand at
+   * the point :root is evaluated, and that resolved value is what inherits
+   * down — a wrapper setting --brand further down the tree can't retroactively
+   * change it. Overriding --color-brand itself sidesteps that entirely.
+   */
+  --color-brand: #1f4a38;
+  --color-brand-fg: #ffffff;
+  --color-brand-soft: #dfe9e2;
 
-  /* Order status — each column owns one hue, readable across the room */
-  --color-status-pending: #b45309;
-  --color-status-pending-soft: #fef3c7;
-  --color-status-confirmed: #1d4ed8;
-  --color-status-confirmed-soft: #dbeafe;
-  --color-status-kitchen: #c2410c;
-  --color-status-kitchen-soft: #ffedd5;
-  --color-status-transit: #6d28d9;
-  --color-status-transit-soft: #ede9fe;
-  --color-status-done: #15803d;
-  --color-status-done-soft: #dcfce7;
-  --color-status-cancelled: #9f1239;
-  --color-status-cancelled-soft: #ffe4e6;
+  /*
+   * Order status — urgency maps to saturation, not to "a different rainbow
+   * colour per stage". Pending/kitchen run hot because they need eyes on
+   * them; confirmed is intentionally the one cool colour in a warm system,
+   * for a hard, unambiguous acknowledgement; ready reuses the brand pine, so
+   * the calmest possible reading is "the system's own colour = handled
+   * correctly"; completed and cancelled are deliberately QUIET — done orders
+   * should stop competing for attention with the ones still in play.
+   */
+  --color-status-pending: #93650a;
+  --color-status-pending-soft: #f5e7c4;
+  --color-status-confirmed: #2a5c8a;
+  --color-status-confirmed-soft: #dbe7f0;
+  --color-status-kitchen: #b33607;
+  --color-status-kitchen-soft: #f5dcc9;
+  --color-status-transit: #1f4a38;
+  --color-status-transit-soft: #dfe9e2;
+  --color-status-done: #6b5d4f;
+  --color-status-done-soft: #ece3d1;
+  --color-status-cancelled: #8c2f3c;
+  --color-status-cancelled-soft: #f0dcdf;
 
   /* Feedback */
-  --color-danger: #be123c;
-  --color-danger-soft: #ffe4e6;
-  --color-warning: #b45309;
-  --color-warning-soft: #fef3c7;
-  --color-success: #15803d;
-  --color-success-soft: #dcfce7;
+  --color-danger: #a02a3a;
+  --color-danger-soft: #f0dcdf;
+  --color-warning: #93650a;
+  --color-warning-soft: #f5e7c4;
+  --color-success: #1f4a38;
+  --color-success-soft: #dfe9e2;
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  /* Display: condensed industrial grotesque — menu-board and ticket-header
+     moments only, used sparingly. Body: a warm, high-x-height grotesque for
+     anything actually read. Mono: reserved for numbers that behave like
+     receipt data — prices, codes, quantities, timestamps. */
+  --font-display: var(--font-big-shoulders), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
 
-  --radius-card: 0.875rem;
+  /* Paper, not plastic: a smaller radius than the rounded-xl-everywhere
+     default — closer to a cut card than an app icon. */
+  --radius-card: 0.625rem;
 
   /* Touch targets. 44px is the floor; the board uses 56px because the person
      tapping it has one hand free and grease on their fingers. */
@@ -91,6 +130,41 @@ textarea {
   overscroll-behavior: none;
   touch-action: manipulation;
 }
+
+/* A slightly bolder, more confident icon weight than lucide's 1.5px default —
+   this is operational software read from arm's length, not a marketing site. */
+svg[data-lucide] {
+  stroke-width: 2.25px;
+}
+
+/* Warm-tinted elevation. Tailwind's default shadow utilities carry a cool
+   grey tint that fights the kraft-paper palette; this reads like a card
+   lifted off the counter instead of a div with a drop-shadow filter. */
+.shadow-ticket {
+  box-shadow:
+    0 1px 2px color-mix(in srgb, var(--color-ink-950) 6%, transparent),
+    0 12px 24px -8px color-mix(in srgb, var(--color-ink-950) 18%, transparent);
+}
+
+/* Hide scrollbars on the horizontally-scrolling category nav without hiding
+   the ability to scroll — a visible scrollbar there reads as a broken layout. */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/*
+ * The torn-ticket edge is drawn as an actual SVG shape, not a CSS mask hack —
+ * see components/ui/ticket-edge.tsx. mask-composite has patchy Safari support
+ * and this ships on iPhones as a PWA, so a deterministic vector beats a mask
+ * that might silently misrender on exactly the device most customers use.
+ * Reserved for the two things that are literally a receipt: the order
+ * confirmation card and, later, a comanda on the kitchen board — everywhere
+ * else stays plain, so it keeps meaning something instead of becoming wallpaper.
+ */
 
 @media (prefers-reduced-motion: reduce) {
   *,

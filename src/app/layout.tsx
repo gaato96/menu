@@ -1,13 +1,35 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Big_Shoulders, IBM_Plex_Mono, Schibsted_Grotesk } from "next/font/google";
 import { Toaster } from "sonner";
 
 import { ServiceWorkerRegistrar } from "@/components/pwa/service-worker";
 
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+/**
+ * Display face: a condensed industrial grotesque for menu-board and
+ * ticket-header moments — used sparingly, never for body copy.
+ * Body face: a warm grotesque for anything actually read.
+ * Mono: reserved for numbers that behave like receipt data.
+ */
+const bigShoulders = Big_Shoulders({
+  variable: "--font-big-shoulders",
+  subsets: ["latin"],
+  // "variable" weight is what unlocks the opsz axis below — Tailwind's
+  // font-bold/font-extrabold utilities still work normally on top of it.
+  weight: "variable",
+  // The opsz axis is what Google Fonts otherwise ships as separate "Text" and
+  // "Display" cuts. Letting it stay variable means it leans condensed and
+  // dramatic at the large sizes this face is actually used at, and never
+  // gets used small enough for that to be a legibility problem.
+  axes: ["opsz"],
+});
+const schibsted = Schibsted_Grotesk({ variable: "--font-schibsted", subsets: ["latin"] });
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["500", "600"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
@@ -35,7 +57,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#d1420a",
+  themeColor: "#f1ebdd",
   width: "device-width",
   initialScale: 1,
   // viewportFit: cover is what makes env(safe-area-inset-*) resolve to real
@@ -50,7 +72,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html
       lang="es-AR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${bigShoulders.variable} ${schibsted.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="app-surface flex min-h-full flex-col">
         {children}

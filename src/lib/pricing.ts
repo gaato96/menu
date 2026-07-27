@@ -199,7 +199,15 @@ export function priceOrder(cart: CartInput, menu: MenuSnapshot): PricingResult {
   };
 }
 
-function priceLine(
+/**
+ * Prices and validates a single line against the menu.
+ *
+ * Exported (not just used internally by priceOrder) so the product detail
+ * sheet can compute a live "Agregar — $X" total and surface the same
+ * required-group / min-max errors the server will enforce, without a second
+ * copy of these rules drifting out of sync.
+ */
+export function priceLine(
   line: CartLineInput,
   menu: MenuSnapshot,
   errors: PricingError[],
