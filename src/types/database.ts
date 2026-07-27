@@ -228,6 +228,17 @@ type OrderStatusEvent = {
   created_at: string;
 };
 
+/**
+ * Present in the schema but unreachable from any client: RLS is enabled with no
+ * policies, so only next_order_code() (SECURITY DEFINER) can touch it. Typed
+ * here so the RLS suite can assert that denial rather than assume it.
+ */
+type OrderCounter = {
+  business_id: string;
+  business_date: string;
+  last_number: number;
+};
+
 type PushSubscriptionRow = {
   id: string;
   business_id: string;
@@ -345,6 +356,11 @@ export type Database = {
         OrderStatusEvent,
         Insertable<OrderStatusEvent, "business_id" | "order_id" | "to_status">,
         Partial<OrderStatusEvent>
+      >;
+      order_counters: TableShape<
+        OrderCounter,
+        Insertable<OrderCounter, "business_id" | "business_date">,
+        Partial<OrderCounter>
       >;
       push_subscriptions: TableShape<
         PushSubscriptionRow,
