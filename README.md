@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Menú Digital
 
-## Getting Started
+Toma de pedidos en tiempo real para locales gastronómicos. Menú público que arma el pedido y
+lo manda por WhatsApp, y un tablero de comandas en vivo del lado del comercio.
 
-First, run the development server:
+SaaS multi-tenant: un negocio = una sucursal, aislado por Row Level Security. Instalable como
+PWA en celular y tablet.
+
+---
+
+## Stack
+
+| | |
+|---|---|
+| Framework | Next.js 16 (App Router) + TypeScript |
+| Estilos | Tailwind CSS v4 + Radix primitives |
+| Base / Auth / Realtime / Storage | Supabase (PostgreSQL) |
+| PWA | `@serwist/next` + Web Push (VAPID) |
+| Drag & drop | `@dnd-kit` (PointerSensor, táctil) |
+| Deploy | Vercel |
+
+**`next build --webpack` no es un descuido.** Next 16 usa Turbopack por defecto, pero
+`@serwist/next` es un plugin de webpack y todavía no lo soporta. La alternativa (configurator
+mode) genera `public/sw.js` en un paso posterior al build, lo que agrega riesgo en el deploy.
+Cuando Serwist tenga soporte estable de Turbopack, se migra y se saca el flag.
+
+---
+
+## Puesta en marcha
+
+```bash
+npm install
+```
+
+Copiá `.env.example` a `.env.local` y completá:
+
+| Variable | Dónde sale |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Dashboard → Project Settings → API |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Dashboard → Project Settings → API Keys → anon |
+| `SUPABASE_SERVICE_ROLE_KEY` | Dashboard → Project Settings → API Keys → service_role |
+| `NEXT_PUBLIC_VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` | `npm run push:keys` |
+
+### Base de datos
+
+```bash
+npx supabase db push --db-url "postgresql://postgres:PASSWORD@db.PROJECT_REF.supabase.co:5432/postgres"
+```
+
+### Hook de JWT (obligatorio, se configura una sola vez)
+
+Las políticas de RLS leen `business_id` y `user_role` de los claims del token. Sin el hook,
+esos claims no existen y **toda consulta de un usuario logueado devuelve cero filas**.
+
+En el Dashboard: **Authentication → Hooks → Customize Access Token (JWT) Claims** → habilitar y
+elegir `public.custom_access_token_hook`.
+
+(En desarrollo local esto ya está en `supabase/config.toml`; el proyecto hosteado no lee ese
+archivo.)
+
+### Datos de prueba
+
+```bash
+npm run db:seed
+```
+
+Crea dos locales con menú real (`/m/burger-house-tuc` y `/m/pizzeria-don-jose`), su staff y el
+superadmin. Dos negocios no es decoración: los tests de RLS necesitan un segundo inquilino
+contra el cual probar el aislamiento.
+
+---
+
+## Comandos
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Comando | Qué hace |
+|---|---|
+| `npm run build` | Build de producción (webpack + service worker) |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm run test:unit` | Precios, estados y mensaje de WhatsApp |
+| `npm run test:rls` | Aislamiento entre negocios |
+| `npm run test:e2e` | Playwright |
+| `npm run icons` | Regenera los íconos de la PWA |
+| `npm run db:seed` | Datos de prueba |
+| `npm run push:keys` | Par de claves VAPID |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`npm run db:types` requiere Docker. Sin Docker, `src/types/database.ts` se mantiene a mano y
+tiene que seguir a `supabase/migrations/`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Decisiones que conviene no revertir sin leer
 
-To learn more about Next.js, take a look at the following resources:
+- **La plata es siempre entero en centavos.** Nunca `float`, nunca `numeric`. `$15.400` es
+  `1_540_000`.
+- **El navegador nunca manda precios.** `POST /api/orders` recibe ids y cantidades, y vuelve a
+  leer los precios de la base. Ver `src/lib/pricing.ts`.
+- **El pedido se persiste ANTES de redirigir a WhatsApp.** Si el cliente se arrepiente a mitad
+  de camino, el local igual ve la comanda, marcada como "sin confirmar".
+- **`on_the_way` y `ready_for_pickup` son dos estados distintos en la base pero una sola
+  columna del tablero.** Separarlos es lo que después permite medir tiempos de delivery y
+  alimentar la pantalla de cocina sin migrar nada.
+- **Los enums son `text` + `CHECK`, no tipos `ENUM` de Postgres.** Agregar `dine_in` cuando
+  entre el módulo de mesas tiene que ser una migración de una línea.
+- **Nada relacionado con pedidos se cachea en el service worker.** Una comanda vieja es peor
+  que ninguna comanda.
+- **`past_due` sigue funcionando, solo `suspended` corta.** Nadie apaga un local un viernes a
+  la noche porque una transferencia llegó tarde.
+- **Los tipos de fila en `src/types/database.ts` se declaran con `type`, nunca `interface`.**
+  supabase-js exige `Record<string, unknown>`; una interface no tiene índice implícito y
+  resuelve el tipo de Insert a `never` sin ningún error que lo explique.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Estado
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [x] Fase 0 — Esquema, RLS, hook de JWT, base PWA, motor de precios
+- [ ] Fase 1 — Menú público y toma de pedido
+- [ ] Fase 2 — Tablero de comandas
+- [ ] Fase 3 — Operación diaria
+- [ ] Fase 4 — Panel del negocio
+- [ ] Fase 5 — Panel de superadmin
