@@ -119,7 +119,7 @@ tiene que seguir a `supabase/migrations/`.
 
 - [x] Fase 0 — Esquema, RLS, hook de JWT, base PWA, motor de precios
 - [x] Fase 1 — Menú público y toma de pedido
-- [ ] Fase 2 — Tablero de comandas
+- [x] Fase 2 — Tablero de comandas
 - [ ] Fase 3 — Operación diaria
 - [ ] Fase 4 — Panel del negocio
 - [ ] Fase 5 — Panel de superadmin

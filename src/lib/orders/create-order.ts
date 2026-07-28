@@ -2,6 +2,7 @@ import { isBusinessOpenNow } from "@/lib/business/hours";
 import { loadMenuSnapshotForPricing } from "@/lib/menu/queries";
 import type { PricingError } from "@/lib/pricing";
 import { priceOrder } from "@/lib/pricing";
+import { sendNewOrderPush } from "@/lib/push/send";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 import type { OrderRequest } from "./schema";
@@ -110,8 +111,20 @@ export async function createOrder(
     throw new Error(`create_priced_order falló: ${rpcError?.message ?? "sin resultado"}`);
   }
 
-  const result = rpcResult as { id: string; code: string };
+  const result = rpcResult as { id: string; code: string; reused: boolean };
   const zoneName = order.deliveryZoneId ? snapshot.zones.get(order.deliveryZoneId)?.name : null;
+
+  // Fire-and-forget: a slow or failing push provider must never delay or
+  // fail checkout. Realtime (board.tsx) is the primary alert; this is the
+  // channel that still reaches a locked tablet with the app closed.
+  if (!result.reused) {
+    void sendNewOrderPush(business.id, {
+      title: `Pedido nuevo — ${result.code}`,
+      body: `${request.customerName} · ${order.lines.length} ítem${order.lines.length === 1 ? "" : "s"}`,
+      orderId: result.id,
+      code: result.code,
+    }).catch((error) => console.error("sendNewOrderPush", error));
+  }
 
   const message = buildWhatsAppMessage({
     code: result.code,
