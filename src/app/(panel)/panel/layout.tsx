@@ -88,7 +88,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
           </div>
         )}
 
-        <NavTabs />
+        <NavTabs role={staff.role} />
       </header>
 
       <div className="flex flex-1 flex-col">{children}</div>

@@ -121,7 +121,7 @@ tiene que seguir a `supabase/migrations/`.
 - [x] Fase 1 — Menú público y toma de pedido
 - [x] Fase 2 — Tablero de comandas
 - [x] Fase 3 — Operación diaria
-- [ ] Fase 4 — Panel del negocio
+- [x] Fase 4 — Panel del negocio
 - [ ] Fase 5 — Panel de superadmin
 
 ### Fase 1 — qué incluye
