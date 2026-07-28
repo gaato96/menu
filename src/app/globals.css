@@ -316,3 +316,100 @@ svg[data-lucide] {
 .animate-alert-pulse {
   animation: alert-pulse 1.4s ease-out infinite;
 }
+
+/* Internal-docs reader (/interno-*). Plain long-form markdown, not a product
+   surface — kept separate from any component so it never has to match the
+   ticket/kanban vernacular above. */
+.doc-content {
+  line-height: 1.65;
+  color: var(--color-ink-700);
+}
+.doc-content > * + * {
+  margin-top: 1em;
+}
+.doc-content h1 {
+  font-family: var(--font-big-shoulders);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-ink-900);
+  letter-spacing: -0.01em;
+}
+.doc-content h2 {
+  font-family: var(--font-big-shoulders);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-ink-900);
+  margin-top: 2em;
+  padding-top: 0.75em;
+  border-top: 1px solid var(--color-ink-200);
+}
+.doc-content h3 {
+  font-weight: 700;
+  color: var(--color-ink-900);
+  margin-top: 1.5em;
+}
+.doc-content p,
+.doc-content li {
+  font-size: 0.95rem;
+}
+.doc-content strong {
+  color: var(--color-ink-900);
+  font-weight: 700;
+}
+.doc-content a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.doc-content ul,
+.doc-content ol {
+  padding-left: 1.25em;
+}
+.doc-content ul {
+  list-style: disc;
+}
+.doc-content ol {
+  list-style: decimal;
+}
+.doc-content li + li {
+  margin-top: 0.35em;
+}
+.doc-content blockquote {
+  border-left: 3px solid var(--color-brand);
+  padding-left: 0.9em;
+  color: var(--color-ink-700);
+  font-style: italic;
+}
+.doc-content code {
+  font-family: var(--font-plex-mono);
+  font-size: 0.85em;
+  background: var(--color-ink-100);
+  color: var(--color-ember-ink);
+  padding: 0.1em 0.35em;
+  border-radius: 0.25em;
+}
+.doc-content hr {
+  border: none;
+  border-top: 1px solid var(--color-ink-200);
+}
+.doc-content .table-wrap,
+.doc-content table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.doc-content th,
+.doc-content td {
+  border: 1px solid var(--color-ink-200);
+  padding: 0.5em 0.65em;
+  text-align: left;
+  vertical-align: top;
+}
+.doc-content th {
+  background: var(--color-ink-100);
+  font-weight: 700;
+  color: var(--color-ink-900);
+  white-space: nowrap;
+}

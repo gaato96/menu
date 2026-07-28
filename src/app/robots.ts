@@ -9,8 +9,10 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "*",
         allow: "/",
         // Staff-only surfaces have nothing for a crawler and everything
-        // behind them is already gated by RLS regardless.
-        disallow: ["/panel", "/admin", "/login", "/sin-acceso"],
+        // behind them is already gated by RLS regardless. /interno-* pages
+        // are internal notes shared by direct link only — the page-level
+        // `robots: noindex` is the real signal, this is belt and suspenders.
+        disallow: ["/panel", "/admin", "/login", "/sin-acceso", "/interno-"],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,
