@@ -79,10 +79,13 @@ export async function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Everything except static assets and the PWA files. The service worker in
-     * particular must never be routed through auth, or an expired session turns
-     * into a 307 where a JavaScript file was expected and the install breaks.
+     * Everything except static assets, the PWA files, and the marketing root.
+     * The service worker in particular must never be routed through auth, or
+     * an expired session turns into a 307 where a JavaScript file was
+     * expected and the install breaks. The root "/" is the landing page —
+     * it has no session-dependent UI, so every visit paying for a Supabase
+     * getClaims() round trip is pure latency with nothing to show for it.
      */
-    "/((?!_next/static|_next/image|favicon.ico|sw.js|manifest.webmanifest|icons/|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|woff2?)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|sw.js|manifest.webmanifest|icons/|$|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|woff2?)$).*)",
   ],
 };
