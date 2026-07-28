@@ -1,6 +1,7 @@
 import { AlertTriangle, ExternalLink, LogOut } from "lucide-react";
 import Link from "next/link";
 
+import { NavTabs } from "@/components/panel/nav-tabs";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { requireStaff } from "@/lib/auth/context";
 import { cn } from "@/lib/utils";
@@ -86,6 +87,8 @@ export default async function PanelLayout({ children }: { children: React.ReactN
             </p>
           </div>
         )}
+
+        <NavTabs />
       </header>
 
       <div className="flex flex-1 flex-col">{children}</div>

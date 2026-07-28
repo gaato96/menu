@@ -17,8 +17,16 @@ export async function updateOrderStatus(
   supabase: SupabaseClient<Database>,
   orderId: string,
   status: OrderStatus,
+  options?: { cancelReason?: string },
 ): Promise<{ ok: true } | { ok: false; message: string }> {
-  const { error } = await supabase.from("orders").update({ status }).eq("id", orderId);
+  const { error } = await supabase
+    .from("orders")
+    .update({
+      status,
+      // Only ever written on the way to 'cancelled'; left untouched otherwise.
+      ...(options?.cancelReason ? { cancel_reason: options.cancelReason } : {}),
+    })
+    .eq("id", orderId);
 
   if (error) {
     // Postgres RAISE EXCEPTION messages arrive prefixed; strip PostgREST's

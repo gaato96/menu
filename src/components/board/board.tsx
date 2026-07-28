@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { BoardColumn } from "@/components/board/board-column";
+import { CancelOrderDialog } from "@/components/board/cancel-order-dialog";
 import { NewOrderAlert } from "@/components/board/new-order-alert";
 import { PushEnableBanner } from "@/components/board/push-enable-banner";
 import { SoundUnlockBanner } from "@/components/board/sound-unlock-banner";
@@ -55,6 +56,7 @@ export function Board({
   const [alertQueue, setAlertQueue] = useState<BoardOrder[]>([]);
   const [activeDrag, setActiveDrag] = useState<BoardOrder | null>(null);
   const [everReceivedOrder, setEverReceivedOrder] = useState(initialOrders.length > 0);
+  const [cancelTarget, setCancelTarget] = useState<BoardOrder | null>(null);
   const [supabase] = useState(() => createClient());
 
   const sensors = useSensors(
@@ -89,11 +91,15 @@ export function Board({
     };
   }, [alertQueue]);
 
-  async function moveOrder(order: BoardOrder, status: BoardOrder["status"]) {
+  async function moveOrder(
+    order: BoardOrder,
+    status: BoardOrder["status"],
+    options?: { cancelReason?: string },
+  ) {
     const previous = order.status;
     setOrders((prev) => prev.map((o) => (o.id === order.id ? { ...o, status } : o)));
 
-    const result = await updateOrderStatus(supabase, order.id, status);
+    const result = await updateOrderStatus(supabase, order.id, status, options);
     if (!result.ok) {
       setOrders((prev) => prev.map((o) => (o.id === order.id ? { ...o, status: previous } : o)));
       toast.error(result.message);
@@ -106,7 +112,12 @@ export function Board({
   }
 
   function handleCancel(order: BoardOrder) {
-    void moveOrder(order, "cancelled");
+    setCancelTarget(order);
+  }
+
+  function confirmCancel(reason: string) {
+    if (cancelTarget) void moveOrder(cancelTarget, "cancelled", { cancelReason: reason });
+    setCancelTarget(null);
   }
 
   function handleGoBack(order: BoardOrder) {
@@ -212,6 +223,14 @@ export function Board({
           onAccept={dismissAlert}
         />
       )}
+
+      <CancelOrderDialog
+        order={cancelTarget}
+        onConfirm={confirmCancel}
+        onOpenChange={(open) => {
+          if (!open) setCancelTarget(null);
+        }}
+      />
     </div>
   );
 }
