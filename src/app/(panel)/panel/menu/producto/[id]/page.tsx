@@ -11,6 +11,7 @@ import { requireStaff } from "@/lib/auth/context";
 import { fetchStaffMenu, fetchStaffProduct } from "@/lib/menu/staff-queries";
 import { createClient } from "@/lib/supabase/server";
 
+import { updateProductStock } from "../../../stock/actions";
 import {
   createOption,
   createOptionGroup,
@@ -85,6 +86,33 @@ export default async function ProductDetailPage({
           <Button type="submit">Guardar cambios</Button>
         </form>
       </div>
+
+      {staff.modules.has("inventory") && (
+        <div className="rounded-card border border-ink-200 bg-white p-4">
+          <h2 className="mb-3 font-semibold text-ink-900">Stock</h2>
+          <form action={updateProductStock.bind(null, product.id)} className="flex flex-wrap gap-3">
+            <Field label="Cantidad" hint="Vacío = sin seguimiento">
+              <Input
+                name="stockQuantity"
+                defaultValue={product.stock_quantity ?? ""}
+                inputMode="numeric"
+                className="w-28"
+              />
+            </Field>
+            <Field label="Avisar por debajo de">
+              <Input
+                name="lowStockThreshold"
+                defaultValue={product.low_stock_threshold}
+                inputMode="numeric"
+                className="w-28"
+              />
+            </Field>
+            <Button type="submit" variant="outline" className="self-end">
+              Guardar
+            </Button>
+          </form>
+        </div>
+      )}
 
       <div className="rounded-card border border-ink-200 bg-white p-4">
         <div className="mb-3 flex items-center justify-between">

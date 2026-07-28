@@ -136,6 +136,9 @@ type Product = {
   sort_order: number;
   created_at: string;
   updated_at: string;
+  /** null = not tracked. Inventory module only; see D.2 migration. */
+  stock_quantity: number | null;
+  low_stock_threshold: number;
 };
 
 type OptionGroup = {
@@ -195,6 +198,8 @@ type Order = {
   payment_status: PaymentStatus;
   external_payment_id: string | null;
   table_id: string | null;
+  /** Exactly-once marker for the inventory trigger. See D.2 migration. */
+  stock_applied: boolean;
 };
 
 type OrderItem = {

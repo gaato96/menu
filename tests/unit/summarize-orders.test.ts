@@ -31,6 +31,7 @@ function order(status: OrderStatus, totalCents: number): BoardOrder {
     payment_status: "pending",
     external_payment_id: null,
     table_id: null,
+    stock_applied: false,
     items: [],
   };
 }
