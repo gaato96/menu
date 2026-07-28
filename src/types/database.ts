@@ -258,6 +258,27 @@ type PushSubscriptionRow = {
   last_seen_at: string;
 };
 
+type Customer = {
+  id: string;
+  business_id: string;
+  name: string;
+  phone: string;
+  /** Generated column: right(regexp_replace(phone, '\D', '', 'g'), 8). */
+  phone_key: string;
+  created_at: string;
+  updated_at: string;
+};
+
+type CustomerStats = {
+  customer_id: string;
+  business_id: string;
+  name: string;
+  phone: string;
+  completed_orders: number;
+  total_spent_cents: number;
+  last_order_at: string | null;
+};
+
 /** Columns with database defaults are optional on insert. */
 type Insertable<T, Required extends keyof T> = Pick<T, Required> & Partial<Omit<T, Required>>;
 
@@ -377,8 +398,15 @@ export type Database = {
         >,
         Partial<PushSubscriptionRow>
       >;
+      customers: TableShape<
+        Customer,
+        Insertable<Customer, "business_id" | "name" | "phone">,
+        Partial<Customer>
+      >;
     };
-    Views: Record<never, never>;
+    Views: {
+      customer_stats: { Row: CustomerStats; Relationships: [] };
+    };
     Functions: {
       next_order_code: { Args: { p_business_id: string }; Returns: string };
       business_is_servable: { Args: { p_business_id: string }; Returns: boolean };
@@ -403,3 +431,6 @@ export type Database = {
 
 export type Tables<T extends keyof Database["public"]["Tables"]> =
   Database["public"]["Tables"][T]["Row"];
+
+export type Views<T extends keyof Database["public"]["Views"]> =
+  Database["public"]["Views"][T]["Row"];

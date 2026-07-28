@@ -111,10 +111,13 @@ describe("staff cannot reach another business", () => {
   it("sees no orders, customers or phone numbers of another business", async () => {
     const { client } = await signIn("dueno@burgerhouse.test");
 
-    for (const table of ["orders", "order_items", "order_status_events"] as const) {
+    for (const table of ["orders", "order_items", "order_status_events", "customers"] as const) {
       const result = await client.from(table).select("id").eq("business_id", pizzaId);
       expect(result.data, `${table} leaked`).toEqual([]);
     }
+
+    const stats = await client.from("customer_stats").select("customer_id").eq("business_id", pizzaId);
+    expect(stats.data, "customer_stats leaked").toEqual([]);
   });
 
   it("cannot edit a product belonging to another business", async () => {
@@ -284,6 +287,12 @@ describe("anonymous diners", () => {
   it("cannot reach the order counter used to mint codes", async () => {
     const client = anonClient();
     const result = await client.from("order_counters").select("*");
+    expect(result.data ?? []).toEqual([]);
+  });
+
+  it("never reads customers, under any circumstance", async () => {
+    const client = anonClient();
+    const result = await client.from("customers").select("id, phone");
     expect(result.data ?? []).toEqual([]);
   });
 });
