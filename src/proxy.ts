@@ -49,7 +49,11 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   };
 
-  if (pathname.startsWith("/panel")) {
+  // /cocina is staff-only exactly like /panel — the module gate itself
+  // (kitchen_display on/off) is checked in the layout, since it needs a
+  // database round trip this middleware deliberately avoids paying for on
+  // every request.
+  if (pathname.startsWith("/panel") || pathname.startsWith("/cocina")) {
     if (!isSignedIn) {
       const url = request.nextUrl.clone();
       url.pathname = "/login";
