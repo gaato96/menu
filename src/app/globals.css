@@ -219,7 +219,23 @@ svg[data-lucide] {
 /* Perforated-tag grid — the dot pattern of a price-tag sheet, not a generic
    dev-tool blueprint grid. Fades out toward the edges so it never boxes in
    the section it sits behind. */
+/*
+ * The dots and their fade-out mask live on a ::before pseudo-element, not on
+ * `.dot-grid` itself. `mask-image` masks an element's ENTIRE rendered output
+ * — real content included, not just its background — so putting it directly
+ * on the section was quietly fading the heading and body text out toward the
+ * edges along with the dots. A pseudo-element gives the pattern its own
+ * paint layer, sitting behind the section's actual children in normal
+ * document order, so the mask only ever touches the decoration.
+ */
 .dot-grid {
+  position: relative;
+}
+.dot-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background-image: radial-gradient(
     circle at center,
     color-mix(in srgb, var(--color-ink-300) 55%, transparent) 1px,
