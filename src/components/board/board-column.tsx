@@ -20,17 +20,23 @@ export function BoardColumn({
   orders,
   role,
   currency,
+  businessName,
+  zoneNames,
   onAdvance,
   onCancel,
   onGoBack,
+  onOpenDetail,
 }: {
   column: BoardColumnDef;
   orders: BoardOrder[];
   role: StaffRole;
   currency: string;
+  businessName: string;
+  zoneNames: Record<string, string>;
   onAdvance: (order: BoardOrder) => void;
   onCancel: (order: BoardOrder) => void;
   onGoBack: (order: BoardOrder) => void;
+  onOpenDetail: (order: BoardOrder) => void;
 }) {
   const { setNodeRef, isOver } = useDroppable({ id: column.id });
 
@@ -59,9 +65,12 @@ export function BoardColumn({
             order={order}
             role={role}
             currency={currency}
+            businessName={businessName}
+            zoneName={order.delivery_zone_id ? zoneNames[order.delivery_zone_id] : null}
             onAdvance={() => onAdvance(order)}
             onCancel={() => onCancel(order)}
             onGoBack={() => onGoBack(order)}
+            onOpenDetail={() => onOpenDetail(order)}
           />
         ))}
       </div>

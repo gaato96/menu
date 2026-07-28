@@ -119,3 +119,50 @@ export function buildWhatsAppUrl(phone: string, message: string): string {
   const digits = phone.replace(/\D/g, "");
   return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 }
+
+/**
+ * A customer typing their phone at checkout writes it every way imaginable —
+ * "381 123-4567", "0381-15-123456", "+54 9 381 1234567". `buildWhatsAppUrl`
+ * only strips non-digits; without this, most of those produce a `wa.me` link
+ * that opens to nobody. Normalizes to the 549 + area + number shape Argentina
+ * needs for WhatsApp specifically (the leading 9 marks a mobile number).
+ */
+export function normalizeArgentinePhone(phone: string): string {
+  let digits = phone.replace(/\D/g, "");
+
+  // A local dialing "0" prefix (0381-...) is never part of the real number.
+  if (digits.startsWith("0")) digits = digits.slice(1);
+
+  if (digits.startsWith("549")) return digits;
+  if (digits.startsWith("54")) return `549${digits.slice(2)}`;
+  // No country code at all — e.g. a 10-digit "3811234567" typed locally.
+  return `549${digits}`;
+}
+
+export interface ConfirmationRequestInput {
+  businessName: string;
+  code: string;
+  customerName: string;
+}
+
+/**
+ * Business → customer direction, the opposite of buildWhatsAppMessage above.
+ * Deliberately short and separate rather than reusing buildWhatsAppMessage:
+ * that one needs a full PricedOrder, which the board never constructs just
+ * to nudge someone to confirm.
+ */
+export function buildConfirmationRequest(input: ConfirmationRequestInput): string {
+  const firstName = clean(input.customerName).split(" ")[0] || clean(input.customerName);
+  return (
+    `Hola ${firstName}, te escribimos de ${clean(input.businessName)}. ` +
+    `Nos entró tu pedido ${input.code} pero todavía no está confirmado. ` +
+    `¿Lo confirmamos y lo empezamos a preparar?`
+  );
+}
+
+export function buildConfirmationRequestUrl(
+  phone: string,
+  input: ConfirmationRequestInput,
+): string {
+  return buildWhatsAppUrl(normalizeArgentinePhone(phone), buildConfirmationRequest(input));
+}

@@ -71,7 +71,10 @@ test.describe("panel de superadmin", () => {
         await page.getByLabel("Contraseña").fill(ownerPassword!);
         await page.getByRole("button", { name: "Entrar" }).click();
 
-        await expect(page).toHaveURL(/\/panel/);
+        // First hit of /panel this dev server run compiles it on demand —
+        // slower than the default 5s under Next's dev-mode on-demand
+        // compilation, not a real hang.
+        await expect(page).toHaveURL(/\/panel/, { timeout: 15_000 });
         await expect(page.getByRole("banner").getByText(businessName)).toBeVisible();
         await expect(page.getByRole("banner").getByText("Dueño")).toBeVisible();
 

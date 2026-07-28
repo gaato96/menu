@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { BoardColumn } from "@/components/board/board-column";
 import { CancelOrderDialog } from "@/components/board/cancel-order-dialog";
 import { NewOrderAlert } from "@/components/board/new-order-alert";
+import { OrderDetailSheet } from "@/components/board/order-detail-sheet";
 import { PushEnableBanner } from "@/components/board/push-enable-banner";
 import { SoundUnlockBanner } from "@/components/board/sound-unlock-banner";
 import { useAudioAlert } from "@/hooks/use-audio-alert";
@@ -37,14 +38,18 @@ import { createClient } from "@/lib/supabase/client";
 
 export function Board({
   businessId,
+  businessName,
   currency,
   role,
   initialOrders,
+  zoneNames,
 }: {
   businessId: string;
+  businessName: string;
   currency: string;
   role: StaffRole;
   initialOrders: BoardOrder[];
+  zoneNames: Record<string, string>;
 }) {
   const { orders, setOrders, connected, setOnNewOrder } = useOrderRealtime(
     businessId,
@@ -57,6 +62,7 @@ export function Board({
   const [activeDrag, setActiveDrag] = useState<BoardOrder | null>(null);
   const [everReceivedOrder, setEverReceivedOrder] = useState(initialOrders.length > 0);
   const [cancelTarget, setCancelTarget] = useState<BoardOrder | null>(null);
+  const [detailTarget, setDetailTarget] = useState<BoardOrder | null>(null);
   const [supabase] = useState(() => createClient());
 
   const sensors = useSensors(
@@ -147,6 +153,19 @@ export function Board({
     void moveOrder(order, target);
   }
 
+  // Keep the open detail sheet live (a status change or a realtime item
+  // top-up must reflect there too, not just on the card underneath it) by
+  // adjusting state during render rather than in an effect — React's
+  // documented pattern for "derive state from a prop/state change" (see the
+  // same idiom in product-sheet.tsx). Safe from render loops because
+  // setOrders/useOrderRealtime only ever replace the ONE changed order's
+  // object; every other entry keeps its previous reference, so `fresh` is
+  // reference-equal to `detailTarget` on any render that doesn't concern it.
+  if (detailTarget) {
+    const fresh = orders.find((o) => o.id === detailTarget.id) ?? null;
+    if (fresh !== detailTarget) setDetailTarget(fresh);
+  }
+
   function dismissAlert() {
     setAlertQueue((prev) => prev.slice(1));
     if (alertQueue.length <= 1) audio.stopAlert();
@@ -190,10 +209,13 @@ export function Board({
               column={column}
               role={role}
               currency={currency}
+              businessName={businessName}
+              zoneNames={zoneNames}
               orders={orders.filter((o) => columnForStatus(o.status) === column.id)}
               onAdvance={handleAdvance}
               onCancel={handleCancel}
               onGoBack={handleGoBack}
+              onOpenDetail={setDetailTarget}
             />
           ))}
         </div>
@@ -229,6 +251,15 @@ export function Board({
         onConfirm={confirmCancel}
         onOpenChange={(open) => {
           if (!open) setCancelTarget(null);
+        }}
+      />
+
+      <OrderDetailSheet
+        order={detailTarget}
+        currency={currency}
+        zoneNames={zoneNames}
+        onOpenChange={(open) => {
+          if (!open) setDetailTarget(null);
         }}
       />
     </div>

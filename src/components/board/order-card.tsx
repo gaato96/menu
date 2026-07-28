@@ -1,13 +1,24 @@
 "use client";
 
 import { useDraggable } from "@dnd-kit/core";
-import { AlertTriangle, Bike, ChevronRight, Store, Undo2, X } from "lucide-react";
+import {
+  AlertTriangle,
+  Bike,
+  ChevronRight,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Store,
+  Undo2,
+  X,
+} from "lucide-react";
 import { useState } from "react";
 
 import { ElapsedTimer } from "@/components/board/elapsed-timer";
 import { formatMoney } from "@/lib/money";
 import type { StaffRole } from "@/lib/orders/status";
 import type { BoardOrder } from "@/lib/orders/board-queries";
+import { buildConfirmationRequestUrl } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
 
 const REVERSE_ROLES: StaffRole[] = ["superadmin", "owner", "manager"];
@@ -24,16 +35,22 @@ export function OrderCard({
   order,
   role,
   currency,
+  businessName,
+  zoneName,
   onAdvance,
   onCancel,
   onGoBack,
+  onOpenDetail,
 }: {
   order: BoardOrder;
   role: StaffRole;
   currency: string;
+  businessName: string;
+  zoneName?: string | null;
   onAdvance: () => void;
   onCancel: () => void;
   onGoBack: () => void;
+  onOpenDetail: () => void;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
@@ -50,8 +67,15 @@ export function OrderCard({
       ref={setNodeRef}
       {...listeners}
       {...attributes}
+      // dnd-kit does not fire click after an actual drag, so a plain onClick
+      // on the draggable root is safe — every interactive child below still
+      // needs its own onPointerDown stopPropagation so a tap on THEM doesn't
+      // also open the sheet underneath.
+      onClick={onOpenDetail}
+      role="button"
+      tabIndex={0}
       className={cn(
-        "shadow-ticket touch-none rounded-card border border-ink-200 bg-white p-3",
+        "shadow-ticket touch-none rounded-card border border-ink-200 bg-white p-3 text-left",
         // The moving visual is DragOverlay's job (board.tsx) — columns scroll
         // independently, so a translated original would clip at their edges.
         isDragging && "opacity-30",
@@ -73,13 +97,61 @@ export function OrderCard({
       </div>
 
       {unconfirmed && (
-        <div className="mt-1.5 flex items-center gap-1 rounded bg-warning-soft px-1.5 py-0.5 text-xs font-medium text-warning">
-          <AlertTriangle className="size-3.5 shrink-0" aria-hidden />
-          Sin confirmar por el cliente
+        <div className="mt-1.5 flex items-center gap-1.5">
+          <div className="flex flex-1 items-center gap-1 rounded bg-warning-soft px-1.5 py-0.5 text-xs font-medium text-warning">
+            <AlertTriangle className="size-3.5 shrink-0" aria-hidden />
+            Sin confirmar por el cliente
+          </div>
+          <a
+            href={buildConfirmationRequestUrl(order.customer_phone, {
+              businessName,
+              code: order.code,
+              customerName: order.customer_name,
+            })}
+            target="_blank"
+            rel="noopener noreferrer"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
+            aria-label="Pedir confirmación por WhatsApp"
+            className="flex size-touch shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white active:brightness-90"
+          >
+            <MessageCircle className="size-4" aria-hidden />
+          </a>
         </div>
       )}
 
       <p className="mt-2 truncate text-sm font-medium text-ink-900">{order.customer_name}</p>
+
+      {order.fulfillment_type === "delivery" && (
+        <div
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
+          className="mt-1 flex items-start gap-1 text-xs text-ink-700"
+        >
+          <MapPin className="mt-0.5 size-3.5 shrink-0 text-ink-400" aria-hidden />
+          <span>
+            {order.address}
+            {order.address_reference ? ` (${order.address_reference})` : ""}
+            {zoneName ? ` · ${zoneName}` : ""}
+          </span>
+        </div>
+      )}
+
+      <a
+        href={`tel:${order.customer_phone}`}
+        onPointerDown={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
+        className="mt-1 flex items-center gap-1 text-xs text-ink-500 underline-offset-2 hover:underline"
+      >
+        <Phone className="size-3.5 shrink-0" aria-hidden />
+        {order.customer_phone}
+      </a>
+
+      {order.payment_method === "cash" && !!order.cash_change_for_cents && (
+        <p className="mt-1 text-xs font-medium text-ink-700">
+          Abona con {formatMoney(order.cash_change_for_cents, { currency })}
+        </p>
+      )}
 
       <ul className="mt-1.5 space-y-1 text-sm text-ink-700">
         {order.items.map((item) => (

@@ -13,7 +13,17 @@ export const dynamic = "force-dynamic";
 export default async function BoardPage() {
   const staff = await requireStaff();
   const supabase = await createClient();
-  const initialOrders = await fetchBoardOrders(supabase, staff.business.id);
+  const [initialOrders, zonesResult] = await Promise.all([
+    fetchBoardOrders(supabase, staff.business.id),
+    supabase.from("delivery_zones").select("id, name").eq("business_id", staff.business.id),
+  ]);
+
+  // Loaded once here instead of joined per-order: a Realtime INSERT only ever
+  // carries the flat `orders` row (no relations), so a per-order join would
+  // silently lose the zone name on exactly the order that just arrived. Zones
+  // are few and change rarely — a name lookup passed down by prop is cheaper
+  // and never goes stale mid-shift.
+  const zoneNames = Object.fromEntries((zonesResult.data ?? []).map((z) => [z.id, z.name]));
 
   return (
     <div className="flex flex-1 flex-col">
@@ -26,9 +36,11 @@ export default async function BoardPage() {
 
       <Board
         businessId={staff.business.id}
+        businessName={staff.business.name}
         currency={staff.business.currency}
         role={staff.role}
         initialOrders={initialOrders}
+        zoneNames={zoneNames}
       />
     </div>
   );

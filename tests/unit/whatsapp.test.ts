@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
 
 import type { PricedOrder } from "@/lib/pricing";
-import { buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
+import {
+  buildConfirmationRequest,
+  buildConfirmationRequestUrl,
+  buildWhatsAppMessage,
+  buildWhatsAppUrl,
+  normalizeArgentinePhone,
+} from "@/lib/whatsapp";
 
 const order: PricedOrder = {
   lines: [
@@ -109,5 +115,62 @@ describe("buildWhatsAppUrl", () => {
   it("keeps digits only and encodes the message", () => {
     const url = buildWhatsAppUrl("+54 9 381 123-4567", "hola mundo & cia");
     expect(url).toBe("https://wa.me/5493811234567?text=hola%20mundo%20%26%20cia");
+  });
+});
+
+describe("normalizeArgentinePhone", () => {
+  it("leaves an already-correct 549 number untouched", () => {
+    expect(normalizeArgentinePhone("5493811234567")).toBe("5493811234567");
+  });
+
+  it("inserts the mobile 9 when the number has the country code but not it", () => {
+    expect(normalizeArgentinePhone("543811234567")).toBe("5493811234567");
+  });
+
+  it("prefixes 549 onto a locally-typed 10-digit number", () => {
+    expect(normalizeArgentinePhone("3811234567")).toBe("5493811234567");
+  });
+
+  it("strips a leading local-dialing 0 before prefixing", () => {
+    expect(normalizeArgentinePhone("0381-123-4567")).toBe("5493811234567");
+  });
+
+  it("handles spaces, dashes and a leading +", () => {
+    expect(normalizeArgentinePhone("+54 9 381 123-4567")).toBe("5493811234567");
+  });
+});
+
+describe("buildConfirmationRequest", () => {
+  it("uses the customer's first name and names the order", () => {
+    const message = buildConfirmationRequest({
+      businessName: "Burger House",
+      code: "D-0099",
+      customerName: "Gastón Ruiz",
+    });
+
+    expect(message).toContain("Hola Gastón,");
+    expect(message).toContain("Burger House");
+    expect(message).toContain("D-0099");
+    expect(message).toContain("confirm");
+  });
+
+  it("strips WhatsApp formatting characters from customer-supplied text", () => {
+    const message = buildConfirmationRequest({
+      businessName: "Burger House",
+      code: "D-0099",
+      customerName: "*Ana* la jefa",
+    });
+    expect(message).toContain("Hola Ana,");
+  });
+});
+
+describe("buildConfirmationRequestUrl", () => {
+  it("normalizes the phone before building the wa.me link", () => {
+    const url = buildConfirmationRequestUrl("0381-123-4567", {
+      businessName: "Burger House",
+      code: "D-0099",
+      customerName: "Gastón",
+    });
+    expect(url).toContain("https://wa.me/5493811234567?text=");
   });
 });
