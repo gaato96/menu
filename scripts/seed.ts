@@ -18,6 +18,7 @@ import { createClient } from "@supabase/supabase-js";
 import { config } from "dotenv";
 import sharp from "sharp";
 
+import { MODULE_KEYS } from "../src/lib/modules/registry";
 import type { Database } from "../src/types/database";
 
 config({ path: ".env.local" });
@@ -709,6 +710,16 @@ async function seedBusiness(seed: BusinessSeed) {
       .select()
       .single(),
     "subscription",
+  );
+
+  // Every demo business runs with every premium module on, so RLS and E2E
+  // suites exercise the restrictive gate policies rather than skip them.
+  check(
+    await db
+      .from("business_modules")
+      .insert(MODULE_KEYS.map((module_key) => ({ business_id: business.id, module_key })))
+      .select(),
+    "business_modules",
   );
 
   // Thursday through Sunday, 20:00 to 01:00. Crossing midnight is normal.

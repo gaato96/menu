@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { NavTabs } from "@/components/panel/nav-tabs";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { requireStaff } from "@/lib/auth/context";
+import { moduleList, requireStaff } from "@/lib/auth/context";
 import { cn } from "@/lib/utils";
 
 import { signOut } from "../../(auth)/login/actions";
@@ -88,7 +88,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
           </div>
         )}
 
-        <NavTabs role={staff.role} />
+        <NavTabs role={staff.role} modules={moduleList(staff)} />
       </header>
 
       <div className="flex flex-1 flex-col">{children}</div>

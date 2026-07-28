@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
-import type { StaffRole, Tables } from "@/types/database";
+import type { ModuleKey, StaffRole, Tables } from "@/types/database";
 
 export interface StaffContext {
   userId: string;
@@ -11,7 +11,7 @@ export interface StaffContext {
   settings: Tables<"business_settings">;
   subscription: Tables<"subscriptions">;
   /** Premium modules turned on for this business. */
-  modules: Set<string>;
+  modules: Set<ModuleKey>;
 }
 
 /**
@@ -69,6 +69,23 @@ export async function requireStaff(): Promise<StaffContext> {
     subscription: subscription.data,
     modules: new Set((modules.data ?? []).filter((m) => m.enabled).map((m) => m.module_key)),
   };
+}
+
+/**
+ * Gates a page behind a premium module. Redirects rather than 404s — an owner
+ * who lands here without the module is a sales opportunity, not a dead end.
+ */
+export function requireModule(staff: StaffContext, key: ModuleKey) {
+  if (!staff.modules.has(key)) redirect(`/panel/no-disponible?m=${key}`);
+}
+
+/**
+ * A `Set` does not survive serialization across the server/client boundary
+ * (it turns into `{}` on the wire), so anything passed down to a client
+ * component needs the plain array instead.
+ */
+export function moduleList(staff: Pick<StaffContext, "modules">): ModuleKey[] {
+  return Array.from(staff.modules);
 }
 
 export async function requireSuperadmin() {
