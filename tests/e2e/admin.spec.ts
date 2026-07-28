@@ -14,6 +14,11 @@ const admin = createClient(
 
 test.describe("panel de superadmin", () => {
   test("da de alta un negocio, el dueño entra de verdad, y se puede borrar", async ({ page }) => {
+    // Touches five distinct routes that may each compile on demand the first
+    // time this dev server run hits them (/login, /admin, /admin/negocios/nuevo,
+    // /panel, /admin/negocios/[id]) — the default 30s budget is too tight for
+    // that on a cold server, independent of anything this test asserts.
+    test.setTimeout(90_000);
     const stamp = Date.now();
     const businessName = `Negocio E2E ${stamp}`;
     const ownerEmail = `e2e-owner-${stamp}@example.test`;

@@ -3,6 +3,7 @@ import { Trash2 } from "lucide-react";
 import { ActionForm } from "@/components/panel/action-form";
 import { AsyncToggle } from "@/components/panel/async-toggle";
 import { ConfirmSubmitButton } from "@/components/panel/confirm-submit-button";
+import { ImageUploadForm } from "@/components/panel/image-upload-form";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Select } from "@/components/ui/field";
 import { requireStaff } from "@/lib/auth/context";
@@ -14,9 +15,12 @@ import {
   createHours,
   deleteHours,
   deleteZone,
+  toggleCatalogView,
   toggleOpenManual,
   toggleZoneActive,
   updateSettings,
+  uploadCoverImage,
+  uploadLogo,
 } from "./actions";
 
 export const metadata = { title: "Configuración" };
@@ -54,6 +58,31 @@ export default async function ConfigPage() {
           </p>
         </div>
         <AsyncToggle checked={staff.business.is_open_manual} action={toggleOpenManual} />
+      </section>
+
+      <section className="rounded-card border border-ink-200 bg-white p-4">
+        <h2 className="mb-3 font-semibold text-ink-900">Imagen del local</h2>
+        <div className="space-y-4">
+          <div>
+            <p className="mb-2 text-sm text-ink-700">Logo</p>
+            <ImageUploadForm currentUrl={staff.business.logo_url} action={uploadLogo} />
+          </div>
+          <div>
+            <p className="mb-2 text-sm text-ink-700">Portada del menú</p>
+            <ImageUploadForm currentUrl={staff.business.cover_image_url} action={uploadCoverImage} aspect="wide" />
+          </div>
+        </div>
+      </section>
+
+      <section className="flex items-center justify-between rounded-card border border-ink-200 bg-white p-4">
+        <div>
+          <p className="font-medium text-ink-900">Catálogo scroll</p>
+          <p className="text-xs text-ink-500">
+            Vista a pantalla completa, una foto por plato, pensada para compartir. Vivo en{" "}
+            <span className="font-mono">/m/{staff.business.slug}/catalogo</span>.
+          </p>
+        </div>
+        <AsyncToggle checked={settings.catalog_view_enabled} action={toggleCatalogView} />
       </section>
 
       <section className="rounded-card border border-ink-200 bg-white p-4">

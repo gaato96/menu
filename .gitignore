@@ -51,3 +51,6 @@ next-env.d.ts
 /playwright-report/
 /blob-report/
 /.playwright/
+
+# seed image downloads (re-fetched on demand, not worth versioning)
+/scripts/.seed-cache/

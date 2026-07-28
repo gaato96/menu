@@ -77,13 +77,27 @@ export function MenuClient({ data }: { data: PublicMenuData }) {
         } as React.CSSProperties
       }
     >
-      <MenuHeader name={business.name} address={business.address} logoUrl={business.logo_url} isOpenNow={isOpenNow} />
+      <MenuHeader
+        name={business.name}
+        address={business.address}
+        logoUrl={business.logo_url}
+        coverImageUrl={business.cover_image_url}
+        isOpenNow={isOpenNow}
+      />
 
-      <div className="px-4 pt-3">
+      <div className="space-y-2 px-4 pt-3">
         <InstallPrompt
           label={`Instalá el menú de ${business.name}`}
           storageKey={`install-prompt:menu:${business.slug}`}
         />
+        {settings.catalog_view_enabled && (
+          <a
+            href={`/m/${business.slug}/catalogo`}
+            className="flex min-h-touch items-center justify-center gap-1.5 rounded-lg bg-brand-soft text-sm font-medium text-brand"
+          >
+            Ver catálogo en fotos →
+          </a>
+        )}
       </div>
 
       <CategoryNav categories={categories.map((c) => ({ id: c.id, name: c.name }))} />

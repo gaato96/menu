@@ -8,9 +8,11 @@ import { Button } from "@/components/ui/button";
 export function ImageUploadForm({
   currentUrl,
   action,
+  aspect = "square",
 }: {
   currentUrl: string | null;
   action: (formData: FormData) => Promise<{ ok?: true; error?: string } | undefined>;
+  aspect?: "square" | "wide";
 }) {
   const [preview, setPreview] = useState<string | null>(currentUrl);
   const [error, setError] = useState<string | null>(null);
@@ -29,9 +31,22 @@ export function ImageUploadForm({
       }}
       className="flex items-center gap-4"
     >
-      <div className="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-ink-200 bg-ink-100">
+      <div
+        className={
+          aspect === "wide"
+            ? "flex aspect-video w-40 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-ink-200 bg-ink-100"
+            : "flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-ink-200 bg-ink-100"
+        }
+      >
         {preview ? (
-          <Image src={preview} alt="" width={80} height={80} className="size-full object-cover" unoptimized />
+          <Image
+            src={preview}
+            alt=""
+            width={aspect === "wide" ? 320 : 80}
+            height={aspect === "wide" ? 180 : 80}
+            className="size-full object-cover"
+            unoptimized
+          />
         ) : (
           <span className="text-xs text-ink-400">Sin foto</span>
         )}

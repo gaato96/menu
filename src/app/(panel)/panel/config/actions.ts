@@ -1,9 +1,12 @@
 "use server";
 
+import { randomUUID } from "node:crypto";
+
 import { revalidatePath } from "next/cache";
 
 import { requireStaff } from "@/lib/auth/context";
 import { parseMoneyToCents } from "@/lib/money";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 // --- Business-wide -------------------------------------------------------
@@ -14,6 +17,75 @@ export async function toggleOpenManual(isOpen: boolean) {
   await supabase.from("businesses").update({ is_open_manual: isOpen }).eq("id", staff.business.id);
   revalidatePath("/panel/config");
   revalidatePath("/panel");
+}
+
+export async function toggleCatalogView(enabled: boolean) {
+  const staff = await requireStaff();
+  const supabase = await createClient();
+  await supabase
+    .from("business_settings")
+    .update({ catalog_view_enabled: enabled })
+    .eq("business_id", staff.business.id);
+  revalidatePath("/panel/config");
+  revalidatePath(`/m/${staff.business.slug}`);
+  revalidatePath(`/m/${staff.business.slug}/catalogo`);
+}
+
+// --- Branding images -------------------------------------------------------
+
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+const ALLOWED_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
+
+/**
+ * Uploads through the ADMIN client, same trust boundary as
+ * uploadProductImage in panel/menu/actions.ts: requireStaff() here is the
+ * only authorization check, storage.objects carries no RLS of its own.
+ */
+async function uploadBusinessImage(
+  formData: FormData,
+  field: "logo_url" | "cover_image_url",
+): Promise<{ ok?: true; error?: string }> {
+  const staff = await requireStaff();
+  const session = await createClient();
+
+  const file = formData.get("image");
+  if (!(file instanceof File) || file.size === 0) return { error: "Elegí una imagen." };
+  if (file.size > MAX_IMAGE_BYTES) return { error: "La imagen pesa más de 5MB." };
+  if (!ALLOWED_TYPES.has(file.type)) return { error: "Formato no soportado. Usá JPG, PNG o WebP." };
+
+  const admin = createAdminClient();
+  const extension = file.type.split("/")[1];
+  const path = `${staff.business.id}/${field}/${randomUUID()}.${extension}`;
+
+  const { error: uploadError } = await admin.storage
+    .from("business-images")
+    .upload(path, file, { contentType: file.type, upsert: false });
+  if (uploadError) return { error: "No pudimos subir la imagen." };
+
+  const { data: publicUrl } = admin.storage.from("business-images").getPublicUrl(path);
+
+  const previousUrl = staff.business[field];
+  await session
+    .from("businesses")
+    .update(field === "logo_url" ? { logo_url: publicUrl.publicUrl } : { cover_image_url: publicUrl.publicUrl })
+    .eq("id", staff.business.id);
+
+  if (previousUrl?.includes("/business-images/")) {
+    const oldPath = previousUrl.split("/business-images/")[1];
+    if (oldPath) await admin.storage.from("business-images").remove([oldPath]);
+  }
+
+  revalidatePath("/panel/config");
+  revalidatePath(`/m/${staff.business.slug}`);
+  return { ok: true };
+}
+
+export async function uploadLogo(formData: FormData) {
+  return uploadBusinessImage(formData, "logo_url");
+}
+
+export async function uploadCoverImage(formData: FormData) {
+  return uploadBusinessImage(formData, "cover_image_url");
 }
 
 export async function updateSettings(

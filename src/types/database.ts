@@ -51,6 +51,7 @@ type Business = {
   slug: string;
   name: string;
   logo_url: string | null;
+  cover_image_url: string | null;
   brand_color: string;
   whatsapp_phone: string;
   address: string | null;
@@ -73,6 +74,7 @@ type BusinessSettings = {
   transfer_cbu: string | null;
   transfer_holder: string | null;
   prep_time_minutes: number;
+  catalog_view_enabled: boolean;
   updated_at: string;
 };
 
