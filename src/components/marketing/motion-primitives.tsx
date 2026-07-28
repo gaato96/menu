@@ -9,6 +9,7 @@ import {
   useScroll,
   useTransform,
 } from "motion/react";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -152,10 +153,17 @@ export function CountUp({
 }
 
 /**
- * Scroll-driven crossfade between the "before" and "after" of the pitch.
- * The chat stack recedes and the ticket rises as the section crosses the
- * viewport — the transformation happens under the reader's own scroll
- * instead of being asserted in a caption.
+ * One-time entrance for the "before" and "after" of the pitch: the chat
+ * stack settles first, the ticket rises in a beat after and lands at full
+ * opacity — and STAYS at full opacity for the rest of the scroll.
+ *
+ * An earlier version tied both opacities to scroll progress for a
+ * continuous crossfade. That put a wide middle band of the page where BOTH
+ * cards sat semi-transparent at once — the section's natural reading
+ * position landed a reader inside that band, so the whole thing looked
+ * permanently washed out instead of like a deliberate transition. A single
+ * settle-once reveal (the same pattern every other section on this page
+ * uses) reads once and then just stays legible.
  */
 export function ChaosToOrderScene({
   before,
@@ -164,40 +172,117 @@ export function ChaosToOrderScene({
   before: React.ReactNode;
   after: React.ReactNode;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 0.85", "end 0.35"],
-  });
-
-  const beforeOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0.25]);
-  const beforeScale = useTransform(scrollYProgress, [0, 0.6], [1, 0.9]);
-  const beforeRotate = useTransform(scrollYProgress, [0, 0.6], [-3, -8]);
-  const afterOpacity = useTransform(scrollYProgress, [0.25, 0.65], [0, 1]);
-  const afterY = useTransform(scrollYProgress, [0.25, 0.7], [56, 0]);
-  const afterRotate = useTransform(scrollYProgress, [0.25, 0.7], [6, 2]);
-
-  if (reduced) {
-    return (
-      <div ref={ref} className="relative mx-auto w-full max-w-sm">
-        <div className="-rotate-3">{before}</div>
-        <div className="relative z-10 -mt-10 ml-6 rotate-2">{after}</div>
-      </div>
-    );
-  }
 
   return (
-    <div ref={ref} className="relative mx-auto w-full max-w-sm">
-      <motion.div style={{ opacity: beforeOpacity, scale: beforeScale, rotate: beforeRotate }}>
+    <div className="relative mx-auto w-full max-w-sm">
+      <motion.div
+        className="-rotate-3"
+        initial={reduced ? { opacity: 0 } : { opacity: 0, y: 16, rotate: -8 }}
+        whileInView={{ opacity: 1, y: 0, rotate: -3 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
         {before}
       </motion.div>
       <motion.div
-        style={{ opacity: afterOpacity, y: afterY, rotate: afterRotate }}
-        className="relative z-10 -mt-10 ml-6"
+        className="relative z-10 -mt-10 ml-6 rotate-2"
+        initial={reduced ? { opacity: 0 } : { opacity: 0, y: 40, rotate: 8 }}
+        whileInView={{ opacity: 1, y: 0, rotate: 2 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
       >
         {after}
       </motion.div>
+    </div>
+  );
+}
+
+const FLOAT_SHAPES = [
+  "62% 38% 55% 45% / 55% 48% 52% 45%",
+  "45% 55% 62% 38% / 48% 55% 45% 52%",
+  "55% 45% 48% 52% / 62% 38% 55% 45%",
+];
+
+/**
+ * A loose cluster of real dish photos, each clipped into an organic blob
+ * (not a rectangle or a perfect circle — a real photograph read as an
+ * object rather than a screenshot) and bobbing on its own independent
+ * loop. Fills the empty half of a dark hero with the product's actual
+ * content in motion, the same principle as the marquee bands below it.
+ */
+export function FloatingDishes({
+  dishes,
+  className,
+}: {
+  dishes: { id: string; imageUrl: string; alt: string }[];
+  className?: string;
+}) {
+  const reduced = useReducedMotion();
+  if (dishes.length === 0) return null;
+
+  const layouts = [
+    { size: 220, top: "4%", left: "18%", z: 10 },
+    { size: 168, top: "46%", left: "58%", z: 20 },
+    { size: 152, top: "60%", left: "4%", z: 5 },
+  ];
+
+  return (
+    <div className={cn("pointer-events-none relative", className)} aria-hidden>
+      {dishes.slice(0, 3).map((dish, index) => {
+        const layout = layouts[index];
+        return (
+          <motion.div
+            key={dish.id}
+            className="absolute overflow-hidden shadow-2xl"
+            style={{
+              width: layout.size,
+              height: layout.size,
+              top: layout.top,
+              left: layout.left,
+              zIndex: layout.z,
+              borderRadius: FLOAT_SHAPES[index % FLOAT_SHAPES.length],
+            }}
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={
+              reduced
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 1, scale: 1, y: [0, -16, 0], rotate: [0, index % 2 === 0 ? 4 : -4, 0] }
+            }
+            transition={
+              reduced
+                ? { duration: 0.6, delay: index * 0.15 }
+                : {
+                    opacity: { duration: 0.6, delay: 0.3 + index * 0.15 },
+                    scale: { duration: 0.6, delay: 0.3 + index * 0.15 },
+                    y: {
+                      duration: 5 + index,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.6,
+                    },
+                    rotate: {
+                      duration: 6 + index,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.6,
+                    },
+                  }
+            }
+          >
+            {/* Real menu photography, not stock — width/height reserved via
+                the layout table above so nothing shifts as it loads. */}
+            <Image
+              src={dish.imageUrl}
+              alt={dish.alt}
+              width={layout.size}
+              height={layout.size}
+              sizes={`${layout.size}px`}
+              className="size-full object-cover"
+            />
+          </motion.div>
+        );
+      })}
     </div>
   );
 }

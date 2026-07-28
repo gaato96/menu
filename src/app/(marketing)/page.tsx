@@ -21,6 +21,7 @@ import { DishMarquee } from "@/components/marketing/dish-marquee";
 import {
   ChaosToOrderScene,
   CountUp,
+  FloatingDishes,
   Parallax,
   Rise,
   WordReveal,
@@ -122,50 +123,57 @@ export default async function LandingPage() {
       {/* Hero — the dark half. This is a Friday at 21:30.                  */}
       {/* ================================================================ */}
       <section className="grain ember-glow relative overflow-hidden bg-night-950">
-        <div className="relative z-10 mx-auto max-w-6xl px-4 pt-14 pb-10 sm:pt-20">
-          <Rise>
-            <p className="font-mono text-xs font-medium tracking-[0.2em] text-ember uppercase">
-              Restaurantes · Pizzerías · Hamburgueserías
-            </p>
-          </Rise>
+        <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-8 px-4 pt-14 pb-10 sm:pt-20 lg:grid-cols-[1.15fr_1fr] lg:gap-4">
+          <div>
+            <Rise>
+              <p className="font-mono text-xs font-medium tracking-[0.2em] text-ember uppercase">
+                Restaurantes · Pizzerías · Hamburgueserías
+              </p>
+            </Rise>
 
-          <h1 className="mt-5 max-w-3xl font-display text-[clamp(3rem,11vw,7rem)] leading-[0.86] font-extrabold tracking-tight text-white text-balance">
-            <WordReveal text="Tu menú. Tu pedido." delay={0.1} />
-            <br />
-            <WordReveal text="Tu plata." highlight={["plata."]} delay={0.5} />
-          </h1>
+            <h1 className="mt-5 font-display text-[clamp(3rem,9vw,6rem)] leading-[0.86] font-extrabold tracking-tight text-white text-balance">
+              <WordReveal text="Tu menú. Tu pedido." delay={0.1} />
+              <br />
+              <WordReveal text="Tu plata." highlight={["plata."]} delay={0.5} />
+            </h1>
 
-          <Rise delay={0.7} className="mt-6 max-w-lg">
-            <p className="text-lg text-white/70">
-              Tus clientes piden desde el celular con fotos y todo. A vos te llega armado y
-              prolijo, y confirmás en un toque. Sin PedidosYa. Sin comisión.
-            </p>
-          </Rise>
+            <Rise delay={0.7} className="mt-6 max-w-lg">
+              <p className="text-lg text-white/70">
+                Tus clientes piden desde el celular con fotos y todo. A vos te llega armado y
+                prolijo, y confirmás en un toque. Sin PedidosYa. Sin comisión.
+              </p>
+            </Rise>
 
-          <Rise delay={0.85} className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "bg-[#25D366] shadow-lg shadow-[#25D366]/20 transition-transform hover:scale-[1.02] hover:brightness-95",
-              )}
-            >
-              Escribinos por WhatsApp
-              <ArrowRight className="size-4" aria-hidden />
-            </a>
-            <Link
-              href={DEMO_MENU_URL}
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "border border-white/20 bg-white/5 text-white backdrop-blur-sm hover:bg-white/10",
-              )}
-            >
-              <Play className="size-4" aria-hidden />
-              Ver un menú en vivo
-            </Link>
-          </Rise>
+            <Rise delay={0.85} className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "bg-[#25D366] shadow-lg shadow-[#25D366]/20 transition-transform hover:scale-[1.02] hover:brightness-95",
+                )}
+              >
+                Escribinos por WhatsApp
+                <ArrowRight className="size-4" aria-hidden />
+              </a>
+              <Link
+                href={DEMO_MENU_URL}
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "border border-white/20 bg-white/5 text-white backdrop-blur-sm hover:bg-white/10",
+                )}
+              >
+                <Play className="size-4" aria-hidden />
+                Ver un menú en vivo
+              </Link>
+            </Rise>
+          </div>
+
+          <FloatingDishes
+            dishes={withPhotos.slice(0, 3).map((d) => ({ id: d.id, imageUrl: d.imageUrl!, alt: d.name }))}
+            className="hidden h-[420px] w-full lg:block"
+          />
         </div>
 
         {/* Two bands of real dishes, running opposite ways. The signature
@@ -315,7 +323,7 @@ export default async function LandingPage() {
       {/* ================================================================ */}
       {/* How it works — a real sequence, staged like order status          */}
       {/* ================================================================ */}
-      <section className="px-4 py-20 sm:py-28">
+      <section className="dot-grid relative px-4 py-20 sm:py-28">
         <div className="mx-auto max-w-5xl">
           <Rise>
             <h2 className="max-w-xl font-display text-3xl leading-[0.95] font-extrabold tracking-tight text-ink-900 text-balance sm:text-4xl">
