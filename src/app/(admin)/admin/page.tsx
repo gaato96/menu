@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { requireSuperadmin } from "@/lib/auth/context";
 import { createClient } from "@/lib/supabase/server";
 import { formatMoney } from "@/lib/money";
@@ -43,6 +43,9 @@ export default async function AdminPage() {
           <p className="font-semibold text-ink-900">Superadmin</p>
           <p className="text-xs text-ink-500">{admin.fullName ?? "Galu"}</p>
         </div>
+        <Link href="/admin/negocios/nuevo" className={buttonVariants({ size: "sm" })}>
+          + Nuevo negocio
+        </Link>
         <form action={signOut}>
           <Button variant="ghost" size="sm" type="submit">
             Salir
@@ -73,7 +76,7 @@ export default async function AdminPage() {
                 <th className="px-4 py-3 font-medium">Negocio</th>
                 <th className="px-4 py-3 font-medium">Suscripción</th>
                 <th className="px-4 py-3 font-medium">Vence</th>
-                <th className="px-4 py-3 font-medium">Menú</th>
+                <th className="px-4 py-3 font-medium"></th>
               </tr>
             </thead>
             <tbody>
@@ -86,7 +89,12 @@ export default async function AdminPage() {
                 return (
                   <tr key={business.id} className="border-b border-ink-100 last:border-0">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-ink-900">{business.name}</p>
+                      <Link
+                        href={`/admin/negocios/${business.id}`}
+                        className="font-medium text-ink-900 underline-offset-2 hover:underline"
+                      >
+                        {business.name}
+                      </Link>
                       <p className="text-xs text-ink-500">/m/{business.slug}</p>
                     </td>
                     <td className="px-4 py-3">
@@ -95,17 +103,21 @@ export default async function AdminPage() {
                       >
                         {badge.label}
                       </span>
+                      {business.status === "suspended" && (
+                        <span className="ml-1 inline-flex rounded-full bg-danger-soft px-2 py-0.5 text-xs font-medium text-danger">
+                          Negocio suspendido
+                        </span>
+                      )}
                     </td>
                     <td className="px-4 py-3 text-ink-500">
                       {sub?.current_period_end ?? "—"}
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 text-right">
                       <Link
-                        href={`/m/${business.slug}`}
-                        target="_blank"
+                        href={`/admin/negocios/${business.id}`}
                         className="text-brand underline underline-offset-2"
                       >
-                        Abrir
+                        Administrar
                       </Link>
                     </td>
                   </tr>
@@ -114,10 +126,6 @@ export default async function AdminPage() {
             </tbody>
           </table>
         </div>
-
-        <p className="text-xs text-ink-300">
-          Alta de negocios y edición de suscripciones se construyen en la Fase 5.
-        </p>
       </main>
     </div>
   );
