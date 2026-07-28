@@ -176,6 +176,116 @@ svg[data-lucide] {
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Marketing surfaces only (the (marketing) route group).
+
+   The app itself is deliberately flat and light — a cashier reads it across a
+   room and texture is noise there. The landing page is the one place that has
+   to seduce rather than inform, so the atmosphere lives here and nowhere else.
+
+   Direction: a kitchen at night. The hero is dark because that is when the
+   problem happens (a Friday at 21:30, phone ringing, orders lost in a chat);
+   the page turns the lights up into kraft daylight as it reaches the product.
+   The inversion is the argument, not a mood board.
+--------------------------------------------------------------------------- */
+
+@theme {
+  --color-night-950: #100e0c;
+  --color-night-900: #17130f;
+  --color-night-800: #221b15;
+  --color-night-700: #322820;
+  /* Heat off a flat-top grill — the only warm light in the dark half.
+     `ember` is for dark surfaces only (it fails contrast on kraft);
+     `ember-ink` is the same hue burnt down far enough to clear 4.5:1 as
+     small text on the light half. */
+  --color-ember: #f0a04b;
+  --color-ember-deep: #c25f1c;
+  --color-ember-ink: #8a3d0c;
+}
+
+/* Film grain. An SVG feTurbulence rather than a raster tile: no extra request,
+   and it stays crisp at any DPR. Very low opacity — it should read as paper
+   and sensor noise, never as a visible texture. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* Perforated-tag grid — the dot pattern of a price-tag sheet, not a generic
+   dev-tool blueprint grid. Fades out toward the edges so it never boxes in
+   the section it sits behind. */
+.dot-grid {
+  background-image: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--color-ink-300) 55%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 75%);
+}
+
+/* Ember glow behind the dark hero — a soft heat source off-center, so the
+   dark half reads as a lit room rather than a black rectangle.
+
+   background-IMAGE, never the `background` shorthand: the shorthand resets
+   background-color, which silently cancels the bg-night-950 utility on the
+   same element and drops the section back to the kraft page background with
+   white text on it. */
+.ember-glow {
+  background-image:
+    radial-gradient(
+      ellipse 60% 50% at 72% 18%,
+      color-mix(in srgb, var(--color-ember) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 70% 60% at 10% 85%,
+      color-mix(in srgb, var(--color-brand) 26%, transparent),
+      transparent 70%
+    );
+}
+
+/* Marquee of dish photos. Translating a track that holds the same list twice
+   is what makes the seam invisible; -50% lands exactly on the duplicate.
+   Paused on hover so a visitor can actually look at a plate. */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left var(--marquee-duration, 60s) linear infinite;
+}
+.marquee-track[data-direction="right"] {
+  animation-name: marquee-right;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
 /* New-order alert. Loud on purpose — this is the whole product. */
 @keyframes alert-pulse {
   0%,
