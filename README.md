@@ -122,7 +122,8 @@ tiene que seguir a `supabase/migrations/`.
 - [x] Fase 2 — Tablero de comandas
 - [x] Fase 3 — Operación diaria
 - [x] Fase 4 — Panel del negocio
-- [ ] Fase 5 — Panel de superadmin
+- [x] Fase 5 — Panel de superadmin
+- [x] Fase 6 — Endurecimiento
 
 ### Fase 1 — qué incluye
 
@@ -143,3 +144,35 @@ tiene que seguir a `supabase/migrations/`.
   Mono (precios/códigos), colores de estado donde la saturación mapea a urgencia.
 - Suite E2E de Playwright que arma un pedido real con opciones, completa el checkout y verifica
   que llegue a WhatsApp con el pedido ya persistido (`tests/e2e/ordering.spec.ts`).
+
+### Fase 5 — qué incluye
+
+- `/admin/negocios/nuevo`: alta de negocio + cuenta del dueño (`auth.admin.createUser`, mismo
+  patrón que invitar empleados). La contraseña temporal se muestra una sola vez, nunca viaja en
+  la URL.
+- `/admin/negocios/[id]`: datos del negocio, activar/suspender, suscripción manual (plan,
+  estado, vencimiento, monto, notas), los 6 flags de módulos premium, listado de usuarios,
+  borrado con cascada.
+- Todas las escrituras van por el cliente de sesión del superadmin, no por el admin client — las
+  policies RLS (`businesses_superadmin_*`, `*_superadmin_write`, `profiles_owner_manage`) ya
+  cubren `is_superadmin()` en cada tabla. El admin client solo aparece donde tiene que aparecer:
+  crear el usuario de auth del dueño.
+
+### Fase 6 — qué incluye
+
+- Rate limiting en `POST /api/orders`: ventana deslizante en memoria, 8 pedidos por minuto por
+  IP. Es best-effort a propósito — no hay Redis compartido entre instancias de Vercel, así que
+  esto frena una ráfaga en la misma instancia (doble tap, bug de reintento), no un ataque
+  distribuido. Ver `src/lib/rate-limit.ts`.
+- Fix real de confiabilidad: la confirmación de "WhatsApp abierto" (`whatsapp-redirect.tsx`)
+  usaba `fetch()` justo antes de `window.location.assign()` — el navegador puede cortar ese
+  fetch a mitad de camino porque la página se descarga en el mismo tick. Se reemplazó por
+  `navigator.sendBeacon`, que existe específicamente para este caso.
+- `tests/e2e/admin.spec.ts`: alta de negocio → el dueño se loguea de verdad → activa un módulo
+  premium y sobrevive un reload → borrado. Limpia también la cuenta de auth que crea, porque
+  este negocio corre contra el proyecto real, no uno descartable.
+- Auditoría manual de instalabilidad PWA (Lighthouse quitó la categoría PWA en v13): manifest
+  del panel y del menú válidos, `sw.js` sirve como JavaScript, íconos 192/512/512-maskable y
+  apple-touch-icon presentes en ambos. Lighthouse sobre `/m/[slug]`: 93 performance, 100
+  accessibility, 100 best-practices, 100 SEO.
+- `docs/instalacion-presencial.md`: checklist para la visita al local, de punta a punta.

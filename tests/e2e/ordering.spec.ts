@@ -109,7 +109,6 @@ test("builds a burger with options, checks out, and reaches WhatsApp with the or
   const waUrl = page.url();
   expect(waUrl).toContain(encodeURIComponent("PEDIDO"));
 
-  // Clean up: find and delete the order this test just created.
   const { data: order } = await admin
     .from("orders")
     .select("id, code, total_cents, whatsapp_opened_at")
@@ -119,7 +118,24 @@ test("builds a burger with options, checks out, and reaches WhatsApp with the or
     .single();
 
   expect(order?.total_cents).toBe(1290000);
-  expect(order?.whatsapp_opened_at).not.toBeNull();
 
+  // The "opened" mark is a sendBeacon fired right before this same tick's
+  // navigation to wa.me — it lands on the server independently of the page
+  // that sent it, so give it a moment rather than reading the row instantly.
+  await expect
+    .poll(
+      async () => {
+        const { data } = await admin
+          .from("orders")
+          .select("whatsapp_opened_at")
+          .eq("id", order!.id)
+          .single();
+        return data?.whatsapp_opened_at ?? null;
+      },
+      { timeout: 5_000 },
+    )
+    .not.toBeNull();
+
+  // Clean up: delete the order this test just created.
   await admin.from("orders").delete().eq("id", order!.id);
 });

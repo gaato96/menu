@@ -142,3 +142,14 @@ when Serwist ships Turbopack support.
 - **Business hours support overnight ranges** (e.g. 20:00–01:00); `src/lib/business/hours.ts`
   and `date-range.ts` handle the midnight-crossing math and assume a fixed UTC offset
   (Argentina has no DST since 2009) — read the comments there before reusing for another region.
+- **Rate limiting (`src/lib/rate-limit.ts`) is in-memory, not distributed.** There's no shared
+  Redis, so this only throttles a burst hitting the same warm Vercel instance. It exists for the
+  real failure mode (double tap, stuck retry loop), not as a defense against a distributed
+  attacker — if that's ever needed, it's an Upstash Redis swap, not a rewrite.
+- **`src/proxy.ts` is this project's middleware** (Next 16 renamed the file, not just a
+  convention here) — it's a UX gate only, not the security boundary. RLS is what actually
+  authorizes every read/write; someone who defeats the proxy still reads nothing.
+- **Never `fetch()` right before `window.location.assign()` to a different origin.** The browser
+  can abort a plain fetch mid-flight when the page unloads in the same tick — `keepalive: true`
+  is not reliably enough to survive it in practice. Use `navigator.sendBeacon` instead (see
+  `whatsapp-redirect.tsx`), which exists specifically for fire-and-forget-then-navigate.

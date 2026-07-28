@@ -18,9 +18,17 @@ export function WhatsAppRedirect({ orderId, waUrl }: { orderId: string; waUrl: s
   function markOpened() {
     if (markedOpened.current) return;
     markedOpened.current = true;
-    fetch(`/api/orders/${orderId}/opened`, { method: "POST" }).catch(() => {
-      // Best-effort: this only clears a "sin confirmar" badge on the board.
-    });
+    const url = `/api/orders/${orderId}/opened`;
+    // sendBeacon, not fetch — window.location.assign fires in the same tick
+    // right after this. A `fetch(..., { keepalive: true })` is documented to
+    // survive that, but in practice still loses the race against a fast
+    // same-tick navigation; sendBeacon exists specifically to guarantee
+    // delivery of a fire-and-forget POST across an unload.
+    if (!navigator.sendBeacon?.(url)) {
+      fetch(url, { method: "POST", keepalive: true }).catch(() => {
+        // Best-effort: this only clears a "sin confirmar" badge on the board.
+      });
+    }
   }
 
   useEffect(() => {
