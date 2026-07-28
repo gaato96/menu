@@ -1,6 +1,6 @@
 "use client";
 
-import { Bike, ChevronLeft, Store, WifiOff } from "lucide-react";
+import { Bike, ChevronLeft, Store, Utensils, WifiOff } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -31,10 +31,12 @@ export function KitchenBoard({
   businessId,
   role,
   initialOrders,
+  tableNames,
 }: {
   businessId: string;
   role: StaffRole;
   initialOrders: BoardOrder[];
+  tableNames: Record<string, string>;
 }) {
   const { orders: allOrders, connected } = useOrderRealtime(businessId, initialOrders);
   const audio = useAudioAlert();
@@ -112,6 +114,7 @@ export function KitchenBoard({
             <KitchenCard
               key={order.id}
               order={order}
+              tableLabel={order.table_id ? tableNames[order.table_id] : null}
               busy={busyId === order.id}
               canUndo={order.status === "in_kitchen" && role !== "cashier"}
               onAdvance={() => void advance(order)}
@@ -126,12 +129,14 @@ export function KitchenBoard({
 
 function KitchenCard({
   order,
+  tableLabel,
   busy,
   canUndo,
   onAdvance,
   onUndo,
 }: {
   order: BoardOrder;
+  tableLabel?: string | null;
   busy: boolean;
   canUndo: boolean;
   onAdvance: () => void;
@@ -157,10 +162,17 @@ function KitchenCard({
       <div className="flex items-center gap-2 text-sm text-white/60">
         {order.fulfillment_type === "delivery" ? (
           <Bike className="size-4" aria-hidden />
+        ) : order.fulfillment_type === "dine_in" ? (
+          <Utensils className="size-4" aria-hidden />
         ) : (
           <Store className="size-4" aria-hidden />
         )}
-        {order.fulfillment_type === "delivery" ? "Delivery" : "Retiro"} · {order.customer_name}
+        {order.fulfillment_type === "delivery"
+          ? "Delivery"
+          : order.fulfillment_type === "dine_in"
+            ? `Mesa ${tableLabel ?? ""}`.trim()
+            : "Retiro"}{" "}
+        · {order.customer_name}
       </div>
 
       <ul className="flex-1 space-y-1.5 text-lg leading-snug">

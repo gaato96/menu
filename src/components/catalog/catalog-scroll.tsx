@@ -206,6 +206,10 @@ export function CatalogScroll({ data }: { data: PublicMenuData }) {
         onFulfillmentChange={setFulfillment}
         deliveryZoneId={deliveryZoneId}
         onDeliveryZoneChange={setDeliveryZoneId}
+        // The catalog scroll has no ?mesa= entry point today — it's reached
+        // from the marketing site and the classic menu, not a table's QR.
+        table={null}
+        tableId={null}
         onOrderCreated={({ orderId }) => {
           clearCart();
           setCheckoutOpen(false);

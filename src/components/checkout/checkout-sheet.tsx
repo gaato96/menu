@@ -40,6 +40,8 @@ export function CheckoutSheet({
   onFulfillmentChange,
   deliveryZoneId,
   onDeliveryZoneChange,
+  table,
+  tableId,
   onOrderCreated,
 }: {
   open: boolean;
@@ -54,9 +56,17 @@ export function CheckoutSheet({
   onFulfillmentChange: (value: FulfillmentType) => void;
   deliveryZoneId: string | null;
   onDeliveryZoneChange: (value: string | null) => void;
+  /** Non-null once a ?mesa= resolved — see menu-client.tsx. */
+  table: { id: string; label: string } | null;
+  tableId: string | null;
   onOrderCreated: (result: { orderId: string; code: string; waUrl: string }) => void;
 }) {
-  const [step, setStep] = useState<Step>(1);
+  // A table locks the visit to dine_in with no step 1 (fulfillment/zone) and
+  // no phone — the customer is sitting in the room, there's nowhere to
+  // deliver to and no reason to interrupt them by SMS. Step 2 is the floor
+  // they land on and can't go back past.
+  const floorStep: Step = table ? 2 : 1;
+  const [step, setStep] = useState<Step>(floorStep);
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -96,10 +106,11 @@ export function CheckoutSheet({
   };
 
   const canLeaveStep1 = fulfillment === "pickup" || (fulfillment === "delivery" && Boolean(deliveryZoneId));
-  const canLeaveStep2 =
-    customerName.trim().length >= 2 &&
-    customerPhone.trim().length >= 6 &&
-    (fulfillment === "pickup" || address.trim().length >= 3);
+  const canLeaveStep2 = table
+    ? customerName.trim().length >= 2
+    : customerName.trim().length >= 2 &&
+      customerPhone.trim().length >= 6 &&
+      (fulfillment === "pickup" || address.trim().length >= 3);
 
   async function submit() {
     if (!priced.ok) return;
@@ -119,8 +130,9 @@ export function CheckoutSheet({
           businessSlug,
           fulfillment,
           deliveryZoneId,
+          tableId,
           customerName: customerName.trim(),
-          customerPhone: customerPhone.trim(),
+          customerPhone: table ? null : customerPhone.trim(),
           address: fulfillment === "delivery" ? address.trim() : null,
           addressReference: fulfillment === "delivery" ? addressReference.trim() || null : null,
           paymentMethod,
@@ -161,14 +173,14 @@ export function CheckoutSheet({
     <Sheet
       open={open}
       onOpenChange={(next) => {
-        if (!next) setStep(1);
+        if (!next) setStep(floorStep);
         onOpenChange(next);
       }}
-      title={STEP_TITLES[step]}
-      description={`Paso ${step} de 4`}
+      title={table ? `Mesa ${table.label} — ${STEP_TITLES[step]}` : STEP_TITLES[step]}
+      description={`Paso ${step - floorStep + 1} de ${4 - floorStep + 1}`}
       footer={
         <div className="flex gap-2">
-          {step > 1 && (
+          {step > floorStep && (
             <Button variant="outline" onClick={() => setStep((s) => (s - 1) as Step)} disabled={submitting}>
               Atrás
             </Button>
@@ -249,15 +261,17 @@ export function CheckoutSheet({
           <Field label="Nombre" required>
             <Input value={customerName} onChange={(e) => setCustomerName(e.target.value)} autoFocus />
           </Field>
-          <Field label="Teléfono" required hint="Por si el local necesita ubicarte.">
-            <Input
-              type="tel"
-              inputMode="tel"
-              value={customerPhone}
-              onChange={(e) => setCustomerPhone(e.target.value)}
-              placeholder="381 123 4567"
-            />
-          </Field>
+          {!table && (
+            <Field label="Teléfono" required hint="Por si el local necesita ubicarte.">
+              <Input
+                type="tel"
+                inputMode="tel"
+                value={customerPhone}
+                onChange={(e) => setCustomerPhone(e.target.value)}
+                placeholder="381 123 4567"
+              />
+            </Field>
+          )}
           {fulfillment === "delivery" && (
             <>
               <Field label="Dirección" required>
@@ -364,8 +378,9 @@ export function CheckoutSheet({
 
           <p className="flex items-start gap-2 text-xs text-ink-500">
             <Check className="mt-0.5 size-3.5 shrink-0" aria-hidden />
-            Al confirmar, te vamos a llevar a WhatsApp con el pedido ya armado para que lo envíes
-            al local.
+            {table
+              ? "Al confirmar, tu pedido entra directo a la cocina."
+              : "Al confirmar, te vamos a llevar a WhatsApp con el pedido ya armado para que lo envíes al local."}
           </p>
         </div>
       )}

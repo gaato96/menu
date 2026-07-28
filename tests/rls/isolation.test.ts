@@ -297,6 +297,46 @@ describe("anonymous diners", () => {
   });
 });
 
+describe("tables module", () => {
+  it("isolates restaurant_tables between businesses, same as every other tenant table", async () => {
+    const { client } = await signIn("dueno@burgerhouse.test");
+    const result = await client.from("restaurant_tables").select("id").eq("business_id", pizzaId);
+    expect(result.data).toEqual([]);
+  });
+
+  it("lets anon read tables when the module is on, and zero rows the moment it's off", async () => {
+    const client = anonClient();
+
+    const on = await client
+      .from("restaurant_tables")
+      .select("id, label")
+      .eq("business_id", pizzaId);
+    expect(on.data!.length).toBeGreaterThan(0);
+
+    await admin
+      .from("business_modules")
+      .update({ enabled: false })
+      .eq("business_id", pizzaId)
+      .eq("module_key", "tables");
+
+    try {
+      const off = await client
+        .from("restaurant_tables")
+        .select("id")
+        .eq("business_id", pizzaId);
+      expect(off.data ?? []).toEqual([]);
+    } finally {
+      // Restore: other suites (RLS and E2E alike) assume every demo module
+      // is on, per scripts/seed.ts.
+      await admin
+        .from("business_modules")
+        .update({ enabled: true })
+        .eq("business_id", pizzaId)
+        .eq("module_key", "tables");
+    }
+  });
+});
+
 describe("subscription gate", () => {
   it("hides the public menu when the business is suspended, and restores it", async () => {
     const client = anonClient();

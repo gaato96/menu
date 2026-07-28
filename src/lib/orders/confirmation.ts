@@ -1,4 +1,4 @@
-import type { OrderStatus } from "@/lib/orders/status";
+import type { FulfillmentType, OrderStatus } from "@/lib/orders/status";
 import type { PricedOrder } from "@/lib/pricing";
 import { buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -11,7 +11,8 @@ export interface OrderConfirmation {
   businessName: string;
   businessSlug: string;
   order: PricedOrder;
-  fulfillment: "delivery" | "pickup";
+  fulfillment: FulfillmentType;
+  tableLabel: string | null;
   customerName: string;
   address: string | null;
   addressReference: string | null;
@@ -48,10 +49,13 @@ export async function loadOrderConfirmation(
   // (or, defensively, an order whose business row is somehow gone).
   if (!business || business.slug !== businessSlug) return null;
 
-  const [itemsResult, zoneResult] = await Promise.all([
+  const [itemsResult, zoneResult, tableResult] = await Promise.all([
     admin.from("order_items").select("*").eq("order_id", order.id).order("sort_order"),
     order.delivery_zone_id
       ? admin.from("delivery_zones").select("name").eq("id", order.delivery_zone_id).maybeSingle()
+      : Promise.resolve({ data: null }),
+    order.table_id
+      ? admin.from("restaurant_tables").select("label").eq("id", order.table_id).maybeSingle()
       : Promise.resolve({ data: null }),
   ]);
 
@@ -100,20 +104,28 @@ export async function loadOrderConfirmation(
     })),
   };
 
-  const message = buildWhatsAppMessage({
-    code: order.code,
-    businessName: business.name,
-    order: pricedOrder,
-    fulfillment: order.fulfillment_type,
-    customerName: order.customer_name,
-    address: order.address,
-    addressReference: order.address_reference,
-    deliveryZoneName: zoneResult.data?.name ?? null,
-    paymentMethod: order.payment_method,
-    cashChangeForCents: order.cash_change_for_cents,
-    notes: order.notes,
-    currency: business.currency,
-  });
+  // A table order never went to WhatsApp in the first place — see
+  // create-order.ts — so there is no message to rebuild here either.
+  const waUrl =
+    order.fulfillment_type === "dine_in"
+      ? ""
+      : buildWhatsAppUrl(
+          business.whatsapp_phone,
+          buildWhatsAppMessage({
+            code: order.code,
+            businessName: business.name,
+            order: pricedOrder,
+            fulfillment: order.fulfillment_type,
+            customerName: order.customer_name,
+            address: order.address,
+            addressReference: order.address_reference,
+            deliveryZoneName: zoneResult.data?.name ?? null,
+            paymentMethod: order.payment_method,
+            cashChangeForCents: order.cash_change_for_cents,
+            notes: order.notes,
+            currency: business.currency,
+          }),
+        );
 
   return {
     code: order.code,
@@ -124,6 +136,7 @@ export async function loadOrderConfirmation(
     businessSlug: business.slug,
     order: pricedOrder,
     fulfillment: order.fulfillment_type,
+    tableLabel: tableResult.data?.label ?? null,
     customerName: order.customer_name,
     address: order.address,
     addressReference: order.address_reference,
@@ -132,6 +145,6 @@ export async function loadOrderConfirmation(
     cashChangeForCents: order.cash_change_for_cents,
     notes: order.notes,
     currency: business.currency,
-    waUrl: buildWhatsAppUrl(business.whatsapp_phone, message),
+    waUrl,
   };
 }

@@ -73,7 +73,7 @@ function buildMenu(overrides: Partial<MenuSnapshot> = {}): MenuSnapshot {
       ["zone-centro", { id: "zone-centro", name: "Centro", feeCents: 150_000, isActive: true }],
       ["zone-old", { id: "zone-old", name: "Yerba Buena", feeCents: 300_000, isActive: false }],
     ]),
-    settings: { deliveryEnabled: true, pickupEnabled: true, minOrderCents: 0 },
+    settings: { deliveryEnabled: true, pickupEnabled: true, minOrderCents: 0, dineInEnabled: false },
     ...overrides,
   };
 }
@@ -276,7 +276,7 @@ describe("priceOrder", () => {
 
   it("enforces the minimum against the food only, not the delivery fee", () => {
     const menu = buildMenu({
-      settings: { deliveryEnabled: true, pickupEnabled: true, minOrderCents: 1_500_000 },
+      settings: { deliveryEnabled: true, pickupEnabled: true, minOrderCents: 1_500_000, dineInEnabled: false },
     });
 
     // 6 empanadas = $10.800, plus $1.500 shipping = $12.300. Still under the
@@ -297,7 +297,7 @@ describe("priceOrder", () => {
 
   it("rejects delivery when the business turned delivery off", () => {
     const menu = buildMenu({
-      settings: { deliveryEnabled: false, pickupEnabled: true, minOrderCents: 0 },
+      settings: { deliveryEnabled: false, pickupEnabled: true, minOrderCents: 0, dineInEnabled: false },
     });
 
     const result = priceOrder(

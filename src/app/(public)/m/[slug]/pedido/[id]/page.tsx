@@ -85,7 +85,9 @@ export default async function OrderConfirmationPage({
             <p>
               {confirmation.fulfillment === "delivery"
                 ? `Delivery${confirmation.deliveryZoneName ? ` · ${confirmation.deliveryZoneName}` : ""}`
-                : "Retiro en el local"}
+                : confirmation.fulfillment === "dine_in"
+                  ? `Mesa ${confirmation.tableLabel ?? ""}`.trim()
+                  : "Retiro en el local"}
             </p>
             {confirmation.address && <p>{confirmation.address}</p>}
             <p>
@@ -98,14 +100,21 @@ export default async function OrderConfirmationPage({
         </div>
         <TicketEdge fill="var(--color-ink-50)" />
 
-        <div className="mt-6">
-          <WhatsAppRedirect orderId={id} waUrl={confirmation.waUrl} />
-        </div>
-
-        <p className="mt-6 text-center text-sm text-ink-500">
-          Guardá esta página o el mensaje de WhatsApp — con el número de pedido alcanza para
-          consultar en el local.
-        </p>
+        {confirmation.fulfillment === "dine_in" ? (
+          <p className="mt-6 text-center text-sm text-ink-700">
+            Tu pedido ya está en la cocina. Mostrá esta pantalla en el local si necesitás algo.
+          </p>
+        ) : (
+          <>
+            <div className="mt-6">
+              <WhatsAppRedirect orderId={id} waUrl={confirmation.waUrl} />
+            </div>
+            <p className="mt-6 text-center text-sm text-ink-500">
+              Guardá esta página o el mensaje de WhatsApp — con el número de pedido alcanza para
+              consultar en el local.
+            </p>
+          </>
+        )}
 
         <Link
           href={`/m/${slug}`}

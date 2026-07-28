@@ -10,6 +10,7 @@ import {
   Phone,
   Store,
   Undo2,
+  Utensils,
   X,
 } from "lucide-react";
 import { useState } from "react";
@@ -37,6 +38,7 @@ export function OrderCard({
   currency,
   businessName,
   zoneName,
+  tableLabel,
   onAdvance,
   onCancel,
   onGoBack,
@@ -47,6 +49,7 @@ export function OrderCard({
   currency: string;
   businessName: string;
   zoneName?: string | null;
+  tableLabel?: string | null;
   onAdvance: () => void;
   onCancel: () => void;
   onGoBack: () => void;
@@ -60,7 +63,9 @@ export function OrderCard({
 
   const advanceLabel = ADVANCE_LABEL[order.status];
   const canReverse = REVERSE_ROLES.includes(role);
-  const unconfirmed = !order.whatsapp_opened_at;
+  // A dine_in order never goes to WhatsApp (see create-order.ts), so
+  // whatsapp_opened_at staying null forever is expected, not a warning sign.
+  const unconfirmed = order.fulfillment_type !== "dine_in" && !order.whatsapp_opened_at;
 
   return (
     <div
@@ -86,8 +91,15 @@ export function OrderCard({
           <span className="font-mono text-base font-semibold text-ink-900">{order.code}</span>
           {order.fulfillment_type === "delivery" ? (
             <Bike className="size-4 text-ink-500" aria-label="Delivery" />
+          ) : order.fulfillment_type === "dine_in" ? (
+            <Utensils className="size-4 text-ink-500" aria-label="Mesa" />
           ) : (
             <Store className="size-4 text-ink-500" aria-label="Retiro" />
+          )}
+          {order.fulfillment_type === "dine_in" && tableLabel && (
+            <span className="rounded-full bg-ink-100 px-1.5 py-0.5 font-mono text-xs font-semibold text-ink-700">
+              Mesa {tableLabel}
+            </span>
           )}
         </div>
         <ElapsedTimer
@@ -103,7 +115,7 @@ export function OrderCard({
             Sin confirmar por el cliente
           </div>
           <a
-            href={buildConfirmationRequestUrl(order.customer_phone, {
+            href={buildConfirmationRequestUrl(order.customer_phone ?? "", {
               businessName,
               code: order.code,
               customerName: order.customer_name,
@@ -137,15 +149,17 @@ export function OrderCard({
         </div>
       )}
 
-      <a
-        href={`tel:${order.customer_phone}`}
-        onPointerDown={(e) => e.stopPropagation()}
-        onClick={(e) => e.stopPropagation()}
-        className="mt-1 flex items-center gap-1 text-xs text-ink-500 underline-offset-2 hover:underline"
-      >
-        <Phone className="size-3.5 shrink-0" aria-hidden />
-        {order.customer_phone}
-      </a>
+      {order.customer_phone && (
+        <a
+          href={`tel:${order.customer_phone}`}
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
+          className="mt-1 flex items-center gap-1 text-xs text-ink-500 underline-offset-2 hover:underline"
+        >
+          <Phone className="size-3.5 shrink-0" aria-hidden />
+          {order.customer_phone}
+        </a>
+      )}
 
       {order.payment_method === "cash" && !!order.cash_change_for_cents && (
         <p className="mt-1 text-xs font-medium text-ink-700">

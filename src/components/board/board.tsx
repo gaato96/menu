@@ -43,6 +43,7 @@ export function Board({
   role,
   initialOrders,
   zoneNames,
+  tableNames,
 }: {
   businessId: string;
   businessName: string;
@@ -50,6 +51,7 @@ export function Board({
   role: StaffRole;
   initialOrders: BoardOrder[];
   zoneNames: Record<string, string>;
+  tableNames: Record<string, string>;
 }) {
   const { orders, setOrders, connected, setOnNewOrder } = useOrderRealtime(
     businessId,
@@ -211,6 +213,7 @@ export function Board({
               currency={currency}
               businessName={businessName}
               zoneNames={zoneNames}
+              tableNames={tableNames}
               orders={orders.filter((o) => columnForStatus(o.status) === column.id)}
               onAdvance={handleAdvance}
               onCancel={handleCancel}
@@ -258,6 +261,7 @@ export function Board({
         order={detailTarget}
         currency={currency}
         zoneNames={zoneNames}
+        tableNames={tableNames}
         onOpenChange={(open) => {
           if (!open) setDetailTarget(null);
         }}

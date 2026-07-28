@@ -834,6 +834,22 @@ async function seedBusiness(seed: BusinessSeed) {
     }
   }
 
+  check(
+    await db
+      .from("restaurant_tables")
+      .insert(
+        [1, 2, 3, 4].map((n) => ({
+          business_id: business.id,
+          label: String(n),
+          seats: n <= 2 ? 2 : 4,
+          zone: n <= 2 ? "Salón" : "Terraza",
+          sort_order: n,
+        })),
+      )
+      .select(),
+    "restaurant_tables",
+  );
+
   for (const member of seed.staff) {
     await upsertUser(member.email, member.name, member.role, business.id);
   }

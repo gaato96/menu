@@ -1,6 +1,6 @@
 "use client";
 
-import { Bike, Store } from "lucide-react";
+import { Bike, Store, Utensils } from "lucide-react";
 
 import { Sheet } from "@/components/ui/sheet";
 import { formatMoney } from "@/lib/money";
@@ -17,14 +17,17 @@ export function OrderDetailSheet({
   order,
   currency,
   zoneNames,
+  tableNames,
   onOpenChange,
 }: {
   order: BoardOrder | null;
   currency: string;
   zoneNames: Record<string, string>;
+  tableNames: Record<string, string>;
   onOpenChange: (open: boolean) => void;
 }) {
   const zoneName = order?.delivery_zone_id ? zoneNames[order.delivery_zone_id] : null;
+  const tableLabel = order?.table_id ? tableNames[order.table_id] : null;
 
   return (
     <Sheet
@@ -37,17 +40,25 @@ export function OrderDetailSheet({
           <div className="flex items-center gap-1.5 text-sm text-ink-700">
             {order.fulfillment_type === "delivery" ? (
               <Bike className="size-4 text-ink-500" aria-hidden />
+            ) : order.fulfillment_type === "dine_in" ? (
+              <Utensils className="size-4 text-ink-500" aria-hidden />
             ) : (
               <Store className="size-4 text-ink-500" aria-hidden />
             )}
-            {order.fulfillment_type === "delivery" ? "Delivery" : "Retiro en el local"}
+            {order.fulfillment_type === "delivery"
+              ? "Delivery"
+              : order.fulfillment_type === "dine_in"
+                ? `Mesa ${tableLabel ?? ""}`.trim()
+                : "Retiro en el local"}
           </div>
 
           <div className="rounded-lg bg-ink-50 p-3 text-sm">
             <p className="font-medium text-ink-900">{order.customer_name}</p>
-            <a href={`tel:${order.customer_phone}`} className="text-ink-500 underline-offset-2 hover:underline">
-              {order.customer_phone}
-            </a>
+            {order.customer_phone && (
+              <a href={`tel:${order.customer_phone}`} className="text-ink-500 underline-offset-2 hover:underline">
+                {order.customer_phone}
+              </a>
+            )}
             {order.fulfillment_type === "delivery" && (
               <div className="mt-1.5 border-t border-ink-200 pt-1.5 text-ink-700">
                 <p>{order.address}</p>

@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { requireModule, requireStaff } from "@/lib/auth/context";
 import { fetchCustomer, fetchCustomerOrders } from "@/lib/customers/queries";
 import { formatMoney } from "@/lib/money";
-import { STATUS_LABELS } from "@/lib/orders/status";
+import { statusLabel } from "@/lib/orders/status";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "Cliente" };
@@ -68,7 +68,7 @@ export default async function CustomerDetailPage({
                       month: "short",
                       year: "numeric",
                     })}{" "}
-                    · {STATUS_LABELS[order.status]}
+                    · {statusLabel(order.status, order.fulfillment_type)}
                   </p>
                 </div>
                 <span className="shrink-0 font-mono text-sm text-ink-900">

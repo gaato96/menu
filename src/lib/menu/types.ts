@@ -17,6 +17,12 @@ export interface PublicMenuData {
   settings: Tables<"business_settings">;
   categories: (Tables<"categories"> & { products: DisplayProduct[] })[];
   zones: Tables<"delivery_zones">[];
+  /**
+   * Resolved server-side from `?mesa=`, already scoped by the tables
+   * module's own RLS policy — see getPublicMenu. Non-null here means "yes,
+   * this is a real active table for this business, and the module is on."
+   */
+  table: { id: string; label: string } | null;
   isOpenNow: boolean;
 }
 
@@ -76,6 +82,9 @@ export function buildMenuSnapshot(data: PublicMenuData): MenuSnapshot {
       deliveryEnabled: data.settings.delivery_enabled,
       pickupEnabled: data.settings.pickup_enabled,
       minOrderCents: data.settings.min_order_cents,
+      // A resolved table already proves the module is on (see getPublicMenu) —
+      // there's no case where the cart can go dine_in without one.
+      dineInEnabled: data.table !== null,
     },
   };
 }

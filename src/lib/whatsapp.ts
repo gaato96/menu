@@ -27,6 +27,8 @@ export interface WhatsAppMessageInput {
   address?: string | null;
   addressReference?: string | null;
   deliveryZoneName?: string | null;
+  /** Only meaningful when fulfillment is "dine_in". */
+  tableLabel?: string | null;
   paymentMethod: "cash" | "transfer";
   cashChangeForCents?: number | null;
   notes?: string | null;
@@ -60,6 +62,9 @@ export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
       lines.push(`*Referencia:* ${truncate(input.addressReference, 80)}`);
     }
     if (input.deliveryZoneName) lines.push(`*Zona:* ${clean(input.deliveryZoneName)}`);
+  } else if (input.fulfillment === "dine_in") {
+    lines.push("*Entrega:* En el local");
+    if (input.tableLabel) lines.push(`*Mesa:* ${clean(input.tableLabel)}`);
   } else {
     lines.push("*Entrega:* Retiro en el local");
   }

@@ -32,6 +32,7 @@ function order(status: OrderStatus, totalCents: number): BoardOrder {
     external_payment_id: null,
     table_id: null,
     stock_applied: false,
+    session_id: null,
     items: [],
   };
 }

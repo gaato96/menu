@@ -21,7 +21,7 @@ export const ORDER_STATUSES = [
 
 export type OrderStatus = (typeof ORDER_STATUSES)[number];
 
-export const FULFILLMENT_TYPES = ["delivery", "pickup"] as const;
+export const FULFILLMENT_TYPES = ["delivery", "pickup", "dine_in"] as const;
 export type FulfillmentType = (typeof FULFILLMENT_TYPES)[number];
 
 export const STAFF_ROLES = ["superadmin", "owner", "manager", "cashier"] as const;
@@ -47,6 +47,18 @@ export const STATUS_LABELS: Record<OrderStatus, string> = {
   completed: "Completado",
   cancelled: "Cancelado",
 };
+
+/**
+ * `ready_for_pickup` means "ready to hand over" for both pickup AND dine_in —
+ * a table's food is also handed over, just by a server instead of the
+ * customer walking to the counter. STATUS_LABELS alone can't express that
+ * (it has no fulfillment context), so this wraps it for anywhere a label is
+ * shown next to an actual order.
+ */
+export function statusLabel(status: OrderStatus, fulfillment: FulfillmentType): string {
+  if (status === "ready_for_pickup" && fulfillment === "dine_in") return "Listo para servir";
+  return STATUS_LABELS[status];
+}
 
 export type BoardColumnId =
   | "pending_payment"
@@ -158,7 +170,9 @@ export function checkTransition({
   if (to === "on_the_way" && fulfillment !== "delivery") {
     return { ok: false, reason: "Un pedido de retiro no puede pasar a En camino." };
   }
-  if (to === "ready_for_pickup" && fulfillment !== "pickup") {
+  // ready_for_pickup now covers both pickup ("listo para retirar") and
+  // dine_in ("listo para servir") — only delivery is barred from it.
+  if (to === "ready_for_pickup" && fulfillment === "delivery") {
     return { ok: false, reason: "Un pedido de delivery no puede pasar a Listo para retirar." };
   }
 

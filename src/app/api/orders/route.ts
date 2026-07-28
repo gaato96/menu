@@ -9,6 +9,7 @@ const REASON_MESSAGES: Record<string, string> = {
   not_found: "No encontramos ese local.",
   suspended: "Este local no está recibiendo pedidos en este momento.",
   closed: "El local está cerrado ahora mismo.",
+  table_invalid: "Esa mesa ya no está disponible. Escaneá el código de nuevo.",
 };
 
 export async function POST(request: Request) {

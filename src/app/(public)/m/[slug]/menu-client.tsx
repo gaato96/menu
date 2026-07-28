@@ -24,16 +24,27 @@ export function MenuClient({ data }: { data: PublicMenuData }) {
   const lines = useCartStore((s) => s.lines);
   const fulfillment = useCartStore((s) => s.fulfillment);
   const deliveryZoneId = useCartStore((s) => s.deliveryZoneId);
+  const tableId = useCartStore((s) => s.tableId);
   const addLine = useCartStore((s) => s.addLine);
   const updateLine = useCartStore((s) => s.updateLine);
   const removeLine = useCartStore((s) => s.removeLine);
   const setFulfillment = useCartStore((s) => s.setFulfillment);
   const setDeliveryZoneId = useCartStore((s) => s.setDeliveryZoneId);
+  const setTableId = useCartStore((s) => s.setTableId);
   const clearCart = useCartStore((s) => s.clear);
 
   useEffect(() => {
     ensureBusiness(business.slug);
   }, [ensureBusiness, business.slug]);
+
+  // A resolved ?mesa= locks the whole visit to dine_in — there is no UI to
+  // switch back to delivery/pickup once a table is scanned, by design.
+  useEffect(() => {
+    if (data.table) {
+      setTableId(data.table.id);
+      setFulfillment("dine_in");
+    }
+  }, [data.table, setTableId, setFulfillment]);
 
   const [activeProduct, setActiveProduct] = useState<DisplayProduct | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
@@ -167,6 +178,8 @@ export function MenuClient({ data }: { data: PublicMenuData }) {
         onFulfillmentChange={setFulfillment}
         deliveryZoneId={deliveryZoneId}
         onDeliveryZoneChange={setDeliveryZoneId}
+        table={data.table}
+        tableId={tableId}
         onOrderCreated={({ orderId }) => {
           clearCart();
           setCheckoutOpen(false);

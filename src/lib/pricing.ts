@@ -49,6 +49,14 @@ export interface PricingSettings {
   deliveryEnabled: boolean;
   pickupEnabled: boolean;
   minOrderCents: number;
+  /**
+   * Required, not optional-with-default: an optional field that silently
+   * defaults to false in production is how a real business finds out their
+   * QR codes stopped working, days later. Whoever builds a MenuSnapshot has
+   * to make the call on purpose — see loadMenuSnapshotForPricing and
+   * buildMenuSnapshot for where it's actually derived (module status).
+   */
+  dineInEnabled: boolean;
 }
 
 export interface MenuSnapshot {
@@ -169,6 +177,13 @@ export function priceOrder(cart: CartInput, menu: MenuSnapshot): PricingResult {
         deliveryZoneId = zone.id;
       }
     }
+  } else if (cart.fulfillment === "dine_in") {
+    if (!menu.settings.dineInEnabled) {
+      errors.push({
+        code: "fulfillment_disabled",
+        message: "Este local no tiene pedidos desde la mesa habilitados.",
+      });
+    }
   } else if (!menu.settings.pickupEnabled) {
     errors.push({
       code: "fulfillment_disabled",
@@ -178,7 +193,10 @@ export function priceOrder(cart: CartInput, menu: MenuSnapshot): PricingResult {
 
   // The minimum applies to the food, not to the delivery fee — charging someone
   // a shipping cost to reach the minimum that unlocks shipping is circular.
-  if (subtotalCents < menu.settings.minOrderCents) {
+  // Skipped entirely for dine_in: someone already seated at a table isn't
+  // choosing between shops by cart size, and blocking a single-item order
+  // from a table is just a bad night for the person sitting there.
+  if (cart.fulfillment !== "dine_in" && subtotalCents < menu.settings.minOrderCents) {
     errors.push({
       code: "below_minimum",
       message: `El pedido mínimo es de ${(menu.settings.minOrderCents / 100).toLocaleString("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 })}.`,

@@ -26,6 +26,8 @@ interface CartState {
   lines: CartLine[];
   fulfillment: FulfillmentType;
   deliveryZoneId: string | null;
+  /** Set once from a scanned QR's `?mesa=`. See menu-client.tsx. */
+  tableId: string | null;
 
   ensureBusiness: (slug: string) => void;
   addLine: (line: Omit<CartLine, "lineId">) => void;
@@ -34,6 +36,7 @@ interface CartState {
   clear: () => void;
   setFulfillment: (fulfillment: FulfillmentType) => void;
   setDeliveryZoneId: (zoneId: string | null) => void;
+  setTableId: (tableId: string | null) => void;
 }
 
 function newLineId() {
@@ -49,10 +52,11 @@ export const useCartStore = create<CartState>()(
       lines: [],
       fulfillment: "delivery",
       deliveryZoneId: null,
+      tableId: null,
 
       ensureBusiness: (slug) => {
         if (get().businessSlug === slug) return;
-        set({ businessSlug: slug, lines: [], deliveryZoneId: null });
+        set({ businessSlug: slug, lines: [], deliveryZoneId: null, tableId: null });
       },
 
       addLine: (line) => {
@@ -73,10 +77,13 @@ export const useCartStore = create<CartState>()(
 
       setFulfillment: (fulfillment) => set({ fulfillment }),
       setDeliveryZoneId: (deliveryZoneId) => set({ deliveryZoneId }),
+      setTableId: (tableId) => set({ tableId }),
     }),
     {
       name: "menu-digital-cart",
-      version: 1,
+      version: 2,
+      // A v1 cart persisted before tableId existed just gets the default
+      // (null) merged in — no migration function needed for an additive field.
     },
   ),
 );

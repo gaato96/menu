@@ -61,7 +61,7 @@ export function ProductSheet({
     const snapshot: MenuSnapshot = {
       products: new Map([[menuProduct.id, menuProduct]]),
       zones: new Map(),
-      settings: { deliveryEnabled: true, pickupEnabled: true, minOrderCents: 0 },
+      settings: { deliveryEnabled: true, pickupEnabled: true, minOrderCents: 0, dineInEnabled: true },
     };
     const errors: Parameters<typeof priceLine>[2] = [];
     const result = priceLine({ lineId: "preview", productId: menuProduct.id, quantity, optionIds }, snapshot, errors);

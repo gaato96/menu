@@ -22,6 +22,7 @@ export function BoardColumn({
   currency,
   businessName,
   zoneNames,
+  tableNames,
   onAdvance,
   onCancel,
   onGoBack,
@@ -33,6 +34,7 @@ export function BoardColumn({
   currency: string;
   businessName: string;
   zoneNames: Record<string, string>;
+  tableNames: Record<string, string>;
   onAdvance: (order: BoardOrder) => void;
   onCancel: (order: BoardOrder) => void;
   onGoBack: (order: BoardOrder) => void;
@@ -67,6 +69,7 @@ export function BoardColumn({
             currency={currency}
             businessName={businessName}
             zoneName={order.delivery_zone_id ? zoneNames[order.delivery_zone_id] : null}
+            tableLabel={order.table_id ? tableNames[order.table_id] : null}
             onAdvance={() => onAdvance(order)}
             onCancel={() => onCancel(order)}
             onGoBack={() => onGoBack(order)}

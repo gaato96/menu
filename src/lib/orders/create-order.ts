@@ -12,6 +12,7 @@ export type CreateOrderResult =
   | { ok: false; reason: "not_found" }
   | { ok: false; reason: "suspended" }
   | { ok: false; reason: "closed" }
+  | { ok: false; reason: "table_invalid" }
   | { ok: false; reason: "pricing"; errors: PricingError[] };
 
 /**
@@ -50,6 +51,23 @@ export async function createOrder(
   const isOpen = isBusinessOpenNow(business.timezone, hoursResult.data ?? [], business.is_open_manual);
   if (!isOpen) return { ok: false, reason: "closed" };
 
+  // A table order is re-verified server-side same as everything else here:
+  // the browser sent a tableId, but only a real, active table belonging to
+  // THIS business with the module actually on is allowed to seat an order.
+  if (request.fulfillment === "dine_in") {
+    if (!request.tableId) return { ok: false, reason: "table_invalid" };
+
+    const { data: table } = await admin
+      .from("restaurant_tables")
+      .select("id")
+      .eq("id", request.tableId)
+      .eq("business_id", business.id)
+      .eq("is_active", true)
+      .maybeSingle();
+
+    if (!table) return { ok: false, reason: "table_invalid" };
+  }
+
   const snapshot = await loadMenuSnapshotForPricing(business.id);
 
   const priced = priceOrder(
@@ -76,11 +94,12 @@ export async function createOrder(
     p_order: {
       fulfillment_type: request.fulfillment,
       customer_name: request.customerName,
-      customer_phone: request.customerPhone,
+      customer_phone: request.fulfillment === "dine_in" ? null : (request.customerPhone ?? null),
       address: request.fulfillment === "delivery" ? (request.address ?? null) : null,
       address_reference:
         request.fulfillment === "delivery" ? (request.addressReference ?? null) : null,
       delivery_zone_id: order.deliveryZoneId,
+      table_id: request.fulfillment === "dine_in" ? (request.tableId ?? null) : null,
       payment_method: request.paymentMethod,
       cash_change_for_cents:
         request.paymentMethod === "cash" ? (request.cashChangeForCents ?? null) : null,
@@ -126,25 +145,33 @@ export async function createOrder(
     }).catch((error) => console.error("sendNewOrderPush", error));
   }
 
-  const message = buildWhatsAppMessage({
-    code: result.code,
-    businessName: business.name,
-    order,
-    fulfillment: request.fulfillment,
-    customerName: request.customerName,
-    address: request.fulfillment === "delivery" ? request.address : null,
-    addressReference: request.fulfillment === "delivery" ? request.addressReference : null,
-    deliveryZoneName: zoneName,
-    paymentMethod: request.paymentMethod,
-    cashChangeForCents: request.paymentMethod === "cash" ? request.cashChangeForCents : null,
-    notes: request.notes,
-    currency: business.currency,
-  });
+  // A table order goes straight to the kitchen — nobody sends it to
+  // WhatsApp, so there is no message to build at all.
+  const waUrl =
+    request.fulfillment === "dine_in"
+      ? ""
+      : buildWhatsAppUrl(
+          business.whatsapp_phone,
+          buildWhatsAppMessage({
+            code: result.code,
+            businessName: business.name,
+            order,
+            fulfillment: request.fulfillment,
+            customerName: request.customerName,
+            address: request.fulfillment === "delivery" ? request.address : null,
+            addressReference: request.fulfillment === "delivery" ? request.addressReference : null,
+            deliveryZoneName: zoneName,
+            paymentMethod: request.paymentMethod,
+            cashChangeForCents: request.paymentMethod === "cash" ? request.cashChangeForCents : null,
+            notes: request.notes,
+            currency: business.currency,
+          }),
+        );
 
   return {
     ok: true,
     orderId: result.id,
     code: result.code,
-    waUrl: buildWhatsAppUrl(business.whatsapp_phone, message),
+    waUrl,
   };
 }

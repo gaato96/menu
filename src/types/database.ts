@@ -31,7 +31,7 @@ export type OrderStatus =
   | "completed"
   | "cancelled";
 
-export type FulfillmentType = "delivery" | "pickup";
+export type FulfillmentType = "delivery" | "pickup" | "dine_in";
 export type PaymentMethod = "cash" | "transfer";
 export type PaymentStatus = "pending" | "paid" | "failed";
 export type StaffRole = "superadmin" | "owner" | "manager" | "cashier";
@@ -172,6 +172,16 @@ type DeliveryZone = {
   sort_order: number;
 };
 
+type RestaurantTable = {
+  id: string;
+  business_id: string;
+  label: string;
+  seats: number;
+  zone: string | null;
+  is_active: boolean;
+  sort_order: number;
+};
+
 type Order = {
   id: string;
   business_id: string;
@@ -179,7 +189,8 @@ type Order = {
   status: OrderStatus;
   fulfillment_type: FulfillmentType;
   customer_name: string;
-  customer_phone: string;
+  /** null only for dine_in — nobody needs a phone to hand a plate to a table. */
+  customer_phone: string | null;
   address: string | null;
   address_reference: string | null;
   delivery_zone_id: string | null;
@@ -200,6 +211,8 @@ type Order = {
   table_id: string | null;
   /** Exactly-once marker for the inventory trigger. See D.2 migration. */
   stock_applied: boolean;
+  /** Reserved for a future "cuenta de mesa" grouping. Unused today. */
+  session_id: string | null;
 };
 
 type OrderItem = {
@@ -342,6 +355,11 @@ export type Database = {
         DeliveryZone,
         Insertable<DeliveryZone, "business_id" | "name">,
         Partial<DeliveryZone>
+      >;
+      restaurant_tables: TableShape<
+        RestaurantTable,
+        Insertable<RestaurantTable, "business_id" | "label">,
+        Partial<RestaurantTable>
       >;
       orders: TableShape<
         Order,
