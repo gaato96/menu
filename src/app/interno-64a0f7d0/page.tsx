@@ -1,9 +1,11 @@
 import { marked } from "marked";
 import type { Metadata } from "next";
 
+import { guiaProduccion } from "@/content/internal/guia-produccion";
 import { mensajesEnFrio } from "@/content/internal/mensajes-en-frio";
 import { planContenido } from "@/content/internal/plan-contenido";
 import { planMarketing } from "@/content/internal/plan-marketing";
+import { precios } from "@/content/internal/precios";
 import { productMarketing } from "@/content/internal/product-marketing";
 import { prospeccion } from "@/content/internal/prospeccion";
 
@@ -23,6 +25,8 @@ const DOCS = [
   { key: "prospeccion", label: "Prospección", source: prospeccion },
   { key: "mensajes", label: "Mensajes en frío", source: mensajesEnFrio },
   { key: "contenido", label: "Plan de contenido", source: planContenido },
+  { key: "produccion", label: "Guía de producción", source: guiaProduccion },
+  { key: "precios", label: "Precios", source: precios },
 ];
 
 export default async function InternalDocsPage() {

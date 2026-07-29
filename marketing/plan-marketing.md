@@ -307,7 +307,9 @@ Eso tiene una consecuencia estratégica dura: **la calidad de la instalación es
 **Decisión bloqueante #1.** No se puede ejecutar §4 sin esto.
 
 ### El marco correcto
-Ancla de mercado: **Pido.club ~$29.900/mes** en autoservicio. El error a evitar es ponerse debajo. Menú Digital tiene un costo que ellos no tienen (las horas presenciales de Gastón) y una entrega que ellos no dan. **El precio va arriba, y el fee de instalación va explícito.**
+Ancla de mercado real (corregida — ver `marketing/precios.md`): **SoyMenu $20.000/mes**, el autoservicio puro más completo verificado. *(Pido.club no cobra suscripción mensual: es $29.900 de pago único + comisión sobre ventas — no sirve como ancla de "precio fijo".)* El error a evitar es ponerse debajo del piso del autoservicio. Menú Digital tiene un costo que ellos no tienen (las horas presenciales de Gastón) y una entrega que ellos no dan. **El precio va arriba, y el fee de instalación va explícito.**
+
+**Precios definitivos:** ver `marketing/precios.md` — Base $34.900/mes + $55.000 instalación · Salón $49.900/mes + $70.000 · Full $64.900/mes sin fee nuevo. Incluye cláusula de ajuste cada 90 días, obligatoria dada la inflación argentina.
 
 ### Estructura recomendada
 
@@ -485,7 +487,7 @@ Ads geolocalizados (si aparece presupuesto) · segundo mercado con persona local
 
 ### Decisiones abiertas (en orden de urgencia)
 
-1. **🔴 Precio de los tres planes y del fee de instalación.** Bloquea todo §4. Sin esto no se sale a la calle.
+1. ~~🔴 Precio de los tres planes y del fee de instalación.~~ **Resuelto** — ver `marketing/precios.md`: Base $34.900/mes + $55.000, Salón $49.900/mes + $70.000, Full $64.900/mes sin fee nuevo.
 2. **🔴 Dominio propio.** Bloquea la credibilidad de cualquier pieza escrita.
 3. **🟡 ¿Cuántas horas por semana reales para visitas?** Si la respuesta honesta es 4 y no 12, el plan de 90 días se recalcula con 4. **Un número real es mejor que uno lindo** — todo el resto del plan depende de este.
 4. **🟡 ¿Hay algún local conocido para instalar primero?** Un conocido con un local vale por veinte puertas frías, y desbloquea el video, el testimonio y los números.

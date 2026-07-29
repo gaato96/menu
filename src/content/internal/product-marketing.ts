@@ -1,6 +1,6 @@
 export const productMarketing = `# Product Marketing Context — Menú Digital
 
-**Document version:** v1
+**Document version:** v2
 **Last updated:** 2026-07-28
 **Producto:** Menú Digital (SaaS gastronómico)
 **Alcance:** este documento cubre **únicamente Menú Digital**. Es una marca independiente con su propia URL, su propia web y su propio funnel.
@@ -145,8 +145,8 @@ No aplica comité de compra: el dueño/encargado es usuario, campeón, decisor y
 
 *Basado en research de SERP del mercado argentino (2026-07-27).*
 
-**Directa — SaaS gastronómico nacional:** HivePOS, Comandar, MiRestoApp, Pido.club (~$29.900/mes), Bistrosoft, MenuconQR, OlaClick.
-Modelo autoservicio, prueba gratis de 14–30 días, precio fijo mensual. **Falla:** nadie te instala nada, nadie carga tu menú, nadie está disponible cuando se rompe.
+**Directa — SaaS gastronómico nacional:** HivePOS, Comandar, MiRestoApp, Bistrosoft, MenuconQR, OlaClick, más SoyMenu ($20.000/mes, plan único) y Nedify ($7.000–$10.000/mes, 3 planes). Pido.club **no cobra suscripción mensual** — es $29.900 de pago único de puesta en marcha y después comisión escalonada sobre ventas ("si no vendés, no pagás"); verificado 2026-07-28, ver \`marketing/precios.md\` §Corrección.
+Modelo mayormente autoservicio, prueba gratis de 14–30 días. **Falla:** nadie te instala nada, nadie carga tu menú, nadie está disponible cuando se rompe.
 
 **Secundaria — WhatsApp Business con catálogo.** Gratis y ya instalado. **Falla:** es manual, sin pipeline visual, sin alerta, sin historial, y el catálogo de WhatsApp no maneja variantes ni agregados (que es donde justamente se equivocan los pedidos).
 
@@ -294,7 +294,7 @@ Secundarios: ticket promedio antes/después (el menú con fotos y los agregados 
 
 | # | Decisión | Por qué bloquea |
 |---|---|---|
-| 1 | **Precio de los tres planes + fee de instalación** | No se puede vender lo que no tiene precio. Ancla de mercado: Pido.club ~$29.900/mes. Posicionamiento correcto: **arriba** del autoservicio nacional, no debajo |
+| 1 | ~~Precio de los tres planes + fee de instalación~~ **Resuelto en \`marketing/precios.md\`** | Base $34.900/mes + $55.000 instalación · Salón $49.900/mes + $70.000 · Full $64.900/mes sin fee nuevo. Ancla real de mercado: SoyMenu $20.000/mes (el autoservicio más completo verificado), no Pido.club |
 | 2 | **Dominio propio** (hoy vive en una URL de Vercel) | Una URL \`.vercel.app\` en una tarjeta o un cold email resta credibilidad frente a un dueño que no sabe qué es Vercel |
 | 3 | Nombre definitivo de marca | "Menú Digital" es descriptivo y no registrable; ayuda al SEO, pero no se defiende |
 
@@ -303,5 +303,6 @@ Secundarios: ticket promedio antes/después (el menú con fotos y los agregados 
 ## Changelog
 *Newest first. Una línea por revisión: qué cambió y por qué.*
 
+- v2 (2026-07-28) — Corrección de dato: Pido.club no cobra $29.900/mes (es pago único de instalación + comisión sobre ventas), verificado contra su web real. Reemplazado el ancla de mercado por SoyMenu ($20.000/mes) y Nedify ($7.000–$10.000/mes), ambos verificados. Decisión abierta #1 (precio) resuelta — ver \`marketing/precios.md\` para los montos definitivos.
 - v1 (2026-07-28) — Documento inicial, **independiente del contexto de Galu**. Definido a partir del producto real ya desplegado (Fases 0–6 + Tandas A–D): inventario verificado de features separando lo que existe de lo que no (MercadoPago e impresión térmica **no existen**, corrigiendo una afirmación errónea que circulaba en el contexto de la agencia), apertura del ICP en dos segmentos tras el módulo de mesas, empaquetado en tres planes derivado del gating de módulos, regla de uso de "sin comisión" (atracción) vs. "instalación presencial" (cierre), y mapa de personas incluyendo al mozo como riesgo de sabotaje en el segmento salón.
 `;
