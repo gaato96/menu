@@ -2,8 +2,8 @@
 
 **Cliente:** Menú Digital (marca independiente, construida por Galu)
 **Preparado para:** Gastón Gutierrez
-**Fecha:** 2026-07-28 · **Versión:** v1
-**Contexto base:** `.agents/product-marketing.md` v1 · `marketing/prospeccion.md`
+**Fecha:** 2026-07-28 · **Versión:** v2
+**Contexto base:** `.agents/product-marketing.md` v2 · `marketing/prospeccion.md` · `marketing/plan-contenido.md` v2
 
 ---
 
@@ -30,14 +30,14 @@ Todos los competidores nacionales venden autoservicio: te dan un usuario y te ar
 | 2 | 1 | **Dominio propio + GA4 + Search Console** | Una URL `.vercel.app` resta credibilidad; sin medición, los otros 89 días son a ciegas |
 | 3 | 1–2 | **Instalar el primer local, aunque sea gratis** | Sin un local real no hay video, no hay testimonio, no hay números. Es el desbloqueo de todo lo demás |
 | 4 | 2–12 | **8–12 visitas presenciales por semana** | El canal principal. Es lo único que no se puede delegar |
-| 5 | 3–12 | **Un formato de video, repetido: el tablero en hora pico real** | Contenido hipnótico y prueba de producto al mismo tiempo |
+| 5 | 3–12 | **Carruseles de valor real para dueños de local, 2-3 por semana** | Posiciona la cuenta como la que ayuda, no la que vende — y es el formato que menos tiempo de filmación exige |
 | 6 | 4–12 | **Ficha de Google Business Profile de Menú Digital** | El único canal inbound de intención alta que es gratis y rankea en semanas |
 
 ### Cómo se ve el mes 12, de forma plausible
 
 - **12–20 locales pagando** en Gran Tucumán → primer ingreso recurrente real.
 - 3–4 casos documentados **con números**, no con adjetivos.
-- Un video del tablero en hora pico con tracción orgánica, reutilizado en todo.
+- Una cuenta reconocida en el rubro gastronómico de Tucumán por dar consejos que sirven, no por mostrar el producto — con 2-3 carruseles guardados/compartidos por semana como señal real de valor.
 - Ficha de Google en el paquete local de "menú digital Tucumán" y variantes.
 - El proceso de instalación documentado al punto de que **otra persona pueda hacerlo** — el disparador de la primera contratación.
 
@@ -176,18 +176,24 @@ Es el motor de validación y lo único que no se puede delegar. Detalle operativ
 
 *Skills: `prospecting`, `sales-enablement`, `cold-email`.*
 
-### Movida 2 — Un solo formato de video, repetido *(semanas 3–12)*
+### Movida 2 — Cuenta de valor para dueños de locales, carrusel-first *(semanas 1–12, no espera al primer cliente)*
 
-No "hacer contenido". **Un formato:** el tablero funcionando durante hora pico real en un local real. Entran pedidos, suena la alerta, se mueve la tarjeta a Cocina. Es intrínsecamente hipnótico y es prueba de producto al mismo tiempo. Nada de cara a cámara, nada de tips.
+**Repensada tras feedback directo de Gastón: mostrar el tablero funcionando no es contenido, es una demo — y una demo no construye audiencia ni confianza.** El posicionamiento correcto es el inverso: Menú Digital se presenta como **la cuenta que ayuda a dueños de locales gastronómicos de Tucumán a operar mejor**, con el producto como una pieza más de esa ayuda, no como el tema central. Detalle completo, con las 5 estructuras de carrusel y los guiones exactos, en `marketing/plan-contenido.md` y `marketing/guia-produccion.md`.
 
-Formatos secundarios, en orden de facilidad:
-1. **El QR de mesa en acción** — alguien escanea, pide, y el pedido aparece en la cocina. 15 segundos, cero edición.
-2. **El chat vs. la comanda** — captura de un WhatsApp real de quince mensajes al lado de la comanda ordenada. Es el copy de la landing convertido en video.
-3. **El catálogo scroll** — se graba solo, ya está construido y es nativo del formato.
+**Por qué carrusel y no Reel, como formato principal:**
+- Es lo que Gastón puede producir más rápido con ayuda de la IA: Claude escribe el copy exacto de cada slide, Gastón solo pega el texto en una plantilla de Canva ya armada. Sin filmar, sin editar video, sin cámara.
+- El contenido educativo (tips, listas, errores comunes) es exactamente el tipo de contenido que mejor funciona en carrusel — se guarda, se comparte, y es donde vive la señal de "esto me sirve" (saves), no solo de entretenimiento.
+- Reels quedan como formato secundario, y siempre ilustrando un consejo puntual — nunca como demo de producto sola.
 
-**3 publicaciones por semana en Instagram Reels y TikTok.** Claude escribe todos los guiones; Gastón graba en tandas de una hora dentro del local que instale. **Esto solo se desbloquea con el primer cliente instalado** — es la razón número uno para instalar el primero aunque sea gratis.
+**Pilares de valor** (detalle en `plan-contenido.md`):
+1. Errores operativos que le cuestan plata a un local (formato Hack List)
+2. Cómo se hace en la práctica — precios de menú, organizar un viernes, capacitar rápido (Value-Stack, Demo Walkthrough)
+3. Cuentas simples que exponen un costo escondido — comisión de delivery, pedido perdido, mesa que espera (Problem-Proof, con matemática ilustrativa explícita, nunca una estadística inventada presentada como dato real)
+4. Lecciones de instalaciones reales, una vez que existan (Problem-Proof, con permiso del local)
 
-*Skills: `social`, `video`, `content-strategy-sms`.*
+**Cadencia:** 2-3 carruseles por semana en Instagram (la plataforma correcta para este formato), más 1 Reel ocasional cuando haya algo que de verdad se vea mejor en video. **No espera al primer cliente instalado** — a diferencia del plan anterior, el contenido de valor no depende de tener un local real filmado, así que arranca en la semana 1, en paralelo a la instalación.
+
+*Skills: `content-strategy-sms`, `social`, `copywriting`.*
 
 ### Movida 3 — Dominio propio + medición *(semana 1)*
 
@@ -215,7 +221,7 @@ Dos páginas, en este orden:
 
 ### Movida 6 — Instagram como vidriera, no como canal *(semanas 3–12)*
 
-Cuenta propia de Menú Digital, separada de Galu. Su trabajo no es conseguir clientes: es que **el dueño que googlea después de la visita encuentre algo vivo**. Una cuenta muerta hace parecer que la empresa cerró. Basta con las 3 publicaciones semanales de la Movida 2 y las historias de cada instalación.
+Cuenta propia de Menú Digital, separada de Galu. Su trabajo ya no es solo "que el dueño que googlea encuentre algo vivo" (aunque sigue siendo cierto) — con la Movida 2 reposicionada, la cuenta tiene un trabajo propio: **ser reconocida como la que ayuda**, independiente de si ese dueño particular llega a instalar el sistema. Los 2-3 carruseles semanales de la Movida 2 son el contenido; las historias de cada instalación son el complemento.
 
 ### Canales que NO vamos a hacer, y por qué
 
@@ -250,7 +256,7 @@ No es "el dueño se registró". Es **"entró el primer pedido real de un cliente
 
 **El paso 5 es el producto.** Es lo que ningún competidor puede copiar y es donde se gana o se pierde la renovación del mes 2.
 
-**El paso 6 es marketing, no soporte.** El lunes después del primer fin de semana es el único momento en que el dueño está impresionado y disponible. Ahí se pide todo: el testimonio, la reseña de Google, y permiso para grabar el video del tablero.
+**El paso 6 es marketing, no soporte.** El lunes después del primer fin de semana es el único momento en que el dueño está impresionado y disponible. Ahí se pide todo: el testimonio, la reseña de Google, y permiso para usar su caso (números, capturas del tablero) como base de un futuro carrusel de "lecciones reales" — nunca como demo suelta, siempre atado a un consejo concreto.
 
 ### Riesgo de activación #1 — el personal
 El miedo dominante del dueño es operativo: *"mi gente no lo va a usar el viernes"*. La capacitación tiene que incluir explícitamente al **mozo del segmento B**, que es quien puede sabotear la instalación si siente que lo reemplaza. El mensaje: el QR le saca la parte de anotar, no la de atender.
@@ -349,14 +355,15 @@ Nunca solo. Siempre contra lo que ya pierde:
 | Armar lista de 40 locales por zona con señales (§prospeccion) | Acq | Claude + Gastón |
 | Imprimir hojas de QR de demo para llevar | Acq | Gastón |
 | **Instalar el primer local, gratis si hace falta** | Act | Gastón |
+| Abrir Instagram de Menú Digital, publicar los primeros 2-3 carruseles de valor (no dependen del primer cliente) | Acq | Claude escribe, Gastón arma en Canva |
 
 ### Semanas 3–4 — Fundaciones
 
 | Acción | AARRR | Quién |
 |---|---|---|
 | Arrancar las visitas: 8–12 puertas/semana | Acq | Gastón |
-| **Grabar el video del tablero en hora pico del primer local** | Acq | Gastón |
-| Abrir Instagram y TikTok de Menú Digital, 3 posts/semana | Acq | Claude escribe, Gastón graba |
+| Sostener 2-3 carruseles de valor por semana | Acq | Claude escribe, Gastón arma en Canva |
+| Primer carrusel de "lección real" con el caso del primer local instalado | Acq | Claude + Gastón |
 | Crear ficha de Google Business Profile | Acq | Gastón |
 | Pedir testimonio + reseña + números al primer local | Ref | Gastón |
 | Escribir la secuencia de WhatsApp en frío (§cold-email) | Acq | Claude |
@@ -407,7 +414,7 @@ No hay ronda ni inversión prevista; esto se autofinancia con proyectos de agenc
 
 | Si aparece | Primer destino | Por qué |
 |---|---|---|
-| $200–500/mes | Instagram/Facebook Ads geolocalizados a 5 km, con el video del tablero | Es el único canal pago donde el ICP realmente está, y el creativo ya existiría |
+| $200–500/mes | Instagram/Facebook Ads geolocalizados a 5 km, promocionando los carruseles de mejor performance orgánica | Es el único canal pago donde el ICP realmente está, y el creativo ya existiría, validado orgánicamente antes de pagar por él |
 | Una contratación | Instalación y soporte, **no marketing** | El cuello de botella es físico, no de demanda |
 | $1.000+/mes | Recién ahí, un segundo mercado (Salta, Santiago) con una persona local | Sin persona local, el diferenciador no existe |
 
@@ -419,7 +426,7 @@ Lo que hace viable un plan de este tamaño con una persona: la estrategia y el c
 
 | Etapa | Qué se ejecuta | Skills | Herramientas |
 |---|---|---|---|
-| **Acquisition** | Listas, guiones de visita, mensajes en frío, guiones de video, landing, comparativas, SEO local | `prospecting`, `cold-email`, `social`, `video`, `copywriting`, `competitors`, `seo-audit`, `schema` | Google Maps, Instagram, TikTok, GBP, GA4, Search Console — todo gratis |
+| **Acquisition** | Listas, guiones de visita, mensajes en frío, copy de carruseles de valor, landing, comparativas, SEO local | `prospecting`, `cold-email`, `content-strategy-sms`, `social`, `copywriting`, `competitors`, `seo-audit`, `schema` | Google Maps, Instagram, Canva (plantilla reutilizable), GBP, GA4, Search Console — todo gratis |
 | **Activation** | Checklist de instalación, capacitación, carga de menú | `onboarding`, `sales-enablement` | `docs/instalacion-presencial.md`, panel propio |
 | **Retention** | Reporte mensual, prevención de baja, upsell | `churn-prevention`, `emails`, `sms` | WhatsApp, panel propio (ya calcula todo) |
 | **Referral** | Mecánica de referidos, pedido de reseñas | `referrals` | WhatsApp, GBP |
@@ -434,7 +441,7 @@ Lo que hace viable un plan de este tamaño con una persona: la estrategia y el c
 Leyenda: **Ahora** (90 días) · **Q2** · **Q3+** · **Skip** (con razón)
 
 ### Ahora
-Venta directa presencial · demo en vivo como material de venta · video del tablero en hora pico · QR de mesa como demo física · página de precios pública · ficha de Google Business Profile · testimonio y reseña el lunes siguiente · instalación del primer local gratis a cambio de contenido · referidos por nombre concreto · tocar los dos vecinos después de instalar · reporte mensual por WhatsApp con sus números · Instagram como vidriera viva.
+Venta directa presencial · demo en vivo como material de venta · carruseles de valor 2-3x/semana (Hack List, Value-Stack, Problem-Proof) · QR de mesa como demo física en la visita · página de precios pública · ficha de Google Business Profile · testimonio y reseña el lunes siguiente · instalación del primer local gratis a cambio de caso real · referidos por nombre concreto · tocar los dos vecinos después de instalar · reporte mensual por WhatsApp con sus números · Instagram posicionado como recurso, no como vidriera de producto.
 
 ### Q2
 Páginas comparativas `/vs/` · caso de éxito escrito con números · secuencia de re-contacto a los que dijeron "ahora no" · upsell a plan Full · programa formal de referidos · optimización de la landing con prueba social real · pedir reseñas de Google sistemáticamente.
@@ -497,5 +504,14 @@ Ads geolocalizados (si aparece presupuesto) · segundo mercado con persona local
 ### Anexos
 - `.agents/product-marketing.md` — posicionamiento, ICP, objeciones, voz
 - `marketing/prospeccion.md` — lista, señales de compra, territorio, mecánica de la visita
-- `marketing/cold-email.md` — copy de mensajes en frío
+- `marketing/mensajes-en-frio.md` — copy de mensajes en frío
+- `marketing/plan-contenido.md` — pilares de valor, calendario de carruseles, banco de ganchos
+- `marketing/guia-produccion.md` — plantilla de Canva y guiones slide-por-slide
+- `marketing/precios.md` — planes y fees definitivos
 - `docs/instalacion-presencial.md` — checklist de instalación (el diferenciador, documentado)
+
+---
+
+## Changelog
+- v2 (2026-07-28) — **Repositioning de §4 Movida 2**, a pedido explícito de Gastón: el contenido de producto ("mostrar el tablero funcionando") no es contenido de valor, es una demo, y no construye audiencia. Reemplazado por una estrategia de cuenta que ayuda a dueños de locales gastronómicos — carrusel-first (formato que Gastón puede producir con Claude sin filmar), pilares educativos, y sin depender de tener el primer cliente instalado para arrancar. Detalle completo en `plan-contenido.md` v2 y `guia-produccion.md` v2.
+- v1 (2026-07-28) — Documento inicial.

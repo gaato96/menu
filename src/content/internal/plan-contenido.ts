@@ -1,226 +1,156 @@
-export const planContenido = `# Menú Digital — Plan de contenido (90 días)
+export const planContenido = `# Menú Digital — Plan de contenido (90 días) — v2
 
-**Fecha:** 2026-07-28
-**Contexto base:** \`.agents/product-marketing.md\` v1 · \`marketing/plan-marketing.md\` §4 Movida 2 y §9
-**Plataformas:** Instagram Reels + TikTok. Nada de LinkedIn, nada de Twitter/X — el ICP no está ahí.
-**Objetivo del contenido:** no es "conseguir seguidores". Es que **cuando Gastón toque timbre, el dueño ya lo haya visto.** El contenido es material de venta que también circula solo.
-
----
-
-## 0. Por qué esto no arranca en la semana 1
-
-El plan de marketing (\`plan-marketing.md\` §9) es explícito: el video del tablero **solo se desbloquea con el primer cliente instalado**. No hay nada que grabar todavía. Este documento asume que las semanas 1–2 son de instalación del primer local (gratis si hace falta) y que el contenido arranca en la **semana 3**, sobre ese local real.
-
-Publicar antes de eso, con maquetas o el demo público en loop, sería justo lo que este producto vende en contra: apariencia sin sustancia. Mejor una cuenta callada dos semanas que un primer post flojo.
+**Fecha:** 2026-07-28 · **Versión:** v2 (reposicionado)
+**Contexto base:** \`.agents/product-marketing.md\` v2 · \`marketing/plan-marketing.md\` v2 §4 Movida 2
+**Plataforma principal:** Instagram, formato carrusel. Reels solo como repurposing ocasional.
+**Construido con:** \`content-strategy-sms\` (pilares, clusters) + \`social\` (frameworks de carrusel: Value-Stack, Problem-Proof, Hack List, Rant Callout, Demo Walkthrough).
 
 ---
 
-## 1. Pilares de contenido
+## 0. Por qué esta versión reemplaza a la anterior
 
-Cuatro pilares, no cinco — es un operador solo y el catálogo de temas de un SaaS de nicho gastronómico es angosto por diseño. Mejor hacer pocos pilares muy bien que diluirse.
+La v1 de este documento proponía un solo formato: filmar el tablero funcionando en hora pico. Gastón lo objetó, con razón: **eso es una demo de producto, no contenido.** No le aporta nada a alguien que todavía no es cliente — solo muestra "mirá lo que vendo". No construye audiencia, no genera guardados, no posiciona a nadie como alguien que sabe del rubro.
 
-| Pilar | % del contenido | Qué es | Formatos |
+**El cambio de fondo:** la cuenta de Menú Digital deja de ser una vidriera del producto y pasa a ser **un recurso para dueños de locales gastronómicos de Tucumán** — la clase de cuenta que alguien sigue y guarda posts aunque nunca compre nada, porque le sirve para su negocio. El producto aparece adentro de ese contenido, no como el tema del contenido.
+
+**Por qué carrusel y no Reel, como decisión de formato:**
+- Es lo que mejor sirve al contenido educativo (listas, comparaciones, procesos) — se guarda y se comparte, que es la señal real de valor, no el like.
+- Es lo que Gastón puede producir más rápido con ayuda de Claude: el copy de cada slide se escribe entero de antemano, y armar el carrusel es pegar texto en una plantilla ya lista. Sin cámara, sin edición de video, sin vergüenza de aparecer.
+- Resuelve mejor que los Reels el problema real (poco tiempo, no quiere grabarse): un carrusel de 8 slides se arma en 15-20 minutos una vez que existe la plantilla (\`guia-produccion.md\` §2).
+
+---
+
+## 1. Pilares de contenido (todos de valor, ninguno es "mirá mi producto")
+
+| Pilar | % del contenido | Qué es | Formato de carrusel |
 |---|---|---|---|
-| **El tablero** | 35% | El formato insignia: el Kanban funcionando en hora pico real, en un local real | Reel, 15–20 seg |
-| **El caos vs. el orden** | 25% | El dolor, mostrado, no explicado: WhatsApp de quince mensajes al lado de la comanda prolija | Reel, 20–30 seg |
-| **La mesa** | 20% | El QR en acción — el gancho del segmento salón, que hoy nadie está mostrando en Tucumán | Reel, 10–15 seg |
-| **Bastidores** | 15% | Gastón instalando, cargando el menú, capacitando al mostrador — el diferenciador real, visible | Reel/Stories, 20–40 seg |
-| **Cierre directo** | 5% | CTA sin vueltas al WhatsApp. Poco, pero necesario | Reel corto o Stories |
+| **Errores que cuestan plata** | 30% | Errores operativos concretos y con nombre, que un dueño de local puede reconocer y corregir hoy mismo | Hack List |
+| **Cómo se hace** | 30% | Guías prácticas paso a paso — precios de menú, organizar un viernes, capacitar rápido a alguien nuevo | Value-Stack / Demo Walkthrough |
+| **La cuenta simple** | 20% | Un cálculo ilustrativo que expone un costo escondido (comisión, pedido perdido, mesa que espera) | Problem-Proof, con números de ejemplo explícitos, nunca una estadística inventada |
+| **Lecciones de locales reales** | 15% *(arranca en 0%, sube con clientes reales)* | Un caso real, convertido en consejo generalizable — nunca "mirá mi tablero", siempre "esto aprendimos" | Problem-Proof |
+| **Reels ocasionales** | 5% | Repurposing del mejor carrusel de la semana como video corto, o un momento puntual que se ve mejor en movimiento | — |
 
-**Nunca más del 10% del feed es "promocional" en el sentido de vender.** El resto vende solo, mostrando.
+**Regla dura sobre números:** en el pilar "La cuenta simple", **nunca se presenta una estadística inventada como si fuera un dato real** ("el 60% de los locales pierde pedidos" — eso no existe, no se sabe, no se inventa). Lo que sí se hace: una **cuenta con números de ejemplo, explícitamente marcada como ejemplo**, que el lector puede rehacer con los suyos. Es honesto y funciona igual — a veces mejor, porque invita a que el lector haga el cálculo con su propio local en la cabeza.
 
-### 1.1 — El tablero *(pilar insignia)*
+### 1.1 — Errores que cuestan plata *(Hack List)*
 
-**Ángulo único:** no es un tutorial ni una demo grabada en frío — es la operación real de un local, con pedidos reales entrando, filmada tal cual pasa. Es simultáneamente contenido y prueba de producto: nadie puede alegar que es una maqueta.
+**Ángulo:** no "consejos genéricos de gastronomía" — errores específicos y nombrados, del tipo que un dueño reconoce en dos segundos porque le está pasando ahora mismo.
 
-**Por qué lo posee Menú Digital y no un competidor:** ningún SaaS nacional autoservicio tiene un local físico en Tucumán del que filmar esto. Es contenido que solo existe porque el modelo de negocio es presencial.
+**Banco de temas (backlog para 10 semanas, sin repetir):**
+1. El menú sin fotos (el cliente pide lo que ve, no lo que lee)
+2. No decir el tiempo de espera (el cliente que no sabe cuánto falta, cancela)
+3. Cobrar delivery sin decirlo hasta el final del pedido
+4. No tener un lugar fijo donde anotar los "sin cebolla" (se pierden siempre en el mismo punto)
+5. Un solo número de WhatsApp para pedidos y para todo lo demás (proveedores, personal, familia)
+6. No avisar cuando un plato se agotó — se entera el cliente después de pedirlo
+7. Carta de precios vieja pegada arriba de la nueva (clásico, y genera desconfianza)
+8. No preguntar la forma de pago hasta que el pedido ya está armado
+9. Mozo tomando el pedido de memoria en una mesa de 6
+10. No guardar el teléfono de un cliente que pidió dos veces la misma semana
 
-**Subtemas:**
-- Entra el pedido → suena la alerta → se mueve la tarjeta a Cocina (el loop base, se repite con distintos locales)
-- Un viernes completo comprimido en 20 segundos (time-lapse de una noche de servicio)
-- El mostrador reaccionando en vivo — la cara de alguien viendo entrar pedidos sin tener que mirar el celular
-- "Contamos cuántos pedidos entraron esta noche" — cierre con el número real, filmado sobre el tablero
+### 1.2 — Cómo se hace *(Value-Stack / Demo Walkthrough)*
 
-### 1.2 — El caos vs. el orden
+**Ángulo:** procesos concretos, con pasos numerados — el tipo de carrusel que se guarda porque se va a volver a consultar.
 
-**Ángulo único:** es el copy de la landing (\`"Un pedido no debería tardar quince mensajes"\`) convertido en video. No hace falta inventar nada — el dolor ya está escrito, solo se filma.
+**Banco de temas:**
+1. Cómo armar un menú que se lee en 10 segundos (jerarquía, no diseño)
+2. Los 4 datos que necesitás pedir siempre en un pedido de delivery (y en qué orden)
+3. Cómo capacitar a un empleado nuevo para el mostrador en 15 minutos
+4. Cómo poner precio a un plato nuevo sin adivinar (método simple, con ejemplo)
+5. Qué preparar antes de un viernes largo, en 5 pasos
+6. Cómo armar un combo que en realidad conviene (no solo "más barato junto")
+7. 3 formas de organizar la cocina para que las comandas no se crucen
+8. Cómo pedir una reseña de Google sin sonar desesperado
 
-**Subtemas:**
-- Captura de pantalla de un chat de WhatsApp real (anonimizado) al lado de la comanda ordenada que generó el mismo pedido
-- "Así entra un pedido de empanadas por WhatsApp" vs. "así entra por Menú Digital" — split screen
-- El error de comanda que se repite: alguien pide "sin cebolla" y se pierde en el chat
-- Un día de fin de semana narrado desde el punto de vista del mostrador, antes y después
+### 1.3 — La cuenta simple *(Problem-Proof, números de ejemplo)*
 
-### 1.3 — La mesa *(segmento B, el hueco de mercado)*
+**Ángulo:** cada carrusel hace una cuenta a la vista, con números redondos marcados como ejemplo, y deja que el lector la rehaga con los suyos.
 
-**Ángulo único:** el QR de mesa es lo único del sistema que ve el cliente final, así que el contenido no necesita explicar nada — solo mostrar a alguien escaneando y pidiendo. Es el pilar que más rápido puede viralizar porque el espectador se ve reflejado como el que está sentado en la mesa, no como el dueño.
+**Banco de temas (con la estructura de la cuenta, para no inventar nada en el momento):**
+1. "¿Cuánto te está costando la comisión de delivery?" — ejemplo: pedido de $10.000, comisión del 25% = $2.500 por pedido, x 20 pedidos/semana = $50.000/semana
+2. "Un pedido perdido por semana, ¿cuánto es al mes?" — ejemplo: $9.000 x 4 semanas = $36.000/mes, sin contar el cliente que no vuelve
+3. "¿Cuánto tarda tu mostrador en responder un pedido por WhatsApp en hora pico?" — cuenta de minutos x pedidos simultáneos = pedidos que se acumulan sin contestar
+4. "Reimprimir la carta cada vez que subís precios, ¿cuánto sale en tiempo?" — cuenta de horas x frecuencia de cambios de precio al año
 
-**Subtemas:**
-- Alguien escanea el QR de la mesa, pide, y el pedido aparece en cocina — 10 segundos, sin cortes
-- "¿Cuánto tarda un mozo en tomar tu pedido un sábado a la noche?" — comparación de tiempos
-- Recorrido del QR: de la mesa a la pantalla de cocina, en un solo plano continuo
-- El mozo, sin sacar la libretita, atendiendo dos mesas más porque no tiene que anotar
+### 1.4 — Lecciones de locales reales *(una vez que existan clientes)*
 
-### 1.4 — Bastidores
+**Ángulo:** cada carrusel arranca de un hecho real y puntual de un local instalado, y termina en un consejo que le sirve a cualquiera, no solo al que usa Menú Digital.
 
-**Ángulo único:** es el diferenciador de todo el negocio (instalación presencial) hecho visible. Nadie muestra esto porque los competidores no lo tienen — no hay nada que filmar del lado de un SaaS autoservicio.
+**Ejemplo de estructura (a completar con el primer cliente real):**
+- Slide 1: "En [Local] perdían X pedidos por semana los viernes." (hecho, con permiso)
+- Slides 2-4: qué estaba pasando realmente (el problema de fondo, no "no tenían nuestro sistema" — el problema operativo real: nadie estaba mirando el chat en el momento pico, por ejemplo)
+- Slide 5-6: qué cambió (acá sí puede aparecer el producto, como una pieza de la solución, no como el titular)
+- Slide final: el consejo generalizable, útil incluso para quien no instale nada
 
-**Subtemas:**
-- Gastón cargando el menú real con las fotos del local, ese mismo día
-- La hoja de QR saliendo de la impresora y pegándose en la primera mesa
-- Capacitando al mostrador en dos minutos — "así se mueve una tarjeta"
-- El primer viernes: Gastón contestando el WhatsApp del dueño en vivo, mostrando que está ahí
+### 1.5 — Reels ocasionales
 
-### 1.5 — Cierre directo
-
-Simple y sin vueltas: el logo, el WhatsApp, y una sola frase. Máximo una vez cada dos semanas como pieza dedicada — el resto del cierre va como último frame de los otros cuatro pilares (ver §4).
-
----
-
-## 2. Balance semanal y ritmo
-
-**3 publicaciones por semana**, tal como fija \`plan-marketing.md\`. Ni más — Gastón graba en tandas de una hora dentro del local que instala, no hay margen para más — ni menos, porque menos de 3 no sostiene el algoritmo de ninguna de las dos plataformas.
-
-| Semana tipo | Pilar | Por qué ese orden |
-|---|---|---|
-| Post 1 (lunes/martes) | El tablero | Abre la semana con el formato de mayor prueba de producto |
-| Post 2 (miércoles/jueves) | El caos vs. el orden **o** La mesa (alternado) | Varía el ángulo, mantiene el pilar insignia sin saturar |
-| Post 3 (viernes/sábado) | Bastidores **o** El tablero (si es fin de semana con servicio) | El viernes a la noche es literalmente el momento del dolor que vende — postear ahí, en caliente, funciona mejor que programarlo |
-
-**Mismo contenido, dos plataformas, sin reeditar.** TikTok e Instagram Reels comparten el mismo archivo vertical 9:16, mismos subtítulos quemados. No hay presupuesto ni tiempo para versionar por plataforma — la diferencia está en el caption, no en el video.
+No se planifican como pilar aparte con temas propios — nacen de repurposing. Cuando un carrusel funciona bien (guardados altos), se convierte en un Reel corto (CapCut permite armar un video a partir de las mismas imágenes del carrusel con transiciones simples, cero filmación nueva). Es una extensión de un carrusel que ya demostró que interesa, no contenido nuevo desde cero.
 
 ---
 
-## 3. Fórmula de video — la que se repite siempre
+## 2. Calendario de 90 días
 
-Cada uno de los cuatro pilares usa la misma estructura de tres segundos, adaptada:
+**A diferencia de la v1, esto arranca en la semana 1 — no depende de tener un cliente instalado.** Los pilares 1.1, 1.2 y 1.3 son autónomos del negocio de Gastón; solo el pilar 1.4 espera al primer local.
 
-\`\`\`
-[VISUAL] + [TEXTO EN PANTALLA] + [SONIDO/VOZ] — los tres al mismo tiempo, en el primer segundo.
-\`\`\`
+### Semanas 1–2 — Arranque
+Se abre la cuenta de Instagram (bio + foto + destacada de "servicios"), se arma la plantilla de Canva (\`guia-produccion.md\` §2), y se publican los primeros carruseles.
 
-**Estructura estándar (15–25 seg, sin narración a cámara — nunca a cámara):**
+| Semana | Post 1 | Post 2 | Post 3 (opcional) |
+|---|---|---|---|
+| 1 | 1.1 — "El menú sin fotos" | 1.2 — "Los 4 datos que necesitás pedir siempre" | 1.3 — "¿Cuánto te cuesta la comisión de delivery?" |
+| 2 | 1.1 — "No decir el tiempo de espera" | 1.2 — "Cómo poner precio a un plato nuevo" | — |
 
-\`\`\`
-[0–2s]   Gancho visual: el momento más característico del pilar (la alerta sonando,
-         el QR escaneándose, la mano cargando una foto de producto)
-[2–4s]   Texto en pantalla que nombra el dolor o la escena en 4–6 palabras
-[4–18s]  El hecho, sin cortar: el pedido entrando, la tarjeta moviéndose, el QR
-         resolviendo en la cocina
-[18–22s] Remate: el número, la cara de alguien, o el silencio después del caos
-[22–25s] Cierre: logo + "Menú Digital" + el WhatsApp en pantalla, 2 segundos, sin locución
-\`\`\`
-
-**Reglas de subtítulos** (25–40% más retención, la mayoría mira sin sonido):
-- Máximo 2 líneas en pantalla, 3–5 palabras por línea
-- Palabra clave resaltada en el color ember de la marca
-- Nunca voz en off explicando — el texto en pantalla hace ese trabajo
-
-**Regla de audio:** sonido ambiente real del local (la parrilla, el bullicio, la alerta del sistema) por encima de música de trending sounds. Es contenido de verdad, no un edit — la autenticidad del sonido es parte de la prueba.
-
----
-
-## 4. Ganchos por pilar (banco reutilizable)
-
-No se necesita un gancho nuevo para cada post — se rota este banco.
-
-**El tablero:**
-- "Esto pasó en la cocina de [Local] hace 20 minutos"
-- "Un pedido entra. Así se ve del otro lado."
-- "Contamos los pedidos de un viernes. Esto entró:"
-
-**El caos vs. el orden:**
-- "Así llega un pedido por WhatsApp." *(corte)* "Así llega por acá."
-- "Sin cebolla. ¿Dónde se perdió el sin cebolla?"
-- "Quince mensajes para un pedido de empanadas. Mirá esto."
-
-**La mesa:**
-- "Nadie te tomó el pedido todavía. Mirá qué pasa si escaneás esto."
-- "Un mozo menos corriendo. Una mesa más atendida."
-- "De la mesa a la cocina en 8 segundos. Sin gritar el pedido."
-
-**Bastidores:**
-- "Hoy le cargué el menú a [Local]. Así se hace."
-- "El viernes que abrimos, me quedé por si algo fallaba."
-- "Esto es todo lo que hace falta para instalarlo. Nada más."
-
----
-
-## 5. Diferenciación
-
-**Posicionamiento de voz:**
-> Menú Digital no es una cuenta que enseña marketing gastronómico ni da tips. Es una cámara apoyada sobre el mostrador de un local real, mostrando lo que pasa cuando el pedido deja de ser un chat. Cada video es evidencia, no una opinión — y por eso no compite por seguidores, compite por credibilidad frente a alguien que todavía no confía.
-
-**Huecos que nadie está cubriendo en Tucumán:**
-1. **Ningún SaaS gastronómico muestra su producto funcionando en locales reales de la ciudad.** Todos los competidores nacionales postean capturas de panel genéricas o stock footage.
-2. **Nadie está haciendo contenido del segmento salón/mesa.** Todo el contenido gastronómico de delivery en redes es sobre comida, no sobre el sistema detrás. El QR de mesa como protagonista de un Reel es territorio vacío.
-3. **Nadie muestra la instalación presencial como diferenciador visual.** Es el argumento de venta más fuerte del negocio y hoy no existe ni un segundo de video sobre eso en toda la categoría.
-
-**Segmento no atendido:** los dueños de bares y cervecerías de Tucumán que siguen cuentas de gastronomía y de otros locales, pero nunca ven contenido dirigido a **ellos como operadores**, solo a sus clientes. Ese es el ángulo: hablarle al que está del otro lado del mostrador, no al que pide.
-
----
-
-## 6. Calendario de 90 días
-
-### Semanas 1–2 — Silencio productivo (sin publicar)
-Instalación del primer local. Se abre la cuenta de Instagram y TikTok de Menú Digital (separada de Galu), se completa bio y foto, **cero posts todavía**. Nada que mostrar es mejor que mostrar poco.
-
-### Semanas 3–4 — Arranque
-Primer contenido real, sobre el primer local instalado.
+### Semanas 3–4 — Primer caso real
+En paralelo a la instalación del primer local (\`plan-marketing.md\` roadmap).
 
 | Semana | Post 1 | Post 2 | Post 3 |
 |---|---|---|---|
-| 3 | **El tablero** — primer pedido real entrando | **Bastidores** — cargando el menú, el día de la instalación | **El caos vs. el orden** — el chat real de antes vs. la comanda de ahora |
-| 4 | **El tablero** — un viernes completo, time-lapse | **La mesa** *(si el local tiene salón)* o **El caos** — otro caso de error de comanda | **Bastidores** — capacitando al mostrador |
+| 3 | 1.1 — "Cobrar delivery sin decirlo hasta el final" | 1.3 — "Un pedido perdido por semana, ¿cuánto es al mes?" | 1.2 — "Cómo capacitar a un empleado nuevo en 15 min" |
+| 4 | **1.4 — primera lección real del local instalado** | 1.1 — "No avisar cuando se agotó un plato" | 1.2 — "Qué preparar antes de un viernes largo" |
 
 ### Semanas 5–8 — Velocidad
-Se suma un segundo local (idealmente del segmento salón, para activar el pilar "La mesa" con material propio en vez de solo el demo).
+Con 1-2 locales activos, el pilar 1.4 empieza a tener material propio real cada 2-3 semanas.
 
 | Semana | Post 1 | Post 2 | Post 3 |
 |---|---|---|---|
-| 5 | El tablero (local 1) | La mesa (local 2, si ya está) | El caos vs. el orden |
-| 6 | El tablero — "contamos los pedidos del finde" | Bastidores — instalando el local 2 | La mesa |
-| 7 | El tablero | El caos vs. el orden | Bastidores |
-| 8 | El tablero (mejor toma hasta ahora, repostear con mejor edición) | La mesa | Cierre directo — primer video 100% CTA, aprovechando 2 locales de prueba social |
+| 5 | 1.1 | 1.3 | 1.2 |
+| 6 | 1.4 (si hay caso nuevo) o 1.1 | 1.2 | 1.3 |
+| 7 | 1.1 | 1.2 | 1.4 o 1.3 |
+| 8 | 1.3 | 1.1 | **Reel** — repurposing del carrusel con más guardados hasta acá |
 
 ### Semanas 9–12 — Composición
-Con 3–5 locales activos (meta del plan de marketing), el banco de material propio ya alcanza para no repetir el mismo local dos semanas seguidas.
+Con 3-5 locales (meta del plan de marketing), el pilar 1.4 puede sostener 1 post cada 1-2 semanas sin agotar casos.
 
 | Semana | Post 1 | Post 2 | Post 3 |
 |---|---|---|---|
-| 9 | El tablero (local nuevo) | La mesa | Bastidores |
-| 10 | El tablero | El caos vs. el orden | La mesa |
-| 11 | El tablero — mejor performer de las 8 semanas anteriores, repostear como Reel "recordatorio" | Bastidores | El caos vs. el orden |
-| 12 | El tablero | La mesa | **Cierre directo** — balance de los 90 días, "esto entró en 3 meses", con el número real |
+| 9 | 1.4 | 1.1 | 1.2 |
+| 10 | 1.3 | 1.1 | 1.4 |
+| 11 | 1.2 | 1.3 | 1.1 |
+| 12 | 1.4 — balance de los 90 días, en formato Problem-Proof (el resultado real, con permiso de mostrar números) | 1.1 | **Reel** de cierre |
 
-**Métrica de contenido, no de vanidad:** no se mide por likes. Se mide por **cuántas visitas presenciales mencionan haber visto un video antes de que Gastón toque timbre.** Esa pregunta se agrega al guion de la visita (\`mensajes-en-frio.md\` §3): *"¿nos viste en Instagram o TikTok?"* — un sí ahí vale más que cualquier métrica de la plataforma.
-
----
-
-## 7. Reglas de producción (batching)
-
-**1 hora por semana, en el local recién instalado o en una visita de seguimiento.** No hay rodajes dedicados — todo se filma durante una actividad que ya está pasando (la instalación, la capacitación, una visita de control).
-
-Rutina semanal sugerida:
-1. Revisar qué pilar toca según el calendario (5 min)
-2. Filmar en el local durante la visita ya planeada, 3–4 tomas por pilar (30–40 min)
-3. Editar con CapCut: recorte, subtítulos quemados, cierre de marca (15–20 min — Claude escribe el guion y el texto en pantalla de antemano para no perder tiempo decidiendo en el momento)
-4. Publicar en ambas plataformas con el caption correspondiente (5 min)
-
-**Lo que Claude prepara siempre antes de la visita:** el guion de 4 líneas (gancho, texto en pantalla, remate, caption) para cada pilar que toque esa semana, así la única decisión en el local es apretar grabar.
+**Métrica de contenido:** guardados y compartidos, no likes — es la señal real de que un carrusel sirvió como referencia (\`carousel-frameworks.md\`: "Judge carousels on saves and completion, not likes"). Igual que en la v1, se suma la pregunta en la visita: *"¿nos viste en Instagram?"* — sigue siendo la métrica que más importa.
 
 ---
 
-## 8. Qué NO hacer
+## 3. Diferenciación
 
-- **Nunca cara a cámara explicando el producto.** El formato que vende es el hecho, no la explicación — coherente con la regla de venta presencial ("el producto se explica solo").
-- **Nunca comprar seguidores ni usar bots de engagement.** Con 3 posts/semana y cero presupuesto, cualquier métrica inflada solo distorsiona la única señal que importa (§6).
-- **Nunca stock footage ni maquetas.** Si no hay un local real filmado esa semana, no se publica nada de "El tablero" — se prioriza otro pilar (Bastidores no depende de tener un pedido en curso).
-- **Nunca mencionar MercadoPago ni impresión térmica.** No existen. Mismo criterio que en \`mensajes-en-frio.md\`.
-- **Nunca mostrar la cara de un cliente final sin permiso.** Se pixela o se encuadra para no mostrar rostros de comensales en "La mesa" — el producto, no la persona.
+**Posicionamiento de voz (reemplaza al de v1):**
+> Menú Digital no es una cuenta de producto que hace contenido para vender. Es una cuenta de gestión gastronómica que, de paso, hizo un producto. Cada carrusel tiene que poder compartirse a un grupo de dueños de locales sin que suene a publicidad — si un consejo solo tiene sentido para alguien que va a comprar el sistema, no es el consejo correcto para esta cuenta.
+
+**Huecos que nadie está cubriendo en Tucumán:**
+1. No hay ninguna cuenta local que dé consejos operativos concretos a dueños de locales gastronómicos — el contenido gastronómico de Tucumán en redes es sobre comida (para el comensal), no sobre cómo se gestiona un local (para el dueño).
+2. Nadie está haciendo el ángulo "hacé la cuenta vos mismo" con números de ejemplo — es un formato que genera confianza porque no pretende saber el número exacto de nadie.
+3. Ningún SaaS competidor en Argentina tiene una cuenta de valor — todos hacen contenido de producto (capturas de panel, features). Ser la única cuenta *útil* del rubro es un espacio libre.
+
+---
+
+## 4. Producción — remite a la guía completa
+
+El detalle de cómo se arma cada carrusel (plantilla de Canva, copy exacto de los primeros 8 carruseles listos para publicar, y qué prepara Claude cada semana) está en \`marketing/guia-produccion.md\` v2 — reescrita en paralelo a este documento con el mismo cambio de enfoque.
 
 ---
 
 ## Changelog
-- v1 (2026-07-28) — Documento inicial, construido con \`content-strategy-sms\` (pilares, clusters, diferenciación) y \`social\` (estructura de video corto, ganchos, subtítulos). Calendario de 90 días secuenciado contra el roadmap de \`plan-marketing.md\` §9 — arranca en la semana 3, no en la semana 1, porque el primer contenido depende del primer local instalado.
+- v2 (2026-07-28) — **Reposicionamiento completo**, a pedido explícito de Gastón: el pilar "El tablero" (mostrar el producto funcionando) no aporta valor y fue eliminado como pilar principal. Reemplazado por 4 pilares de contenido educativo para dueños de locales gastronómicos (errores operativos, guías prácticas, cálculos ilustrativos, lecciones de casos reales), formato principal carrusel en vez de Reel, y arranque en la semana 1 en vez de esperar al primer cliente instalado. Construido con \`content-strategy-sms\` + \`social\` (\`carousel-frameworks.md\`: Hack List, Value-Stack, Problem-Proof).
+- v1 (2026-07-28) — Documento inicial (reemplazado).
 `;
