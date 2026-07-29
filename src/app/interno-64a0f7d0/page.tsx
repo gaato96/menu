@@ -2,6 +2,7 @@ import { marked } from "marked";
 import type { Metadata } from "next";
 
 import { mensajesEnFrio } from "@/content/internal/mensajes-en-frio";
+import { planContenido } from "@/content/internal/plan-contenido";
 import { planMarketing } from "@/content/internal/plan-marketing";
 import { productMarketing } from "@/content/internal/product-marketing";
 import { prospeccion } from "@/content/internal/prospeccion";
@@ -21,6 +22,7 @@ const DOCS = [
   { key: "contexto", label: "Contexto de producto", source: productMarketing },
   { key: "prospeccion", label: "Prospección", source: prospeccion },
   { key: "mensajes", label: "Mensajes en frío", source: mensajesEnFrio },
+  { key: "contenido", label: "Plan de contenido", source: planContenido },
 ];
 
 export default async function InternalDocsPage() {
