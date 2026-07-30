@@ -1,74 +1,126 @@
 # Menú Digital — Nombre y marca
 
-**Fecha:** 2026-07-30 · **Versión:** v2
+**Fecha:** 2026-07-30 · **Versión:** v4 — **NOMBRE DEFINITIVO ELEGIDO: VivoMenu**
 **Contexto base:** `.agents/product-marketing.md` v2 (Brand Voice §11, Customer Language §10) · `marketing/guia-produccion.md` v2 (paleta y tipografía ya en uso en el contenido)
-**Por qué existe este documento:** "Menú Digital" era el nombre de demo/interno. Antes de invertir en logo, cuenta de Instagram definitiva y dominio, hace falta un nombre de marca real. Este documento propone candidatos, recomienda los tres más fuertes, y da el prompt de diseño para generar logos una vez elegido.
-
-> **Qué cambió en v2:** los tres candidatos de la v1 (Al Toque, Tu Mostrador, Carta Viva) se descartaron con feedback directo de Gastón, corroborado con búsqueda activa: **"Al Toque" ya es un local gastronómico real en Tucumán** (colisión directa, dominio y redes ya tomados dentro y fuera de la provincia) y **no da ninguna pista de que se trata de un sistema de menú/pedidos** — el nombre por sí solo no comunica la categoría. "Mostrador" no es una palabra de uso corriente en Tucumán (es más porteña). Y "Carta" tampoco: acá al menú se le dice **menú**, no carta — eso es vocabulario de Buenos Aires. Los candidatos de v2 parten de esa corrección: usar la palabra correcta de la región y, sobre esa base, buscar un nombre que sí insinúe la categoría del producto.
 
 ---
 
-## 1. Criterios de selección (antes de mirar la lista)
+## 0. Decisión final
 
-Un nombre nuevo tiene que pasar estos cinco filtros, en orden de importancia:
+**El nombre de marca es `VivoMenu`** (una sola palabra, sin espacio, sin sufijo "App"). Elegido por Gastón el 2026-07-30, después de evaluar más de 30 candidatos (recorrido completo en §2).
 
-1. **Habla el idioma de mostrador, no de agencia.** Nada de "digital", "tech", "soft", "app" pegado como sufijo genérico — eso es exactamente lo que "Menú Digital" tiene de débil (descriptivo, no propio). Ver `product-marketing.md` §10: palabras a evitar.
-2. **Se dice en voz alta sin tropezar.** Un dueño se lo tiene que poder recomendar a otro dueño de boca, en un pasillo, sin deletrearlo. Si hace falta explicar cómo se escribe, pierde.
-3. **Funciona como handle de Instagram y como PWA instalada en el celular del cliente.** Corto, sin caracteres raros, sin depender de tildes para entenderse.
-4. **No colisiona con la competencia ya posicionada.** Evitar sufijos ya usados (`-Ya` de PedidosYa, `Menú-` genérico de MenuconQR, `Comandar` ya registrado).
-5. **Se banca crecer.** Si el día de mañana suma un módulo de fidelización o un segundo rubro, el nombre no debería quedar pegado solo a "menú" o solo a "QR".
+**Por qué:**
+- Comunica sin dudas la categoría: es un menú, y "vivo" transmite que se actualiza solo — exactamente lo que hace y lo que la competencia de papel no puede hacer.
+- No colisiona con ningún software gastronómico existente (verificado, ver §2).
+- Alcance nacional: no depende de un modismo regional (a diferencia de Al Toque, Yapa, Achalay).
+- Riesgo de marca "Vivo" (teléfonos/telecom de Telefónica Brasil) evaluado y descartado por decisión de Gastón: no es una marca reconocida en el mercado argentino de consumo gastronómico, y el uso es en una categoría completamente distinta (software B2B vs. telecom/celulares).
+- Formato final sin "App" pegado — evita el mismo problema de sonar a nombre de dominio que tenían "ComandApp", "PediApp" y "MiMenu.App" (ver §2).
+
+**Pendiente antes de imprimir o registrar nada:** confirmar disponibilidad real de dominio (`.com.ar`) y handle de Instagram directamente en el registrador y en la app — las búsquedas de este documento redujeron el riesgo de colisión evidente pero no reemplazan esa verificación directa (ver la lección de "Tu Pedido" en §2).
 
 ---
 
-## 2. Candidatos evaluados (v2)
+## 1. Criterios de selección
 
-Todos los candidatos de esta tabla se revisaron con búsqueda activa antes de recomendarlos (2026-07-30) — no es garantía total de disponibilidad de dominio/redes, pero descarta la colisión obvia que se pasó por alto con "Al Toque".
+Un nombre tiene que pasar estos filtros:
 
-### A — Con "menú" (la palabra correcta en Tucumán), recomendados
+1. **Indica la categoría** — menú digital / software de pedidos / gestión gastronómica. No puede sonar a nombre de comida, de local, ni ser tan abstracto que no diga nada del rubro.
+2. **Habla el idioma de mostrador, no de agencia.** Nada de "digital", "tech", "soft" pegado como sufijo genérico.
+3. **Se dice en voz alta sin tropezar**, se recomienda de boca en boca sin deletrear.
+4. **Funciona como handle de Instagram y como ícono de PWA.** Corto, sin caracteres raros.
+5. **No colisiona con la competencia** — ni con software gastronómico existente, ni con marcas grandes de otras categorías.
+6. **Alcance nacional** — no depende de un modismo regional que no se entienda fuera de Tucumán.
+7. **Se banca crecer** más allá de "menú" si el producto suma módulos.
 
-| Nombre | Por qué funciona | Riesgo / verificación pendiente |
-|---|---|---|
-| **Menú Vivo** | "Vivo" ataca directo el dolor #1 (la carta/menú que queda vieja apenas sube un precio) y sugiere lo digital sin decir "digital": un menú vivo se actualiza solo, uno de papel no. Sin colisión encontrada en Tucumán ni en el resto del país | Confirmar dominio `.com.ar` y handle de Instagram antes de imprimir nada |
-| **Menú al Día** | Juega con el doble sentido: "al día" = actualizado, y es una expresión de uso corriente en Argentina ("estar al día"). Sin colisión encontrada — lo único cercano son directorios genéricos de "menú del día" (comida del mediodía), que es un concepto distinto y no compite por el nombre | Puede confundirse de oído con "menú del día" (la oferta de almuerzo de un restaurante) — probar diciéndolo en voz alta antes de decidir |
-| **Menú Claro** | "Claro" es la promesa central en una sola palabra: un pedido que no se malinterpreta, un precio que no hay que preguntar dos veces. Tono directo, sin vueltas, coherente con la voz de marca. Sin colisión encontrada como nombre de sistema gastronómico | Nombre algo más genérico que los otros dos — se apoya más en el logo para diferenciarse |
+---
 
-### B — Alternativas, sin "menú" pero sin colisión detectada
+## 2. Recorrido completo de candidatos (para no repetir intentos)
 
-| Nombre | Por qué funciona | Riesgo |
-|---|---|---|
-| **El Pedido** | Nombra el otro artefacto central (el pedido, no el menú) — sirve tanto para el segmento A (delivery) como B (mesa). Sin colisión de software encontrada, aunque convive con el universo semántico de "PedidosYa" | Podría generar asociación involuntaria con PedidosYa solo por la raíz "pedido" — mitigable con el logo y el tono opuesto en el copy ("sin comisión") |
-| **Sin Vueltas** | Frase hecha argentina para "directo, sin complicarse" — coherente con la voz de marca | No nombra ni menú ni pedido: no resuelve el problema que Gastón señaló (falta de indicio de categoría). Se mantiene como opción solo si el logo hace ese trabajo con mucha fuerza |
+Se evaluaron más de 30 nombres en total. Se agrupan acá por qué falló cada tanda, porque el patrón importa: **casi cualquier combinación literal en español de "menú/pedido/comanda/mesa/gastro" ya está tomada** por el boom de software de menú QR y delivery de 2020–2022 en Latinoamérica.
 
-### C — Descartados en v1, y por qué siguen descartados
-
-| Nombre | Por qué se descarta |
+### Tanda 1 — Modismos argentinos, sin indicar categoría
+| Nombre | Por qué se descartó |
 |---|---|
-| **Al Toque** | **Colisión confirmada:** ya es un local gastronómico real en Tucumán, con dominio y redes ya tomados ahí y fuera de la provincia. Además no indica la categoría del producto | 
-| **Tu Mostrador** | "Mostrador" no es una palabra de uso corriente en el habla de Tucumán (más asociada a Buenos Aires) — pierde naturalidad en la boca del propio Gastón y de los dueños de locales |
-| **Carta Viva** | "Carta" tampoco es la palabra local — en Tucumán se dice **menú**, no carta. Usar "carta" suena a copy traído de otra plaza |
-| **La Comanda** | **Colisión directa confirmada:** ya existe un software gastronómico argentino llamado **TuComanda** (`tucomanda.com.ar`, sistema de comandas con QR y app de mozo) — casi calcado en concepto y sonido. Se descarta cualquier variante con "comanda" como raíz del nombre |
-| Comanda Ya / Pedilo Ya / cualquier "-Ya" | Copia el patrón de nombre de PedidosYa. Contradice el diferenciador ("no somos una plataforma de terceros") desde el nombre mismo |
-| Mostrador Digital / Carta Digital / cualquier "Algo + Digital" | Mismo problema estructural que "Menú Digital": descriptivo, no propio |
-| Che Pedido | Demasiado informal/juguetón para un dueño de 50 años de un restaurante de salón |
-| Rebusque | Connotación de changa/parche informal en Argentina — mal mensaje para una suscripción seria |
+| Al Toque | **Colisión confirmada**: local gastronómico real en Tucumán, dominio y redes tomados. No indica categoría |
+| Tu Mostrador | "Mostrador" no es vocabulario corriente en Tucumán (más porteño) |
+| Carta Viva | "Carta" tampoco es la palabra local — en Tucumán se dice **menú** |
+
+### Tanda 2 — Con "menú", palabra correcta pero sin convencer
+| Nombre | Resultado |
+|---|---|
+| Menú Vivo | Sin colisión encontrada, pero no convenció a Gastón |
+| Menú al Día | Sin colisión encontrada, pero no convenció |
+| Menú Claro | Sin colisión encontrada, pero no convenció |
+
+### Tanda 3 — Variantes con raíces de competidores directos
+| Nombre | Por qué se descartó |
+|---|---|
+| ComandApp | Suena a Comandar/Comandera/TuComanda. "-App" como sufijo genérico |
+| MenuGo | **Colisión directa fuerte**: existen menugo.io, menugo.ai, menugo.live, Gravy MenuGo |
+| GastroMenu | Sin colisión, pero genérico de software B2B (tipo Tango Restô) |
+| MiMenu.App | **Colisión directa**: existe miMenu.net/miMenu.online, mismo producto |
+| La Comanda | **Colisión directa**: TuComanda (tucomanda.com.ar) ya existe |
+
+### Tanda 4 — Palabras relacionadas a comida (rechazadas por sonar a comida, no a software)
+| Nombre | Resultado |
+|---|---|
+| Antojo | Sin colisión, pero "genera hambre, no vendo comida" |
+| Gustito | Sin colisión, mismo problema |
+| Comensal | **Colisión múltiple**: comensal.io, comensale.com, Fudo Comensal |
+| Apetito | **Colisión directa**: "Apetito Menu" es un producto real de menú digital |
+| Ranchi / Comalo / Sabroz / Ricote | Sin colisión ninguna, pero rechazadas por sonar a nombre de comida, no de software |
+
+### Tanda 5 — Identidad regional (rechazadas por no querer alcance solo local)
+| Nombre | Resultado |
+|---|---|
+| Yapa | Sin colisión, palabra real del NOA — rechazada por limitar el alcance a identidad regional |
+| Ingenio | Sin colisión, fuerte simbolismo tucumano — rechazada por el mismo motivo |
+| Tafí | Nombre de lugar puntual — mismo motivo |
+| Achalay | **Colisión directa**: marca tucumana real (dulces y vinos, Amaicha) |
+
+### Tanda 6 — Control/gestión del negocio (rechazadas por no evocar comida/menú en absoluto)
+| Nombre | Resultado |
+|---|---|
+| Mando | Sin colisión, pero "no tiene nada que ver con menú digital, restaurante, comida" |
+| Bitácora | Sin colisión, mismo rechazo |
+| Timón | **Colisión directa**: "Timón Hotel", software real con 300+ establecimientos |
+
+### Tanda 7 — Pedido/menú directos (varios con colisión real, hallada tarde)
+| Nombre | Resultado |
+|---|---|
+| El Tablero | Sin colisión — no se avanzó, se probaron otras primero |
+| Tu Pedido | **Colisión directa, hallada después de una primera búsqueda que no la detectó**: existe @tupedido_argentina (Instagram activo), app "Tupedido" en Google Play, página de Facebook y app en App Store. **Lección: verificar directo en Instagram/tiendas de apps, no solo búsqueda web genérica** |
+| Tu Menú | **Colisión directa fuerte**: tumenu.com.ar / tumenu.lat / tumenudigital.app, empresa activa en toda Latinoamérica, mismo producto exacto |
+| Platix | **Colisión directa**: platix360.com, software de gestión de restaurantes real |
+| PediOk | Sin colisión de nombre exacto, pero cae en el racimo saturado de "Pedi-" (Pedix, Pedi.app, Pedly.app, Pedisy, PedidosYa) |
+| PediApp | **Colisión directa fuerte**: pedi.app, catálogo digital + WhatsApp + sin comisión — casi idéntico en propuesta de valor |
+| TuMenuGo | No existe el string exacto, pero combina las dos raíces más saturadas de todo el recorrido (Tu Menu + MenuGo) — descartado por acumulación de riesgo |
+
+### Tanda 8 — Negocio/local gastronómico, no comida (rechazadas por "horribles" / no gustar)
+| Nombre | Resultado |
+|---|---|
+| Vidriera | Sin colisión, conecta con la metáfora ya usada en `plan-marketing.md` ("Instagram como vidriera") — no elegida |
+| Estación | Sin colisión, mismo destino |
+| Fachada / Trastienda / Persiana | Sin colisión ninguna — rechazadas por gusto |
+
+### Tanda 9 — Ganador
+| Nombre | Resultado |
+|---|---|
+| **VivoMenu** | Sin colisión de software gastronómico encontrada. Se planteó el riesgo de que "Vivo" es una marca global de telefonía/celulares (Telefónica Brasil, fabricante de smartphones) — Gastón evaluó el riesgo y decidió que no es una marca reconocida en el consumo argentino y que la categoría (software B2B) no se superpone con telefonía de consumo. **Elegido como nombre definitivo.** |
 
 ---
 
-## 3. Hallazgo adicional (no es sobre el nombre, pero conviene registrarlo)
+## 3. Hallazgos adicionales sobre competencia (no son sobre el nombre, pero conviene registrarlos)
 
-La búsqueda de colisión encontró que **TuComanda** (`tucomanda.com.ar`) es un competidor argentino directo — sistema con menú QR, app de mozo y comandas a cocina en tiempo real — que **no estaba listado** en el panorama competitivo de `.agents/product-marketing.md` §6. Vale agregarlo ahí en la próxima revisión de ese documento, junto a Comandar, MiRestoApp, SoyMenu, Nedify, etc.
+La búsqueda de colisión, a lo largo de todo este proceso, encontró varios competidores argentinos/regionales **no listados** en el panorama competitivo de `.agents/product-marketing.md` §6:
+- **TuComanda** (tucomanda.com.ar) — menú QR + app de mozo + comandas en tiempo real.
+- **miMenu.net / miMenu.online** — menú digital autogestionable, casi idéntico en propuesta.
+- **Tu Menú** (tumenu.com.ar / tumenu.lat) — menú QR con actualización instantánea, activo en toda Latinoamérica.
+- **Tu Pedido** (@tupedido_argentina) — app de delivery argentina.
+- **PediApp** (pedi.app) — catálogo + WhatsApp + sin comisión, la propuesta de valor más parecida a la de Gastón de todas las encontradas.
+- **Timón Hotel** — software de gestión hotelera/gastronómica con 300+ establecimientos.
 
----
-
-## 4. Recomendación
-
-**Orden de preferencia: Menú Vivo → Menú al Día → Menú Claro.**
-
-**Menú Vivo** es el más fuerte porque resuelve exactamente lo que falló en v1: usa la palabra correcta de la región (**menú**, no carta ni mostrador), y el adjetivo "vivo" comunica la categoría sin decir "digital" — un menú vivo es, por definición, uno que no se queda desactualizado como el de papel. Es corto, se dice sin tropezar, y funciona igual de bien para el segmento A (menú con fotos que se actualiza) que para el B (la carta que ya no hay que reimprimir).
-
-**Antes de decidir, dos verificaciones que no se pueden volver a saltar** (la lección de "Al Toque"):
-1. Disponibilidad real del dominio (`.com.ar`) y del handle de Instagram para los tres candidatos — la búsqueda de este documento reduce el riesgo de colisión evidente, pero no reemplaza chequear directamente en el registrador de dominios y en Instagram.
-2. Decirlo en voz alta unas cuantas veces, en una frase de venta real: *"esto es Menú Vivo, te lo dejo andando hoy."* Si trastabilla al decirlo, es la señal más confiable de todas.
+Vale agregar estos seis a `product-marketing.md` §6 en la próxima revisión, junto a Comandar, MiRestoApp, SoyMenu, Nedify, etc. **PediApp en particular merece una mirada de cerca**: es el competidor con la propuesta de valor más cercana a la de Gastón (WhatsApp + sin comisión + QR) de todos los que aparecieron en este proceso.
 
 ---
 
@@ -92,16 +144,16 @@ Estos valores ya están validados en el sitio y en la guía de producción de co
 
 ## 5. Prompt de diseño de logo (para Ideogram, Gemini/Nano Banana, o Midjourney)
 
-Usar este prompt reemplazando `[NOMBRE]` por el nombre elegido. Pensado para un generador con buen manejo de tipografía (Ideogram 3.0 es el más confiable para que el texto salga legible; si se usa Midjourney o Gemini, generar el ícono solo, sin texto, y agregar el nombre después en Canva/Figma con Anton o Bebas Neue).
+Prompt listo para usar con el nombre definitivo. Pensado para un generador con buen manejo de tipografía (Ideogram 3.0 es el más confiable para que el texto salga legible; si se usa Midjourney o Gemini, generar el ícono solo, sin texto, y agregar el nombre después en Canva/Figma con Anton o Bebas Neue).
 
 ### Prompt base (ícono + wordmark)
 
 ```
-Minimal, confident logo for "[NOMBRE]" (e.g. "Menú Vivo"), a digital
-menu and order-management system used by small, independent food
-business owners in Argentina (pizzerias, burger joints, bars, casual
+Minimal, confident logo for "VivoMenu", a digital menu and
+order-management system used by small, independent food business
+owners in Argentina (pizzerias, burger joints, bars, casual
 restaurants) — NOT a corporate tech brand, NOT a delivery-platform
-brand.
+brand, NOT a phone/telecom brand.
 
 Style: flat vector, geometric, bold, high-contrast, works at small sizes
 (app icon, favicon, embroidered apron patch scale). Single strong
@@ -123,6 +175,9 @@ Concept direction (pick ONE per generation, don't blend):
 3. A speech-bubble shape merged with a plate or ticket outline —
    suggesting "the order arrives clearly," avoiding any generic chat-
    bubble-app cliché.
+4. A menu card or small booklet shape with a subtle "pulse" or "glow"
+   line through it — suggesting a menu that is alive/updating, without
+   using a literal heartbeat/EKG cliché.
 
 Typography (if the tool renders text well): pair with a bold condensed
 display face in the spirit of Anton or Bebas Neue for the wordmark,
@@ -133,7 +188,7 @@ Mood: like a well-made stamp or a hand-painted sign on a neighborhood
 restaurant's window — trustworthy, direct, a little bit handmade, not
 slick or "SaaS." Think of a mark a busy restaurant owner would trust
 enough to put on their own front door, not a mark that looks like it
-belongs to a fintech app.
+belongs to a fintech or telecom app.
 
 Format: square canvas, icon centered with generous padding, works at
 64x64px as well as full size. Provide as a standalone icon (no
@@ -143,7 +198,8 @@ Avoid: QR code motifs, generic phone-with-checkmark icons, fork-and-
 knife cliché restaurant icons, gradient "AI-app" aesthetics, rounded
 gradient blobs, generic Kanban board illustrations, delivery-scooter
 icons, laptop/cloud icons, emoji-style icons, thin hairline logos that
-disappear at small sizes.
+disappear at small sizes, anything resembling a telecom/phone-carrier
+logo.
 ```
 
 ### Variantes a pedir además del ícono principal
@@ -158,10 +214,16 @@ Una vez elegido un concepto que funcione, pedir estas variantes (mismo prompt ba
 
 ## 6. Próximo paso
 
-Una vez que Gastón elija nombre y genere/reciba las variantes de logo con este prompt, el siguiente documento a construir es un **sistema de diseño de marca** (paleta ampliada, uso correcto/incorrecto del isotipo, tipografía de aplicación, tono de voz aplicado a los assets visuales) — pendiente de que existan los logos reales para construirlo sobre eso y no al revés.
+Con el nombre ya definido, quedan dos pasos antes de construir el sistema de diseño de marca:
+1. **Verificar directo** (no por búsqueda web) disponibilidad de dominio `.com.ar` y handle de Instagram para VivoMenu.
+2. Generar los logos con el prompt de §5 y elegir el concepto que mejor funcione.
+
+Una vez que existan los logos reales, el siguiente documento a construir es el **sistema de diseño de marca** (paleta ampliada, uso correcto/incorrecto del isotipo, tipografía de aplicación, tono de voz aplicado a los assets visuales) — pendiente de tener los logos para construirlo sobre eso y no al revés.
 
 ---
 
 ## Changelog
-- v2 (2026-07-30) — Descartados los 3 candidatos de v1 con feedback de Gastón + verificación activa: "Al Toque" colisiona con un local real de Tucumán y no indica categoría; "mostrador" y "carta" no son vocabulario local (en Tucumán se dice **menú**). Nuevos candidatos centrados en la palabra correcta (Menú Vivo, Menú al Día, Menú Claro), todos revisados por colisión. Se descubrió además que **TuComanda** es un competidor real no listado antes en `product-marketing.md` §6 — pendiente agregarlo ahí.
-- v1 (2026-07-29) — Documento inicial: 6 candidatos de nombre evaluados contra los 5 criterios de la voz de marca, recomendación (Al Toque > Tu Mostrador > Carta Viva) — **descartada en v2**.
+- v4 (2026-07-30) — **Nombre definitivo elegido: VivoMenu.** Documentado el recorrido completo (30+ candidatos evaluados en 9 tandas) para dejar registro de por qué se descartó cada dirección. Actualizado el prompt de logo con el nombre final y una nueva dirección de concepto (menú con "pulso"/brillo, alusivo a "vivo"). Sumados PediApp, Tu Menú, Tu Pedido y Timón Hotel a los hallazgos de competidores no listados.
+- v3 (2026-07-30) — Analizados ComandApp, MenuGo, GastroMenu, MiMenu.App — todos descartados.
+- v2 (2026-07-30) — Descartados los 3 candidatos de v1 (Al Toque, Tu Mostrador, Carta Viva) por colisión o vocabulario no local.
+- v1 (2026-07-29) — Documento inicial.
