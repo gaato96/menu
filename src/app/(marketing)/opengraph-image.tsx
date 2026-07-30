@@ -19,7 +19,7 @@ export default function Image() {
         }}
       >
         <div style={{ display: "flex", fontSize: 88, fontWeight: 800, color: "#ffffff" }}>
-          Menú Digital
+          VivoMenu
         </div>
         <div style={{ display: "flex", marginTop: 20, fontSize: 32, color: "#dfe9e2" }}>
           Menú, pedidos y comandas en tiempo real — sin comisión

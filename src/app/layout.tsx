@@ -34,13 +34,13 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
-    default: "Menú Digital",
-    template: "%s · Menú Digital",
+    default: "VivoMenu",
+    template: "%s · VivoMenu",
   },
   description:
     "Toma de pedidos en tiempo real para locales gastronómicos: menú digital y tablero de comandas.",
   manifest: "/manifest.webmanifest",
-  applicationName: "Menú Digital",
+  applicationName: "VivoMenu",
   appleWebApp: {
     capable: true,
     title: "Comandas",

@@ -4,7 +4,7 @@ import { createPublicClient } from "@/lib/supabase/server";
 
 /**
  * A manifest per business, so a customer installs "Pizzería Don José" on
- * their home screen — not "Menú Digital". That's the whole point of doing
+ * their home screen — not "VivoMenu". That's the whole point of doing
  * this dynamically instead of shipping one static file: the icon a repeat
  * customer taps every Friday should be theirs, not the platform's.
  */

@@ -221,7 +221,7 @@ export default async function LandingPage() {
               pedidos y así se equivocan.
             </p>
             <p className="mt-4 max-w-md font-medium text-ink-900">
-              Menú Digital convierte eso en una comanda. Sola, ordenada, con todo adentro.
+              VivoMenu convierte eso en una comanda. Sola, ordenada, con todo adentro.
             </p>
           </Rise>
 
@@ -413,7 +413,7 @@ export default async function LandingPage() {
                 Mirá un menú real, no una maqueta
               </h2>
               <p className="mt-4 max-w-md text-ink-700">
-                Este es {business.name}, un local armado con Menú Digital. Las fotos de arriba
+                Este es {business.name}, un local armado con VivoMenu. Las fotos de arriba
                 salen de ese mismo menú. Entrá, armá un pedido y tocá todo lo que quieras — es
                 la versión real corriendo ahora mismo.
               </p>
