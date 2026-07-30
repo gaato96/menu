@@ -1,8 +1,10 @@
 export const nombresYMarca = `# Menú Digital — Nombre y marca
 
-**Fecha:** 2026-07-29 · **Versión:** v1
+**Fecha:** 2026-07-30 · **Versión:** v2
 **Contexto base:** \`.agents/product-marketing.md\` v2 (Brand Voice §11, Customer Language §10) · \`marketing/guia-produccion.md\` v2 (paleta y tipografía ya en uso en el contenido)
 **Por qué existe este documento:** "Menú Digital" era el nombre de demo/interno. Antes de invertir en logo, cuenta de Instagram definitiva y dominio, hace falta un nombre de marca real. Este documento propone candidatos, recomienda los tres más fuertes, y da el prompt de diseño para generar logos una vez elegido.
+
+> **Qué cambió en v2:** los tres candidatos de la v1 (Al Toque, Tu Mostrador, Carta Viva) se descartaron con feedback directo de Gastón, corroborado con búsqueda activa: **"Al Toque" ya es un local gastronómico real en Tucumán** (colisión directa, dominio y redes ya tomados dentro y fuera de la provincia) y **no da ninguna pista de que se trata de un sistema de menú/pedidos** — el nombre por sí solo no comunica la categoría. "Mostrador" no es una palabra de uso corriente en Tucumán (es más porteña). Y "Carta" tampoco: acá al menú se le dice **menú**, no carta — eso es vocabulario de Buenos Aires. Los candidatos de v2 parten de esa corrección: usar la palabra correcta de la región y, sobre esa base, buscar un nombre que sí insinúe la categoría del producto.
 
 ---
 
@@ -18,44 +20,55 @@ Un nombre nuevo tiene que pasar estos cinco filtros, en orden de importancia:
 
 ---
 
-## 2. Candidatos evaluados
+## 2. Candidatos evaluados (v2)
 
-### A — Directos, del vocabulario de mostrador (recomendados)
+Todos los candidatos de esta tabla se revisaron con búsqueda activa antes de recomendarlos (2026-07-30) — no es garantía total de disponibilidad de dominio/redes, pero descarta la colisión obvia que se pasó por alto con "Al Toque".
+
+### A — Con "menú" (la palabra correcta en Tucumán), recomendados
+
+| Nombre | Por qué funciona | Riesgo / verificación pendiente |
+|---|---|---|
+| **Menú Vivo** | "Vivo" ataca directo el dolor #1 (la carta/menú que queda vieja apenas sube un precio) y sugiere lo digital sin decir "digital": un menú vivo se actualiza solo, uno de papel no. Sin colisión encontrada en Tucumán ni en el resto del país | Confirmar dominio \`.com.ar\` y handle de Instagram antes de imprimir nada |
+| **Menú al Día** | Juega con el doble sentido: "al día" = actualizado, y es una expresión de uso corriente en Argentina ("estar al día"). Sin colisión encontrada — lo único cercano son directorios genéricos de "menú del día" (comida del mediodía), que es un concepto distinto y no compite por el nombre | Puede confundirse de oído con "menú del día" (la oferta de almuerzo de un restaurante) — probar diciéndolo en voz alta antes de decidir |
+| **Menú Claro** | "Claro" es la promesa central en una sola palabra: un pedido que no se malinterpreta, un precio que no hay que preguntar dos veces. Tono directo, sin vueltas, coherente con la voz de marca. Sin colisión encontrada como nombre de sistema gastronómico | Nombre algo más genérico que los otros dos — se apoya más en el logo para diferenciarse |
+
+### B — Alternativas, sin "menú" pero sin colisión detectada
 
 | Nombre | Por qué funciona | Riesgo |
 |---|---|---|
-| **Al Toque** | "Al toque" es modismo argentino para "ya mismo, sin esperar" — encaja directo con el dolor central (hora pico, pedidos que tardan) y con el doble sentido de "toque" = tap del QR/celular. Suena a mostrador, no a software | Verificar que no haya ya un local gastronómico o kiosco con ese nombre en Tucumán (es una expresión común) |
-| **Tu Mostrador** | Posesivo, igual que el copy ya validado de la landing ("Tu menú. Tu pedido. Tu plata."). "Mostrador" es una de las palabras núcleo de la voz de marca. Fácil de decir, fácil de recordar | Un poco más largo como handle (\`@tumostrador\`); puede sonar cercano a "tu negocio" genérico si no se refuerza con el ícono |
-| **Carta Viva** | "Carta" es cómo el rubro le dice al menú (no "menú"), y "viva" ataca directo el dolor #1: la carta impresa desactualizada. Buen nombre también si el producto crece a otras verticales de "carta que se actualiza sola" | Menos ligado al tablero/comanda (fuerte en el segmento B, algo más débil narrando el segmento A) |
+| **El Pedido** | Nombra el otro artefacto central (el pedido, no el menú) — sirve tanto para el segmento A (delivery) como B (mesa). Sin colisión de software encontrada, aunque convive con el universo semántico de "PedidosYa" | Podría generar asociación involuntaria con PedidosYa solo por la raíz "pedido" — mitigable con el logo y el tono opuesto en el copy ("sin comisión") |
+| **Sin Vueltas** | Frase hecha argentina para "directo, sin complicarse" — coherente con la voz de marca | No nombra ni menú ni pedido: no resuelve el problema que Gastón señaló (falta de indicio de categoría). Se mantiene como opción solo si el logo hace ese trabajo con mucha fuerza |
 
-### B — Directos, alternativas fuertes
-
-| Nombre | Por qué funciona | Riesgo |
-|---|---|---|
-| **La Comanda** | Nombra exactamente el artefacto central del producto (la comanda que llega prolija). Corto, con artículo que le da carácter de lugar ("La Comanda" suena a nombre de local, cómodo en el rubro) | Puede sonar a nombre de restaurante en sí mismo, no de sistema — desambiguar con el logo |
-| **Sin Vueltas** | Frase hecha argentina para "directo, sin complicarse" — coherente con el tono de marca ("cero signos de admiración", "si suena a agencia está mal escrito") | Más abstracto: no nombra ni el menú ni la comanda, exige que el ícono cargue con el significado |
-| **De Un Toque** | Ya es una frase usada en el copy actual para describir el tablero ("tablero de un toque"). Reforzar el nombre con una frase que ya vive en la marca reduce el trabajo de aprendizaje | Comparte raíz con "Al Toque" — no usar los dos, elegir uno |
-
-### C — Descartados, y por qué
+### C — Descartados en v1, y por qué siguen descartados
 
 | Nombre | Por qué se descarta |
 |---|---|
+| **Al Toque** | **Colisión confirmada:** ya es un local gastronómico real en Tucumán, con dominio y redes ya tomados ahí y fuera de la provincia. Además no indica la categoría del producto | 
+| **Tu Mostrador** | "Mostrador" no es una palabra de uso corriente en el habla de Tucumán (más asociada a Buenos Aires) — pierde naturalidad en la boca del propio Gastón y de los dueños de locales |
+| **Carta Viva** | "Carta" tampoco es la palabra local — en Tucumán se dice **menú**, no carta. Usar "carta" suena a copy traído de otra plaza |
+| **La Comanda** | **Colisión directa confirmada:** ya existe un software gastronómico argentino llamado **TuComanda** (\`tucomanda.com.ar\`, sistema de comandas con QR y app de mozo) — casi calcado en concepto y sonido. Se descarta cualquier variante con "comanda" como raíz del nombre |
 | Comanda Ya / Pedilo Ya / cualquier "-Ya" | Copia el patrón de nombre de PedidosYa. Contradice el diferenciador ("no somos una plataforma de terceros") desde el nombre mismo |
-| Mostrador Digital / Carta Digital / cualquier "Algo + Digital" | Mismo problema estructural que "Menú Digital": descriptivo, no propio, y exactamente lo que se está reemplazando |
-| Che Pedido | Demasiado informal/juguetón para un dueño de 50 años de un restaurante de salón — funciona mejor para un producto de consumo masivo que para un sistema que un dueño va a pagar todos los meses |
-| Rebusque | "Rebusque" tiene connotación de changa/parche informal en Argentina — mal mensaje para algo que se cobra como suscripción seria |
+| Mostrador Digital / Carta Digital / cualquier "Algo + Digital" | Mismo problema estructural que "Menú Digital": descriptivo, no propio |
+| Che Pedido | Demasiado informal/juguetón para un dueño de 50 años de un restaurante de salón |
+| Rebusque | Connotación de changa/parche informal en Argentina — mal mensaje para una suscripción seria |
 
 ---
 
-## 3. Recomendación
+## 3. Hallazgo adicional (no es sobre el nombre, pero conviene registrarlo)
 
-**Orden de preferencia: Al Toque → Tu Mostrador → Carta Viva.**
+La búsqueda de colisión encontró que **TuComanda** (\`tucomanda.com.ar\`) es un competidor argentino directo — sistema con menú QR, app de mozo y comandas a cocina en tiempo real — que **no estaba listado** en el panorama competitivo de \`.agents/product-marketing.md\` §6. Vale agregarlo ahí en la próxima revisión de ese documento, junto a Comandar, MiRestoApp, SoyMenu, Nedify, etc.
 
-**Al Toque** es el más fuerte de los tres porque hace dos trabajos con una sola palabra: nombra la velocidad (el dolor central, "se me pierden pedidos en hora pico") y sugiere la interacción táctil del producto (tocás la pantalla, no escribís un WhatsApp largo) sin necesitar explicarlo. Es además el que mejor se banca decirlo en la visita: *"esto es Al Toque, te lo dejo andando en el momento."*
+---
 
-Antes de decidir, dos verificaciones que no se pueden saltar (no hechas en este documento, requieren búsqueda activa):
-1. Disponibilidad del dominio (\`.com.ar\` o \`.com\`) y del handle de Instagram para los tres candidatos.
-2. Que "Al Toque" no esté ya siendo usado por otro local o marca gastronómica en Tucumán — al ser una expresión común, hay más chance de colisión que con "Carta Viva" o "Tu Mostrador".
+## 4. Recomendación
+
+**Orden de preferencia: Menú Vivo → Menú al Día → Menú Claro.**
+
+**Menú Vivo** es el más fuerte porque resuelve exactamente lo que falló en v1: usa la palabra correcta de la región (**menú**, no carta ni mostrador), y el adjetivo "vivo" comunica la categoría sin decir "digital" — un menú vivo es, por definición, uno que no se queda desactualizado como el de papel. Es corto, se dice sin tropezar, y funciona igual de bien para el segmento A (menú con fotos que se actualiza) que para el B (la carta que ya no hay que reimprimir).
+
+**Antes de decidir, dos verificaciones que no se pueden volver a saltar** (la lección de "Al Toque"):
+1. Disponibilidad real del dominio (\`.com.ar\`) y del handle de Instagram para los tres candidatos — la búsqueda de este documento reduce el riesgo de colisión evidente, pero no reemplaza chequear directamente en el registrador de dominios y en Instagram.
+2. Decirlo en voz alta unas cuantas veces, en una frase de venta real: *"esto es Menú Vivo, te lo dejo andando hoy."* Si trastabilla al decirlo, es la señal más confiable de todas.
 
 ---
 
@@ -84,10 +97,11 @@ Usar este prompt reemplazando \`[NOMBRE]\` por el nombre elegido. Pensado para u
 ### Prompt base (ícono + wordmark)
 
 \`\`\`
-Minimal, confident logo for "[NOMBRE]", a restaurant order-management
-system used by small, independent food business owners in Argentina
-(pizzerias, burger joints, bars, casual restaurants) — NOT a corporate
-tech brand, NOT a delivery-platform brand.
+Minimal, confident logo for "[NOMBRE]" (e.g. "Menú Vivo"), a digital
+menu and order-management system used by small, independent food
+business owners in Argentina (pizzerias, burger joints, bars, casual
+restaurants) — NOT a corporate tech brand, NOT a delivery-platform
+brand.
 
 Style: flat vector, geometric, bold, high-contrast, works at small sizes
 (app icon, favicon, embroidered apron patch scale). Single strong
@@ -149,5 +163,6 @@ Una vez que Gastón elija nombre y genere/reciba las variantes de logo con este 
 ---
 
 ## Changelog
-- v1 (2026-07-29) — Documento inicial: 6 candidatos de nombre evaluados contra los 5 criterios de la voz de marca, recomendación (Al Toque > Tu Mostrador > Carta Viva), y prompt de diseño de logo basado en la paleta y tipografía ya validadas en \`guia-produccion.md\` v2.
+- v2 (2026-07-30) — Descartados los 3 candidatos de v1 con feedback de Gastón + verificación activa: "Al Toque" colisiona con un local real de Tucumán y no indica categoría; "mostrador" y "carta" no son vocabulario local (en Tucumán se dice **menú**). Nuevos candidatos centrados en la palabra correcta (Menú Vivo, Menú al Día, Menú Claro), todos revisados por colisión. Se descubrió además que **TuComanda** es un competidor real no listado antes en \`product-marketing.md\` §6 — pendiente agregarlo ahí.
+- v1 (2026-07-29) — Documento inicial: 6 candidatos de nombre evaluados contra los 5 criterios de la voz de marca, recomendación (Al Toque > Tu Mostrador > Carta Viva) — **descartada en v2**.
 `;
