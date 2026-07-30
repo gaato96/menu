@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const WHATSAPP_URL = "https://wa.me/543815976357";
@@ -12,9 +13,10 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
           <Link
             href="/"
-            className="inline-flex min-h-touch items-center font-display text-lg font-extrabold tracking-tight text-white transition-colors hover:text-ember"
+            className="inline-flex min-h-touch items-center gap-2 font-display text-lg font-extrabold tracking-tight text-white transition-colors hover:text-ember"
           >
-            Menú<span className="text-ember">Digital</span>
+            <Image src="/VivoMenu.png" alt="" width={28} height={28} priority />
+            VivoMenu
           </Link>
           <a
             href={WHATSAPP_URL}
@@ -31,13 +33,14 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
 
       <footer className="border-t border-white/10 bg-night-950 px-4 py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
-          <div>
-            <p className="font-display text-base font-bold text-white">
-              Menú<span className="text-ember">Digital</span>
-            </p>
-            <p className="mt-0.5 text-xs text-white/50">
-              Hecho en Tucumán, para locales como el tuyo.
-            </p>
+          <div className="flex items-center gap-2">
+            <Image src="/VivoMenu.png" alt="" width={24} height={24} />
+            <div>
+              <p className="font-display text-base font-bold text-white">VivoMenu</p>
+              <p className="mt-0.5 text-xs text-white/50">
+                Hecho en Tucumán, para locales como el tuyo.
+              </p>
+            </div>
           </div>
           <div className="flex items-center gap-2 text-xs text-white/60">
             <Link
