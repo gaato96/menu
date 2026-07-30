@@ -29,7 +29,7 @@ Todos los competidores nacionales venden autoservicio: te dan un usuario y te ar
 | 1 | 1 | **Definir precio de los tres planes + fee de instalación** | No se puede salir a la calle sin precio. "Te paso el presupuesto" mata la visita |
 | 2 | 1 | **Dominio propio + GA4 + Search Console** | Una URL `.vercel.app` resta credibilidad; sin medición, los otros 89 días son a ciegas |
 | 3 | 1–2 | **Instalar el primer local, aunque sea gratis** | Sin un local real no hay video, no hay testimonio, no hay números. Es el desbloqueo de todo lo demás |
-| 4 | 2–12 | **8–12 visitas presenciales por semana** | El canal principal. Es lo único que no se puede delegar |
+| 4 | 1–12 | **~20-25 mensajes de WhatsApp/Instagram DM por semana**, con visita reservada solo para el que ya mostró interés | Es el canal que Gastón sí tiene tiempo de sostener. La visita deja de ser el filtro y pasa a ser el cierre |
 | 5 | 3–12 | **Carruseles de valor real para dueños de local, 2-3 por semana** | Posiciona la cuenta como la que ayuda, no la que vende — y es el formato que menos tiempo de filmación exige |
 | 6 | 4–12 | **Ficha de Google Business Profile de Menú Digital** | El único canal inbound de intención alta que es gratis y rankea en semanas |
 
@@ -164,17 +164,17 @@ Pauta $0 · Herramientas $0 (todo lo necesario tiene capa gratuita) · Retainers
 ### Estado actual
 **Cero.** Ningún canal activo. El producto lleva meses funcionando y nunca se anunció.
 
-### Movida 1 — Venta directa presencial *(semanas 2–12, el canal principal)*
+### Movida 1 — Embudo de mensajería, con la visita como cierre calificado *(semanas 1–12, el canal principal)*
 
-Es el motor de validación y lo único que no se puede delegar. Detalle operativo completo en `marketing/prospeccion.md`.
+**Repensada tras feedback de Gastón: las horas reales disponibles están en escribir mensajes, no en tocar puertas con frecuencia.** La visita presencial sigue siendo el momento que cierra la venta — nada reemplaza mostrar el tablero en el celular — pero deja de ser el filtro de entrada. El filtro pasa a ser el mensaje: se manda, se ve quién contesta y quién muestra interés real, y **solo a esos se los visita.** Detalle operativo completo, con el embudo numérico y la mecánica exacta, en `marketing/prospeccion.md` v2.
 
-- **8–12 puertas por semana**, martes a viernes, 15:00–18:00 (horario muerto).
-- **Una zona por semana**, ordenada: Av. Aconquija → Barrio Norte → microcentro → Barrio Sur.
-- **Segmento B primero**, con la hoja de QR impresa en la mano.
-- **La oferta de la primera visita no es la venta:** *"dejame instalarlo con tu menú de verdad y usalo un fin de semana"*. Ataca el miedo real, que es operativo y no económico.
-- **Métrica semanal: puertas tocadas y demos hechas.** Clientes cerrados es consecuencia, no palanca.
+- **Canal 0, primero siempre — contactos tibios de Galu.** Antes de escribirle a un desconocido, revisar la cartera de clientes y prospectos de la agencia y marcar los del rubro gastronómico, más pedir un referido a cada cliente actual de Galu sin importar el rubro. Es la lista más barata y la de mejor conversión — ya conocen a Gastón.
+- **Canal 1 — mensajes en frío por WhatsApp/Instagram DM**, ~20-25 nuevos por semana, usando las variantes personalizadas por señal de `mensajes-en-frio.md`.
+- **La visita se agenda solo cuando ya hay interés mostrado por mensaje** — no antes. Con eso, el ritmo de visitas baja a **~1 por semana en promedio**, algo sostenible incluso con poco tiempo libre.
+- **La oferta de la visita sigue siendo la misma:** *"dejame instalarlo con tu menú de verdad y usalo un fin de semana"*. No cambia — lo que cambia es cómo se llega a ella.
+- **Métricas semanales: mensajes enviados, respuestas, y visitas agendadas.** Ver el embudo completo con conversiones estimadas en `prospeccion.md` §2.
 
-*Skills: `prospecting`, `sales-enablement`, `cold-email`.*
+*Skills: `prospecting`, `cold-email`, `sales-enablement`.*
 
 ### Movida 2 — Cuenta de valor para dueños de locales, carrusel-first *(semanas 1–12, no espera al primer cliente)*
 
@@ -352,27 +352,29 @@ Nunca solo. Siempre contra lo que ya pierde:
 | Comprar dominio propio y apuntarlo | Acq | Gastón |
 | GA4 + Search Console + schema LocalBusiness | Acq | Claude |
 | Escribir `/precios` con los montos definidos | Rev | Claude |
+| **Revisar la cartera de Galu y marcar contactos tibios del rubro gastronómico + pedir referidos** | Acq | Gastón |
 | Armar lista de 40 locales por zona con señales (§prospeccion) | Acq | Claude + Gastón |
-| Imprimir hojas de QR de demo para llevar | Acq | Gastón |
-| **Instalar el primer local, gratis si hace falta** | Act | Gastón |
+| **Empezar a mandar mensajes: ~20-25/semana** por WhatsApp/IG DM, empezando por los tibios de Galu | Acq | Gastón (Claude arma cada mensaje) |
+| Imprimir hojas de QR de demo para llevar a las visitas que se agenden | Acq | Gastón |
+| **Instalar el primer local, gratis si hace falta** (puede salir directo de un contacto tibio) | Act | Gastón |
 | Abrir Instagram de Menú Digital, publicar los primeros 2-3 carruseles de valor (no dependen del primer cliente) | Acq | Claude escribe, Gastón arma en Canva |
 
 ### Semanas 3–4 — Fundaciones
 
 | Acción | AARRR | Quién |
 |---|---|---|
-| Arrancar las visitas: 8–12 puertas/semana | Acq | Gastón |
+| Sostener ~20-25 mensajes/semana | Acq | Gastón |
+| Visitar solo a quien mostró interés real (meta: ~1 visita/semana) | Acq | Gastón |
 | Sostener 2-3 carruseles de valor por semana | Acq | Claude escribe, Gastón arma en Canva |
 | Primer carrusel de "lección real" con el caso del primer local instalado | Acq | Claude + Gastón |
 | Crear ficha de Google Business Profile | Acq | Gastón |
 | Pedir testimonio + reseña + números al primer local | Ref | Gastón |
-| Escribir la secuencia de WhatsApp en frío (§cold-email) | Acq | Claude |
 
 ### Semanas 5–8 — Velocidad
 
 | Acción | AARRR | Quién |
 |---|---|---|
-| Sostener 8–12 visitas/semana, rotando zona | Acq | Gastón |
+| Sostener ~20-25 mensajes/semana, alternando WhatsApp e Instagram DM | Acq | Gastón |
 | Publicar `/vs/comandar` y `/vs/pedidosya` | Acq | Claude |
 | Agregar prueba social a la landing (testimonio + números reales) | Acq | Claude |
 | Segunda visita de seguimiento a cada local instalado | Ret | Gastón |
@@ -383,15 +385,16 @@ Nunca solo. Siempre contra lo que ya pierde:
 
 | Acción | AARRR | Quién |
 |---|---|---|
-| Seguir visitas + capitalizar referidos y vecinos | Acq/Ref | Gastón |
+| Seguir el embudo de mensajería + capitalizar referidos y vecinos | Acq/Ref | Gastón |
 | Primer upsell a plan Full en un local del mes 1 | Rev | Gastón |
-| Revisar métricas de GA4 y calcular el primer CAC real | Todas | Claude |
+| Revisar métricas de GA4 y **recalcular las tasas reales del embudo de mensajería** contra las estimadas en `prospeccion.md` | Todas | Claude |
 | Documentar el proceso de instalación al punto de delegarlo | Act | Gastón + Claude |
 | Decidir con datos: ¿precio bien puesto? ¿segmento correcto? | Rev | Gastón |
 
-### Las métricas semanales (solo dos)
-1. **Puertas tocadas** — meta 8–12.
-2. **Demos hechas frente a un dueño** — meta 4+.
+### Las métricas semanales (tres, del embudo de mensajería)
+1. **Mensajes enviados** — meta ~20-25/semana.
+2. **Respuestas obtenidas** — meta ~4-5/semana (referencia: ~20% de respuesta, ver `prospeccion.md` §2).
+3. **Visitas agendadas** (solo con interés mostrado) — meta ~1/semana. Es lo único que ya no se mide como "puertas tocadas".
 
 Todo lo demás es consecuencia. **No usar "clientes cerrados" como métrica semanal:** no se puede accionar sobre ella y desmoraliza en las semanas malas.
 
@@ -441,7 +444,7 @@ Lo que hace viable un plan de este tamaño con una persona: la estrategia y el c
 Leyenda: **Ahora** (90 días) · **Q2** · **Q3+** · **Skip** (con razón)
 
 ### Ahora
-Venta directa presencial · demo en vivo como material de venta · carruseles de valor 2-3x/semana (Hack List, Value-Stack, Problem-Proof) · QR de mesa como demo física en la visita · página de precios pública · ficha de Google Business Profile · testimonio y reseña el lunes siguiente · instalación del primer local gratis a cambio de caso real · referidos por nombre concreto · tocar los dos vecinos después de instalar · reporte mensual por WhatsApp con sus números · Instagram posicionado como recurso, no como vidriera de producto.
+Embudo de mensajería por WhatsApp/Instagram DM como canal principal · contactos tibios de Galu trabajados primero · demo en vivo como material de venta (en el mensaje y en la visita) · carruseles de valor 2-3x/semana (Hack List, Value-Stack, Problem-Proof) · QR de mesa como demo física en la visita calificada · página de precios pública · ficha de Google Business Profile · testimonio y reseña el lunes siguiente · instalación del primer local gratis a cambio de caso real · referidos por nombre concreto · tocar los dos vecinos después de instalar · reporte mensual por WhatsApp con sus números · Instagram posicionado como recurso, no como vidriera de producto.
 
 ### Q2
 Páginas comparativas `/vs/` · caso de éxito escrito con números · secuencia de re-contacto a los que dijeron "ahora no" · upsell a plan Full · programa formal de referidos · optimización de la landing con prueba social real · pedir reseñas de Google sistemáticamente.
@@ -472,8 +475,9 @@ Ads geolocalizados (si aparece presupuesto) · segundo mercado con persona local
 
 | Etapa | Indicador | Meta 90 días |
 |---|---|---|
-| Acquisition | Puertas tocadas / semana | 8–12 |
-| Acquisition | Demos frente a un dueño / semana | 4+ |
+| Acquisition | Mensajes enviados / semana | ~20-25 |
+| Acquisition | Respuestas / semana | ~4-5 (≈20% de respuesta) |
+| Acquisition | Visitas agendadas / semana (solo con interés mostrado) | ~1 |
 | Activation | Días de la visita al primer pedido real | < 7 |
 | Activation | % del menú cargado al arrancar | 100% |
 | Retention | Locales que renuevan el mes 2 | 100% de los primeros |
@@ -496,10 +500,11 @@ Ads geolocalizados (si aparece presupuesto) · segundo mercado con persona local
 
 1. ~~🔴 Precio de los tres planes y del fee de instalación.~~ **Resuelto** — ver `marketing/precios.md`: Base $34.900/mes + $55.000, Salón $49.900/mes + $70.000, Full $64.900/mes sin fee nuevo.
 2. **🔴 Dominio propio.** Bloquea la credibilidad de cualquier pieza escrita.
-3. **🟡 ¿Cuántas horas por semana reales para visitas?** Si la respuesta honesta es 4 y no 12, el plan de 90 días se recalcula con 4. **Un número real es mejor que uno lindo** — todo el resto del plan depende de este.
-4. **🟡 ¿Hay algún local conocido para instalar primero?** Un conocido con un local vale por veinte puertas frías, y desbloquea el video, el testimonio y los números.
-5. **🟡 Nombre y marca definitivos.** "Menú Digital" es descriptivo, ayuda al SEO, y no se puede defender. No bloquea los 90 días, sí bloquea cualquier inversión seria en marca.
-6. **⚪ ¿MercadoPago traba ventas de verdad?** No decidirlo por intuición: preguntarlo en las primeras 20 visitas y contar.
+3. ~~🟡 ¿Cuántas horas por semana reales para visitas?~~ **Resuelto** — Gastón confirmó que el tiempo real está en escribir mensajes, no en visitar con frecuencia. El plan se recalculó sobre esa base (§4 Movida 1): ~20-25 mensajes/semana, ~1 visita/semana solo con interés calificado.
+5. **🟡 Tasas de conversión del embudo de mensajería son estimaciones, no datos medidos.** `prospeccion.md` §2 las marca explícitamente como planificación, a recalibrar con las primeras 4-6 semanas reales — es el mismo tipo de incertidumbre que el CAC, y hay que tratarlo igual: revisar con datos, no defenderlo con la estimación original.
+6. **🟡 ¿Hay algún local conocido para instalar primero, más allá de los contactos tibios de Galu?** Un conocido con un local vale por veinte mensajes fríos, y desbloquea el video, el testimonio y los números.
+7. **🟡 Nombre y marca definitivos.** En trabajo — ver `marketing/nombres-y-marca.md`. No bloquea los 90 días, sí bloquea cualquier inversión seria en marca.
+8. **⚪ ¿MercadoPago traba ventas de verdad?** No decidirlo por intuición: preguntarlo en las primeras 20 conversaciones y contar.
 
 ### Anexos
 - `.agents/product-marketing.md` — posicionamiento, ICP, objeciones, voz
