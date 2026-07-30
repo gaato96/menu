@@ -42,7 +42,7 @@ const DEMO_CATALOG_URL = `/m/${DEMO_SLUG}/catalogo`;
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Menú digital y tablero de comandas para tu local",
+  title: "Pedidos y comandas en tiempo real para tu local",
   description:
     "Tus clientes piden desde el celular con fotos y todo. A vos te llega armado al WhatsApp y a un tablero en tiempo real. Sin comisión por pedido.",
 };

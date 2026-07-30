@@ -2,7 +2,7 @@
 @plugin "tailwindcss-animate";
 
 /* ---------------------------------------------------------------------------
-   Menú Digital — design tokens
+   VivoMenu — design tokens
 
    Vernacular: the deli price tag and the register receipt, not the SaaS
    dashboard. This product's whole pitch is "turn WhatsApp chaos into an
@@ -31,7 +31,7 @@
   --color-ink-50: #f1ebdd;
 
   /*
-   * Brand — Menú Digital's own colour by default: a bottle green pulled from
+   * Brand — VivoMenu's own colour by default: a bottle green pulled from
    * a deli awning / apron, not the terracotta that every AI food-app demo
    * reaches for. A tenant's panel and public menu OVERRIDE these three
    * tokens directly (not through a --brand indirection) on their root
