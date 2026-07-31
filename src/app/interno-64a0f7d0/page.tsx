@@ -2,12 +2,14 @@ import { marked } from "marked";
 import type { Metadata } from "next";
 
 import { guiaProduccion } from "@/content/internal/guia-produccion";
+import { manualDeMarca } from "@/content/internal/manual-de-marca";
 import { mensajesEnFrio } from "@/content/internal/mensajes-en-frio";
 import { nombresYMarca } from "@/content/internal/nombres-y-marca";
 import { planContenido } from "@/content/internal/plan-contenido";
 import { planMarketing } from "@/content/internal/plan-marketing";
 import { precios } from "@/content/internal/precios";
 import { productMarketing } from "@/content/internal/product-marketing";
+import { progreso } from "@/content/internal/progreso";
 import { prospeccion } from "@/content/internal/prospeccion";
 
 import { DocsReader } from "./docs-reader";
@@ -21,6 +23,7 @@ export const metadata: Metadata = {
 };
 
 const DOCS = [
+  { key: "progreso", label: "Progreso", source: progreso },
   { key: "plan", label: "Plan de marketing", source: planMarketing },
   { key: "contexto", label: "Contexto de producto", source: productMarketing },
   { key: "prospeccion", label: "Prospección", source: prospeccion },
@@ -29,6 +32,7 @@ const DOCS = [
   { key: "produccion", label: "Guía de producción", source: guiaProduccion },
   { key: "precios", label: "Precios", source: precios },
   { key: "marca", label: "Nombre y marca", source: nombresYMarca },
+  { key: "manual", label: "Manual de marca", source: manualDeMarca },
 ];
 
 export default async function InternalDocsPage() {
