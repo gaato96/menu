@@ -11,6 +11,7 @@ import { precios } from "@/content/internal/precios";
 import { productMarketing } from "@/content/internal/product-marketing";
 import { progreso } from "@/content/internal/progreso";
 import { prospeccion } from "@/content/internal/prospeccion";
+import { sistemaProspeccionFrio } from "@/content/internal/sistema-prospeccion-frio";
 
 import { DocsReader } from "./docs-reader";
 
@@ -27,6 +28,7 @@ const DOCS = [
   { key: "plan", label: "Plan de marketing", source: planMarketing },
   { key: "contexto", label: "Contexto de producto", source: productMarketing },
   { key: "prospeccion", label: "Prospección", source: prospeccion },
+  { key: "sistema-frio", label: "Sistema en frío", source: sistemaProspeccionFrio },
   { key: "mensajes", label: "Mensajes en frío", source: mensajesEnFrio },
   { key: "contenido", label: "Plan de contenido", source: planContenido },
   { key: "produccion", label: "Guía de producción", source: guiaProduccion },

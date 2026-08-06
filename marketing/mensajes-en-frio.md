@@ -1,4 +1,4 @@
-# Menú Digital — Mensajes en frío
+# VivoMenu — Mensajes en frío
 
 **Fecha:** 2026-07-28
 **Contexto:** `.agents/product-marketing.md` v1 · `marketing/prospeccion.md`
@@ -33,7 +33,7 @@ Cada variante corresponde a una señal de `prospeccion.md §3`. **Usar la que ap
 >
 > Vi que en el post del jueves te preguntaron el precio como cuatro veces por comentario. Hago un sistema acá en Tucumán para que eso lo resuelva un link: el cliente ve la carta con fotos, arma el pedido y te llega listo al WhatsApp.
 >
-> Te mando un ejemplo real para que lo toques: menu-digital.com/m/burger-house-tuc
+> Te mando un ejemplo real para que lo toques: vivomenu.com.ar/m/burger-house-tuc
 >
 > ¿Te sirve que pase un día de estos a mostrártelo en dos minutos?
 
@@ -46,7 +46,7 @@ Cada variante corresponde a una señal de `prospeccion.md §3`. **Usar la que ap
 >
 > Vi que tenés el menú como foto en el perfil. ¿Cada vez que subís los precios lo tenés que rehacer y volver a subir?
 >
-> Armo menús para locales de acá que se editan solos desde el celular: cambiás un precio y ya está cambiado. Mirá uno de verdad andando: menu-digital.com/m/burger-house-tuc
+> Armo menús para locales de acá que se editan solos desde el celular: cambiás un precio y ya está cambiado. Mirá uno de verdad andando: vivomenu.com.ar/m/burger-house-tuc
 >
 > ¿Paso a mostrártelo?
 
@@ -61,7 +61,7 @@ Cada variante corresponde a una señal de `prospeccion.md §3`. **Usar la que ap
 >
 > Pongo un QR en cada mesa. El cliente escanea, ve la carta con fotos, pide, y entra directo a la cocina. El mozo sigue atendiendo, deja de anotar.
 >
-> Probalo vos mismo, es un local real: menu-digital.com/m/burger-house-tuc
+> Probalo vos mismo, es un local real: vivomenu.com.ar/m/burger-house-tuc
 >
 > ¿Te llevo un QR impreso para que lo pruebes en una mesa?
 
@@ -76,7 +76,7 @@ Cada variante corresponde a una señal de `prospeccion.md §3`. **Usar la que ap
 >
 > Hago un sistema para el pedido directo: el cliente pide desde un link con fotos, te llega la comanda armada y la ves en un tablero. Sin comisión — lo que vendés es tuyo.
 >
-> Este es uno real: menu-digital.com/m/burger-house-tuc
+> Este es uno real: vivomenu.com.ar/m/burger-house-tuc
 >
 > ¿Te muestro cómo se ve del lado tuyo?
 
@@ -89,7 +89,7 @@ Cada variante corresponde a una señal de `prospeccion.md §3`. **Usar la que ap
 >
 > Mientras tanto: hago un sistema que toma los pedidos solo. El cliente arma todo desde un link con fotos y a vos te llega la comanda lista. No reemplaza a nadie, pero te saca la parte de estar contestando el mismo mensaje cincuenta veces.
 >
-> menu-digital.com/m/burger-house-tuc
+> vivomenu.com.ar/m/burger-house-tuc
 >
 > ¿Querés que pase a mostrártelo esta semana?
 
@@ -102,7 +102,7 @@ Cada variante corresponde a una señal de `prospeccion.md §3`. **Usar la que ap
 >
 > Te escribo por algo puntual: hago los menús digitales de varios locales acá en Tucumán. Ahora que estás arrancando es el mejor momento, porque no tenés que cambiar nada de lo que ya venías haciendo.
 >
-> Mirá cómo queda: menu-digital.com/m/burger-house-tuc
+> Mirá cómo queda: vivomenu.com.ar/m/burger-house-tuc
 >
 > ¿Paso un día de estos?
 
@@ -115,7 +115,7 @@ Cada variante corresponde a una señal de `prospeccion.md §3`. **Usar la que ap
 >
 > ¿Los viernes se te vuelve loco el WhatsApp con los pedidos?
 >
-> Armo el menú del local en un link: el cliente ve las fotos, arma el pedido con los agregados y te llega prolijo, en un mensaje solo. Este es uno de verdad, tocalo: menu-digital.com/m/burger-house-tuc
+> Armo el menú del local en un link: el cliente ve las fotos, arma el pedido con los agregados y te llega prolijo, en un mensaje solo. Este es uno de verdad, tocalo: vivomenu.com.ar/m/burger-house-tuc
 >
 > ¿Te muestro cómo lo ves vos del otro lado?
 
@@ -185,7 +185,7 @@ El mensaje en frío existe para que la visita no sea fría. Pero el que cierra e
 
 > Gracias por el rato de hoy.
 >
-> Te dejo el link para que lo toques cuando tengas un minuto: menu-digital.com/m/burger-house-tuc
+> Te dejo el link para que lo toques cuando tengas un minuto: vivomenu.com.ar/m/burger-house-tuc
 >
 > Cualquier cosa que quieras probar, dale sin miedo que es una demo.
 
