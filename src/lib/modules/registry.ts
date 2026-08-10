@@ -5,6 +5,7 @@ export const MODULE_KEYS: ModuleKey[] = [
   "inventory",
   "crm_loyalty",
   "tables",
+  "cash_register",
   "mercadopago",
   "kitchen_printing",
 ];
@@ -15,6 +16,7 @@ export const MODULE_LABELS: Record<ModuleKey, string> = {
   inventory: "Stock",
   crm_loyalty: "Clientes",
   tables: "Mesas y salón",
+  cash_register: "Caja",
   mercadopago: "MercadoPago",
   kitchen_printing: "Impresión en cocina",
 };

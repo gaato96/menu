@@ -25,6 +25,7 @@ const PRIMARY_TABS: readonly Tab[] = [
   { href: "/cocina", label: "Cocina", roles: ["owner", "manager", "cashier"], module: "kitchen_display" },
   { href: "/panel/salon", label: "Salón", roles: ["owner", "manager", "cashier"], module: "tables" },
   { href: "/panel/pedidos", label: "Pedidos", roles: ["owner", "manager", "cashier"] },
+  { href: "/panel/caja", label: "Caja", roles: ["owner", "manager", "cashier"], module: "cash_register" },
 ];
 
 const MORE_TABS: readonly Tab[] = [

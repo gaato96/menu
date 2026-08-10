@@ -44,7 +44,22 @@ export type ModuleKey =
   | "kitchen_printing"
   | "kitchen_display"
   | "inventory"
-  | "tables";
+  | "tables"
+  | "cash_register";
+
+/** How money reached the drawer. Wider than orders.payment_method, which only
+ *  covers what a customer can pick at checkout. */
+export type CashPaymentMethod = "cash" | "card" | "transfer" | "mercadopago" | "other";
+
+/** Movements that are not order payments. Amount is always positive; the kind
+ *  carries the sign. */
+export type CashMovementKind = "expense" | "income" | "withdrawal";
+
+export type IvaCondition =
+  | "responsable_inscripto"
+  | "monotributo"
+  | "exento"
+  | "consumidor_final";
 
 type Business = {
   id: string;
@@ -75,7 +90,51 @@ type BusinessSettings = {
   transfer_holder: string | null;
   prep_time_minutes: number;
   catalog_view_enabled: boolean;
+  /** 11 digits, no dashes. Header of the non-fiscal receipt — never a factura. */
+  cuit: string | null;
+  iva_condition: IvaCondition | null;
   updated_at: string;
+};
+
+type CashSession = {
+  id: string;
+  business_id: string;
+  opened_by: string;
+  opened_at: string;
+  opening_float_cents: number;
+  closed_by: string | null;
+  closed_at: string | null;
+  counted_cents: number | null;
+  /** Frozen at close, not recomputed on read — see the migration header. */
+  expected_cents: number | null;
+  difference_cents: number | null;
+  notes: string | null;
+};
+
+type CashMovement = {
+  id: string;
+  business_id: string;
+  cash_session_id: string;
+  kind: CashMovementKind;
+  amount_cents: number;
+  concept: string;
+  created_by: string;
+  created_at: string;
+};
+
+type OrderPayment = {
+  id: string;
+  business_id: string;
+  order_id: string;
+  cash_session_id: string;
+  method: CashPaymentMethod;
+  amount_cents: number;
+  discount_cents: number;
+  tip_cents: number;
+  /** Generated: amount - discount + tip. */
+  collected_cents: number;
+  created_by: string;
+  created_at: string;
 };
 
 type Subscription = {
@@ -441,6 +500,31 @@ export type Database = {
         Insertable<AiImageGeneration, "business_id" | "prompt_variant" | "cost_usd_millis">,
         Partial<AiImageGeneration>
       >;
+      cash_sessions: TableShape<
+        CashSession,
+        Insertable<CashSession, "business_id" | "opened_by">,
+        Partial<CashSession>
+      >;
+      cash_movements: TableShape<
+        CashMovement,
+        Insertable<
+          CashMovement,
+          "business_id" | "cash_session_id" | "kind" | "amount_cents" | "concept" | "created_by"
+        >,
+        Partial<CashMovement>
+      >;
+      order_payments: TableShape<
+        // collected_cents is generated, so it can never be written.
+        OrderPayment,
+        Omit<
+          Insertable<
+            OrderPayment,
+            "business_id" | "order_id" | "cash_session_id" | "method" | "amount_cents" | "created_by"
+          >,
+          "collected_cents"
+        >,
+        Partial<Omit<OrderPayment, "collected_cents">>
+      >;
     };
     Views: {
       customer_stats: { Row: CustomerStats; Relationships: [] };
@@ -449,6 +533,10 @@ export type Database = {
       next_order_code: { Args: { p_business_id: string }; Returns: string };
       business_is_servable: { Args: { p_business_id: string }; Returns: boolean };
       ai_images_used_this_month: { Args: { p_business_id: string }; Returns: number };
+      close_cash_session: {
+        Args: { p_session_id: string; p_counted_cents: number; p_notes?: string | null };
+        Returns: CashSession;
+      };
       order_status_rank: { Args: { p_status: string }; Returns: number };
       create_priced_order: { Args: { p_business_id: string; p_order: Json }; Returns: Json };
       upsert_push_subscription: {

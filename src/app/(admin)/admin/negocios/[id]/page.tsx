@@ -35,6 +35,7 @@ const MODULE_LABELS: Record<ModuleKey, string> = {
   kitchen_display: "Pantalla de cocina (KDS)",
   inventory: "Stock e insumos",
   tables: "Mesas y salón",
+  cash_register: "Caja",
 };
 
 const MODULE_KEYS = Object.keys(MODULE_LABELS) as ModuleKey[];
