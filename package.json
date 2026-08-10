@@ -17,6 +17,7 @@
     "test:rls": "vitest run tests/rls",
     "test:e2e": "playwright test",
     "icons": "tsx scripts/generate-icons.ts",
+    "ai:foto": "tsx --conditions=react-server scripts/test-dish-photo.ts",
     "db:seed": "tsx scripts/seed.ts"
   },
   "dependencies": {

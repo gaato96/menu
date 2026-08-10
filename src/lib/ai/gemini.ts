@@ -71,11 +71,12 @@ export type EnhanceResult =
   | { ok: false; error: string };
 
 /**
- * Rewrites a real photo of a dish into an appetising one, same dish.
+ * Retouches a real photo of a dish. Same dish, better photo.
  *
  * Image-to-image only: the caller's photo is the input, never a text-only
- * generation. That is the first of the three safeguards against the model
- * inventing a dish the kitchen does not serve.
+ * generation. Nothing about which dish it is reaches the model — see the
+ * header of prompts.ts for why naming it produced a burger from a pasta
+ * photo.
  *
  * Tries the free-tier model first and only steps up to a paid one if
  * GEMINI_IMAGE_MODEL_FALLBACK is set — see PRIMARY_MODEL above.
@@ -83,15 +84,13 @@ export type EnhanceResult =
 export async function enhanceDishPhoto(params: {
   bytes: Buffer;
   mimeType: string;
-  dishName: string;
-  description?: string | null;
 }): Promise<EnhanceResult> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return { ok: false, error: "El generador de fotos no está configurado." };
   }
 
-  const prompt = buildDishEnhancePrompt(params.dishName, params.description);
+  const prompt = buildDishEnhancePrompt();
   const inputImage = {
     type: "image",
     mime_type: params.mimeType,
@@ -135,7 +134,10 @@ async function callModel(
 ): Promise<CallOutcome> {
   const body = {
     model,
-    input: [{ type: "text", text: prompt }, inputImage],
+    // Image FIRST, then the instructions. With the text leading, the model
+    // treats the prompt as the brief and the photo as a loose reference;
+    // leading with the photo makes it the subject the instructions act on.
+    input: [inputImage, { type: "text", text: prompt }],
     response_format: {
       type: "image",
       mime_type: "image/jpeg",

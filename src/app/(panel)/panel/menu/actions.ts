@@ -275,7 +275,7 @@ export async function generateProductImage(
   // this select the membership check.
   const { data: product } = await session
     .from("products")
-    .select("id, name, description")
+    .select("id")
     .eq("id", productId)
     .maybeSingle();
   if (!product) return { error: "Producto no encontrado." };
@@ -293,11 +293,11 @@ export async function generateProductImage(
     };
   }
 
+  // Deliberately does not pass the product name or description: the photo is
+  // the only source of truth for what the dish is. See prompts.ts.
   const result = await enhanceDishPhoto({
     bytes: Buffer.from(await file.arrayBuffer()),
     mimeType: file.type,
-    dishName: product.name,
-    description: product.description,
   });
   if (!result.ok) return { error: result.error };
 
