@@ -5,6 +5,8 @@ import { randomUUID } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import { COST_PER_IMAGE_USD_MILLIS, enhanceDishPhoto } from "@/lib/ai/gemini";
+import { AI_IMAGES_MONTHLY_QUOTA } from "@/lib/ai/quota";
 import { requireStaff } from "@/lib/auth/context";
 import { parseMoneyToCents } from "@/lib/money";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -245,6 +247,189 @@ export async function uploadProductImage(
   revalidatePath(`/panel/menu/producto/${productId}`);
   revalidatePath("/panel/menu");
   return { ok: true };
+}
+
+// --- AI dish photos --------------------------------------------------------
+
+/**
+ * Generates an appetising version of a real photo of the dish.
+ *
+ * Three-step by design (generate -> preview -> accept or discard) rather than
+ * one call that swaps the photo. The model can drift the plating even with
+ * the prompt in prompts.ts holding it down, so a human confirms every swap.
+ *
+ * The candidate is uploaded to Storage immediately and only `image_url` waits
+ * for the accept, which keeps megabytes of base64 off the round trip to the
+ * browser and gives the preview a real URL to render.
+ */
+export async function generateProductImage(
+  productId: string,
+  formData: FormData,
+): Promise<
+  { ok: true; previewUrl: string; generationId: string; remaining: number } | { error: string }
+> {
+  const staff = await requireStaff();
+  const session = await createClient();
+
+  // Same authorization shape as uploadProductImage: RLS on `products` makes
+  // this select the membership check.
+  const { data: product } = await session
+    .from("products")
+    .select("id, name, description")
+    .eq("id", productId)
+    .maybeSingle();
+  if (!product) return { error: "Producto no encontrado." };
+
+  const file = formData.get("image");
+  if (!(file instanceof File) || file.size === 0) return { error: "Elegí una foto del plato." };
+  if (file.size > MAX_IMAGE_BYTES) return { error: "La foto pesa más de 5MB." };
+  if (!ALLOWED_TYPES.has(file.type)) return { error: "Formato no soportado. Usá JPG, PNG o WebP." };
+
+  // Checked BEFORE calling Gemini: past the quota this must cost nothing.
+  const used = await usedThisMonth(session, staff.business.id);
+  if (used >= AI_IMAGES_MONTHLY_QUOTA) {
+    return {
+      error: `Llegaste a las ${AI_IMAGES_MONTHLY_QUOTA} fotos de este mes. Se renueva el 1°.`,
+    };
+  }
+
+  const result = await enhanceDishPhoto({
+    bytes: Buffer.from(await file.arrayBuffer()),
+    mimeType: file.type,
+    dishName: product.name,
+    description: product.description,
+  });
+  if (!result.ok) return { error: result.error };
+
+  const admin = createAdminClient();
+  const extension = result.image.mimeType === "image/png" ? "png" : "jpg";
+  const path = `${staff.business.id}/${productId}/${randomUUID()}.${extension}`;
+
+  const { error: uploadError } = await admin.storage
+    .from("product-images")
+    .upload(path, result.image.bytes, { contentType: result.image.mimeType, upsert: false });
+  if (uploadError) return { error: "No pudimos guardar la imagen generada." };
+
+  // Recorded only now, once the spend actually produced something. A network
+  // failure earlier costs the owner nothing.
+  const { data: generation, error: logError } = await admin
+    .from("ai_image_generations")
+    .insert({
+      business_id: staff.business.id,
+      product_id: productId,
+      prompt_variant: result.image.promptVariant,
+      cost_usd_millis: COST_PER_IMAGE_USD_MILLIS,
+      storage_path: path,
+    })
+    .select("id")
+    .single();
+
+  if (logError || !generation) {
+    // Without a row there is no way to accept or clean this up later, so the
+    // orphan gets removed now rather than left in the bucket forever.
+    await admin.storage.from("product-images").remove([path]);
+    return { error: "No pudimos registrar la generación. Probá de nuevo." };
+  }
+
+  const { data: publicUrl } = admin.storage.from("product-images").getPublicUrl(path);
+
+  return {
+    ok: true,
+    previewUrl: publicUrl.publicUrl,
+    generationId: generation.id,
+    remaining: Math.max(0, AI_IMAGES_MONTHLY_QUOTA - (used + 1)),
+  };
+}
+
+/** Promotes a previewed candidate to the product's real photo. */
+export async function acceptGeneratedImage(
+  productId: string,
+  generationId: string,
+): Promise<{ ok?: true; error?: string }> {
+  const staff = await requireStaff();
+  const session = await createClient();
+
+  const { data: product } = await session
+    .from("products")
+    .select("id, image_url")
+    .eq("id", productId)
+    .maybeSingle();
+  if (!product) return { error: "Producto no encontrado." };
+
+  const admin = createAdminClient();
+
+  // business_id and product_id are both matched here, so a generation id
+  // guessed from another tenant (or another product) resolves to nothing.
+  const { data: generation } = await admin
+    .from("ai_image_generations")
+    .select("id, storage_path")
+    .eq("id", generationId)
+    .eq("business_id", staff.business.id)
+    .eq("product_id", productId)
+    .maybeSingle();
+  if (!generation?.storage_path) return { error: "Esa imagen ya no está disponible." };
+
+  const { data: publicUrl } = admin.storage
+    .from("product-images")
+    .getPublicUrl(generation.storage_path);
+
+  await session.from("products").update({ image_url: publicUrl.publicUrl }).eq("id", productId);
+  await admin.from("ai_image_generations").update({ accepted: true }).eq("id", generationId);
+
+  // Same best-effort cleanup as uploadProductImage: an orphan in the bucket
+  // is survivable, a product pointing at a deleted file is not.
+  if (product.image_url?.includes("/product-images/")) {
+    const oldPath = product.image_url.split("/product-images/")[1];
+    if (oldPath && oldPath !== generation.storage_path) {
+      await admin.storage.from("product-images").remove([oldPath]);
+    }
+  }
+
+  revalidatePath(`/panel/menu/producto/${productId}`);
+  revalidatePath("/panel/menu");
+  return { ok: true };
+}
+
+/**
+ * Drops a candidate the owner rejected. The generation row survives with
+ * accepted=false — it was paid for, and the quota must reflect that.
+ */
+export async function discardGeneratedImage(
+  generationId: string,
+): Promise<{ ok?: true; error?: string }> {
+  const staff = await requireStaff();
+  const admin = createAdminClient();
+
+  const { data: generation } = await admin
+    .from("ai_image_generations")
+    .select("id, storage_path, accepted")
+    .eq("id", generationId)
+    .eq("business_id", staff.business.id)
+    .maybeSingle();
+  if (!generation) return { error: "Esa imagen ya no está disponible." };
+
+  // An accepted row's file is the product's live photo — deleting it here
+  // would blank the menu.
+  if (generation.accepted) return { ok: true };
+
+  if (generation.storage_path) {
+    await admin.storage.from("product-images").remove([generation.storage_path]);
+    await admin.from("ai_image_generations").update({ storage_path: null }).eq("id", generationId);
+  }
+
+  return { ok: true };
+}
+
+async function usedThisMonth(
+  session: Awaited<ReturnType<typeof createClient>>,
+  businessId: string,
+): Promise<number> {
+  const { data, error } = await session.rpc("ai_images_used_this_month", {
+    p_business_id: businessId,
+  });
+  // Fails closed: an unreadable counter must not read as "quota available".
+  if (error) return AI_IMAGES_MONTHLY_QUOTA;
+  return data ?? 0;
 }
 
 // --- Option groups ---------------------------------------------------------

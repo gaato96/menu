@@ -2,21 +2,26 @@ import { ArrowLeft, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { AiImageForm } from "@/components/panel/ai-image-form";
 import { ConfirmSubmitButton } from "@/components/panel/confirm-submit-button";
 import { ImageUploadForm } from "@/components/panel/image-upload-form";
 import { AsyncToggle } from "@/components/panel/async-toggle";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
+import { AI_IMAGES_MONTHLY_QUOTA } from "@/lib/ai/quota";
 import { requireStaff } from "@/lib/auth/context";
 import { fetchStaffMenu, fetchStaffProduct } from "@/lib/menu/staff-queries";
 import { createClient } from "@/lib/supabase/server";
 
 import { updateProductStock } from "../../../stock/actions";
 import {
+  acceptGeneratedImage,
   createOption,
   createOptionGroup,
   deleteOption,
   deleteOptionGroup,
+  discardGeneratedImage,
+  generateProductImage,
   toggleOptionAvailable,
   updateProduct,
   uploadProductImage,
@@ -34,11 +39,17 @@ export default async function ProductDetailPage({
   const staff = await requireStaff();
   const supabase = await createClient();
 
-  const [product, categories] = await Promise.all([
+  const [product, categories, aiUsed] = await Promise.all([
     fetchStaffProduct(supabase, id),
     fetchStaffMenu(supabase, staff.business.id),
+    supabase.rpc("ai_images_used_this_month", { p_business_id: staff.business.id }),
   ]);
   if (!product) notFound();
+
+  // Fails closed, same as the Server Action. An unreadable counter is an
+  // infrastructure problem (migration not applied yet), NOT a spent quota —
+  // reporting it as "you used your 30" would send Gastón hunting the wrong bug.
+  const aiRemaining = Math.max(0, AI_IMAGES_MONTHLY_QUOTA - (aiUsed.data ?? 0));
 
   return (
     <main className="flex flex-1 flex-col gap-4 p-4">
@@ -56,6 +67,17 @@ export default async function ProductDetailPage({
           currentUrl={product.image_url}
           action={uploadProductImage.bind(null, product.id)}
         />
+
+        <div className="mt-4">
+          <AiImageForm
+            unavailable={Boolean(aiUsed.error)}
+            remaining={aiRemaining}
+            quota={AI_IMAGES_MONTHLY_QUOTA}
+            generate={generateProductImage.bind(null, product.id)}
+            accept={acceptGeneratedImage.bind(null, product.id)}
+            discard={discardGeneratedImage}
+          />
+        </div>
 
         <form action={updateProduct.bind(null, product.id)} className="mt-4 space-y-3">
           <Field label="Nombre" required>

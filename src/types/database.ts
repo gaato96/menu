@@ -282,6 +282,19 @@ type Customer = {
   updated_at: string;
 };
 
+type AiImageGeneration = {
+  id: string;
+  business_id: string;
+  product_id: string | null;
+  prompt_variant: string;
+  /** Thousandths of a USD, integer — same "money is never a float" rule as *_cents. */
+  cost_usd_millis: number;
+  /** Null once the candidate was discarded and its object removed. */
+  storage_path: string | null;
+  accepted: boolean;
+  created_at: string;
+};
+
 type CustomerStats = {
   customer_id: string;
   business_id: string;
@@ -421,6 +434,11 @@ export type Database = {
         Insertable<Customer, "business_id" | "name" | "phone">,
         Partial<Customer>
       >;
+      ai_image_generations: TableShape<
+        AiImageGeneration,
+        Insertable<AiImageGeneration, "business_id" | "prompt_variant" | "cost_usd_millis">,
+        Partial<AiImageGeneration>
+      >;
     };
     Views: {
       customer_stats: { Row: CustomerStats; Relationships: [] };
@@ -428,6 +446,7 @@ export type Database = {
     Functions: {
       next_order_code: { Args: { p_business_id: string }; Returns: string };
       business_is_servable: { Args: { p_business_id: string }; Returns: boolean };
+      ai_images_used_this_month: { Args: { p_business_id: string }; Returns: number };
       order_status_rank: { Args: { p_status: string }; Returns: number };
       create_priced_order: { Args: { p_business_id: string; p_order: Json }; Returns: Json };
       upsert_push_subscription: {
