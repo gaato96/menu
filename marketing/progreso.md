@@ -17,7 +17,8 @@
 | 2026-08-06 | Sistema de prospección en frío | `sistema-prospeccion-frio.md` — escalera de mensajes, uso del scraper, oferta de valor, rampa de volumen |
 | 2026-08-06 | Links de los mensajes actualizados | `mensajes-en-frio.md` pasó de `menu-digital.com` a `vivomenu.com.ar` en las 8 plantillas |
 | 2026-08-06 | Análisis competitivo de Menuly | Comparación completa + roadmap de 7 fases para cerrar la brecha. Plan aprobado |
-| 2026-08-06 | **Generador de fotos con IA (Fase 1)** | Código en producción. Falta aplicar la migración y cargar `GEMINI_API_KEY` para que funcione |
+| 2026-08-06 | **Generador de fotos con IA (Fase 1)** | En producción. Modelo con tier gratuito por defecto, acepta foto de cámara o archivo existente |
+| 2026-08-06 | **Módulo de Caja (Fase 2)** | En producción, apagado por defecto. Apertura, cobro con propina y descuento, movimientos, arqueo y reportes |
 
 ## 2. En curso
 
@@ -26,7 +27,7 @@
 | Carruseles de arranque | 1 de 3 publicados | Los 2 restantes de la semana 1 (`plan-contenido.md` §2 — sugeridos: 1.2 "Los 4 datos que necesitás pedir siempre" y 1.3 "¿Cuánto te cuesta la comisión de delivery?") |
 | Medición (Movida 3) | Dominio y Gmail listos. Falta GA4, Search Console, schema | Ver §3 |
 | Prospección en frío | Sistema escrito, sin enviar todavía | Primeros 5 mensajes hoy (§3) |
-| Producto — cerrar brecha con Menuly | Fase 1 (IA de fotos) subida, bloqueada por 2 pasos manuales | Fase 2: módulo de Caja |
+| Producto — cerrar brecha con Menuly | Fases 1 y 2 subidas. **Sin más fases hasta tener el primer cliente** | Correr la migración de Caja y probar el flujo completo |
 
 ## 3. Próximas tareas, priorizadas
 
@@ -38,8 +39,9 @@
 | 2 | **Mandar los primeros 5 mensajes** — empezando por contactos tibios de Galu si los hay (`sistema-prospeccion-frio.md` §7.4) | Gastón |
 | 3 | Crear propiedad GA4 con la cuenta nueva y pasar el Measurement ID (`G-XXXXXXX`) | Gastón |
 | 4 | Verificar el dominio en Search Console con la misma cuenta | Gastón |
-| 5 | **Aplicar la migración `20260806000000_ai_images.sql`** en el proyecto Supabase cloud | Gastón |
-| 6 | **Activar facturación en Google Cloud y cargar `GEMINI_API_KEY`** en Vercel (prod + preview) | Gastón |
+| 5 | **Correr las migraciones pendientes**: `20260806001000_ai_images_model.sql` y `20260806002000_cash_register.sql` | Gastón |
+| 6 | Probar el generador de fotos y confirmar en Cloud Billing si figura consumo | Gastón |
+| 7 | Prender el módulo Caja para Burger House desde `/admin` y probar el ciclo completo (abrir, cobrar, gasto, arquear, cerrar) | Gastón |
 
 ### Esta semana
 
