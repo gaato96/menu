@@ -38,7 +38,9 @@ export function AiImageForm({
   discard: (generationId: string) => Promise<{ ok?: true; error?: string }>;
 }) {
   const router = useRouter();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const cameraRef = useRef<HTMLInputElement>(null);
+  const uploadRef = useRef<HTMLInputElement>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
   const [candidate, setCandidate] = useState<Candidate | null>(null);
   const [left, setLeft] = useState(remaining);
   const [error, setError] = useState<string | null>(null);
@@ -56,9 +58,12 @@ export function AiImageForm({
   const blocked = unavailable || exhausted;
 
   function submit(formData: FormData) {
-    const file = formData.get("aiImage");
-    if (!(file instanceof File) || file.size === 0) {
-      setError("Elegí o sacá una foto del plato.");
+    // Either input may hold the file; the other is empty. Camera wins if both
+    // somehow have one, since it is the more recent deliberate action.
+    const candidates = [formData.get("aiImageCamera"), formData.get("aiImageUpload")];
+    const file = candidates.find((f): f is File => f instanceof File && f.size > 0);
+    if (!file) {
+      setError("Sacá una foto del plato o subí una que ya tengas.");
       return;
     }
 
@@ -85,7 +90,9 @@ export function AiImageForm({
   }
 
   function clearCandidate() {
-    if (inputRef.current) inputRef.current.value = "";
+    if (cameraRef.current) cameraRef.current.value = "";
+    if (uploadRef.current) uploadRef.current.value = "";
+    setFileName(null);
     setCandidate(null);
   }
 
@@ -174,21 +181,55 @@ export function AiImageForm({
     <form action={submit} className="rounded-card border border-ink-200 bg-ink-50 p-4">
       <p className="text-sm font-medium text-ink-900">Mejorar la foto con IA</p>
       <p className="mt-1 text-xs text-ink-600">
-        Sacale una foto al plato como está y la IA la deja lista para la carta: luz cálida, fondo
-        limpio y vertical. No cambia el plato — solo la foto.
+        Sacale una foto al plato o subí una que ya tengas, y la IA la deja lista para la carta: luz
+        cálida, fondo limpio y vertical. No cambia el plato — solo la foto.
       </p>
 
-      <input
-        ref={inputRef}
-        type="file"
-        name="aiImage"
-        accept="image/jpeg,image/png,image/webp"
-        // Opens the camera straight away on a phone, which is where this gets
-        // used: standing at the counter with the plate in front of you.
-        capture="environment"
-        disabled={blocked || pending}
-        className="mt-3 block w-full text-sm text-ink-700 file:mr-3 file:min-h-touch file:rounded-lg file:border-0 file:bg-white file:px-3 file:text-sm file:font-medium disabled:opacity-50"
-      />
+      {/*
+        Two inputs rather than one. `capture` is not a hint on mobile — it
+        forces the camera and hides the gallery, which breaks the case where
+        the local already has photos of every dish. So: one input that opens
+        the camera, one that opens the file picker, and whichever the owner
+        used is the one that carries a file into `submit`.
+      */}
+      <div className="mt-3 flex flex-wrap gap-2">
+        <label
+          className={`inline-flex min-h-touch cursor-pointer items-center rounded-lg bg-white px-3 text-sm font-medium text-ink-700 ring-1 ring-ink-200 ring-inset ${
+            blocked || pending ? "pointer-events-none opacity-50" : "hover:bg-ink-100"
+          }`}
+        >
+          Sacar foto
+          <input
+            ref={cameraRef}
+            type="file"
+            name="aiImageCamera"
+            accept="image/jpeg,image/png,image/webp"
+            capture="environment"
+            disabled={blocked || pending}
+            onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
+            className="sr-only"
+          />
+        </label>
+
+        <label
+          className={`inline-flex min-h-touch cursor-pointer items-center rounded-lg bg-white px-3 text-sm font-medium text-ink-700 ring-1 ring-ink-200 ring-inset ${
+            blocked || pending ? "pointer-events-none opacity-50" : "hover:bg-ink-100"
+          }`}
+        >
+          Subir una que ya tengas
+          <input
+            ref={uploadRef}
+            type="file"
+            name="aiImageUpload"
+            accept="image/jpeg,image/png,image/webp"
+            disabled={blocked || pending}
+            onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
+            className="sr-only"
+          />
+        </label>
+      </div>
+
+      {fileName && <p className="mt-2 truncate text-xs text-ink-600">{fileName}</p>}
 
       {error && <p className="mt-2 text-xs text-danger">{error}</p>}
 

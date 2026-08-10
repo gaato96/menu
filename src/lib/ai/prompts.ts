@@ -12,7 +12,7 @@
  * later rewrite does not orphan the images already sitting on live menus.
  */
 
-export const PROMPT_VARIANT = "dish-enhance-v1";
+export const PROMPT_VARIANT = "dish-enhance-v2";
 
 /**
  * Built per dish so the model has a name to anchor on. Without it, a dark
@@ -22,7 +22,9 @@ export const PROMPT_VARIANT = "dish-enhance-v1";
 export function buildDishEnhancePrompt(dishName: string, description?: string | null): string {
   const detail = description?.trim() ? `\nDescripción de la carta: "${description.trim()}"` : "";
 
-  return `Mejorá esta fotografía de un plato de comida llamado "${dishName}" para que se vea apetitosa en la carta digital de un restaurante.${detail}
+  return `Retocá esta fotografía de un plato de comida llamado "${dishName}" para que se vea apetitosa en la carta digital de un restaurante.${detail}
+
+El resultado tiene que ser INDISTINGUIBLE de una fotografía real tomada por un fotógrafo gastronómico. No una ilustración, no un render, no una imagen generada. Si alguien la mira y sospecha que la hizo una IA, está mal.
 
 NO CAMBIES EL PLATO. Esto es una corrección fotográfica, no una recreación:
 - Los mismos ingredientes, en la misma cantidad y en la misma posición.
@@ -42,5 +44,21 @@ ENCUADRE:
 - Vertical 9:16, con el plato centrado y completo, sin que se corten los bordes.
 - Dejá aire arriba y abajo: la foto se ve a pantalla completa en un celular.
 
-El resultado tiene que parecer una foto real tomada por un fotógrafo gastronómico, no una ilustración ni un render 3D. Sin texto, sin logos, sin marcas de agua, sin personas.`;
+REALISMO FOTOGRÁFICO (esto es lo más importante):
+- Como si fuera tomada con una cámara réflex, lente 50mm, diafragma f/2.8, a la altura de la mesa o en ángulo de 45 grados.
+- Conservá la textura real de la comida: los poros del pan, las irregularidades de la carne, el brillo húmedo de una salsa, los bordes desparejos. La comida real nunca es lisa ni perfecta.
+- Dejá las imperfecciones creíbles que ya estén en la foto: una miga suelta, una gota de salsa en el borde del plato, un pliegue en el papel. Son las que hacen que se lea como real.
+- Grano fotográfico sutil y natural. Nada de superficies plásticas ni pulidas.
+- Sombras y reflejos físicamente coherentes con una sola fuente de luz.
+
+EVITÁ TODO ESTO, que es lo que delata una imagen generada:
+- Aspecto de render 3D, CGI, videojuego o ilustración digital.
+- Brillo plástico, superficies demasiado lisas, comida que parece de cera o de juguete.
+- Colores sobresaturados o irreales, contraste exagerado, HDR.
+- Simetría perfecta, ingredientes ordenados de forma imposible, gotas o semillas repetidas de forma idéntica.
+- Iluminación de estudio dramática o irreal, halos, resplandores.
+- Vapor, chispas, salpicaduras congeladas en el aire o cualquier efecto de publicidad.
+- Fondos que no existirían en un local real.
+
+Sin texto, sin logos, sin marcas de agua, sin personas, sin manos.`;
 }

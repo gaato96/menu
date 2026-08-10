@@ -287,6 +287,8 @@ type AiImageGeneration = {
   business_id: string;
   product_id: string | null;
   prompt_variant: string;
+  /** Null on rows written before the model column existed. */
+  model: string | null;
   /** Thousandths of a USD, integer — same "money is never a float" rule as *_cents. */
   cost_usd_millis: number;
   /** Null once the candidate was discarded and its object removed. */

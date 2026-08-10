@@ -5,7 +5,7 @@ import { randomUUID } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { COST_PER_IMAGE_USD_MILLIS, enhanceDishPhoto } from "@/lib/ai/gemini";
+import { enhanceDishPhoto } from "@/lib/ai/gemini";
 import { AI_IMAGES_MONTHLY_QUOTA } from "@/lib/ai/quota";
 import { requireStaff } from "@/lib/auth/context";
 import { parseMoneyToCents } from "@/lib/money";
@@ -318,7 +318,8 @@ export async function generateProductImage(
       business_id: staff.business.id,
       product_id: productId,
       prompt_variant: result.image.promptVariant,
-      cost_usd_millis: COST_PER_IMAGE_USD_MILLIS,
+      model: result.image.model,
+      cost_usd_millis: result.image.costUsdMillis,
       storage_path: path,
     })
     .select("id")
