@@ -9,6 +9,7 @@ function order(status: OrderStatus, totalCents: number): BoardOrder {
     id: crypto.randomUUID(),
     business_id: "b1",
     code: "T-0001",
+    business_date: "2026-08-06",
     status,
     fulfillment_type: "pickup",
     customer_name: "Test",

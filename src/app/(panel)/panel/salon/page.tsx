@@ -3,13 +3,14 @@ import Link from "next/link";
 
 import { AsyncToggle } from "@/components/panel/async-toggle";
 import { ConfirmSubmitButton } from "@/components/panel/confirm-submit-button";
+import { FloorPlan } from "@/components/panel/floor-plan";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/field";
 import { requireModule, requireStaff } from "@/lib/auth/context";
 import { ACTIVE_STATUSES } from "@/lib/orders/status";
 import { createClient } from "@/lib/supabase/server";
 
-import { createTable, deleteTable, toggleTableActive } from "./actions";
+import { createTable, deleteTable, moveTable, setTableShape, toggleTableActive } from "./actions";
 
 export const metadata = { title: "Salón" };
 export const dynamic = "force-dynamic";
@@ -56,6 +57,24 @@ export default async function SalonPage() {
         )}
       </div>
 
+      <FloorPlan
+        tables={tables.map((table) => ({
+          id: table.id,
+          label: table.label,
+          seats: table.seats,
+          // Normalised rather than passed through: before the floor-plan
+          // migration runs these columns are absent, and `undefined` would
+          // reach the style as "left: undefined%". Null means "never placed",
+          // which the plan already knows how to lay out.
+          shape: table.shape === "round" ? "round" : "square",
+          positionX: table.position_x ?? null,
+          positionY: table.position_y ?? null,
+          isActive: table.is_active,
+          isOccupied: occupiedTableIds.has(table.id),
+        }))}
+        move={moveTable}
+      />
+
       <form action={createTable} className="flex flex-wrap items-end gap-2 rounded-card border border-ink-200 bg-white p-3">
         <div className="w-24">
           <label className="mb-1 block text-xs font-medium text-ink-700">Mesa</label>
@@ -100,6 +119,25 @@ export default async function SalonPage() {
                   >
                     {occupied ? "Ocupada" : "Libre"}
                   </span>
+
+                  {/* Shape is a plain form, not a toggle component: it flips
+                      between two named values rather than on/off. */}
+                  <form
+                    action={setTableShape.bind(
+                      null,
+                      table.id,
+                      table.shape === "round" ? "square" : "round",
+                    )}
+                  >
+                    <Button
+                      type="submit"
+                      variant="ghost"
+                      size="sm"
+                      aria-label={`Cambiar a ${table.shape === "round" ? "cuadrada" : "redonda"}`}
+                    >
+                      {table.shape === "round" ? "Redonda" : "Cuadrada"}
+                    </Button>
+                  </form>
 
                   <AsyncToggle
                     checked={table.is_active}

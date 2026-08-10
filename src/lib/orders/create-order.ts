@@ -27,6 +27,19 @@ export type CreateOrderResult =
 export async function createOrder(
   businessSlug: string,
   request: OrderRequest,
+  options?: {
+    /**
+     * Skips the opening-hours check. Only ever set by the panel, where a
+     * waiter is standing at the table with the customer in front of them —
+     * that is better evidence the local is open than a schedule somebody
+     * loaded once and forgot. A local staying open past its posted hours must
+     * not lose the ability to take orders.
+     *
+     * Deliberately does NOT skip the suspension check below: that one is
+     * about billing, not about whether the doors are open.
+     */
+    bypassSchedule?: boolean;
+  },
 ): Promise<CreateOrderResult> {
   const admin = createAdminClient();
 
@@ -48,8 +61,14 @@ export async function createOrder(
     (subscriptionStatus === "trial" || subscriptionStatus === "active" || subscriptionStatus === "past_due");
   if (!isServable) return { ok: false, reason: "suspended" };
 
-  const isOpen = isBusinessOpenNow(business.timezone, hoursResult.data ?? [], business.is_open_manual);
-  if (!isOpen) return { ok: false, reason: "closed" };
+  if (!options?.bypassSchedule) {
+    const isOpen = isBusinessOpenNow(
+      business.timezone,
+      hoursResult.data ?? [],
+      business.is_open_manual,
+    );
+    if (!isOpen) return { ok: false, reason: "closed" };
+  }
 
   // A table order is re-verified server-side same as everything else here:
   // the browser sent a tableId, but only a real, active table belonging to

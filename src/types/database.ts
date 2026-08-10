@@ -55,6 +55,12 @@ export type CashPaymentMethod = "cash" | "card" | "transfer" | "mercadopago" | "
  *  carries the sign. */
 export type CashMovementKind = "expense" | "income" | "withdrawal";
 
+/**
+ * How a table is drawn on the floor plan.
+ * Not `TableShape` — that name is already the Row/Insert/Update helper below.
+ */
+export type FloorShape = "round" | "square";
+
 export type IvaCondition =
   | "responsable_inscripto"
   | "monotributo"
@@ -239,12 +245,18 @@ type RestaurantTable = {
   zone: string | null;
   is_active: boolean;
   sort_order: number;
+  /** Percentage of the plan area (0-100), not pixels — see the migration. */
+  position_x: number | null;
+  position_y: number | null;
+  shape: FloorShape;
 };
 
 type Order = {
   id: string;
   business_id: string;
   code: string;
+  /** Business-local day the code was numbered for. Unique with (business, code). */
+  business_date: string;
   status: OrderStatus;
   fulfillment_type: FulfillmentType;
   customer_name: string;
