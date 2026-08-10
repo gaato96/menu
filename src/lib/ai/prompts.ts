@@ -22,7 +22,7 @@
  * later rewrite does not orphan images already sitting on live menus.
  */
 
-export const PROMPT_VARIANT = "dish-enhance-v3";
+export const PROMPT_VARIANT = "dish-enhance-v4";
 
 export function buildDishEnhancePrompt(): string {
   return `Retocá esta fotografía para que se vea apetitosa en la carta de un restaurante.
@@ -44,10 +44,12 @@ QUÉ SÍ MEJORAR:
 
 ENCUADRE:
 - Vertical 9:16, con el plato centrado y completo, sin que se corten los bordes.
-- Dejá aire arriba y abajo: se ve a pantalla completa en un celular.
+- El plato tiene que LLENAR el encuadre: que ocupe al menos dos tercios del ancho. Esta foto se ve a pantalla completa en un celular, así que una porción chica perdida en el medio de una mesa vacía no sirve. Acercate.
+- Nada de grandes zonas vacías de mesa o de fondo.
+- Conservá el ángulo de la foto original. Si es cenital, dejala cenital; si es de costado, dejala de costado. No la reencuadres desde otro punto de vista.
 
 REALISMO FOTOGRÁFICO:
-- Como si fuera tomada con una cámara réflex, lente 50mm, f/2.8, a la altura de la mesa o en ángulo de 45 grados.
+- Como si fuera tomada con una cámara réflex, lente 50mm, f/2.8.
 - Conservá la textura real de la comida: los poros del pan, las irregularidades de la carne, el brillo húmedo de una salsa, los bordes desparejos. La comida real nunca es lisa ni perfecta.
 - Dejá las imperfecciones creíbles que ya estén: una miga suelta, una gota en el borde del plato, un pliegue en el papel.
 - Grano fotográfico sutil y natural.
