@@ -17,18 +17,27 @@ interface Tab {
   module?: ModuleKey;
 }
 
-// Split by frequency of use: the row is what a cashier taps all shift long,
-// "Más" is what an owner opens a few times a day. Nine tabs in one row never
-// fit a tablet at counter width, so this is not optional past four modules.
+// The split is service vs. everything else, not "important vs. unimportant".
+//
+// The row holds only the screens somebody touches WHILE the local is open and
+// people are waiting: the board, the drawer, the tables, the kitchen. Those
+// have to be one tap away at 21:00 on a Friday.
+//
+// Everything else — reviewing the day, editing the menu, stock, customers,
+// settings, staff — goes in "Más". It is all work that happens sitting down,
+// where one extra tap costs nothing. `Pedidos` lives there despite being used
+// often: it is a review screen, and it was crowding the row out of a tablet's
+// width during service, which is exactly when the row must stay readable.
 const PRIMARY_TABS: readonly Tab[] = [
   { href: "/panel", label: "Comandas", roles: ["owner", "manager", "cashier"] },
-  { href: "/cocina", label: "Cocina", roles: ["owner", "manager", "cashier"], module: "kitchen_display" },
-  { href: "/panel/salon", label: "Salón", roles: ["owner", "manager", "cashier"], module: "tables" },
-  { href: "/panel/pedidos", label: "Pedidos", roles: ["owner", "manager", "cashier"] },
   { href: "/panel/caja", label: "Caja", roles: ["owner", "manager", "cashier"], module: "cash_register" },
+  { href: "/panel/salon", label: "Salón", roles: ["owner", "manager", "cashier"], module: "tables" },
+  { href: "/cocina", label: "Cocina", roles: ["owner", "manager", "cashier"], module: "kitchen_display" },
 ];
 
+// Ordered by how often an owner actually opens them, most first.
 const MORE_TABS: readonly Tab[] = [
+  { href: "/panel/pedidos", label: "Pedidos", roles: ["owner", "manager", "cashier"] },
   { href: "/panel/menu", label: "Menú", roles: ["owner", "manager"] },
   { href: "/panel/stock", label: "Stock", roles: ["owner", "manager"], module: "inventory" },
   { href: "/panel/clientes", label: "Clientes", roles: ["owner", "manager"], module: "crm_loyalty" },

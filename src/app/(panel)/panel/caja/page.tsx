@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 import { ActionForm } from "@/components/panel/action-form";
+import { ConfirmSubmitButton } from "@/components/panel/confirm-submit-button";
+import { Button } from "@/components/ui/button";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
 import { requireModule, requireStaff } from "@/lib/auth/context";
 import { formatMoney } from "@/lib/money";
@@ -63,12 +65,15 @@ export default async function CashRegisterPage() {
             Poné con cuánto efectivo arrancás el turno. Si arrancás sin fondo, dejalo en cero.
           </p>
 
-          <ActionForm action={openCashSession} submitLabel="Abrir caja" pendingLabel="Abriendo…">
+          <ActionForm action={openCashSession}>
             <div className="mt-3 max-w-48">
               <Field label="Fondo inicial">
                 <Input name="openingFloat" inputMode="decimal" defaultValue="0" />
               </Field>
             </div>
+            <Button type="submit" className="mt-3">
+              Abrir caja
+            </Button>
           </ActionForm>
         </div>
 
@@ -172,17 +177,6 @@ export default async function CashRegisterPage() {
                 <ActionForm
                   action={collectOrder.bind(null, order.id)}
                   className="mt-2 flex flex-wrap items-end gap-2"
-                  submitLabel="Cobrar"
-                  pendingLabel="Cobrando…"
-                  renderSubmit={(pending) => (
-                    <button
-                      type="submit"
-                      disabled={pending}
-                      className="inline-flex min-h-touch items-center justify-center rounded-lg bg-brand px-4 text-sm font-semibold text-brand-fg transition-colors hover:brightness-95 disabled:pointer-events-none disabled:opacity-50"
-                    >
-                      {pending ? "Cobrando…" : "Cobrar"}
-                    </button>
-                  )}
                 >
                   <div className="w-36">
                     <Field label="Pagó con">
@@ -205,6 +199,7 @@ export default async function CashRegisterPage() {
                       <Input name="tip" inputMode="decimal" defaultValue="0" />
                     </Field>
                   </div>
+                  <Button type="submit">Cobrar</Button>
                 </ActionForm>
               </li>
             ))}
@@ -222,16 +217,6 @@ export default async function CashRegisterPage() {
         <ActionForm
           action={addCashMovement.bind(null, session.id)}
           className="mt-3 flex flex-wrap items-end gap-2"
-          submitLabel="Registrar"
-          renderSubmit={(pending) => (
-            <button
-              type="submit"
-              disabled={pending}
-              className="inline-flex min-h-touch items-center justify-center rounded-lg border border-ink-200 bg-white px-4 text-sm font-semibold text-ink-900 transition-colors hover:bg-ink-50 disabled:pointer-events-none disabled:opacity-50"
-            >
-              {pending ? "Guardando…" : "Registrar"}
-            </button>
-          )}
         >
           <div className="w-32">
             <Field label="Tipo">
@@ -254,6 +239,9 @@ export default async function CashRegisterPage() {
               <Input name="amount" inputMode="decimal" />
             </Field>
           </div>
+          <Button type="submit" variant="outline">
+            Registrar
+          </Button>
         </ActionForm>
 
         {movements.length > 0 && (
@@ -297,19 +285,16 @@ export default async function CashRegisterPage() {
                   <span className="ml-auto font-mono text-sm text-ink-900">
                     {formatMoney(payment.collected_cents, { currency })}
                   </span>
-                  <ActionForm
-                    action={uncollectOrder.bind(null, payment.id)}
-                    confirmMessage="¿Anular este cobro? El pedido vuelve a quedar sin cobrar."
-                    renderSubmit={(pending) => (
-                      <button
-                        type="submit"
-                        disabled={pending}
-                        className="min-h-touch px-2 text-xs text-ink-500 underline-offset-4 hover:text-danger hover:underline disabled:opacity-50"
-                      >
-                        Anular
-                      </button>
-                    )}
-                  />
+                  <ActionForm action={uncollectOrder.bind(null, payment.id)}>
+                    <ConfirmSubmitButton
+                      confirmMessage="¿Anular este cobro? El pedido vuelve a quedar sin cobrar."
+                      variant="ghost"
+                      size="sm"
+                      className="text-xs text-ink-500 hover:text-danger"
+                    >
+                      Anular
+                    </ConfirmSubmitButton>
+                  </ActionForm>
                 </li>
               );
             })}
@@ -324,14 +309,7 @@ export default async function CashRegisterPage() {
           {formatMoney(expectedCents, { currency })} que deberían estar.
         </p>
 
-        <ActionForm
-          action={closeCashSession.bind(null, session.id)}
-          submitLabel="Cerrar caja"
-          pendingLabel="Cerrando…"
-          confirmMessage="¿Cerrar la caja? Después no se le pueden agregar cobros ni movimientos."
-          resetOnSuccess={false}
-          className="mt-3"
-        >
+        <ActionForm action={closeCashSession.bind(null, session.id)} className="mt-3">
           <div className="flex flex-wrap items-end gap-3">
             <div className="w-36">
               <Field label="Efectivo contado" required>
@@ -344,6 +322,12 @@ export default async function CashRegisterPage() {
               </Field>
             </div>
           </div>
+          <ConfirmSubmitButton
+            confirmMessage="¿Cerrar la caja? Después no se le pueden agregar cobros ni movimientos."
+            className="mt-3"
+          >
+            Cerrar caja
+          </ConfirmSubmitButton>
         </ActionForm>
       </section>
     </main>
