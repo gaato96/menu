@@ -84,7 +84,9 @@ La v1 de este documento proponía un solo formato: filmar el tablero funcionando
 
 ### 1.5 — Reels ocasionales
 
-No se planifican como pilar aparte con temas propios — nacen de repurposing. Cuando un carrusel funciona bien (guardados altos), se convierte en un Reel corto (CapCut permite armar un video a partir de las mismas imágenes del carrusel con transiciones simples, cero filmación nueva). Es una extensión de un carrusel que ya demostró que interesa, no contenido nuevo desde cero.
+No se planifican como pilar aparte con temas propios — nacen de repurposing. Cuando un carrusel funciona bien (guardados altos), se convierte en un Reel corto. Es una extensión de un carrusel que ya demostró que interesa, no contenido nuevo desde cero.
+
+**Excepción, adelantada respecto al plan original:** con la cuenta recién abierta (15 seguidores), los carruseles no se están distribuyendo — el alcance orgánico de Instagram para una cuenta fría, en formato carrusel, es casi nulo hasta que hay una base de interacción. Un Reel bien hecho tiene mucho más piso de distribución en frío que un carrusel, porque Instagram lo prueba con público que no te sigue de una forma que al carrusel no le da. Por eso el primer Reel se adelantó a la semana 2 en vez de esperar a la semana 8, elegido por mérito de contenido (no de guardados, porque ningún carrusel tiene señal todavía): "¿Cuánto te está costando la comisión de delivery?", del pilar 1.3, generado con clips de IA + motion graphics en vez de repurposing de imágenes de carrusel. Guion, prompts y brief de edición completos en `marketing/reel-01-comision.md`.
 
 ---
 
@@ -92,13 +94,19 @@ No se planifican como pilar aparte con temas propios — nacen de repurposing. C
 
 **A diferencia de la v1, esto arranca en la semana 1 — no depende de tener un cliente instalado.** Los pilares 1.1, 1.2 y 1.3 son autónomos del negocio de Gastón; solo el pilar 1.4 espera al primer local.
 
-### Semanas 1–2 — Arranque
-Se abre la cuenta de Instagram (bio + foto + destacada de "servicios"), se arma la plantilla de Canva (`guia-produccion.md` §2), y se publican los primeros carruseles.
+### Semanas 1–2 — Arranque *(hecho, con desvíos respecto al plan original — ver estado real abajo)*
 
-| Semana | Post 1 | Post 2 | Post 3 (opcional) |
-|---|---|---|---|
-| 1 | 1.1 — "El menú sin fotos" | 1.2 — "Los 4 datos que necesitás pedir siempre" | 1.3 — "¿Cuánto te cuesta la comisión de delivery?" |
-| 2 | 1.1 — "No decir el tiempo de espera" | 1.2 — "Cómo poner precio a un plato nuevo" | — |
+Se abrió la cuenta de Instagram (`@vivomenu.app`, 15 seguidores al 2026-08-13) y se publicaron 5 carruseles, no los 3 planeados en la tabla original — los temas terminaron siendo otros a los del banco de la §1, escritos sobre la marcha:
+
+| # | Carrusel publicado | Pilar |
+|---|---|---|
+| 1 | "5 errores que te hacen perder pedidos por WhatsApp" | 1.1 |
+| 2 | "3 errores de carta que te hacen perder plata sin darte cuenta" | 1.1 |
+| 3 | "4 preguntas en el orden correcto" | 1.2 |
+| 4 | "¿Cuánto te está costando la comisión de delivery?" | 1.3 |
+| 5 | "El cliente no cancela porque tarde 45 minutos" | 1.1 |
+
+**Interacción:** mínima en los 5 (esperable con 15 seguidores — ver diagnóstico en §3.1). **Desvío del plan:** el Reel de cierre de la semana 8 (§1.5) se adelantó a esta semana, porque el alcance orgánico de un carrusel en una cuenta fría es casi nulo y no puede esperar a acumular guardados que a esta escala no van a llegar. Detalle completo en `marketing/reel-01-comision.md`.
 
 ### Semanas 3–4 — Primer caso real
 En paralelo a la instalación del primer local (`plan-marketing.md` roadmap).
@@ -142,6 +150,15 @@ Con 3-5 locales (meta del plan de marketing), el pilar 1.4 puede sostener 1 post
 2. Nadie está haciendo el ángulo "hacé la cuenta vos mismo" con números de ejemplo — es un formato que genera confianza porque no pretende saber el número exacto de nadie.
 3. Ningún SaaS competidor en Argentina tiene una cuenta de valor — todos hacen contenido de producto (capturas de panel, features). Ser la única cuenta *útil* del rubro es un espacio libre.
 
+### 3.1 — Diagnóstico: por qué la interacción es mínima (y qué hacer, sin recurrir a la cuenta vieja)
+
+Con 15 seguidores, los likes no informan nada — no hay que leer las 5-6 interacciones de cada carrusel como "el contenido no sirve". El motivo real es de distribución: Instagram prueba cada post primero contra tu propia base de seguidores, y una cuenta con 15 no le da a la plataforma señal suficiente para salir a explorar. Se corrige por dos vías, ninguna atajo:
+
+1. **Reels en vez de solo carruseles mientras la cuenta es chica** (§1.5) — tienen mucho más piso de distribución en frío.
+2. **Seguir al ICP desde la cuenta de marca** (20-30 gastronómicos de Tucumán por día) y **buscar colaboraciones de Instagram con locales reales** — contenido que los nombra y etiqueta, para sumar su audiencia a la propia. Es la palanca más grande que existe hoy para una cuenta nueva en un rubro local.
+
+**Descartado explícitamente:** usar cualquier cuenta personal previa de Gastón como atajo de seguidores — evaluada y rechazada por historial de marca incompatible con VivoMenu. `@vivomenu.app` crece desde cero, sin herencia de ninguna cuenta anterior.
+
 ---
 
 ## 4. Producción — remite a la guía completa
@@ -151,5 +168,6 @@ El detalle de cómo se arma cada carrusel (plantilla de Canva, copy exacto de lo
 ---
 
 ## Changelog
+- v2.1 (2026-08-13) — Actualizado el estado real de las semanas 1-2: 5 carruseles publicados (no 3), con interacción mínima diagnosticada como problema de distribución de cuenta fría, no de contenido (§3.1). Adelantado el primer Reel de la semana 8 a la semana 2, con guion, prompts de IA y brief de motion graphics en `reel-01-comision.md`. Descartado explícitamente el uso de cualquier cuenta de Instagram previa de Gastón para ganar seguidores de arranque.
 - v2 (2026-07-28) — **Reposicionamiento completo**, a pedido explícito de Gastón: el pilar "El tablero" (mostrar el producto funcionando) no aporta valor y fue eliminado como pilar principal. Reemplazado por 4 pilares de contenido educativo para dueños de locales gastronómicos (errores operativos, guías prácticas, cálculos ilustrativos, lecciones de casos reales), formato principal carrusel en vez de Reel, y arranque en la semana 1 en vez de esperar al primer cliente instalado. Construido con `content-strategy-sms` + `social` (`carousel-frameworks.md`: Hack List, Value-Stack, Problem-Proof).
 - v1 (2026-07-28) — Documento inicial (reemplazado).
