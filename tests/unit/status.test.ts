@@ -63,6 +63,41 @@ describe("checkTransition", () => {
     expect(result.ok).toBe(false);
   });
 
+  // A mozo is restricted exactly like a cajero: they take the order and push
+  // it forward, and anything that undoes work belongs to whoever is
+  // accountable for the shift. Mirrored by on_order_update() in
+  // supabase/migrations/20260813000000_waiter_role.sql.
+  it("lets a waiter move an order forward but not backwards", () => {
+    expect(
+      checkTransition({
+        from: "confirmed",
+        to: "in_kitchen",
+        role: "waiter",
+        fulfillment: "dine_in",
+      }).ok,
+    ).toBe(true);
+
+    expect(
+      checkTransition({
+        from: "in_kitchen",
+        to: "confirmed",
+        role: "waiter",
+        fulfillment: "dine_in",
+      }).ok,
+    ).toBe(false);
+  });
+
+  it("stops a waiter from cancelling", () => {
+    expect(
+      checkTransition({
+        from: "confirmed",
+        to: "cancelled",
+        role: "waiter",
+        fulfillment: "dine_in",
+      }).ok,
+    ).toBe(false);
+  });
+
   it("stops a cashier from cancelling, but allows a manager", () => {
     expect(
       checkTransition({

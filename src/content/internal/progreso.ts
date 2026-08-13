@@ -19,6 +19,8 @@ export const progreso = `# VivoMenu — Progreso y próximas tareas
 | 2026-08-06 | Análisis competitivo de Menuly | Comparación completa + roadmap de 7 fases para cerrar la brecha. Plan aprobado |
 | 2026-08-06 | **Generador de fotos con IA (Fase 1)** | En producción. Modelo con tier gratuito por defecto, acepta foto de cámara o archivo existente |
 | 2026-08-06 | **Módulo de Caja (Fase 2)** | En producción, apagado por defecto. Apertura, cobro con propina y descuento, movimientos, arqueo y reportes |
+| 2026-08-13 | **Rol Mozo** | El mozo entra con su propio usuario, ve solo Salón y Comandas, y toma el pedido de cada mesa desde el celular. Entra confirmado: aparece en el tablero y en la pantalla de cocina. **Requiere correr \`20260813000000_waiter_role.sql\`** |
+| 2026-08-13 | Salón y mobile rediseñados | Plano del salón acotado y en dos columnas en PC, comanda del mozo con carrito al costado, tablero con columnas de una por pantalla en el celular |
 
 ## 2. En curso
 
@@ -39,7 +41,7 @@ export const progreso = `# VivoMenu — Progreso y próximas tareas
 | 2 | **Mandar los primeros 5 mensajes** — empezando por contactos tibios de Galu si los hay (\`sistema-prospeccion-frio.md\` §7.4) | Gastón |
 | 3 | Crear propiedad GA4 con la cuenta nueva y pasar el Measurement ID (\`G-XXXXXXX\`) | Gastón |
 | 4 | Verificar el dominio en Search Console con la misma cuenta | Gastón |
-| 5 | **Correr las migraciones pendientes**: \`20260806001000_ai_images_model.sql\` y \`20260806002000_cash_register.sql\` | Gastón |
+| 5 | **Correr las migraciones pendientes**: \`20260806001000_ai_images_model.sql\`, \`20260806002000_cash_register.sql\` y \`20260813000000_waiter_role.sql\` (sin esta última no se puede crear ningún usuario Mozo) | Gastón |
 | 6 | Probar el generador de fotos y confirmar en Cloud Billing si figura consumo | Gastón |
 | 7 | Prender el módulo Caja para Burger House desde \`/admin\` y probar el ciclo completo (abrir, cobrar, gasto, arquear, cerrar) | Gastón |
 

@@ -3,8 +3,9 @@
 import { useTransition } from "react";
 
 import { Select } from "@/components/ui/field";
+import type { AssignableRole } from "@/lib/auth/roles";
 
-type Role = "owner" | "manager" | "cashier";
+type Role = AssignableRole;
 
 export function RoleSelect({
   currentRole,
@@ -25,6 +26,7 @@ export function RoleSelect({
       <option value="owner">Dueño</option>
       <option value="manager">Encargado</option>
       <option value="cashier">Cajero</option>
+      <option value="waiter">Mozo</option>
     </Select>
   );
 }

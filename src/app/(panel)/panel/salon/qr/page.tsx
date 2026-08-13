@@ -37,10 +37,10 @@ export default async function TableQrPage() {
   );
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4 print:p-0">
+    <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4 print:p-0">
       <div className="flex items-center justify-between print:hidden">
         <div>
-          <h1 className="font-display text-xl font-bold tracking-tight text-ink-900">
+          <h1 className="font-display text-lg font-bold tracking-tight text-ink-900 sm:text-xl">
             Hoja de QR
           </h1>
           <p className="text-sm text-ink-500">Imprimí y pegá uno por mesa.</p>

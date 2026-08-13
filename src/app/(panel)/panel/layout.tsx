@@ -4,16 +4,10 @@ import Link from "next/link";
 import { NavTabs } from "@/components/panel/nav-tabs";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { moduleList, requireStaff } from "@/lib/auth/context";
+import { ROLE_LABELS } from "@/lib/auth/roles";
 import { cn } from "@/lib/utils";
 
 import { signOut } from "../../(auth)/login/actions";
-
-const ROLE_LABELS: Record<string, string> = {
-  owner: "Dueño",
-  manager: "Encargado",
-  cashier: "Cajero",
-  superadmin: "Superadmin",
-};
 
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
   const staff = await requireStaff();
@@ -41,22 +35,30 @@ export default async function PanelLayout({ children }: { children: React.ReactN
       }
     >
       <header className="sticky top-0 z-20 border-b border-ink-200 bg-white">
-        <div className="flex items-center gap-3 px-4 py-3">
+        {/* Tighter on a phone than on the counter tablet: the header is pure
+            overhead on a 5" screen, and every row it eats comes out of the
+            board underneath it. */}
+        <div className="flex items-center gap-2 px-3 py-2 sm:gap-3 sm:px-4 sm:py-3">
           <div className="min-w-0 flex-1">
-            <p className="truncate font-semibold text-ink-900">{business.name}</p>
-            <p className="text-xs text-ink-500">
+            <p className="truncate text-sm leading-tight font-semibold text-ink-900 sm:text-base">
+              {business.name}
+            </p>
+            <p className="truncate text-xs text-ink-500">
               {staff.fullName ?? "Sin nombre"} · {ROLE_LABELS[staff.role] ?? staff.role}
             </p>
           </div>
 
           {/* Opening the diner-facing menu is the most common thing an owner
-              does from here, so it lives in the header. */}
+              does from here, so it lives in the header. The label collapses to
+              the icon on a phone — the icon alone is unambiguous next to an
+              aria-label, and the words were pushing the logout button off. */}
           <Link
             href={`/m/${business.slug}`}
             target="_blank"
-            className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "shrink-0")}
+            aria-label="Ver menú público"
+            className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "shrink-0 px-2 sm:px-3")}
           >
-            Ver menú
+            <span className="hidden sm:inline">Ver menú</span>
             <ExternalLink className="size-4" aria-hidden />
           </Link>
 

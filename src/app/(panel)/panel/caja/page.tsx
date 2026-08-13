@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { ActionForm } from "@/components/panel/action-form";
 import { ConfirmSubmitButton } from "@/components/panel/confirm-submit-button";
@@ -37,6 +38,11 @@ const METHOD_LABELS: Record<CashPaymentMethod, string> = {
 export default async function CashRegisterPage() {
   const staff = await requireStaff();
   requireModule(staff, "cash_register");
+  // The drawer belongs to whoever is at the counter. Every cash_* policy is
+  // `in ('owner', 'manager', 'cashier')`, so a mozo reaching this URL would
+  // otherwise get a page that renders as "no hay caja abierta" and an "abrir
+  // caja" button that fails — an explicit bounce is the honest answer.
+  if (staff.role === "waiter") redirect("/panel");
   const supabase = await createClient();
   const currency = staff.business.currency;
 
@@ -56,7 +62,7 @@ export default async function CashRegisterPage() {
       .maybeSingle();
 
     return (
-      <main className="flex flex-1 flex-col gap-4 p-4">
+      <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4">
         <Header />
 
         <div className="rounded-card border border-ink-200 bg-white p-4">
@@ -149,7 +155,7 @@ export default async function CashRegisterPage() {
   const totalTips = payments.reduce((total, p) => total + p.tip_cents, 0);
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4">
+    <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4">
       <Header />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -338,7 +344,7 @@ function Header() {
   return (
     <div className="flex flex-wrap items-baseline justify-between gap-2">
       <div>
-        <h1 className="font-display text-xl font-bold tracking-tight text-ink-900">Caja</h1>
+        <h1 className="font-display text-lg font-bold tracking-tight text-ink-900 sm:text-xl">Caja</h1>
         <p className="text-sm text-ink-500">
           Un turno por vez. El comprobante que sale de acá no es una factura.
         </p>

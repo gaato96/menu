@@ -1,4 +1,4 @@
-import { Bike, Store } from "lucide-react";
+import { Bike, Store, Utensils } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Field, Select } from "@/components/ui/field";
@@ -7,7 +7,13 @@ import { requireStaff } from "@/lib/auth/context";
 import { businessRangeUtc, businessTodayDateStr } from "@/lib/business/date-range";
 import { formatMoney } from "@/lib/money";
 import { fetchOrderHistory, summarizeOrders } from "@/lib/orders/history-queries";
-import { ORDER_STATUSES, STATUS_LABELS, type FulfillmentType, type OrderStatus } from "@/lib/orders/status";
+import {
+  FULFILLMENT_TYPES,
+  ORDER_STATUSES,
+  STATUS_LABELS,
+  type FulfillmentType,
+  type OrderStatus,
+} from "@/lib/orders/status";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "Pedidos" };
@@ -35,10 +41,11 @@ export default async function OrderHistoryPage({
   const status = ORDER_STATUSES.includes(params.status as OrderStatus)
     ? (params.status as OrderStatus)
     : undefined;
-  const fulfillment =
-    params.fulfillment === "delivery" || params.fulfillment === "pickup"
-      ? (params.fulfillment as FulfillmentType)
-      : undefined;
+  // Validated against the list itself rather than an inline pair, which is
+  // what silently dropped 'dine_in' when the tables module added it.
+  const fulfillment = FULFILLMENT_TYPES.includes(params.fulfillment as FulfillmentType)
+    ? (params.fulfillment as FulfillmentType)
+    : undefined;
 
   const { startIso, endIsoExclusive } = businessRangeUtc(from, to, staff.business.timezone);
   const orders = await fetchOrderHistory(supabase, staff.business.id, {
@@ -51,8 +58,8 @@ export default async function OrderHistoryPage({
   const isToday = from === today && to === today;
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4">
-      <h1 className="font-display text-xl font-bold tracking-tight text-ink-900">
+    <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4">
+      <h1 className="font-display text-lg font-bold tracking-tight text-ink-900 sm:text-xl">
         {isToday ? "Resumen de hoy" : "Historial de pedidos"}
       </h1>
 
@@ -101,6 +108,9 @@ export default async function OrderHistoryPage({
             <option value="">Todas</option>
             <option value="delivery">Delivery</option>
             <option value="pickup">Retiro</option>
+            {/* Missing since the tables module shipped: without it a local
+                that works mostly with mesas could not isolate its salón. */}
+            <option value="dine_in">Mesa</option>
           </Select>
         </Field>
         <Button type="submit" className="sm:col-span-1">
@@ -119,9 +129,11 @@ export default async function OrderHistoryPage({
               <li key={order.id} className="flex items-start gap-3 px-4 py-3">
                 <div className="flex min-w-0 flex-1 items-start gap-2">
                   {order.fulfillment_type === "delivery" ? (
-                    <Bike className="mt-0.5 size-4 shrink-0 text-ink-400" aria-hidden />
+                    <Bike className="mt-0.5 size-4 shrink-0 text-ink-400" aria-label="Delivery" />
+                  ) : order.fulfillment_type === "dine_in" ? (
+                    <Utensils className="mt-0.5 size-4 shrink-0 text-ink-400" aria-label="Mesa" />
                   ) : (
-                    <Store className="mt-0.5 size-4 shrink-0 text-ink-400" aria-hidden />
+                    <Store className="mt-0.5 size-4 shrink-0 text-ink-400" aria-label="Retiro" />
                   )}
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">

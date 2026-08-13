@@ -148,7 +148,7 @@ async function uploadLogo(businessId: string, businessName: string, brandColor: 
 async function upsertUser(
   email: string,
   fullName: string,
-  role: "superadmin" | "owner" | "manager" | "cashier",
+  role: "superadmin" | "owner" | "manager" | "cashier" | "waiter",
   businessId: string | null,
 ) {
   const { data: created, error } = await db.auth.admin.createUser({
@@ -223,7 +223,7 @@ interface BusinessSeed {
   transferAlias: string;
   zones: { name: string; fee: number; active?: boolean }[];
   categories: CategorySeed[];
-  staff: { email: string; name: string; role: "owner" | "manager" | "cashier" }[];
+  staff: { email: string; name: string; role: "owner" | "manager" | "cashier" | "waiter" }[];
   /** Source URL of a demo cover photo — downloaded and re-uploaded to Storage. */
   cover?: string;
 }
@@ -306,6 +306,7 @@ const BUSINESSES: BusinessSeed[] = [
       { email: "dueno@burgerhouse.test", name: "Martín Ruiz", role: "owner" },
       { email: "encargado@burgerhouse.test", name: "Sofía Paz", role: "manager" },
       { email: "cajero@burgerhouse.test", name: "Nico Díaz", role: "cashier" },
+      { email: "mozo@burgerhouse.test", name: "Lucía Ferrer", role: "waiter" },
     ],
     categories: [
       {

@@ -46,8 +46,8 @@ export default async function ConfigPage() {
   const settings = staff.settings;
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4">
-      <h1 className="font-display text-xl font-bold tracking-tight text-ink-900">Configuración</h1>
+    <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4">
+      <h1 className="font-display text-lg font-bold tracking-tight text-ink-900 sm:text-xl">Configuración</h1>
 
       <section className="flex items-center justify-between rounded-card border border-ink-200 bg-white p-4">
         <div>

@@ -28,10 +28,20 @@ interface Tab {
 // where one extra tap costs nothing. `Pedidos` lives there despite being used
 // often: it is a review screen, and it was crowding the row out of a tablet's
 // width during service, which is exactly when the row must stay readable.
+//
+// A mozo is the one role whose row is shorter on purpose: their whole shift
+// is the floor. They get Salón (take the order) and Comandas (see when a
+// table's food is up), and nothing else — the drawer and the kitchen screen
+// are somebody else's station.
 const PRIMARY_TABS: readonly Tab[] = [
-  { href: "/panel", label: "Comandas", roles: ["owner", "manager", "cashier"] },
+  { href: "/panel", label: "Comandas", roles: ["owner", "manager", "cashier", "waiter"] },
   { href: "/panel/caja", label: "Caja", roles: ["owner", "manager", "cashier"], module: "cash_register" },
-  { href: "/panel/salon", label: "Salón", roles: ["owner", "manager", "cashier"], module: "tables" },
+  {
+    href: "/panel/salon",
+    label: "Salón",
+    roles: ["owner", "manager", "cashier", "waiter"],
+    module: "tables",
+  },
   { href: "/cocina", label: "Cocina", roles: ["owner", "manager", "cashier"], module: "kitchen_display" },
 ];
 

@@ -24,9 +24,9 @@ export default async function StockPage() {
   const untracked = products.filter((p) => p.stock_quantity === null);
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4">
+    <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4">
       <div>
-        <h1 className="font-display text-xl font-bold tracking-tight text-ink-900">Stock</h1>
+        <h1 className="font-display text-lg font-bold tracking-tight text-ink-900 sm:text-xl">Stock</h1>
         <p className="text-sm text-ink-500">
           Por producto, sin recetas ni insumos. Un producto sin cantidad cargada no lleva la
           cuenta — el menú se comporta igual que siempre.

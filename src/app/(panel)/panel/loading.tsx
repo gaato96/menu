@@ -12,7 +12,7 @@
  */
 export default function PanelLoading() {
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4" aria-busy="true" aria-live="polite">
+    <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4" aria-busy="true" aria-live="polite">
       <span className="sr-only">Cargando…</span>
 
       <div className="h-7 w-40 animate-pulse rounded-lg bg-ink-200" />

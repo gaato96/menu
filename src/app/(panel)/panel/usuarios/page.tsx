@@ -4,18 +4,13 @@ import { AsyncToggle } from "@/components/panel/async-toggle";
 import { InviteStaffForm } from "@/components/panel/invite-staff-form";
 import { RoleSelect } from "@/components/panel/role-select";
 import { requireStaff } from "@/lib/auth/context";
+import { type AssignableRole, ROLE_LABELS } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 
 import { inviteStaff, toggleStaffActive, updateStaffRole } from "./actions";
 
 export const metadata = { title: "Usuarios" };
 export const dynamic = "force-dynamic";
-
-const ROLE_LABELS: Record<string, string> = {
-  owner: "Dueño",
-  manager: "Encargado",
-  cashier: "Cajero",
-};
 
 export default async function UsersPage() {
   const staff = await requireStaff();
@@ -33,8 +28,8 @@ export default async function UsersPage() {
     .order("created_at");
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4">
-      <h1 className="font-display text-xl font-bold tracking-tight text-ink-900">Usuarios</h1>
+    <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4">
+      <h1 className="font-display text-lg font-bold tracking-tight text-ink-900 sm:text-xl">Usuarios</h1>
 
       <InviteStaffForm action={inviteStaff} />
 
@@ -55,7 +50,7 @@ export default async function UsersPage() {
                 <RoleSelect
                   // Safe: the superadmin_has_no_business CHECK constraint
                   // guarantees a row with business_id set is never 'superadmin'.
-                  currentRole={profile.role as "owner" | "manager" | "cashier"}
+                  currentRole={profile.role as AssignableRole}
                   action={updateStaffRole.bind(null, profile.id)}
                 />
               )}

@@ -9,6 +9,7 @@ import { ElapsedTimer } from "@/components/board/elapsed-timer";
 import { useAudioAlert } from "@/hooks/use-audio-alert";
 import { useOrderRealtime } from "@/hooks/use-order-realtime";
 import { useWakeLock } from "@/hooks/use-wake-lock";
+import { canReverseOrders } from "@/lib/auth/roles";
 import type { BoardOrder } from "@/lib/orders/board-queries";
 import { isKitchenOrder } from "@/lib/orders/kitchen-queries";
 import type { StaffRole } from "@/lib/orders/status";
@@ -116,7 +117,11 @@ export function KitchenBoard({
               order={order}
               tableLabel={order.table_id ? tableNames[order.table_id] : null}
               busy={busyId === order.id}
-              canUndo={order.status === "in_kitchen" && role !== "cashier"}
+              // Asking who CAN reverse, not listing who can't: a deny-list
+              // silently grants the button to every role added later, and the
+              // guard trigger then rejects the write with an error nobody in
+              // the kitchen can act on.
+              canUndo={order.status === "in_kitchen" && canReverseOrders(role)}
               onAdvance={() => void advance(order)}
               onUndo={() => void undo(order)}
             />

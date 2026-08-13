@@ -58,10 +58,19 @@ export function InviteStaffForm({
             <Field label="Rol">
               <Select name="role" defaultValue="cashier">
                 <option value="cashier">Cajero</option>
+                <option value="waiter">Mozo</option>
                 <option value="manager">Encargado</option>
               </Select>
             </Field>
           </div>
+
+          <p className="text-xs text-ink-500">
+            <strong className="font-medium text-ink-700">Mozo:</strong> toma pedidos en las mesas
+            desde su celular. · <strong className="font-medium text-ink-700">Cajero:</strong> mueve
+            comandas y maneja la caja. ·{" "}
+            <strong className="font-medium text-ink-700">Encargado:</strong> además edita el menú y
+            puede cancelar pedidos.
+          </p>
 
           {result?.error && <p className="text-sm text-danger">{result.error}</p>}
 

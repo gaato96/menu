@@ -52,7 +52,7 @@ export default async function ProductDetailPage({
   const aiRemaining = Math.max(0, AI_IMAGES_MONTHLY_QUOTA - (aiUsed.data ?? 0));
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4">
+    <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4">
       <Link href="/panel/menu" className="flex items-center gap-1 text-sm text-ink-500 hover:text-ink-900">
         <ArrowLeft className="size-4" aria-hidden />
         Volver al menú

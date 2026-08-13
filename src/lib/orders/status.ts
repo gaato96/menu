@@ -24,7 +24,7 @@ export type OrderStatus = (typeof ORDER_STATUSES)[number];
 export const FULFILLMENT_TYPES = ["delivery", "pickup", "dine_in"] as const;
 export type FulfillmentType = (typeof FULFILLMENT_TYPES)[number];
 
-export const STAFF_ROLES = ["superadmin", "owner", "manager", "cashier"] as const;
+export const STAFF_ROLES = ["superadmin", "owner", "manager", "cashier", "waiter"] as const;
 export type StaffRole = (typeof STAFF_ROLES)[number];
 
 /** Progress rank. The two "ready" states deliberately share rank 3. */

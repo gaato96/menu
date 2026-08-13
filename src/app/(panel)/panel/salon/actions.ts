@@ -4,14 +4,28 @@ import { randomUUID } from "node:crypto";
 
 import { revalidatePath } from "next/cache";
 
-import { requireModule, requireStaff } from "@/lib/auth/context";
+import { requireModule, requireStaff, type StaffContext } from "@/lib/auth/context";
+import { canConfigure } from "@/lib/auth/roles";
 import { createOrder } from "@/lib/orders/create-order";
 import { createClient } from "@/lib/supabase/server";
 import type { FloorShape } from "@/types/database";
 
+/**
+ * Setting the room up is owner/manager work.
+ *
+ * RLS already refuses these writes for a cajero or a mozo, so this is not the
+ * boundary — it exists so the refusal is a `return` here instead of an
+ * `update` that reports success and changes nothing, which is the shape of
+ * bug that takes a week to notice.
+ */
+function assertCanConfigure(staff: StaffContext) {
+  return canConfigure(staff.role);
+}
+
 export async function createTable(formData: FormData) {
   const staff = await requireStaff();
   requireModule(staff, "tables");
+  if (!assertCanConfigure(staff)) return;
   const supabase = await createClient();
 
   const label = String(formData.get("label") ?? "").trim();
@@ -38,6 +52,7 @@ export async function createTable(formData: FormData) {
 export async function toggleTableActive(tableId: string, isActive: boolean) {
   const staff = await requireStaff();
   requireModule(staff, "tables");
+  if (!assertCanConfigure(staff)) return;
   const supabase = await createClient();
   await supabase.from("restaurant_tables").update({ is_active: isActive }).eq("id", tableId);
   revalidatePath("/panel/salon");
@@ -46,6 +61,7 @@ export async function toggleTableActive(tableId: string, isActive: boolean) {
 export async function deleteTable(tableId: string) {
   const staff = await requireStaff();
   requireModule(staff, "tables");
+  if (!assertCanConfigure(staff)) return;
   const supabase = await createClient();
   // A table with order history keeps existing — restaurant_tables has no
   // ON DELETE CASCADE from orders, and orders.table_id is a real record of
@@ -67,6 +83,7 @@ export async function deleteTable(tableId: string) {
 export async function moveTable(tableId: string, x: number, y: number) {
   const staff = await requireStaff();
   requireModule(staff, "tables");
+  if (!assertCanConfigure(staff)) return;
   const supabase = await createClient();
 
   const clamp = (value: number) => Math.min(100, Math.max(0, Math.round(value * 100) / 100));
@@ -82,6 +99,7 @@ export async function moveTable(tableId: string, x: number, y: number) {
 export async function setTableShape(tableId: string, shape: FloorShape) {
   const staff = await requireStaff();
   requireModule(staff, "tables");
+  if (!assertCanConfigure(staff)) return;
   const supabase = await createClient();
   await supabase.from("restaurant_tables").update({ shape }).eq("id", tableId);
   revalidatePath("/panel/salon");

@@ -7,6 +7,7 @@ import { ConfirmSubmitButton } from "@/components/panel/confirm-submit-button";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
 import { requireSuperadmin } from "@/lib/auth/context";
+import { ROLE_LABELS } from "@/lib/auth/roles";
 import { formatMoney } from "@/lib/money";
 import { createClient } from "@/lib/supabase/server";
 import type { ModuleKey } from "@/types/database";
@@ -21,12 +22,6 @@ import {
 
 export const metadata = { title: "Negocio" };
 export const dynamic = "force-dynamic";
-
-const ROLE_LABELS: Record<string, string> = {
-  owner: "Dueño",
-  manager: "Encargado",
-  cashier: "Cajero",
-};
 
 const MODULE_LABELS: Record<ModuleKey, string> = {
   crm_loyalty: "CRM / Fidelización",

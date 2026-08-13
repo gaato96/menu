@@ -204,7 +204,7 @@ export function Board({
       </div>
 
       <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-        <div className="flex flex-1 gap-3 overflow-x-auto p-3">
+        <div className="flex flex-1 snap-x snap-mandatory gap-3 overflow-x-auto p-3 sm:snap-none">
           {BOARD_COLUMNS.map((column) => (
             <BoardColumn
               key={column.id}

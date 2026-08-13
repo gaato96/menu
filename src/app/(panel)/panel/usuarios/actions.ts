@@ -5,6 +5,7 @@ import { randomBytes } from "node:crypto";
 import { revalidatePath } from "next/cache";
 
 import { requireStaff } from "@/lib/auth/context";
+import type { AssignableRole } from "@/lib/auth/roles";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
@@ -35,7 +36,11 @@ export async function inviteStaff(formData: FormData): Promise<InviteResult> {
 
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const fullName = String(formData.get("fullName") ?? "").trim();
-  const role = formData.get("role") === "manager" ? "manager" : "cashier";
+  // An owner can invite anyone below themselves. Ownership is transferred
+  // from the list afterwards, never handed out at creation time.
+  const requested = formData.get("role");
+  const role: AssignableRole =
+    requested === "manager" || requested === "waiter" ? requested : "cashier";
   if (!email || !fullName) return { error: "Completá nombre y email." };
 
   const admin = createAdminClient();
@@ -72,7 +77,7 @@ export async function inviteStaff(formData: FormData): Promise<InviteResult> {
   return { ok: true, password };
 }
 
-export async function updateStaffRole(profileId: string, role: "owner" | "manager" | "cashier") {
+export async function updateStaffRole(profileId: string, role: AssignableRole) {
   const supabase = await createClient();
   await supabase.from("profiles").update({ role }).eq("id", profileId);
   revalidatePath("/panel/usuarios");

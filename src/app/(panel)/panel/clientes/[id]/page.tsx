@@ -28,7 +28,7 @@ export default async function CustomerDetailPage({
   if (!customer) notFound();
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4">
+    <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4">
       <Link href="/panel/clientes" className="flex items-center gap-1 text-sm text-ink-500 hover:text-ink-900">
         <ArrowLeft className="size-4" aria-hidden />
         Volver a clientes

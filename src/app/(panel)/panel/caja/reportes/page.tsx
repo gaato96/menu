@@ -91,7 +91,7 @@ export default async function CashReportsPage({
   const netDifference = sessions.reduce((total, s) => total + (s.difference_cents ?? 0), 0);
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4">
+    <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4">
       <Link
         href="/panel/caja"
         className="flex items-center gap-1 text-sm text-ink-500 hover:text-ink-900"
@@ -100,7 +100,7 @@ export default async function CashReportsPage({
         Volver a la caja
       </Link>
 
-      <h1 className="font-display text-xl font-bold tracking-tight text-ink-900">
+      <h1 className="font-display text-lg font-bold tracking-tight text-ink-900 sm:text-xl">
         Reportes de caja
       </h1>
 

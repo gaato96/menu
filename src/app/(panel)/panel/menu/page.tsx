@@ -31,9 +31,9 @@ export default async function MenuPage() {
   const categories = await fetchStaffMenu(supabase, staff.business.id);
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4">
+    <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4">
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-xl font-bold tracking-tight text-ink-900">Menú</h1>
+        <h1 className="font-display text-lg font-bold tracking-tight text-ink-900 sm:text-xl">Menú</h1>
       </div>
 
       <form action={createCategory} className="flex items-end gap-2 rounded-card border border-ink-200 bg-white p-3">

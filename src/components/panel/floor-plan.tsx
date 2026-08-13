@@ -33,6 +33,7 @@ export interface PlanTable {
 export function FloorPlan({
   tables,
   move,
+  canArrange = true,
 }: {
   tables: PlanTable[];
   /**
@@ -41,6 +42,12 @@ export function FloorPlan({
    * doing it crashes the whole page rather than failing quietly.
    */
   move: (tableId: string, x: number, y: number) => Promise<void>;
+  /**
+   * Arranging writes to restaurant_tables, which RLS restricts to owner and
+   * manager. Without this a mozo would see "Acomodar", drag a table, and
+   * watch it snap back on the next refresh with no explanation.
+   */
+  canArrange?: boolean;
 }) {
   const router = useRouter();
   const areaRef = useRef<HTMLDivElement>(null);
@@ -92,30 +99,40 @@ export function FloorPlan({
     });
   }
 
+  const occupied = tables.filter((t) => t.isOccupied).length;
+  const free = tables.filter((t) => t.isActive && !t.isOccupied).length;
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm text-ink-500">
           {editing
             ? "Arrastrá las mesas para que queden como en tu local."
-            : "Tocá una mesa para tomarle el pedido."}
+            : "Tocá una mesa para ver la cuenta o tomarle el pedido."}
         </p>
-        <Button
-          type="button"
-          variant={editing ? "primary" : "outline"}
-          size="sm"
-          onClick={() => setEditing((value) => !value)}
-        >
-          <Move className="size-4" aria-hidden />
-          {editing ? "Listo" : "Acomodar"}
-        </Button>
+        {canArrange && (
+          <Button
+            type="button"
+            variant={editing ? "primary" : "outline"}
+            size="sm"
+            onClick={() => setEditing((value) => !value)}
+          >
+            <Move className="size-4" aria-hidden />
+            {editing ? "Listo" : "Acomodar"}
+          </Button>
+        )}
       </div>
 
       <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        {/* Capped, and centred inside whatever column it lands in. A plain
+            `w-full aspect-4/3` grew with the viewport: on a 27" monitor the
+            room became a 900px-tall diagram nobody can take in at a glance,
+            and every control below it fell under the fold. A floor plan is a
+            map — past a point, bigger stops adding information. */}
         <div
           ref={areaRef}
           className={cn(
-            "dot-grid relative aspect-4/3 w-full overflow-hidden rounded-card border bg-ink-50",
+            "dot-grid relative mx-auto aspect-4/3 w-full max-w-2xl overflow-hidden rounded-card border bg-ink-50",
             editing ? "border-brand border-dashed" : "border-ink-200",
           )}
         >
@@ -137,10 +154,15 @@ export function FloorPlan({
         </div>
       </DndContext>
 
-      <div className="flex flex-wrap gap-3 text-xs text-ink-600">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-ink-600">
         <Legend className="bg-white ring-ink-300" label="Libre" />
         <Legend className="bg-brand-soft ring-brand" label="Ocupada" />
         <Legend className="bg-ink-100 ring-ink-200" label="Desactivada" />
+        {tables.length > 0 && (
+          <span className="ml-auto font-mono text-ink-500">
+            {occupied} ocupada{occupied === 1 ? "" : "s"} · {free} libre{free === 1 ? "" : "s"}
+          </span>
+        )}
       </div>
     </div>
   );
@@ -180,7 +202,7 @@ function PlanPiece({
         !table.isActive ? "desactivada" : table.isOccupied ? "ocupada" : "libre"
       }`}
       className={cn(
-        "absolute flex size-16 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center ring-2 ring-inset transition-colors",
+        "absolute flex size-14 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center ring-2 ring-inset transition-colors sm:size-16",
         table.shape === "round" ? "rounded-full" : "rounded-lg",
         !table.isActive
           ? "bg-ink-100 text-ink-400 ring-ink-200"

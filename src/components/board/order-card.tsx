@@ -16,13 +16,12 @@ import {
 import { useState } from "react";
 
 import { ElapsedTimer } from "@/components/board/elapsed-timer";
+import { canReverseOrders } from "@/lib/auth/roles";
 import { formatMoney } from "@/lib/money";
 import type { StaffRole } from "@/lib/orders/status";
 import type { BoardOrder } from "@/lib/orders/board-queries";
 import { buildConfirmationRequestUrl } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
-
-const REVERSE_ROLES: StaffRole[] = ["superadmin", "owner", "manager"];
 
 const ADVANCE_LABEL: Record<string, string> = {
   pending_payment: "Confirmar",
@@ -62,7 +61,7 @@ export function OrderCard({
   });
 
   const advanceLabel = ADVANCE_LABEL[order.status];
-  const canReverse = REVERSE_ROLES.includes(role);
+  const canReverse = canReverseOrders(role);
   // A dine_in order never goes to WhatsApp (see create-order.ts), so
   // whatsapp_opened_at staying null forever is expected, not a warning sign.
   const unconfirmed = order.fulfillment_type !== "dine_in" && !order.whatsapp_opened_at;
@@ -74,8 +73,13 @@ export function OrderCard({
       {...attributes}
       // dnd-kit does not fire click after an actual drag, so a plain onClick
       // on the draggable root is safe — every interactive child below still
-      // needs its own onPointerDown stopPropagation so a tap on THEM doesn't
-      // also open the sheet underneath.
+      // needs BOTH onPointerDown stopPropagation (so dnd-kit's own listener on
+      // this element doesn't start a drag from a button) and onClick
+      // stopPropagation (so the child's click doesn't bubble up to here and
+      // open the sheet on top of whatever the button just did). Stopping only
+      // the pointer event is the bug that made "Confirmar" also open the
+      // detail: React's synthetic click is a separate event and bubbles
+      // regardless of what happened at pointerdown.
       onClick={onOpenDetail}
       role="button"
       tabIndex={0}
@@ -201,7 +205,10 @@ export function OrderCard({
           <button
             type="button"
             onPointerDown={(e) => e.stopPropagation()}
-            onClick={onAdvance}
+            onClick={(e) => {
+              e.stopPropagation();
+              onAdvance();
+            }}
             className="flex min-h-touch flex-1 items-center justify-center gap-1 rounded-lg bg-brand text-sm font-semibold text-brand-fg active:brightness-90"
           >
             {advanceLabel}
@@ -214,7 +221,10 @@ export function OrderCard({
             <button
               type="button"
               onPointerDown={(e) => e.stopPropagation()}
-              onClick={() => setMenuOpen((v) => !v)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setMenuOpen((v) => !v);
+              }}
               aria-label="Más opciones"
               aria-expanded={menuOpen}
               className="flex size-touch items-center justify-center rounded-lg border border-ink-200 text-ink-500 active:bg-ink-100"
@@ -222,12 +232,28 @@ export function OrderCard({
               <span className="text-lg leading-none">···</span>
             </button>
 
+            {/* Invisible backdrop so a tap anywhere else dismisses the menu
+                instead of leaving it open and opening the detail sheet
+                underneath it. */}
             {menuOpen && (
-              <div className="absolute right-0 bottom-full z-10 mb-1 w-40 overflow-hidden rounded-lg border border-ink-200 bg-white shadow-lg">
+              <div
+                className="fixed inset-0 z-10"
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMenuOpen(false);
+                }}
+                aria-hidden
+              />
+            )}
+
+            {menuOpen && (
+              <div className="absolute right-0 bottom-full z-20 mb-1 w-40 overflow-hidden rounded-lg border border-ink-200 bg-white shadow-lg">
                 <button
                   type="button"
                   onPointerDown={(e) => e.stopPropagation()}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setMenuOpen(false);
                     onGoBack();
                   }}
@@ -239,7 +265,8 @@ export function OrderCard({
                 <button
                   type="button"
                   onPointerDown={(e) => e.stopPropagation()}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setMenuOpen(false);
                     onCancel();
                   }}

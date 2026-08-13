@@ -43,7 +43,11 @@ export function BoardColumn({
   const { setNodeRef, isOver } = useDroppable({ id: column.id });
 
   return (
-    <div className="flex h-full w-72 shrink-0 flex-col">
+    // On a phone a fixed 18rem column leaves a dead 5rem strip of the next
+    // one and no column ever fills the screen. 85vw + scroll snap makes the
+    // board behave like the pages of a notebook: one column at a time, with
+    // just enough of the next visible to show it is there.
+    <div className="flex h-full w-[85vw] max-w-72 shrink-0 snap-start flex-col sm:w-72">
       <div className={cn("flex items-center justify-between border-t-4 bg-white px-3 py-2", TONE_CLASSES[column.tone])}>
         <h2 className="text-sm font-semibold text-ink-900">{column.label}</h2>
         <span className="rounded-full bg-ink-100 px-2 py-0.5 font-mono text-xs text-ink-500">

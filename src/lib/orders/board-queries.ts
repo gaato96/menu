@@ -45,7 +45,40 @@ export async function fetchBoardOrders(
     .order("created_at", { ascending: true });
 
   if (ordersError) throw new Error(`fetchBoardOrders: ${ordersError.message}`);
-  if (!orders || orders.length === 0) return [];
+  return attachItems(supabase, orders ?? []);
+}
+
+/**
+ * The open account of one table — what a waiter sees when they tap a table
+ * that is already occupied, before adding anything else to it.
+ *
+ * A table can hold more than one order: a round of drinks, then food, then
+ * whatever somebody asks for at the end. They are separate comandas for the
+ * kitchen and one account for the customer.
+ */
+export async function fetchTableOrders(
+  supabase: SupabaseClient<Database>,
+  businessId: string,
+  tableId: string,
+): Promise<BoardOrder[]> {
+  const { data: orders, error } = await supabase
+    .from("orders")
+    .select("*")
+    .eq("business_id", businessId)
+    .eq("table_id", tableId)
+    .in("status", ACTIVE_STATUSES)
+    .order("created_at", { ascending: true });
+
+  if (error) throw new Error(`fetchTableOrders: ${error.message}`);
+  return attachItems(supabase, orders ?? []);
+}
+
+/** Hydrates a list of order rows with their items and option snapshots. */
+async function attachItems(
+  supabase: SupabaseClient<Database>,
+  orders: Tables<"orders">[],
+): Promise<BoardOrder[]> {
+  if (orders.length === 0) return [];
 
   const orderIds = orders.map((o) => o.id);
 
@@ -55,7 +88,7 @@ export async function fetchBoardOrders(
     .in("order_id", orderIds)
     .order("sort_order", { ascending: true });
 
-  if (itemsError) throw new Error(`fetchBoardOrders items: ${itemsError.message}`);
+  if (itemsError) throw new Error(`attachItems: ${itemsError.message}`);
 
   const itemIds = (items ?? []).map((i) => i.id);
   const { data: options, error: optionsError } =
@@ -63,7 +96,7 @@ export async function fetchBoardOrders(
       ? await supabase.from("order_item_options").select("*").in("order_item_id", itemIds)
       : { data: [], error: null };
 
-  if (optionsError) throw new Error(`fetchBoardOrders options: ${optionsError.message}`);
+  if (optionsError) throw new Error(`attachItems options: ${optionsError.message}`);
 
   const optionsByItem = new Map<string, BoardOrderOption[]>();
   for (const option of options ?? []) {
