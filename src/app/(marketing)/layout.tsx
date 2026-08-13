@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { WhatsAppLink } from "@/components/marketing/whatsapp-link";
+
 const WHATSAPP_URL = "https://wa.me/543815976357";
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
@@ -18,14 +20,15 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
             <Image src="/VivoMenu.png" alt="" width={28} height={28} priority />
             VivoMenu
           </Link>
-          <a
+          <WhatsAppLink
+            location="header"
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-touch items-center rounded-lg bg-[#25D366] px-4 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:brightness-95"
           >
             Escribinos
-          </a>
+          </WhatsAppLink>
         </div>
       </header>
 

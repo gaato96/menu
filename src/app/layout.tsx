@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Big_Shoulders, IBM_Plex_Mono, Schibsted_Grotesk } from "next/font/google";
+import Script from "next/script";
 import { Toaster } from "sonner";
 
 import { ServiceWorkerRegistrar } from "@/components/pwa/service-worker";
@@ -54,6 +55,10 @@ export const metadata: Metadata = {
     apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180" }],
   },
   formatDetection: { telephone: false },
+  // Next renders this as <meta name="google-site-verification" ...> in <head>.
+  // Search Console re-checks this tag on demand, so it can stay here forever
+  // rather than being a one-time setup step to remove later.
+  verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION },
 };
 
 export const viewport: Viewport = {
@@ -68,6 +73,8 @@ export const viewport: Viewport = {
   // font-size on inputs in globals.css solves that without the accessibility cost.
 };
 
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
@@ -78,6 +85,24 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {children}
         <ServiceWorkerRegistrar />
         <Toaster position="top-center" richColors closeButton />
+        {/* Unset in local/dev by default — analytics only load where the env
+            var is configured (production), not on every laptop running `npm run dev`. */}
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

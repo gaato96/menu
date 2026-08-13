@@ -26,6 +26,7 @@ import {
   Rise,
   WordReveal,
 } from "@/components/marketing/motion-primitives";
+import { WhatsAppLink } from "@/components/marketing/whatsapp-link";
 import { buttonVariants } from "@/components/ui/button";
 import { TicketEdge } from "@/components/ui/ticket-edge";
 import { getPublicMenu } from "@/lib/menu/queries";
@@ -145,7 +146,8 @@ export default async function LandingPage() {
             </Rise>
 
             <Rise delay={0.85} className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
+              <WhatsAppLink
+                location="hero"
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -156,7 +158,7 @@ export default async function LandingPage() {
               >
                 Escribinos por WhatsApp
                 <ArrowRight className="size-4" aria-hidden />
-              </a>
+              </WhatsAppLink>
               <Link
                 href={DEMO_MENU_URL}
                 className={cn(
@@ -445,7 +447,8 @@ export default async function LandingPage() {
           <p className="mt-4 text-lg text-white/70">
             Mandanos un WhatsApp y en un rato ya tenés tu menú armado.
           </p>
-          <a
+          <WhatsAppLink
+            location="closing"
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -456,7 +459,7 @@ export default async function LandingPage() {
           >
             Escribinos ahora
             <ArrowRight className="size-4" aria-hidden />
-          </a>
+          </WhatsAppLink>
           <p className="mt-5 text-xs text-white/50">
             Sin tarjeta. Sin contrato atado. Hablás con una persona, no con un bot.
           </p>
