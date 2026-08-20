@@ -1,5 +1,6 @@
 "use client";
 
+import { Clapperboard } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -10,6 +11,7 @@ import { CategoryNav } from "@/components/menu/category-nav";
 import { MenuHeader } from "@/components/menu/menu-header";
 import { ProductCard } from "@/components/menu/product-card";
 import { ProductSheet, type ProductSheetSubmit } from "@/components/menu/product-sheet";
+import { TableCallButton } from "@/components/menu/table-call-button";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
 import { buildMenuSnapshot, type DisplayProduct, type PublicMenuData } from "@/lib/menu/types";
 import { cartLineCount, useCartStore } from "@/stores/cart";
@@ -101,13 +103,29 @@ export function MenuClient({ data }: { data: PublicMenuData }) {
           label={`Instalá el menú de ${business.name}`}
           storageKey={`install-prompt:menu:${business.slug}`}
         />
-        {settings.catalog_view_enabled && (
-          <a
-            href={`/m/${business.slug}/catalogo`}
-            className="flex min-h-touch items-center justify-center gap-1.5 rounded-lg bg-brand-soft text-sm font-medium text-brand"
-          >
-            Ver catálogo en fotos →
-          </a>
+        {(settings.catalog_view_enabled || data.table) && (
+          <div className="flex items-center gap-2">
+            {settings.catalog_view_enabled && (
+              <a
+                href={
+                  data.table
+                    ? `/m/${business.slug}/catalogo?mesa=${encodeURIComponent(data.table.label)}`
+                    : `/m/${business.slug}/catalogo`
+                }
+                className="flex min-h-touch flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand text-sm font-semibold text-brand-fg"
+              >
+                <Clapperboard className="size-4" aria-hidden />
+                Ver la carta en fotos y videos
+              </a>
+            )}
+            {data.table && (
+              <TableCallButton
+                slug={business.slug}
+                tableId={data.table.id}
+                tableLabel={data.table.label}
+              />
+            )}
+          </div>
         )}
       </div>
 

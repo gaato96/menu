@@ -15,6 +15,7 @@ import {
   BoardScreen,
   CatalogScreen,
   MenuScreen,
+  TableScreen,
   type DemoDish,
 } from "@/components/marketing/demo-screens";
 import { DishMarquee } from "@/components/marketing/dish-marquee";
@@ -314,9 +315,73 @@ export default async function LandingPage() {
                   Y el tablero que ve tu mostrador
                 </p>
                 <div className="mt-4 scale-90 origin-top-left">
-                  <BoardScreen />
+                  <BoardScreen dishes={withPhotos} currency={business.currency} />
                 </div>
               </div>
+            </Rise>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================ */}
+      {/* Las tres pantallas — qué ve el cliente y qué ve el local          */}
+      {/* ================================================================ */}
+      <section className="bg-ink-50 px-4 py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl">
+          <Rise className="mx-auto max-w-2xl text-center">
+            <p className="font-mono text-xs font-semibold tracking-[0.2em] text-ember-ink uppercase">
+              Las pantallas
+            </p>
+            <h2 className="mt-3 font-display text-3xl leading-[0.95] font-extrabold tracking-tight text-ink-900 text-balance sm:text-4xl">
+              Esto es todo el sistema, en tres pantallas
+            </h2>
+            <p className="mt-4 text-ink-700">
+              No hay una cuarta. El cliente pide desde una, el que está sentado en tu local
+              desde otra, y tu mostrador trabaja en la tercera.
+            </p>
+          </Rise>
+
+          {/* Armadas con los datos del local demo, no con capturas: una captura
+              queda vieja el día que cambia una pantalla, y en un celular se ve
+              pixelada. Esto es el producto, renderizado. */}
+          <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            <Rise className="flex flex-col items-center">
+              <div className="w-full max-w-[240px]">
+                <MenuScreen business={business} dishes={withPhotos} />
+              </div>
+              <p className="mt-5 font-display text-lg font-bold text-ink-900">
+                El menú que recibe tu cliente
+              </p>
+              <p className="mt-1 max-w-xs text-center text-sm text-ink-700">
+                El link que mandás por WhatsApp o Instagram. Elige, arma el pedido y te llega
+                con la dirección y la forma de pago ya cargadas.
+              </p>
+            </Rise>
+
+            <Rise delay={0.1} className="flex flex-col items-center">
+              <div className="w-full max-w-[240px]">
+                <TableScreen business={business} dishes={withPhotos} />
+              </div>
+              <p className="mt-5 font-display text-lg font-bold text-ink-900">
+                El menú en la mesa
+              </p>
+              <p className="mt-1 max-w-xs text-center text-sm text-ink-700">
+                El QR pegado a la mesa. Sin pedirle el teléfono a nadie: el pedido ya sabe qué
+                mesa es, y el cliente puede pedir la cuenta desde ahí mismo.
+              </p>
+            </Rise>
+
+            <Rise delay={0.2} className="flex flex-col items-center sm:col-span-2 lg:col-span-1">
+              <div className="w-full max-w-[380px] lg:mt-16">
+                <BoardScreen dishes={withPhotos} currency={business.currency} />
+              </div>
+              <p className="mt-5 font-display text-lg font-bold text-ink-900">
+                El tablero de comandas
+              </p>
+              <p className="mt-1 max-w-xs text-center text-sm text-ink-700">
+                Lo que ve tu mostrador. Cada pedido es una tarjeta que se arrastra de columna
+                en columna, y suena cuando entra uno nuevo.
+              </p>
             </Rise>
           </div>
         </div>

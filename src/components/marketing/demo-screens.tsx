@@ -1,4 +1,4 @@
-import { Bike, MapPin, Plus, ShoppingBag } from "lucide-react";
+import { BellRing, Bike, MapPin, Plus, ShoppingBag, Utensils } from "lucide-react";
 import Image from "next/image";
 
 import { PhoneFrame } from "@/components/marketing/phone-frame";
@@ -187,19 +187,130 @@ export function CatalogScreen({
   );
 }
 
-/** The staff-side board — the half of the product a customer never sees. */
-export function BoardScreen() {
+/**
+ * The same menu, opened from the QR taped to a table.
+ *
+ * Worth its own frame on the landing: it is the screen that sells the tables
+ * module, and it looks nothing like the delivery flow — no address, no phone,
+ * a table badge instead, and the button to call the waiter that only exists
+ * here.
+ */
+export function TableScreen({
+  business,
+  dishes,
+  tableLabel = "4",
+}: {
+  business: DemoBusiness;
+  dishes: DemoDish[];
+  tableLabel?: string;
+}) {
+  return (
+    <PhoneFrame>
+      <div className="flex size-full flex-col bg-ink-50">
+        <div className="flex items-center gap-2 border-b border-ink-200 bg-white px-3 py-2.5">
+          {business.logoUrl && (
+            <Image
+              src={business.logoUrl}
+              alt=""
+              width={40}
+              height={40}
+              sizes="40px"
+              className="size-7 rounded-md object-cover"
+            />
+          )}
+          <p className="min-w-0 flex-1 truncate font-display text-sm font-extrabold text-ink-900">
+            {business.name}
+          </p>
+          <span className="flex items-center gap-1 rounded-full bg-brand-soft px-2 py-1 text-[0.6rem] font-semibold text-brand">
+            <Utensils className="size-2.5" />
+            Mesa {tableLabel}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-1.5 px-3 py-2">
+          <span className="flex flex-1 items-center justify-center gap-1 rounded-lg bg-brand py-2 text-[0.65rem] font-semibold text-brand-fg">
+            Ver la carta en fotos y videos
+          </span>
+          <span className="flex items-center gap-1 rounded-full border border-ink-200 bg-white px-2.5 py-2 text-[0.65rem] font-semibold text-ink-900">
+            <BellRing className="size-3" />
+            Llamar
+          </span>
+        </div>
+
+        <div className="flex-1 space-y-1.5 overflow-hidden px-3">
+          {dishes.slice(0, 4).map((dish) => (
+            <div
+              key={dish.id}
+              className="flex items-center gap-2 rounded-card border border-ink-100 bg-white p-2"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[0.7rem] font-medium text-ink-900">{dish.name}</p>
+                <p className="mt-0.5 text-[0.65rem] font-semibold text-ink-900">
+                  {formatMoney(dish.priceCents, { currency: business.currency })}
+                </p>
+              </div>
+              {dish.imageUrl && (
+                <Image
+                  src={dish.imageUrl}
+                  alt=""
+                  width={90}
+                  height={120}
+                  sizes="45px"
+                  className="aspect-3/4 w-9 shrink-0 rounded object-cover"
+                />
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="border-t border-ink-200 bg-white p-2.5">
+          <div className="flex items-center justify-between rounded-lg bg-brand px-3 py-2 text-brand-fg">
+            <span className="flex items-center gap-1.5 text-[0.65rem] font-semibold">
+              <ShoppingBag className="size-3" />
+              Enviar a la cocina
+            </span>
+            <span className="font-mono text-[0.7rem] font-bold">
+              {formatMoney(
+                dishes.slice(0, 2).reduce((sum, d) => sum + d.priceCents, 0),
+                { currency: business.currency },
+              )}
+            </span>
+          </div>
+        </div>
+      </div>
+    </PhoneFrame>
+  );
+}
+
+/**
+ * The staff-side board — the half of the product a customer never sees.
+ *
+ * Dish names and prices come from the live demo tenant so the mock matches
+ * the menu shown next to it. The codes and customer names stay invented on
+ * purpose: real comandas are somebody's actual order.
+ */
+export function BoardScreen({
+  dishes = [],
+  currency = "ARS",
+}: {
+  dishes?: DemoDish[];
+  currency?: string;
+}) {
   const columns = [
-    { label: "Nuevos", tone: "bg-status-pending-soft text-status-pending", count: 2 },
-    { label: "En cocina", tone: "bg-status-kitchen-soft text-status-kitchen", count: 3 },
-    { label: "En camino", tone: "bg-status-transit-soft text-status-transit", count: 1 },
+    { label: "Nuevos", tone: "bg-status-pending-soft text-status-pending", count: 2, from: 0 },
+    { label: "En cocina", tone: "bg-status-kitchen-soft text-status-kitchen", count: 3, from: 2 },
+    { label: "En camino", tone: "bg-status-transit-soft text-status-transit", count: 1, from: 5 },
   ];
+
+  const total = dishes.slice(0, 6).reduce((sum, dish) => sum + dish.priceCents, 0);
 
   return (
     <div className="shadow-ticket overflow-hidden rounded-card border border-ink-200 bg-ink-50">
       <div className="flex items-center justify-between border-b border-ink-200 bg-white px-3 py-2">
         <span className="text-xs font-semibold text-ink-900">Comandas</span>
-        <span className="font-mono text-[0.65rem] text-ink-500">6 activos · $ 184.500</span>
+        <span className="font-mono text-[0.65rem] text-ink-500">
+          6 activos{total > 0 ? ` · ${formatMoney(total, { currency })}` : ""}
+        </span>
       </div>
       <div className="grid grid-cols-3 gap-2 p-2">
         {columns.map((column) => (
@@ -211,7 +322,12 @@ export function BoardScreen() {
               <span className="font-mono">{column.count}</span>
             </div>
             {Array.from({ length: column.count }).map((_, index) => (
-              <BoardMiniCard key={index} index={index} label={column.label} />
+              <BoardMiniCard
+                key={index}
+                seed={column.from + index}
+                dish={dishes[(column.from + index) % Math.max(1, dishes.length)]}
+                currency={currency}
+              />
             ))}
           </div>
         ))}
@@ -220,19 +336,38 @@ export function BoardScreen() {
   );
 }
 
-function BoardMiniCard({ index, label }: { index: number; label: string }) {
-  const codes = ["D-0142", "D-0143", "R-0088", "D-0144", "D-0145", "D-0146"];
-  const names = ["Julieta R.", "Marcos P.", "Vale G.", "Nico D.", "Sofía A.", "Tomás L."];
-  const seed = (label.length + index * 3) % 6;
+const DEMO_CODES = ["D-0142", "D-0143", "R-0088", "M-0144", "D-0145", "D-0146"];
+const DEMO_NAMES = ["Julieta R.", "Marcos P.", "Vale G.", "Mesa 4", "Sofía A.", "Tomás L."];
+
+function BoardMiniCard({
+  seed,
+  dish,
+  currency,
+}: {
+  seed: number;
+  dish?: DemoDish;
+  currency: string;
+}) {
+  const index = seed % 6;
+  const isTable = DEMO_NAMES[index].startsWith("Mesa");
 
   return (
     <div className="rounded border border-ink-200 bg-white p-1.5">
       <div className="flex items-center justify-between">
-        <span className="font-mono text-[0.6rem] font-semibold text-ink-900">{codes[seed]}</span>
-        <Bike className="size-2.5 text-ink-400" />
+        <span className="font-mono text-[0.6rem] font-semibold text-ink-900">
+          {DEMO_CODES[index]}
+        </span>
+        {isTable ? (
+          <Utensils className="size-2.5 text-ink-400" />
+        ) : (
+          <Bike className="size-2.5 text-ink-400" />
+        )}
       </div>
-      <p className="truncate text-[0.55rem] text-ink-700">{names[seed]}</p>
-      <p className="mt-0.5 font-mono text-[0.55rem] font-semibold text-ink-900">$ 31.900</p>
+      <p className="truncate text-[0.55rem] text-ink-700">{DEMO_NAMES[index]}</p>
+      {dish && <p className="truncate text-[0.5rem] text-ink-500">1× {dish.name}</p>}
+      <p className="mt-0.5 font-mono text-[0.55rem] font-semibold text-ink-900">
+        {dish ? formatMoney(dish.priceCents, { currency }) : "$ 31.900"}
+      </p>
     </div>
   );
 }

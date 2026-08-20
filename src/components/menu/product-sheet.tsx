@@ -111,12 +111,17 @@ export function ProductSheet({
     >
       <div className="space-y-5">
         {product.image_url && (
-          <div className="-mt-1 aspect-video overflow-hidden rounded-lg bg-ink-100">
+          // 4:5, not 16:9. The photos this menu is fed are vertical 9:16 (the
+          // AI enhancer asks for that ratio explicitly, and a phone camera
+          // held normally gives it anyway), so a 16:9 window was throwing
+          // away most of the plate. Capped by max-h so a tall photo still
+          // leaves the price and the options visible without scrolling.
+          <div className="-mt-1 mx-auto aspect-4/5 max-h-[45vh] overflow-hidden rounded-lg bg-ink-100">
             <Image
               src={product.image_url}
               alt=""
               width={640}
-              height={360}
+              height={800}
               className="size-full object-cover"
             />
           </div>

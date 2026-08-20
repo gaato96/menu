@@ -2,9 +2,12 @@ import { AlertTriangle, ExternalLink, LogOut } from "lucide-react";
 import Link from "next/link";
 
 import { NavTabs } from "@/components/panel/nav-tabs";
+import { TableCallsAlert } from "@/components/panel/table-calls-alert";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { moduleList, requireStaff } from "@/lib/auth/context";
 import { ROLE_LABELS } from "@/lib/auth/roles";
+import { createClient } from "@/lib/supabase/server";
+import { fetchPendingCalls } from "@/lib/tables/calls";
 import { cn } from "@/lib/utils";
 
 import { signOut } from "../../(auth)/login/actions";
@@ -12,6 +15,12 @@ import { signOut } from "../../(auth)/login/actions";
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
   const staff = await requireStaff();
   const { business, subscription } = staff;
+
+  // Only costs a query for businesses that actually have mesas. A local doing
+  // delivery only never pays for a feature it cannot use.
+  const pendingCalls = staff.modules.has("tables")
+    ? await fetchPendingCalls(await createClient(), business.id)
+    : [];
 
   const periodEnd = subscription.current_period_end
     ? new Date(`${subscription.current_period_end}T00:00:00`).toLocaleDateString("es-AR", {
@@ -91,6 +100,12 @@ export default async function PanelLayout({ children }: { children: React.ReactN
         )}
 
         <NavTabs role={staff.role} modules={moduleList(staff)} />
+
+        {/* Under the tabs and inside the sticky header: a table waiting on
+            somebody is an interrupt, and it must not scroll away. */}
+        {staff.modules.has("tables") && (
+          <TableCallsAlert businessId={business.id} initialCalls={pendingCalls} />
+        )}
       </header>
 
       <div className="flex flex-1 flex-col">{children}</div>

@@ -61,6 +61,9 @@ export type CashMovementKind = "expense" | "income" | "withdrawal";
  */
 export type FloorShape = "round" | "square";
 
+export type TableCallKind = "bill" | "waiter";
+export type TableCallStatus = "pending" | "done";
+
 export type IvaCondition =
   | "responsable_inscripto"
   | "monotributo"
@@ -96,10 +99,26 @@ type BusinessSettings = {
   transfer_holder: string | null;
   prep_time_minutes: number;
   catalog_view_enabled: boolean;
+  /** Whether the QR opens straight into the vertical view. Requires
+   *  catalog_view_enabled — the two are separate on purpose, see the
+   *  migration header. */
+  catalog_is_default: boolean;
   /** 11 digits, no dashes. Header of the non-fiscal receipt — never a factura. */
   cuit: string | null;
   iva_condition: IvaCondition | null;
   updated_at: string;
+};
+
+/** "La cuenta, por favor" / "necesito al mozo", from the table's own QR. */
+type TableCall = {
+  id: string;
+  business_id: string;
+  table_id: string;
+  kind: TableCallKind;
+  status: TableCallStatus;
+  created_at: string;
+  resolved_at: string | null;
+  resolved_by: string | null;
 };
 
 type CashSession = {
@@ -196,6 +215,12 @@ type Product = {
   name: string;
   description: string | null;
   image_url: string | null;
+  /**
+   * Vertical 9:16 clip, muted and looping, shown full-screen in the catalog
+   * view. image_url stays the poster and the fallback — a product with a
+   * video and no photo would render black until the clip decodes.
+   */
+  video_url: string | null;
   base_price_cents: number;
   is_available: boolean;
   sort_order: number;
@@ -446,6 +471,11 @@ export type Database = {
         RestaurantTable,
         Insertable<RestaurantTable, "business_id" | "label">,
         Partial<RestaurantTable>
+      >;
+      table_calls: TableShape<
+        TableCall,
+        Insertable<TableCall, "business_id" | "table_id" | "kind">,
+        Partial<TableCall>
       >;
       orders: TableShape<
         Order,

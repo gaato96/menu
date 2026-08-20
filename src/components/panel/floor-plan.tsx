@@ -2,7 +2,7 @@
 
 import { DndContext, PointerSensor, useDraggable, useSensor, useSensors } from "@dnd-kit/core";
 import type { DragEndEvent } from "@dnd-kit/core";
-import { Move, Users } from "lucide-react";
+import { BellRing, Move, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
 
@@ -19,6 +19,8 @@ export interface PlanTable {
   positionY: number | null;
   isActive: boolean;
   isOccupied: boolean;
+  /** Has an open "la cuenta" / "llamo al mozo" right now. */
+  isCalling?: boolean;
 }
 
 /**
@@ -158,6 +160,7 @@ export function FloorPlan({
         <Legend className="bg-white ring-ink-300" label="Libre" />
         <Legend className="bg-brand-soft ring-brand" label="Ocupada" />
         <Legend className="bg-ink-100 ring-ink-200" label="Desactivada" />
+        <Legend className="bg-white ring-warning" label="Llamando" />
         {tables.length > 0 && (
           <span className="ml-auto font-mono text-ink-500">
             {occupied} ocupada{occupied === 1 ? "" : "s"} · {free} libre{free === 1 ? "" : "s"}
@@ -200,7 +203,7 @@ function PlanPiece({
       onClick={editing ? undefined : onOpen}
       aria-label={`${table.label}, ${table.seats} lugares, ${
         !table.isActive ? "desactivada" : table.isOccupied ? "ocupada" : "libre"
-      }`}
+      }${table.isCalling ? ", está llamando" : ""}`}
       className={cn(
         "absolute flex size-14 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center ring-2 ring-inset transition-colors sm:size-16",
         table.shape === "round" ? "rounded-full" : "rounded-lg",
@@ -210,6 +213,8 @@ function PlanPiece({
             ? "bg-brand-soft text-brand ring-brand"
             : "bg-white text-ink-900 ring-ink-300",
         editing ? "cursor-grab" : "cursor-pointer hover:ring-brand",
+        // A table with its hand up outranks every other state on the plan.
+        table.isCalling && "z-10 ring-4 ring-warning",
         isDragging && "z-10 cursor-grabbing opacity-90 shadow-ticket",
       )}
       style={{
@@ -222,6 +227,11 @@ function PlanPiece({
       {...listeners}
       {...attributes}
     >
+      {table.isCalling && (
+        <span className="absolute -top-1.5 -right-1.5 flex size-5 items-center justify-center rounded-full bg-warning text-white">
+          <BellRing className="size-3" aria-hidden />
+        </span>
+      )}
       <span className="font-display text-base leading-none font-bold">{table.label}</span>
       <span className="mt-0.5 inline-flex items-center gap-0.5 text-[10px] opacity-70">
         <Users className="size-2.5" aria-hidden />

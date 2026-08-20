@@ -31,6 +31,29 @@ export async function toggleCatalogView(enabled: boolean) {
   revalidatePath(`/m/${staff.business.slug}/catalogo`);
 }
 
+/**
+ * Whether the QR opens straight into the vertical view.
+ *
+ * Turning it on also turns catalog_view_enabled on: "be the front door" makes
+ * no sense for a view that is switched off, and letting the two disagree
+ * would give an owner a toggle that appears to do nothing.
+ */
+export async function toggleCatalogDefault(enabled: boolean) {
+  const staff = await requireStaff();
+  const supabase = await createClient();
+  await supabase
+    .from("business_settings")
+    .update(
+      enabled
+        ? { catalog_is_default: true, catalog_view_enabled: true }
+        : { catalog_is_default: false },
+    )
+    .eq("business_id", staff.business.id);
+  revalidatePath("/panel/config");
+  revalidatePath(`/m/${staff.business.slug}`);
+  revalidatePath(`/m/${staff.business.slug}/catalogo`);
+}
+
 // --- Branding images -------------------------------------------------------
 
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;

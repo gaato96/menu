@@ -47,13 +47,15 @@ export function ProductCard({
       </div>
 
       <div className="relative shrink-0">
-        <div className="size-20 overflow-hidden rounded-lg bg-ink-100">
+        {/* 3:4 rather than square: the source photos are vertical, and a
+            square crop cuts the top and bottom off every plate. */}
+        <div className="aspect-3/4 w-[4.5rem] overflow-hidden rounded-lg bg-ink-100">
           {product.image_url && (
             <Image
               src={product.image_url}
               alt=""
-              width={160}
-              height={160}
+              width={180}
+              height={240}
               className="size-full object-cover"
             />
           )}

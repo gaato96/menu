@@ -15,6 +15,7 @@ import {
   createHours,
   deleteHours,
   deleteZone,
+  toggleCatalogDefault,
   toggleCatalogView,
   toggleOpenManual,
   toggleZoneActive,
@@ -83,6 +84,18 @@ export default async function ConfigPage() {
           </p>
         </div>
         <AsyncToggle checked={settings.catalog_view_enabled} action={toggleCatalogView} />
+      </section>
+
+      <section className="flex items-center justify-between gap-3 rounded-card border border-ink-200 bg-white p-4">
+        <div>
+          <p className="font-medium text-ink-900">Abrir el menú en el catálogo</p>
+          <p className="text-xs text-ink-500">
+            El QR abre directo la vista vertical a pantalla completa, y el menú clásico queda a
+            un toque. Prendelo solo si tenés buenas fotos de casi todos los platos — a pantalla
+            completa, una foto mala se nota más que en la lista.
+          </p>
+        </div>
+        <AsyncToggle checked={settings.catalog_is_default} action={toggleCatalogDefault} />
       </section>
 
       <section className="rounded-card border border-ink-200 bg-white p-4">

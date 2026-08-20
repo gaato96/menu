@@ -66,6 +66,19 @@ const serwist = new Serwist({
       handler: new StaleWhileRevalidate({ cacheName: "product-images" }),
     },
 
+    /* Dish videos: streamed, never stored.
+
+       Explicit and placed BEFORE defaultCache, which matches the rules in
+       order: Serwist's defaults include a video rule with range-request
+       support, and letting it apply here would put 8MB per dish into a
+       phone's cache for a menu somebody opens once. Streaming them costs the
+       diner a little data on one visit; caching them costs storage on every
+       visit, on a device we do not own. */
+    {
+      matcher: ({ request }) => request.destination === "video",
+      handler: new NetworkOnly(),
+    },
+
     ...defaultCache,
   ],
   fallbacks: {

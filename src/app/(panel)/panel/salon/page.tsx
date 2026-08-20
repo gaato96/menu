@@ -10,6 +10,7 @@ import { requireModule, requireStaff } from "@/lib/auth/context";
 import { canConfigure } from "@/lib/auth/roles";
 import { ACTIVE_STATUSES } from "@/lib/orders/status";
 import { createClient } from "@/lib/supabase/server";
+import { fetchPendingCalls } from "@/lib/tables/calls";
 
 import { createTable, deleteTable, moveTable, setTableShape, toggleTableActive } from "./actions";
 
@@ -29,7 +30,7 @@ export default async function SalonPage({
   requireModule(staff, "tables");
   const supabase = await createClient();
 
-  const [tablesResult, openOrdersResult] = await Promise.all([
+  const [tablesResult, openOrdersResult, pendingCalls] = await Promise.all([
     supabase
       .from("restaurant_tables")
       .select("*")
@@ -43,7 +44,10 @@ export default async function SalonPage({
       .eq("business_id", staff.business.id)
       .not("table_id", "is", null)
       .in("status", ACTIVE_STATUSES),
+    fetchPendingCalls(supabase, staff.business.id),
   ]);
+
+  const callingTableIds = new Set(pendingCalls.map((call) => call.tableId));
 
   const occupiedTableIds = new Set((openOrdersResult.data ?? []).map((o) => o.table_id));
   const tables = tablesResult.data ?? [];
@@ -102,6 +106,7 @@ export default async function SalonPage({
               positionY: table.position_y ?? null,
               isActive: table.is_active,
               isOccupied: occupiedTableIds.has(table.id),
+              isCalling: callingTableIds.has(table.id),
             }))}
             move={moveTable}
             canArrange={canEdit}

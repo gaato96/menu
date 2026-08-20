@@ -511,3 +511,93 @@ export async function deleteOption(optionId: string, productId: string) {
   await supabase.from("options").delete().eq("id", optionId);
   revalidatePath(`/panel/menu/producto/${productId}`);
 }
+
+// --- Dish video ------------------------------------------------------------
+
+const MAX_VIDEO_BYTES = 8 * 1024 * 1024;
+// Deliberately no video/quicktime: an iPhone records .mov/HEVC, which Safari
+// plays and Chrome on Android does not. Accepting it would produce menus that
+// look right on the owner's phone and render black on the customer's — the
+// only one that matters. Without server-side transcoding, a clear rejection
+// beats a silent failure. See the migration header.
+const ALLOWED_VIDEO_TYPES = new Set(["video/mp4", "video/webm"]);
+
+/**
+ * Uploads the looping clip shown behind the product in the vertical view.
+ *
+ * Same trust boundary as uploadProductImage: the ADMIN client touches
+ * Storage, and the authorization is the RLS-scoped `products` select above it
+ * — if the product is not this business's, the select returns nothing and we
+ * never reach the bucket.
+ *
+ * Duration is NOT enforced here. The browser is the only place that can read
+ * it without decoding the file server-side, so video-upload-form checks it
+ * before sending and this holds the size line. A 30-second clip under 8MB
+ * gets through; that is a worse menu, not a broken one.
+ */
+export async function uploadProductVideo(
+  productId: string,
+  formData: FormData,
+): Promise<{ ok?: true; error?: string }> {
+  const staff = await requireStaff();
+  const session = await createClient();
+
+  const { data: product } = await session
+    .from("products")
+    .select("id, video_url")
+    .eq("id", productId)
+    .maybeSingle();
+  if (!product) return { error: "Producto no encontrado." };
+
+  const file = formData.get("video");
+  if (!(file instanceof File) || file.size === 0) return { error: "Elegí un video." };
+  if (file.size > MAX_VIDEO_BYTES) return { error: "El video pesa más de 8MB. Recortalo o bajale la calidad." };
+  if (!ALLOWED_VIDEO_TYPES.has(file.type)) {
+    return { error: "Formato no soportado. Usá MP4 o WebM (un .mov de iPhone no se ve en Android)." };
+  }
+
+  const admin = createAdminClient();
+  const extension = file.type === "video/webm" ? "webm" : "mp4";
+  const path = `${staff.business.id}/${productId}/${randomUUID()}.${extension}`;
+
+  const { error: uploadError } = await admin.storage
+    .from("product-videos")
+    .upload(path, file, { contentType: file.type, upsert: false });
+  if (uploadError) return { error: "No pudimos subir el video." };
+
+  const { data: publicUrl } = admin.storage.from("product-videos").getPublicUrl(path);
+
+  await session.from("products").update({ video_url: publicUrl.publicUrl }).eq("id", productId);
+
+  // Best-effort cleanup, same as the photo: an orphaned object in the bucket
+  // is a cost, a broken product is an outage.
+  if (product.video_url?.includes("/product-videos/")) {
+    const oldPath = product.video_url.split("/product-videos/")[1];
+    if (oldPath) await admin.storage.from("product-videos").remove([oldPath]);
+  }
+
+  revalidatePath(`/panel/menu/producto/${productId}`);
+  revalidatePath("/panel/menu");
+  return { ok: true };
+}
+
+export async function removeProductVideo(productId: string) {
+  const session = await createClient();
+  const { data: product } = await session
+    .from("products")
+    .select("id, video_url")
+    .eq("id", productId)
+    .maybeSingle();
+  if (!product) return;
+
+  await session.from("products").update({ video_url: null }).eq("id", productId);
+
+  if (product.video_url?.includes("/product-videos/")) {
+    const admin = createAdminClient();
+    const oldPath = product.video_url.split("/product-videos/")[1];
+    if (oldPath) await admin.storage.from("product-videos").remove([oldPath]);
+  }
+
+  revalidatePath(`/panel/menu/producto/${productId}`);
+  revalidatePath("/panel/menu");
+}

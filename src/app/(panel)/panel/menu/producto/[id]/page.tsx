@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { AiImageForm } from "@/components/panel/ai-image-form";
 import { ConfirmSubmitButton } from "@/components/panel/confirm-submit-button";
 import { ImageUploadForm } from "@/components/panel/image-upload-form";
+import { VideoUploadForm } from "@/components/panel/video-upload-form";
 import { AsyncToggle } from "@/components/panel/async-toggle";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
@@ -22,9 +23,11 @@ import {
   deleteOptionGroup,
   discardGeneratedImage,
   generateProductImage,
+  removeProductVideo,
   toggleOptionAvailable,
   updateProduct,
   uploadProductImage,
+  uploadProductVideo,
 } from "../../actions";
 
 export const metadata = { title: "Editar producto" };
@@ -66,9 +69,20 @@ export default async function ProductDetailPage({
         <ImageUploadForm
           currentUrl={product.image_url}
           action={uploadProductImage.bind(null, product.id)}
+          aspect="tall"
         />
 
-        <div className="mt-4">
+        <div className="mt-4 border-t border-ink-100 pt-4">
+          <h2 className="mb-2 text-sm font-semibold text-ink-900">Video del plato</h2>
+          <VideoUploadForm
+            currentUrl={product.video_url}
+            posterUrl={product.image_url}
+            action={uploadProductVideo.bind(null, product.id)}
+            remove={removeProductVideo.bind(null, product.id)}
+          />
+        </div>
+
+        <div className="mt-4 border-t border-ink-100 pt-4">
           <AiImageForm
             unavailable={Boolean(aiUsed.error)}
             remaining={aiRemaining}

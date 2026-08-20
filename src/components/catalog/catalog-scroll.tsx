@@ -2,13 +2,15 @@
 
 import { ArrowLeft, Plus } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { CartBar } from "@/components/cart/cart-bar";
 import { CartSheet } from "@/components/cart/cart-sheet";
+import { CatalogMedia } from "@/components/catalog/catalog-media";
 import { CatalogShare } from "@/components/catalog/catalog-share";
 import { CheckoutSheet } from "@/components/checkout/checkout-sheet";
 import { ProductSheet, type ProductSheetSubmit } from "@/components/menu/product-sheet";
+import { TableCallButton } from "@/components/menu/table-call-button";
 import { buildMenuSnapshot, type DisplayProduct, type PublicMenuData } from "@/lib/menu/types";
 import { formatMoney } from "@/lib/money";
 import { cn } from "@/lib/utils";
@@ -36,15 +38,61 @@ export function CatalogScroll({ data }: { data: PublicMenuData }) {
   const removeLine = useCartStore((s) => s.removeLine);
   const setFulfillment = useCartStore((s) => s.setFulfillment);
   const setDeliveryZoneId = useCartStore((s) => s.setDeliveryZoneId);
+  const tableId = useCartStore((s) => s.tableId);
+  const setTableId = useCartStore((s) => s.setTableId);
   const clearCart = useCartStore((s) => s.clear);
 
   useEffect(() => {
     ensureBusiness(business.slug);
   }, [ensureBusiness, business.slug]);
 
+  // Same lock as the classic menu: a resolved ?mesa= pins the whole visit to
+  // dine_in. This view used to hardcode table={null} because it was only
+  // reachable from the marketing site — now it can BE the table's QR target.
+  useEffect(() => {
+    if (data.table) {
+      setTableId(data.table.id);
+      setFulfillment("dine_in");
+    }
+  }, [data.table, setTableId, setFulfillment]);
+
   const [activeProduct, setActiveProduct] = useState<DisplayProduct | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+
+  // Which slide is on screen. Owned here rather than by each slide because
+  // only ONE clip may play at a time — see CatalogMedia.
+  const [activeIndex, setActiveIndex] = useState(0);
+  const slideRefs = useRef<(HTMLElement | null)[]>([]);
+
+  const registerSlide = useCallback((index: number) => {
+    return (node: HTMLElement | null) => {
+      slideRefs.current[index] = node;
+    };
+  }, []);
+
+  useEffect(() => {
+    const nodes = slideRefs.current.filter((n): n is HTMLElement => n !== null);
+    if (nodes.length === 0) return;
+
+    // 0.6 rather than 1: scroll-snap settles a hair off a perfect viewport
+    // match on some Android browsers, and at a threshold of 1 the video would
+    // never start. Only one slide can clear 60% of a full-height viewport, so
+    // this can't light up two at once.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const index = nodes.indexOf(entry.target as HTMLElement);
+          if (index >= 0) setActiveIndex(index);
+        }
+      },
+      { threshold: 0.6 },
+    );
+
+    for (const node of nodes) observer.observe(node);
+    return () => observer.disconnect();
+  }, [products.length]);
 
   const totalCents = useMemo(() => {
     let total = 0;
@@ -99,29 +147,45 @@ export function CatalogScroll({ data }: { data: PublicMenuData }) {
     >
       <div className="fixed inset-x-0 top-0 z-20 flex items-center justify-between p-3" style={{ paddingTop: "max(0.75rem, env(safe-area-inset-top))" }}>
         <Link
-          href={`/m/${business.slug}`}
+          // ?clasico=1 so the redirect in page.tsx lets this through instead
+          // of bouncing straight back here when this is the default view.
+          href={
+            data.table
+              ? `/m/${business.slug}?clasico=1&mesa=${encodeURIComponent(data.table.label)}`
+              : `/m/${business.slug}?clasico=1`
+          }
           aria-label="Ver menú clásico"
           className="flex size-touch items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm"
         >
           <ArrowLeft className="size-5" aria-hidden />
         </Link>
-        <CatalogShare businessName={business.name} />
+        <div className="flex items-center gap-2">
+          {data.table && (
+            <TableCallButton
+              slug={business.slug}
+              tableId={data.table.id}
+              tableLabel={data.table.label}
+              tone="dark"
+            />
+          )}
+          <CatalogShare businessName={business.name} />
+        </div>
       </div>
 
       <div className="h-dvh snap-y snap-mandatory overflow-y-auto scroll-smooth">
-        {products.map(({ product, categoryName }) => (
+        {products.map(({ product, categoryName }, index) => (
           <section
             key={product.id}
+            ref={registerSlide(index)}
             className="relative flex h-dvh w-full snap-start snap-always flex-col justify-end"
           >
-            {product.image_url ? (
-              // eslint-disable-next-line @next/next/no-img-element -- full-viewport background, decorative
-              <img src={product.image_url} alt="" className="absolute inset-0 size-full object-cover" />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center bg-brand p-8 text-center">
-                <span className="font-display text-4xl font-extrabold text-brand-fg">{product.name}</span>
-              </div>
-            )}
+            <CatalogMedia
+              videoUrl={product.video_url}
+              imageUrl={product.image_url}
+              name={product.name}
+              active={index === activeIndex}
+              mounted={Math.abs(index - activeIndex) <= 1}
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/10" />
 
             <div
@@ -206,10 +270,8 @@ export function CatalogScroll({ data }: { data: PublicMenuData }) {
         onFulfillmentChange={setFulfillment}
         deliveryZoneId={deliveryZoneId}
         onDeliveryZoneChange={setDeliveryZoneId}
-        // The catalog scroll has no ?mesa= entry point today — it's reached
-        // from the marketing site and the classic menu, not a table's QR.
-        table={null}
-        tableId={null}
+        table={data.table}
+        tableId={tableId}
         onOrderCreated={({ orderId }) => {
           clearCart();
           setCheckoutOpen(false);

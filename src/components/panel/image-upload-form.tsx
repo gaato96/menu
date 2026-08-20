@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRef, useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function ImageUploadForm({
   currentUrl,
@@ -12,7 +13,7 @@ export function ImageUploadForm({
 }: {
   currentUrl: string | null;
   action: (formData: FormData) => Promise<{ ok?: true; error?: string } | undefined>;
-  aspect?: "square" | "wide";
+  aspect?: "square" | "wide" | "tall";
 }) {
   const [preview, setPreview] = useState<string | null>(currentUrl);
   const [error, setError] = useState<string | null>(null);
@@ -32,18 +33,21 @@ export function ImageUploadForm({
       className="flex items-center gap-4"
     >
       <div
-        className={
+        className={cn(
+          "flex shrink-0 items-center justify-center overflow-hidden rounded-lg border border-ink-200 bg-ink-100",
           aspect === "wide"
-            ? "flex aspect-video w-40 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-ink-200 bg-ink-100"
-            : "flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-ink-200 bg-ink-100"
-        }
+            ? "aspect-video w-40"
+            : aspect === "tall"
+              ? "aspect-9/16 w-20"
+              : "size-20",
+        )}
       >
         {preview ? (
           <Image
             src={preview}
             alt=""
-            width={aspect === "wide" ? 320 : 80}
-            height={aspect === "wide" ? 180 : 80}
+            width={aspect === "wide" ? 320 : 180}
+            height={aspect === "wide" ? 180 : 320}
             className="size-full object-cover"
             unoptimized
           />
