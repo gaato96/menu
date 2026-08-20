@@ -112,10 +112,14 @@ export function MenuClient({ data }: { data: PublicMenuData }) {
                     ? `/m/${business.slug}/catalogo?mesa=${encodeURIComponent(data.table.label)}`
                     : `/m/${business.slug}/catalogo`
                 }
-                className="flex min-h-touch flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand text-sm font-semibold text-brand-fg"
+                className="flex min-h-touch min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg bg-brand px-2 text-sm font-semibold whitespace-nowrap text-brand-fg"
               >
-                <Clapperboard className="size-4" aria-hidden />
-                Ver la carta en fotos y videos
+                <Clapperboard className="size-4 shrink-0" aria-hidden />
+                {/* Shortened from "Ver la carta en fotos y videos": next to the
+                    "Llamar" pill on a narrow phone that wrapped to two lines
+                    and grew taller than its neighbor. The icon already says
+                    "video" — the copy doesn't have to repeat it. */}
+                <span className="truncate">Fotos y video</span>
               </a>
             )}
             {data.table && (

@@ -103,14 +103,16 @@ export function MenuScreen({
                 </p>
               </div>
               <div className="relative shrink-0">
-                <div className="size-12 overflow-hidden rounded-md bg-ink-100">
+                {/* 3:4, matching the real product-card.tsx: the source photos
+                    are vertical, and a square crop was cutting off the plate. */}
+                <div className="aspect-3/4 w-9 overflow-hidden rounded-md bg-ink-100">
                   {dish.imageUrl && (
                     <Image
                       src={dish.imageUrl}
                       alt=""
-                      width={96}
-                      height={96}
-                      sizes="48px"
+                      width={90}
+                      height={120}
+                      sizes="36px"
                       className="size-full object-cover"
                     />
                   )}
@@ -228,8 +230,8 @@ export function TableScreen({
         </div>
 
         <div className="flex items-center gap-1.5 px-3 py-2">
-          <span className="flex flex-1 items-center justify-center gap-1 rounded-lg bg-brand py-2 text-[0.65rem] font-semibold text-brand-fg">
-            Ver la carta en fotos y videos
+          <span className="flex min-w-0 flex-1 items-center justify-center rounded-lg bg-brand px-1.5 py-2 text-[0.65rem] font-semibold whitespace-nowrap text-brand-fg">
+            Fotos y video
           </span>
           <span className="flex items-center gap-1 rounded-full border border-ink-200 bg-white px-2.5 py-2 text-[0.65rem] font-semibold text-ink-900">
             <BellRing className="size-3" />
