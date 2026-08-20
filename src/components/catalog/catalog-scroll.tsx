@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, Plus } from "lucide-react";
+import { ArrowLeft, ChevronDown, Plus } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
@@ -94,6 +94,29 @@ export function CatalogScroll({ data }: { data: PublicMenuData }) {
     return () => observer.disconnect();
   }, [products.length]);
 
+  // One chip per category, pointing at the first slide that belongs to it —
+  // the "Menu" row lacartaa has and this view was missing entirely. Built
+  // from `products` (already flattened+ordered by category) rather than
+  // re-deriving from `categories`, so a chip's index always lands on a real
+  // slide even if a category has zero visible products and got filtered out
+  // upstream.
+  const categoryChips = useMemo(() => {
+    const firstIndexByName = new Map<string, number>();
+    products.forEach(({ categoryName }, index) => {
+      if (!firstIndexByName.has(categoryName)) firstIndexByName.set(categoryName, index);
+    });
+    return Array.from(firstIndexByName, ([name, index]) => ({ name, index }));
+  }, [products]);
+
+  const activeCategoryName = products[activeIndex]?.categoryName;
+
+  function jumpToCategory(index: number) {
+    // scrollIntoView respects the nearest scrollable ancestor (the snap
+    // container below), not the window — there is no separate "scroll the
+    // page" step needed.
+    slideRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   const totalCents = useMemo(() => {
     let total = 0;
     for (const line of lines) {
@@ -145,31 +168,71 @@ export function CatalogScroll({ data }: { data: PublicMenuData }) {
         } as React.CSSProperties
       }
     >
-      <div className="fixed inset-x-0 top-0 z-20 flex items-center justify-between p-3" style={{ paddingTop: "max(0.75rem, env(safe-area-inset-top))" }}>
-        <Link
-          // ?clasico=1 so the redirect in page.tsx lets this through instead
-          // of bouncing straight back here when this is the default view.
-          href={
-            data.table
-              ? `/m/${business.slug}?clasico=1&mesa=${encodeURIComponent(data.table.label)}`
-              : `/m/${business.slug}?clasico=1`
-          }
-          aria-label="Ver menú clásico"
-          className="flex size-touch items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm"
-        >
-          <ArrowLeft className="size-5" aria-hidden />
-        </Link>
-        <div className="flex items-center gap-2">
-          {data.table && (
-            <TableCallButton
-              slug={business.slug}
-              tableId={data.table.id}
-              tableLabel={data.table.label}
-              tone="dark"
-            />
-          )}
-          <CatalogShare businessName={business.name} />
+      <div
+        className="fixed inset-x-0 top-0 z-20 flex flex-col gap-2 p-3"
+        style={{ paddingTop: "max(0.75rem, env(safe-area-inset-top))" }}
+      >
+        <div className="flex items-center justify-between">
+          <Link
+            // ?clasico=1 so the redirect in page.tsx lets this through instead
+            // of bouncing straight back here when this is the default view.
+            href={
+              data.table
+                ? `/m/${business.slug}?clasico=1&mesa=${encodeURIComponent(data.table.label)}`
+                : `/m/${business.slug}?clasico=1`
+            }
+            aria-label="Ver menú clásico"
+            className="flex size-touch items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm"
+          >
+            <ArrowLeft className="size-5" aria-hidden />
+          </Link>
+          <div className="flex items-center gap-2">
+            {data.table && (
+              <TableCallButton
+                slug={business.slug}
+                tableId={data.table.id}
+                tableLabel={data.table.label}
+                tone="dark"
+              />
+            )}
+            <CatalogShare businessName={business.name} />
+          </div>
         </div>
+
+        {/* The "Menu" row: without it this view was one long scroll with no
+            way to skip ahead — a customer who wants "bebidas" had to swipe
+            past every plato to find it. A single category renders no chips;
+            there is nothing to navigate between. */}
+        {categoryChips.length > 1 && (
+          <div className="scrollbar-none -mx-3 flex gap-1.5 overflow-x-auto px-3 pb-0.5">
+            {categoryChips.map((chip) => (
+              <button
+                key={chip.name}
+                type="button"
+                onClick={() => jumpToCategory(chip.index)}
+                className={cn(
+                  "shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap backdrop-blur-sm transition-colors",
+                  chip.name === activeCategoryName
+                    ? "bg-white text-ink-900"
+                    : "bg-black/40 text-white",
+                )}
+              >
+                {chip.name}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Shown only on the very first plato — the one moment a customer
+            doesn't already know this thing scrolls. It lives in the same
+            fixed header (not floating over the bottom text block) so it can
+            never collide with a long description on a short screen. */}
+        {activeIndex === 0 && products.length > 1 && (
+          <div className="pointer-events-none flex flex-col items-center pt-1 text-white/90 drop-shadow-sm">
+            <span className="text-xs font-medium">Deslizá hacia abajo para ver más</span>
+            <ChevronDown className="mt-0.5 size-4 animate-bounce" aria-hidden />
+          </div>
+        )}
       </div>
 
       <div className="h-dvh snap-y snap-mandatory overflow-y-auto scroll-smooth">

@@ -65,3 +65,45 @@ EVITÁ TODO ESTO, que es lo que delata una imagen generada:
 
 El resultado tiene que ser indistinguible de una foto real. Sin texto, sin logos, sin marcas de agua, sin personas, sin manos.`;
 }
+
+/**
+ * Prompt for turning one still dish photo into the looping clip the catalog
+ * view plays. Not wired to a live API — Gemini's image endpoint above has no
+ * video model, and Veo (Google's) is a different product with its own
+ * pricing and quota story that hasn't been scoped yet. This exists to be
+ * pasted by hand into an external image-to-video tool (Kling, Runway, Pika,
+ * Luma Dream Machine, or Veo through Gemini/AI Studio) — see the "producto"
+ * plan for turning that into a paid step of onboarding a new business.
+ *
+ * Same discipline as buildDishEnhancePrompt: the photo is the only source of
+ * truth, so the prompt never names the dish and never invents motion that
+ * isn't credible for real food sitting on a real table. The spec block at
+ * the end (duration, no audio, format) exists because every one of those
+ * tools asks for it in a separate field or the prompt itself, and copying it
+ * wrong is the easiest way to end up with a clip video-upload-form.tsx
+ * rejects (over VideoUploadForm's 12s / 8MB / no-.mov ceiling).
+ */
+export function buildDishVideoPrompt(): string {
+  return `Animá esta fotografía de un plato para un video corto en loop, para el menú de un restaurante. La foto es la única fuente de verdad: no cambies el plato, los ingredientes, el emplatado ni el fondo. Es animación, no recreación.
+
+QUÉ MOVER (elegí lo que tenga sentido para ESTE plato, no todo a la vez):
+- Vapor subiendo despacio si el plato está caliente.
+- Un brillo o reflejo que se mueve suave sobre una salsa o una bebida.
+- Una hoja, un hilo de humo o un mantel que se mece apenas con el aire.
+- Un empujón de cámara mínimo (dolly o zoom lentísimo) hacia el plato, como si alguien se acercara a mirarlo.
+
+QUÉ NO HACER:
+- No hagas que la comida se mueva, se sirva sola, levite o cambie de forma.
+- No agregues manos, personas, cubiertos entrando en cuadro ni texto.
+- Nada de movimiento brusco, cámara temblorosa ni cortes.
+- El plato tiene que seguir ocupando la mayor parte del cuadro en todo momento — no lo dejes alejarse ni salir de foco.
+
+ESTILO: igual de real que la foto original. Cero look 3D, cero efecto "IA" evidente, cero brillo plástico. La iluminación y el color se mantienen consistentes en todo el clip, sin parpadeo.
+
+FICHA TÉCNICA (respetá esto en las opciones del generador, no solo en el texto):
+- Vertical 9:16, plato centrado y completo, sin recortar los bordes.
+- Duración: 4 a 8 segundos.
+- Que cierre en loop: el primer y el último cuadro tienen que poder pegarse sin salto.
+- Sin audio.
+- Exportar en MP4 (H.264) — nunca .mov. Un .mov grabado en iPhone no se reproduce en la mayoría de los Android.`;
+}

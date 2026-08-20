@@ -154,16 +154,32 @@ export function CatalogScreen({
 }) {
   return (
     <PhoneFrame>
-      <div className="relative flex size-full flex-col justify-end bg-night-900">
+      <div className="relative flex size-full flex-col justify-end overflow-hidden bg-night-900">
+        {/* Same letterbox technique as the real view (CatalogMedia): a
+            blurred copy fills the frame, the real photo sits on top scaled
+            to fit whole. Most real dish photos are landscape, and this mock
+            has to show truthfully what a landscape photo looks like here —
+            not a cropped best-case that the actual feature doesn't produce. */}
         {dish.imageUrl && (
-          <Image
-            src={dish.imageUrl}
-            alt=""
-            width={400}
-            height={840}
-            sizes="280px"
-            className="absolute inset-0 size-full object-cover"
-          />
+          <>
+            <Image
+              src={dish.imageUrl}
+              alt=""
+              aria-hidden
+              width={400}
+              height={840}
+              sizes="280px"
+              className="absolute inset-0 size-full scale-110 object-cover opacity-70 blur-2xl"
+            />
+            <Image
+              src={dish.imageUrl}
+              alt=""
+              width={400}
+              height={840}
+              sizes="280px"
+              className="absolute inset-0 size-full object-contain"
+            />
+          </>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/20" />
         <div className="relative space-y-2 p-4 text-white">
