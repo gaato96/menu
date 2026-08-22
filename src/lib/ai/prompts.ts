@@ -107,3 +107,56 @@ FICHA TÉCNICA (respetá esto en las opciones del generador, no solo en el texto
 - Sin audio.
 - Exportar en MP4 (H.264) — nunca .mov. Un .mov grabado en iPhone no se reproduce en la mayoría de los Android.`;
 }
+
+/**
+ * Prompt for generating a dish photo from scratch — a name and a menu
+ * description, no reference photo. Not wired to a live API: this exists to
+ * be pasted by hand into an external text-to-image tool (Midjourney, DALL-E,
+ * Ideogram, Gemini/Nano Banana, or the same "banana" family the AI image
+ * enhancer already runs on), for a business getting its menu photographed
+ * for the first time — see the "producto" plan for turning that into a paid
+ * step of onboarding.
+ *
+ * Different discipline from buildDishEnhancePrompt on purpose: that one
+ * NEVER names the dish, because there is a real photo to anchor to and
+ * naming it just gives the model a second, competing idea of what it's
+ * looking at. Here there is no photo — the name and description are the
+ * only description of what to draw, so withholding them would leave the
+ * model guessing. The menu's own copy is what decides the dish, not this
+ * function's judgment.
+ *
+ * Framed for vertical from the very first sentence, not just in the spec
+ * block at the end: a prompt that generates a normal landscape food photo
+ * and asks for a 9:16 crop as an afterthought gets a landscape photo with
+ * padding, the exact problem the real photos already have. See
+ * FULL_BLEED_MAX_RATIO in catalog-media.tsx for what a genuinely vertical
+ * photo buys — object-cover, full bleed, no padding — versus what a
+ * technically-9:16-but-really-horizontal one gets instead.
+ */
+export function buildDishGeneratePrompt(name: string, description: string | null): string {
+  return `Generá una fotografía publicitaria de este plato para la carta de un restaurante, pensada y compuesta desde cero como una foto VERTICAL — no una foto horizontal con los bordes rellenos ni recortada después.
+
+EL PLATO ES: "${name}"${description ? `, descripto en la carta como: "${description}"` : ""}. Esta descripción es la única fuente de verdad sobre qué llevar — no le agregues ingredientes que no están nombrados ni le saques los que sí están.
+
+COMPOSICIÓN VERTICAL (esto es lo más importante):
+- Encuadre 9:16 de arranque: elegí un ángulo que aproveche el alto, no el ancho. Una vista de 3/4 con la cámara un poco elevada (45°-60°) suele funcionar mejor que una cenital perfecta para llenar un cuadro vertical.
+- El plato ocupa al menos dos tercios del cuadro, centrado, sin que se corten los bordes.
+- Si sobra espacio arriba o abajo, llenalo con algo que sume — vapor, una servilleta de tela, una tabla o mesa que continúe fuera de foco — nunca con mesa vacía.
+- Nada de bordes negros, barras ni relleno para "hacer" el 9:16. El cuadro entero tiene que estar compuesto, no rellenado.
+
+FOTOGRAFÍA:
+- Iluminación cálida y suave tipo luz de ventana lateral. Sombras suaves, nada de luz dura de cocina.
+- Fondo limpio y simple, desenfocado: madera, piedra o mantel liso en tono neutro. Sin manos, sin personas, sin texto ni logos.
+- Enfoque nítido sobre la comida, profundidad de campo suave, como si fuera de una réflex con lente 50mm f/2.8.
+- Colores naturales y apetitosos, sin saturar.
+
+REALISMO — esto tiene que parecer una foto real, no una ilustración:
+- Textura real: poros del pan, brillo húmedo de una salsa, bordes desparejos, alguna imperfección creíble (una miga suelta, una gota en el borde del plato).
+- Grano fotográfico sutil.
+- Evitá todo lo que delata una imagen generada: aspecto 3D o CGI, brillo plástico, superficies perfectas, simetría imposible, ingredientes repetidos idénticos, HDR exagerado, halos de estudio.
+
+FICHA TÉCNICA (configurá esto en las opciones del generador si las tiene, no solo en el texto):
+- Aspect ratio 9:16, vertical.
+- Sin texto, sin logos, sin marcas de agua, sin personas, sin manos.
+- Una sola imagen, no una grilla de variantes.`;
+}
