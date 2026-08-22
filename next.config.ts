@@ -10,6 +10,18 @@ const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL
   : undefined;
 
 const nextConfig: NextConfig = {
+  // Next's own default for a Server Action's request body is 1MB — nowhere
+  // near enough for the dish video upload (up to 8MB, see
+  // video-upload-form.tsx). Below this ceiling, Vercel rejects the request
+  // before it ever reaches uploadProductVideo(), so the failure never gets
+  // to return the graceful { error } the action is written to produce —
+  // the browser just sees a generic crashed-page screen instead of a form
+  // message. 10mb leaves headroom over the 8MB the client already enforces.
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "10mb",
+    },
+  },
   images: {
     remotePatterns: supabaseHost
       ? [{ protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/**" }]
