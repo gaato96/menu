@@ -34,6 +34,7 @@ function order(status: OrderStatus, totalCents: number): BoardOrder {
     table_id: null,
     stock_applied: false,
     session_id: null,
+    mp_preference_id: null,
     items: [],
   };
 }

@@ -5,6 +5,8 @@ import { randomUUID } from "node:crypto";
 import { revalidatePath } from "next/cache";
 
 import { requireStaff } from "@/lib/auth/context";
+import { canConfigure } from "@/lib/auth/roles";
+import { verifyAccessToken } from "@/lib/payments/mercadopago";
 import { parseMoneyToCents } from "@/lib/money";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -214,5 +216,91 @@ export async function createHours(formData: FormData) {
 export async function deleteHours(hoursId: string) {
   const supabase = await createClient();
   await supabase.from("business_hours").delete().eq("id", hoursId);
+  revalidatePath("/panel/config");
+}
+
+// --- Kitchen printing ------------------------------------------------------
+
+export async function updatePrinting(formData: FormData): Promise<{ ok?: true; error?: string }> {
+  const staff = await requireStaff();
+  if (!canConfigure(staff.role)) return { error: "Solo el dueño o el encargado." };
+  const paper = Number(formData.get("paper")) === 58 ? 58 : 80;
+  const autoRaw = String(formData.get("auto") ?? "off");
+  const auto = autoRaw === "on_new" || autoRaw === "on_kitchen" ? autoRaw : "off";
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("business_settings")
+    .update({ print_paper_mm: paper, print_auto: auto })
+    .eq("business_id", staff.business.id);
+  if (error) return { error: "No pudimos guardar la impresión." };
+
+  revalidatePath("/panel/config");
+  revalidatePath("/panel");
+  return { ok: true };
+}
+
+// --- Mercado Pago ----------------------------------------------------------
+
+/**
+ * Owner only: this decides whose account the money lands in. The token goes
+ * straight to business_mp_credentials through the admin client (that table
+ * has no policies at all) after Mercado Pago itself confirmed it is valid.
+ */
+export async function connectMercadoPago(formData: FormData): Promise<{ ok?: true; error?: string }> {
+  const staff = await requireStaff();
+  if (staff.role !== "owner") return { error: "Solo el dueño puede conectar la cuenta de cobro." };
+  if (!staff.modules.has("mercadopago")) return { error: "Tu plan no incluye Mercado Pago." };
+
+  const token = String(formData.get("accessToken") ?? "").trim();
+  if (!/^(APP_USR|TEST)-[\w-]{20,}$/.test(token)) {
+    return { error: "Eso no parece un Access Token. Empieza con APP_USR-." };
+  }
+
+  const verified = await verifyAccessToken(token);
+  if (!verified.ok) return { error: verified.error };
+
+  const admin = createAdminClient();
+  const { error } = await admin.from("business_mp_credentials").upsert({
+    business_id: staff.business.id,
+    access_token: token,
+    mp_user_id: verified.userId,
+    mp_nickname: verified.nickname,
+    connected_at: new Date().toISOString(),
+  });
+  if (error) return { error: "No pudimos guardar la conexión." };
+
+  revalidatePath("/panel/config");
+  return { ok: true };
+}
+
+export async function disconnectMercadoPago() {
+  const staff = await requireStaff();
+  if (staff.role !== "owner") return;
+  const supabase = await createClient();
+  await supabase
+    .from("business_settings")
+    .update({ mercadopago_enabled: false })
+    .eq("business_id", staff.business.id);
+  await createAdminClient().from("business_mp_credentials").delete().eq("business_id", staff.business.id);
+  revalidatePath("/panel/config");
+}
+
+export async function toggleMercadoPago(enabled: boolean) {
+  const staff = await requireStaff();
+  if (!canConfigure(staff.role) || !staff.modules.has("mercadopago")) return;
+  if (enabled) {
+    const { data } = await createAdminClient()
+      .from("business_mp_credentials")
+      .select("business_id")
+      .eq("business_id", staff.business.id)
+      .maybeSingle();
+    if (!data) return;
+  }
+  const supabase = await createClient();
+  await supabase
+    .from("business_settings")
+    .update({ mercadopago_enabled: enabled })
+    .eq("business_id", staff.business.id);
   revalidatePath("/panel/config");
 }

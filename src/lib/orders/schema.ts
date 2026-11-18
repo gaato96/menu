@@ -24,7 +24,7 @@ const orderRequestBase = z.object({
     .optional(),
   address: z.string().trim().max(200).nullable().optional(),
   addressReference: z.string().trim().max(160).nullable().optional(),
-  paymentMethod: z.enum(["cash", "transfer"]),
+  paymentMethod: z.enum(["cash", "transfer", "mercadopago"]),
   cashChangeForCents: z.number().int().min(0).nullable().optional(),
   notes: z.string().trim().max(300).nullable().optional(),
   idempotencyKey: z.string().min(10).max(100),

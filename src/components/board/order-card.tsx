@@ -8,6 +8,8 @@ import {
   MapPin,
   MessageCircle,
   Phone,
+  Printer,
+  Send,
   Store,
   Undo2,
   Utensils,
@@ -20,7 +22,7 @@ import { canReverseOrders } from "@/lib/auth/roles";
 import { formatMoney } from "@/lib/money";
 import type { StaffRole } from "@/lib/orders/status";
 import type { BoardOrder } from "@/lib/orders/board-queries";
-import { buildConfirmationRequestUrl } from "@/lib/whatsapp";
+import { buildConfirmationRequestUrl, buildDispatchedUrl } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
 
 const ADVANCE_LABEL: Record<string, string> = {
@@ -42,6 +44,7 @@ export function OrderCard({
   onCancel,
   onGoBack,
   onOpenDetail,
+  onPrint,
 }: {
   order: BoardOrder;
   role: StaffRole;
@@ -53,6 +56,7 @@ export function OrderCard({
   onCancel: () => void;
   onGoBack: () => void;
   onOpenDetail: () => void;
+  onPrint?: () => void;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
@@ -136,6 +140,24 @@ export function OrderCard({
         </div>
       )}
 
+      {order.status === "on_the_way" && order.fulfillment_type === "delivery" && order.customer_phone && (
+        <a
+          href={buildDispatchedUrl(order.customer_phone, {
+            businessName,
+            code: order.code,
+            customerName: order.customer_name,
+          })}
+          target="_blank"
+          rel="noopener noreferrer"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
+          className="mt-1.5 flex min-h-9 items-center justify-center gap-1.5 rounded-lg bg-[#25D366] px-2 text-xs font-semibold text-white active:brightness-90"
+        >
+          <Send className="size-3.5" aria-hidden />
+          Avisar que ya salió
+        </a>
+      )}
+
       <p className="mt-2 truncate text-sm font-medium text-ink-900">{order.customer_name}</p>
 
       {order.fulfillment_type === "delivery" && (
@@ -196,7 +218,13 @@ export function OrderCard({
           {formatMoney(order.total_cents, { currency })}
         </span>
         <span className="text-xs text-ink-500">
-          {order.payment_method === "cash" ? "Efectivo" : "Transferencia"}
+          {order.payment_method === "cash"
+            ? "Efectivo"
+            : order.payment_method === "mercadopago"
+              ? order.payment_status === "paid"
+                ? "Mercado Pago · pagado"
+                : "Mercado Pago · sin pagar"
+              : "Transferencia"}
         </span>
       </div>
 
@@ -213,6 +241,21 @@ export function OrderCard({
           >
             {advanceLabel}
             <ChevronRight className="size-4" aria-hidden />
+          </button>
+        )}
+
+        {onPrint && (
+          <button
+            type="button"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              onPrint();
+            }}
+            aria-label="Imprimir comanda"
+            className="flex size-touch shrink-0 items-center justify-center rounded-lg border border-ink-200 text-ink-500 active:bg-ink-100"
+          >
+            <Printer className="size-4" aria-hidden />
           </button>
         )}
 

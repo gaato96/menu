@@ -322,6 +322,7 @@ export function CatalogScroll({ data }: { data: PublicMenuData }) {
           pickupEnabled: settings.pickup_enabled,
           cashEnabled: settings.cash_enabled,
           transferEnabled: settings.transfer_enabled,
+          mercadopagoEnabled: settings.mercadopago_enabled,
           transferAlias: settings.transfer_alias,
           transferCbu: settings.transfer_cbu,
           transferHolder: settings.transfer_holder,

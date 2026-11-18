@@ -7,6 +7,7 @@ import { ImageUploadForm } from "@/components/panel/image-upload-form";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Select } from "@/components/ui/field";
 import { requireStaff } from "@/lib/auth/context";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import type { Tables } from "@/types/database";
 
@@ -22,6 +23,10 @@ import {
   updateSettings,
   uploadCoverImage,
   uploadLogo,
+  connectMercadoPago,
+  disconnectMercadoPago,
+  toggleMercadoPago,
+  updatePrinting,
 } from "./actions";
 
 export const metadata = { title: "Configuración" };
@@ -41,6 +46,17 @@ export default async function ConfigPage() {
       .eq("business_id", staff.business.id)
       .order("day_of_week"),
   ]);
+
+  // Only whether an account is connected and as whom — never the token.
+  const mpAccount = staff.modules.has("mercadopago")
+    ? (
+        await createAdminClient()
+          .from("business_mp_credentials")
+          .select("mp_nickname, connected_at")
+          .eq("business_id", staff.business.id)
+          .maybeSingle()
+      ).data
+    : null;
 
   const zones = zonesResult.data ?? [];
   const hours = hoursResult.data ?? [];
@@ -147,6 +163,73 @@ export default async function ConfigPage() {
           <Button type="submit">Guardar</Button>
         </ActionForm>
       </section>
+
+      {staff.modules.has("mercadopago") && (
+        <section className="rounded-card border border-ink-200 bg-white p-4">
+          <h2 className="font-semibold text-ink-900">Mercado Pago</h2>
+          {mpAccount ? (
+            <div className="mt-2 space-y-3">
+              <p className="text-sm text-ink-700">
+                Conectado{mpAccount.mp_nickname ? ` como ${mpAccount.mp_nickname}` : ""}. La plata entra directo a esa
+                cuenta.
+              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-ink-700">Ofrecer Mercado Pago en el pedido</p>
+                <AsyncToggle checked={settings.mercadopago_enabled} action={toggleMercadoPago} />
+              </div>
+              {staff.role === "owner" && (
+                <form action={disconnectMercadoPago}>
+                  <ConfirmSubmitButton confirmMessage="¿Desconectar la cuenta? Se deja de ofrecer Mercado Pago." variant="outline" size="sm">
+                    Desconectar cuenta
+                  </ConfirmSubmitButton>
+                </form>
+              )}
+            </div>
+          ) : staff.role === "owner" ? (
+            <ActionForm action={connectMercadoPago} className="mt-2 space-y-3">
+              <p className="text-xs text-ink-500">
+                En mercadopago.com.ar/developers → Tus integraciones → creá una aplicación → Credenciales de
+                producción, copiá el <b>Access Token</b> (empieza con APP_USR-) y pegalo acá. Solo lo usa el servidor
+                para crear los cobros; nadie más lo ve.
+              </p>
+              <Field label="Access Token">
+                <Input name="accessToken" type="password" autoComplete="off" placeholder="APP_USR-…" required />
+              </Field>
+              <Button type="submit">Conectar</Button>
+            </ActionForm>
+          ) : (
+            <p className="mt-2 text-sm text-ink-500">El dueño del local tiene que conectar la cuenta.</p>
+          )}
+        </section>
+      )}
+
+      {staff.modules.has("kitchen_printing") && (
+        <section className="rounded-card border border-ink-200 bg-white p-4">
+          <h2 className="font-semibold text-ink-900">Impresión de comandas</h2>
+          <p className="mt-1 text-xs text-ink-500">
+            Imprime en la impresora térmica que ya usa esta tablet o compu (USB, Bluetooth o red). Para que imprima sin
+            preguntar, abrí Chrome con la opción --kiosk-printing.
+          </p>
+          <ActionForm action={updatePrinting} className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <Field label="Ancho del papel">
+              <Select name="paper" defaultValue={String(settings.print_paper_mm)}>
+                <option value="80">80 mm</option>
+                <option value="58">58 mm</option>
+              </Select>
+            </Field>
+            <Field label="Imprimir solo">
+              <Select name="auto" defaultValue={settings.print_auto}>
+                <option value="off">Nunca, solo con el botón</option>
+                <option value="on_new">Cuando entra un pedido</option>
+                <option value="on_kitchen">Cuando pasa a cocina</option>
+              </Select>
+            </Field>
+            <div className="sm:col-span-2">
+              <Button type="submit">Guardar</Button>
+            </div>
+          </ActionForm>
+        </section>
+      )}
 
       <section className="rounded-card border border-ink-200 bg-white p-4">
         <h2 className="mb-3 font-semibold text-ink-900">Zonas de delivery</h2>

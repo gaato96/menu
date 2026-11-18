@@ -44,6 +44,12 @@ export default async function BoardPage() {
         initialOrders={initialOrders}
         zoneNames={zoneNames}
         tableNames={tableNames}
+        timeZone={staff.business.timezone}
+        printing={
+          staff.modules.has("kitchen_printing")
+            ? { paperMm: staff.settings.print_paper_mm, auto: staff.settings.print_auto }
+            : null
+        }
       />
     </div>
   );

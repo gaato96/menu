@@ -27,6 +27,7 @@ export function BoardColumn({
   onCancel,
   onGoBack,
   onOpenDetail,
+  onPrint,
 }: {
   column: BoardColumnDef;
   orders: BoardOrder[];
@@ -39,6 +40,8 @@ export function BoardColumn({
   onCancel: (order: BoardOrder) => void;
   onGoBack: (order: BoardOrder) => void;
   onOpenDetail: (order: BoardOrder) => void;
+  /** Present only when the kitchen_printing module is on. */
+  onPrint?: (order: BoardOrder) => void;
 }) {
   const { setNodeRef, isOver } = useDroppable({ id: column.id });
 
@@ -78,6 +81,7 @@ export function BoardColumn({
             onCancel={() => onCancel(order)}
             onGoBack={() => onGoBack(order)}
             onOpenDetail={() => onOpenDetail(order)}
+            onPrint={onPrint ? () => onPrint(order) : undefined}
           />
         ))}
       </div>

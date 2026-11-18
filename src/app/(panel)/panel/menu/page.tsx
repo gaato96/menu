@@ -1,11 +1,12 @@
-import { ChevronDown, ChevronUp, Pencil, Plus, Trash2 } from "lucide-react";
+import { ChevronDown, ChevronUp, FileUp, Pencil, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
 
 import { AsyncToggle } from "@/components/panel/async-toggle";
 import { ConfirmSubmitButton } from "@/components/panel/confirm-submit-button";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/field";
 import { requireStaff } from "@/lib/auth/context";
+import { canConfigure } from "@/lib/auth/roles";
 import { formatMoney } from "@/lib/money";
 import { fetchStaffMenu } from "@/lib/menu/staff-queries";
 import { createClient } from "@/lib/supabase/server";
@@ -34,6 +35,12 @@ export default async function MenuPage() {
     <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4">
       <div className="flex items-center justify-between">
         <h1 className="font-display text-lg font-bold tracking-tight text-ink-900 sm:text-xl">Menú</h1>
+        {canConfigure(staff.role) && (
+          <Link href="/panel/menu/importar" className={buttonVariants({ variant: "outline", size: "sm" })}>
+            <FileUp className="size-4" aria-hidden />
+            Importar carta
+          </Link>
+        )}
       </div>
 
       <form action={createCategory} className="flex items-end gap-2 rounded-card border border-ink-200 bg-white p-3">
@@ -49,7 +56,7 @@ export default async function MenuPage() {
 
       {categories.length === 0 && (
         <p className="rounded-card border border-dashed border-ink-200 p-6 text-center text-sm text-ink-500">
-          Todavía no tenés categorías. Creá la primera arriba.
+          Todavía no tenés categorías. Creá la primera arriba, o importá tu carta desde una foto o un PDF.
         </p>
       )}
 

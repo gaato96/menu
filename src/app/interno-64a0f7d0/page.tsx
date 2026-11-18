@@ -1,4 +1,6 @@
 import { marked } from "marked";
+
+import { requireSuperadmin } from "@/lib/auth/context";
 import type { Metadata } from "next";
 
 import { guiaProduccion } from "@/content/internal/guia-produccion";
@@ -15,9 +17,10 @@ import { sistemaProspeccionFrio } from "@/content/internal/sistema-prospeccion-f
 
 import { DocsReader } from "./docs-reader";
 
-// Not a real access boundary — just kept out of search results and off any
-// nav link. Anyone with the exact URL can read it, which is the point: it
-// has to open on a phone away from the laptop, with no login step.
+// Superadmin only. It used to be open to anyone with the URL (and robots.txt
+// named the prefix), which put pricing reasoning, cold-message scripts and
+// competitor notes one click from a competitor or a prospect. On a phone this
+// is one login, then the session sticks.
 export const metadata: Metadata = {
   title: "Notas internas",
   robots: { index: false, follow: false },
@@ -38,6 +41,8 @@ const DOCS = [
 ];
 
 export default async function InternalDocsPage() {
+  await requireSuperadmin();
+
   const docs = await Promise.all(
     DOCS.map(async (doc) => ({
       key: doc.key,

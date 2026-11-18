@@ -1,3 +1,4 @@
+import { siteUrl } from "@/lib/site-url";
 import type { Metadata, Viewport } from "next";
 import { Big_Shoulders, IBM_Plex_Mono, Schibsted_Grotesk } from "next/font/google";
 import Script from "next/script";
@@ -33,7 +34,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(siteUrl()),
   title: {
     default: "VivoMenu",
     template: "%s · VivoMenu",

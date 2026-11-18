@@ -4,6 +4,8 @@ import type { PricedOrder } from "@/lib/pricing";
 import {
   buildConfirmationRequest,
   buildConfirmationRequestUrl,
+  buildDispatchedMessage,
+  buildDispatchedUrl,
   buildWhatsAppMessage,
   buildWhatsAppUrl,
   normalizeArgentinePhone,
@@ -172,5 +174,19 @@ describe("buildConfirmationRequestUrl", () => {
       customerName: "Gastón",
     });
     expect(url).toContain("https://wa.me/5493811234567?text=");
+  });
+});
+
+describe("buildDispatchedMessage", () => {
+  it("greets by first name and says the order left", () => {
+    const text = buildDispatchedMessage({ businessName: "Burger House", code: "A-12", customerName: "Lucía Pérez" });
+    expect(text).toContain("Hola Lucía");
+    expect(text).toContain("A-12");
+    expect(text).toContain("ya salió");
+  });
+
+  it("builds a wa.me link to the customer's normalized number", () => {
+    const url = buildDispatchedUrl("381 555-1234", { businessName: "X", code: "B-1", customerName: "Ana" });
+    expect(url.startsWith("https://wa.me/549381")).toBe(true);
   });
 });

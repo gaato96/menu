@@ -153,3 +153,18 @@ when Serwist ships Turbopack support.
   can abort a plain fetch mid-flight when the page unloads in the same tick — `keepalive: true`
   is not reliably enough to survive it in practice. Use `navigator.sendBeacon` instead (see
   `whatsapp-redirect.tsx`), which exists specifically for fire-and-forget-then-navigate.
+- **Every absolute URL goes through `siteUrl()` (`src/lib/site-url.ts`).** Production once shipped
+  table QR codes and OG images pointing at `http://localhost:3000` because `NEXT_PUBLIC_SITE_URL`
+  was missing in Vercel; the helper falls back to `VERCEL_PROJECT_PRODUCTION_URL` before localhost.
+- **Mercado Pago: an order is `paid` only via `syncPayment`** (`src/lib/payments/mercadopago.ts`),
+  which re-reads the payment from Mercado Pago with that local's own token. Webhook bodies and
+  return-URL params are hints about which payment to look at, never proof. Tokens live in
+  `business_mp_credentials` (RLS on, no policies — service role only).
+- **Carta import is platform-paid** (`menu_imports`, capped at `MENU_IMPORTS_MONTHLY_CAP` per local,
+  no cap for the superadmin) and never touches the local's AI photo quota.
+- **Media server actions check the role themselves** (`requireMediaEditor`) because they use the
+  admin client for Storage; RLS alone would let a mozo delete a product's file.
+- **Migration history drifted once:** `20260813000000` and `20260820000000` had been applied by hand
+  and were marked applied with `supabase migration repair` on 2026-11-18. Run
+  `supabase db push --dry-run` before every push and check the list is only your new files.
+

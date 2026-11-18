@@ -29,7 +29,9 @@ export interface WhatsAppMessageInput {
   deliveryZoneName?: string | null;
   /** Only meaningful when fulfillment is "dine_in". */
   tableLabel?: string | null;
-  paymentMethod: "cash" | "transfer";
+  paymentMethod: "cash" | "transfer" | "mercadopago";
+  /** Only read for mercadopago: whether it already went through. */
+  paymentPaid?: boolean;
   cashChangeForCents?: number | null;
   notes?: string | null;
   currency?: string;
@@ -98,6 +100,8 @@ export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
         ? ` (abona con ${money(input.cashChangeForCents)})`
         : "";
     lines.push(`*Pago:* Efectivo${change}`);
+  } else if (input.paymentMethod === "mercadopago") {
+    lines.push(`*Pago:* Mercado Pago${input.paymentPaid ? " (ya pagado)" : ""}`);
   } else {
     lines.push("*Pago:* Transferencia");
   }
@@ -170,4 +174,22 @@ export function buildConfirmationRequestUrl(
   input: ConfirmationRequestInput,
 ): string {
   return buildWhatsAppUrl(normalizeArgentinePhone(phone), buildConfirmationRequest(input));
+}
+
+/**
+ * "Tu pedido ya salió" — sent from the board when a delivery leaves. Same
+ * click-to-chat as the confirmation nudge: no API, no cost, the counter's own
+ * WhatsApp sends it. Only for delivery: a pickup customer is already on their
+ * way, and a table is in the room.
+ */
+export function buildDispatchedMessage(input: ConfirmationRequestInput): string {
+  const firstName = clean(input.customerName).split(" ")[0] || clean(input.customerName);
+  return (
+    `Hola ${firstName}, te escribimos de ${clean(input.businessName)}. ` +
+    `Tu pedido ${input.code} ya salió y está en camino. ¡Gracias!`
+  );
+}
+
+export function buildDispatchedUrl(phone: string, input: ConfirmationRequestInput): string {
+  return buildWhatsAppUrl(normalizeArgentinePhone(phone), buildDispatchedMessage(input));
 }

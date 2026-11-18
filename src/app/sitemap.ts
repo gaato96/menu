@@ -1,3 +1,4 @@
+import { siteUrl } from "@/lib/site-url";
 import type { MetadataRoute } from "next";
 
 /**
@@ -7,11 +8,11 @@ import type { MetadataRoute } from "next";
  * separately, this sitemap is for the SaaS product page itself.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const origin = siteUrl();
 
   return [
     {
-      url: siteUrl,
+      url: origin,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,

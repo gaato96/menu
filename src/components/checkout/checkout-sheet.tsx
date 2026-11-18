@@ -15,13 +15,15 @@ import type { CartLine } from "@/stores/cart";
 import { cn } from "@/lib/utils";
 
 type Step = 1 | 2 | 3 | 4;
-type PaymentMethod = "cash" | "transfer";
+type PaymentMethod = "cash" | "transfer" | "mercadopago";
 
 interface CheckoutSettings {
   deliveryEnabled: boolean;
   pickupEnabled: boolean;
   cashEnabled: boolean;
   transferEnabled: boolean;
+  /** Optional so older callers keep compiling; absent means off. */
+  mercadopagoEnabled?: boolean;
   transferAlias: string | null;
   transferCbu: string | null;
   transferHolder: string | null;
@@ -308,6 +310,14 @@ export function CheckoutSheet({
                 Transferencia
               </RadioGroup.Item>
             )}
+            {settings.mercadopagoEnabled && (
+              <RadioGroup.Item
+                value="mercadopago"
+                className="col-span-2 min-h-touch rounded-lg border border-ink-200 text-sm font-medium text-ink-900 data-[state=checked]:border-brand data-[state=checked]:bg-brand-soft"
+              >
+                Mercado Pago (tarjeta o dinero en cuenta)
+              </RadioGroup.Item>
+            )}
           </RadioGroup.Root>
 
           {paymentMethod === "cash" && (
@@ -319,6 +329,12 @@ export function CheckoutSheet({
                 placeholder="Ej: 20000"
               />
             </Field>
+          )}
+
+          {paymentMethod === "mercadopago" && (
+            <p className="rounded-lg bg-ink-50 p-3 text-xs text-ink-500">
+              Al confirmar te llevamos a Mercado Pago para pagar. Tu pedido queda guardado igual.
+            </p>
           )}
 
           {paymentMethod === "transfer" && (settings.transferAlias || settings.transferCbu) && (

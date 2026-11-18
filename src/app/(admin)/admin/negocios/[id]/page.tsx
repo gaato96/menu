@@ -79,6 +79,12 @@ export default async function BusinessDetailPage({
           >
             /m/{business.slug}
           </Link>
+          <Link
+            href={`/admin/negocios/${business.id}/importar`}
+            className="ml-3 text-xs font-medium text-brand underline underline-offset-2"
+          >
+            Importar carta con IA
+          </Link>
         </div>
         <div className="flex items-center gap-2 text-right">
           <span className="text-xs text-ink-500">

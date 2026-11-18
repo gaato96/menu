@@ -10,6 +10,7 @@ const REASON_MESSAGES: Record<string, string> = {
   suspended: "Este local no está recibiendo pedidos en este momento.",
   closed: "El local está cerrado ahora mismo.",
   table_invalid: "Esa mesa ya no está disponible. Escaneá el código de nuevo.",
+  payment_unavailable: "Este local no está cobrando con Mercado Pago ahora. Elegí otro medio de pago.",
 };
 
 export async function POST(request: Request) {

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { TicketEdge } from "@/components/ui/ticket-edge";
 import { formatMoney } from "@/lib/money";
 import { loadOrderConfirmation } from "@/lib/orders/confirmation";
+import { syncPayment } from "@/lib/payments/mercadopago";
 
 import { WhatsAppRedirect } from "./whatsapp-redirect";
 
@@ -12,12 +13,29 @@ export const metadata = { title: "Tu pedido" };
 
 export default async function OrderConfirmationPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string; id: string }>;
+  searchParams: Promise<{ payment_id?: string; collection_id?: string; mp?: string }>;
 }) {
   const { slug, id } = await params;
-  const confirmation = await loadOrderConfirmation(id, slug);
+  const query = await searchParams;
+  let confirmation = await loadOrderConfirmation(id, slug);
   if (!confirmation) notFound();
+
+  // Back from Mercado Pago: the query only says WHICH payment to look at.
+  // syncPayment reads it from Mercado Pago itself before anything changes.
+  const returnedPaymentId = query.payment_id ?? query.collection_id;
+  if (
+    confirmation.paymentMethod === "mercadopago" &&
+    confirmation.paymentStatus !== "paid" &&
+    returnedPaymentId
+  ) {
+    await syncPayment(confirmation.businessId, returnedPaymentId);
+    confirmation = (await loadOrderConfirmation(id, slug)) ?? confirmation;
+  }
+  const awaitingMpPayment =
+    confirmation.paymentMethod === "mercadopago" && confirmation.paymentStatus !== "paid";
 
   const { order, currency } = confirmation;
 
@@ -91,7 +109,12 @@ export default async function OrderConfirmationPage({
             </p>
             {confirmation.address && <p>{confirmation.address}</p>}
             <p>
-              Pago: {confirmation.paymentMethod === "cash" ? "Efectivo" : "Transferencia"}
+              Pago:{" "}
+              {confirmation.paymentMethod === "cash"
+                ? "Efectivo"
+                : confirmation.paymentMethod === "mercadopago"
+                  ? `Mercado Pago · ${confirmation.paymentStatus === "paid" ? "pagado" : "sin pagar"}`
+                  : "Transferencia"}
               {confirmation.cashChangeForCents
                 ? ` · abona con ${formatMoney(confirmation.cashChangeForCents, { currency })}`
                 : ""}
@@ -100,7 +123,26 @@ export default async function OrderConfirmationPage({
         </div>
         <TicketEdge fill="var(--color-ink-50)" />
 
-        {confirmation.fulfillment === "dine_in" ? (
+        {awaitingMpPayment ? (
+          <div className="mt-6 space-y-2">
+            {(query.mp === "error" || confirmation.paymentStatus === "failed") && (
+              <p className="rounded-lg bg-warning-soft p-3 text-center text-sm font-medium text-warning">
+                {confirmation.paymentStatus === "failed"
+                  ? "El pago no se acreditó. Probá de nuevo o con otra tarjeta."
+                  : "No pudimos abrir Mercado Pago. Probá de nuevo."}
+              </p>
+            )}
+            <a
+              href={`/api/mercadopago/checkout?order=${id}&slug=${encodeURIComponent(slug)}`}
+              className="flex min-h-touch-lg w-full items-center justify-center rounded-lg bg-[#009EE3] px-6 text-base font-semibold text-white hover:brightness-95 active:brightness-90"
+            >
+              Pagar con Mercado Pago
+            </a>
+            <p className="text-center text-xs text-ink-500">
+              Tu pedido ya está guardado. Cuando termines de pagar volvés acá y lo mandamos por WhatsApp.
+            </p>
+          </div>
+        ) : confirmation.fulfillment === "dine_in" ? (
           <p className="mt-6 text-center text-sm text-ink-700">
             Tu pedido ya está en la cocina. Mostrá esta pantalla en el local si necesitás algo.
           </p>

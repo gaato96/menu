@@ -13,6 +13,7 @@ export type CreateOrderResult =
   | { ok: false; reason: "suspended" }
   | { ok: false; reason: "closed" }
   | { ok: false; reason: "table_invalid" }
+  | { ok: false; reason: "payment_unavailable" }
   | { ok: false; reason: "pricing"; errors: PricingError[] };
 
 /**
@@ -85,6 +86,26 @@ export async function createOrder(
       .maybeSingle();
 
     if (!table) return { ok: false, reason: "table_invalid" };
+  }
+
+  // Mercado Pago is re-checked here like everything else: module on, the
+  // owner switched it on in config, and there is a connected account to
+  // charge into. Otherwise the diner would land on a pay button that cannot
+  // work.
+  if (request.paymentMethod === "mercadopago") {
+    const [moduleRow, settingsRow, credentials] = await Promise.all([
+      admin
+        .from("business_modules")
+        .select("enabled")
+        .eq("business_id", business.id)
+        .eq("module_key", "mercadopago")
+        .maybeSingle(),
+      admin.from("business_settings").select("mercadopago_enabled").eq("business_id", business.id).single(),
+      admin.from("business_mp_credentials").select("business_id").eq("business_id", business.id).maybeSingle(),
+    ]);
+    if (!moduleRow.data?.enabled || !settingsRow.data?.mercadopago_enabled || !credentials.data) {
+      return { ok: false, reason: "payment_unavailable" };
+    }
   }
 
   const snapshot = await loadMenuSnapshotForPricing(business.id);

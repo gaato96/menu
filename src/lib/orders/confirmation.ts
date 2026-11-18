@@ -4,6 +4,7 @@ import { buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export interface OrderConfirmation {
+  businessId: string;
   code: string;
   status: OrderStatus;
   createdAt: string;
@@ -17,7 +18,8 @@ export interface OrderConfirmation {
   address: string | null;
   addressReference: string | null;
   deliveryZoneName: string | null;
-  paymentMethod: "cash" | "transfer";
+  paymentMethod: "cash" | "transfer" | "mercadopago";
+  paymentStatus: "pending" | "paid" | "failed";
   cashChangeForCents: number | null;
   notes: string | null;
   currency: string;
@@ -121,6 +123,7 @@ export async function loadOrderConfirmation(
             addressReference: order.address_reference,
             deliveryZoneName: zoneResult.data?.name ?? null,
             paymentMethod: order.payment_method,
+            paymentPaid: order.payment_status === "paid",
             cashChangeForCents: order.cash_change_for_cents,
             notes: order.notes,
             currency: business.currency,
@@ -128,6 +131,7 @@ export async function loadOrderConfirmation(
         );
 
   return {
+    businessId: business.id,
     code: order.code,
     status: order.status,
     createdAt: order.created_at,
@@ -142,6 +146,7 @@ export async function loadOrderConfirmation(
     addressReference: order.address_reference,
     deliveryZoneName: zoneResult.data?.name ?? null,
     paymentMethod: order.payment_method,
+    paymentStatus: order.payment_status,
     cashChangeForCents: order.cash_change_for_cents,
     notes: order.notes,
     currency: business.currency,

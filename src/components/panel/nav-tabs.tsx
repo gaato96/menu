@@ -47,6 +47,7 @@ const PRIMARY_TABS: readonly Tab[] = [
 
 // Ordered by how often an owner actually opens them, most first.
 const MORE_TABS: readonly Tab[] = [
+  { href: "/panel/resumen", label: "Resumen semanal", roles: ["owner", "manager"] },
   { href: "/panel/pedidos", label: "Pedidos", roles: ["owner", "manager", "cashier"] },
   { href: "/panel/menu", label: "Menú", roles: ["owner", "manager"] },
   { href: "/panel/stock", label: "Stock", roles: ["owner", "manager"], module: "inventory" },

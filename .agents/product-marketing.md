@@ -1,11 +1,11 @@
-# Product Marketing Context — Menú Digital
+# Product Marketing Context — VivoMenu
 
-**Document version:** v2
-**Last updated:** 2026-07-28
-**Producto:** Menú Digital (SaaS gastronómico)
-**Alcance:** este documento cubre **únicamente Menú Digital**. Es una marca independiente con su propia URL, su propia web y su propio funnel.
+**Document version:** v3
+**Last updated:** 2026-11-18
+**Producto:** VivoMenu (SaaS gastronómico) — antes "Menú Digital"; el rebrand es del 2026-08-06
+**Alcance:** este documento cubre **únicamente VivoMenu**. Es una marca independiente con su propia URL (`vivomenu.com.ar`), su propio Instagram (`@vivomenu.app`) y su propio funnel.
 
-> **Regla de marca (heredada de la decisión de arquitectura de Gastón, 2026-07-27):** Menú Digital es una marca separada de Galu. Galu es la agencia que lo construyó. "Creado por Galu" es un sello de confianza al pie del sitio, nunca el protagonista. **Ninguna pieza de Menú Digital habla el idioma de una agencia.** Un dueño de hamburguesería no tiene que traducir jerga de marketing para entender que esto le sirve.
+> **Regla de marca (heredada de la decisión de arquitectura de Gastón, 2026-07-27):** VivoMenu es una marca separada de Galu. Galu es la agencia que lo construyó. "Creado por Galu" es un sello de confianza al pie del sitio, nunca el protagonista. **Ninguna pieza de VivoMenu habla el idioma de una agencia.** Un dueño de hamburguesería no tiene que traducir jerga de marketing para entender que esto le sirve.
 
 > **Regla dura de honestidad:** no se promete nada que no esté en la tabla "Existe hoy" (§2). Prometer una feature que no existe se descubre en la primera visita y quema el diferenciador entero, que justamente es la confianza personal.
 
@@ -14,7 +14,7 @@
 ## 1. Product Overview
 
 **One-liner:**
-Menú Digital convierte los pedidos desordenados de WhatsApp en comandas prolijas y un tablero en vivo — con el menú, las fotos y la plata en manos del local.
+VivoMenu convierte los pedidos desordenados de WhatsApp en comandas prolijas y un tablero en vivo — con el menú, las fotos y la plata en manos del local.
 
 **Qué hace (3 frases):**
 El cliente entra a un link o escanea un QR, ve la carta con fotos, arma su pedido con variantes y agregados, y lo manda. Al local le llega una comanda formateada al WhatsApp y aparece al instante en un tablero tipo Kanban con alerta sonora, que el mostrador mueve de "Nuevo" a "Cocina" a "Camino" a "Entregado". Todo funciona en el celular o la tablet que el local ya tiene, instalado como app con el nombre y el logo del negocio.
@@ -26,7 +26,9 @@ El cliente entra a un link o escanea un QR, ve la carta con fotos, arma su pedid
 
 **Modelo de negocio:** fee de instalación y puesta en marcha (visita al local, carga del menú real con fotos, capacitación al personal) + suscripción mensual fija por plan. **Sin comisión por pedido, nunca.**
 
-**Estado técnico:** en producción. `https://menu-murex-one.vercel.app/` · Demo público en vivo `/m/burger-house-tuc` · Catálogo scroll `/m/burger-house-tuc/catalogo`.
+**Estado técnico:** en producción en `https://vivomenu.com.ar` · Demo público en vivo `/m/burger-house-tuc` · Catálogo vertical `/m/burger-house-tuc/catalogo`.
+
+**Estado comercial (2026-11-18):** **0 locales, 0 clientes.** El proyecto estuvo pausado de mediados de agosto a mediados de noviembre. No se mandó ningún mensaje en frío. Instagram: 23 seguidores, 7 publicaciones (6 carruseles y 1 reel sobre la comisión de las apps).
 
 ---
 
@@ -46,6 +48,11 @@ El cliente entra a un link o escanea un QR, ve la carta con fotos, arma su pedid
 | Historial, facturación del día, ticket promedio, pedidos cancelados | "Sabés cuánto vendiste sin sacar la cuenta a mano" |
 | Instalable como app (PWA) con **el nombre, el ícono y el color del local** | "Se instala con tu marca, no con la mía" |
 | Panel autogestionable: productos, precios, fotos, horarios, abrir/cerrar el local | "Los precios los cambiás vos, sin llamarme" |
+| **Importar la carta desde fotos o un PDF con IA** (lee categorías, precios, tamaños y agregados; el dueño revisa antes de cargar). Lo paga VivoMenu, no gasta las fotos con IA del local *(2026-11-18)* | "Sacale una foto a tu carta y en un minuto la tenés cargada" |
+| **Fotos de los platos con IA**: mejora la foto real del plato, 30 por mes por local *(2026-08-06)* | "Con la foto que sacás con el celular alcanza" |
+| **Video corto por plato** en la vista vertical *(2026-08-20)* | — |
+| **"Avisar que ya salió"**: un toque en el tablero le manda al cliente por WhatsApp que el pedido está en camino *(2026-11-18)* | "El cliente no te escribe para preguntar dónde está" |
+| **Resumen semanal**: ventas, pedidos, ticket promedio, hora pico, lo más pedido, clientes que vuelven, contra la semana anterior *(2026-11-18)* | "El lunes sabés cómo te fue, sin sacar cuentas" |
 | Catálogo scroll estilo TikTok: una foto por plato, vertical, con botón de agregar | "Para mandar por historia de Instagram" |
 | Cada local aislado de los demás a nivel base de datos, con tests que lo verifican | "Tus clientes son tuyos y nadie más los ve" |
 
@@ -57,14 +64,16 @@ El cliente entra a un link o escanea un QR, ve la carta con fotos, arma su pedid
 | `tables` | Salón y mesas: QR por mesa imprimible, pedido en mesa **sin pedir teléfono ni pasar por WhatsApp**, mesa ocupada/libre | ✅ Existe |
 | `inventory` | Stock por producto: descuenta al confirmar, repone al cancelar, avisa "queda poco", despublica al llegar a cero | ✅ Existe |
 | `crm_loyalty` | Ficha de cliente automática por teléfono (junta el mismo número escrito de tres formas distintas), historial, gasto total, última visita | ✅ Existe |
-| `mercadopago` | Cobro online | ❌ **No existe.** Flag reservado, nada detrás |
-| `kitchen_printing` | Impresión de comanda térmica | ❌ **No existe.** Flag reservado, nada detrás |
+| `cash_register` | Caja: apertura, cobro con propina y descuento, movimientos, arqueo, reportes *(2026-08-06)* | ✅ Existe |
+| `tables` (ampliado) | Plano visual de mesas, pedido cargado por el mozo desde la mesa (rol Mozo), y **"la cuenta" / "llamar al mozo" desde el QR de la mesa** *(agosto)* | ✅ Existe |
+| `mercadopago` | Cobro con Mercado Pago (tarjeta o dinero en cuenta) **en la cuenta del propio local**; el pedido se guarda antes y el pago se confirma consultando a Mercado Pago *(2026-11-18)* | ✅ Existe. **Sin probar todavía con una cuenta real de Mercado Pago** |
+| `kitchen_printing` | Comanda para impresora térmica de 58 u 80 mm, con botón o automática (al entrar o al pasar a cocina). Imprime en la impresora que ya tiene la tablet o la compu *(2026-11-18)* | ✅ Existe. **Sin probar en una impresora térmica real** |
 
 ### Fuera de alcance hoy — decir que NO existe si preguntan
-MercadoPago / cobro online · impresión térmica · multi-sucursal · débito automático de la suscripción · fidelización por puntos · recetas e insumos · stock por agregado · división de cuenta de mesa · bump por ítem en cocina.
+Multi-sucursal · débito automático de la suscripción · fidelización por puntos · recetas e insumos · stock por agregado · división de cuenta de mesa · bump por ítem en cocina.
 
 ### Implicancia comercial del gating (importante)
-El sistema de módulos es real y se opera desde el panel de superadmin. Eso convierte a Menú Digital de producto de precio único en **producto con planes, sin escribir una línea más de código**, y hace que el upsell no necesite migración ni visita: se activa un flag y el módulo aparece esa misma noche.
+El sistema de módulos es real y se opera desde el panel de superadmin. Eso convierte a VivoMenu de producto de precio único en **producto con planes, sin escribir una línea más de código**, y hace que el upsell no necesite migración ni visita: se activa un flag y el módulo aparece esa misma noche.
 
 **Empaquetado recomendado:**
 
@@ -76,9 +85,13 @@ El sistema de módulos es real y se opera desde el panel de superadmin. Eso conv
 
 Consecuencia: el plan Base puede entrar barato sin canibalizar nada, porque el upsell es un switch.
 
+> **Pendiente para la fase 3 (oferta y precio):** los precios quedan como están (decisión de Gastón, 2026-11-18), pero falta decidir en qué plan entran Caja, Mercado Pago e Impresión, que no existían cuando se armaron los planes.
+
 ---
 
 ## 3. Target Audience
+
+**Público (decisión 2026-11-18): cualquier dueño de un negocio gastronómico.** Los dos segmentos de abajo siguen sirviendo para escribir el mensaje y armar la lista. Lo que no cambia es la condición de cierre: la instalación presencial es en Tucumán. Con la importación por IA se puede instalar a distancia fuera de Tucumán, pero si se vende o no, y a qué precio, se decide en la fase 3.
 
 **Dos segmentos.** El módulo de mesas cambió a quién le sirve el producto: antes era solo delivery, ahora también entra el salón.
 
@@ -156,7 +169,7 @@ Modelo mayormente autoservicio, prueba gratis de 14–30 días. **Falla:** nadie
 
 ### ⚠️ Corrección crítica de posicionamiento
 
-**"Sin comisiones / precio fijo mensual" NO es un diferenciador.** Comandar y MiRestoApp ya lo venden con esas mismas palabras. Ese mensaje está commoditizado y usarlo de titular hace que Menú Digital suene igual a seis competidores más baratos y más establecidos.
+**"Sin comisiones / precio fijo mensual" NO es un diferenciador.** Comandar y MiRestoApp ya lo venden con esas mismas palabras. Ese mensaje está commoditizado y usarlo de titular hace que VivoMenu suene igual a seis competidores más baratos y más establecidos.
 
 **Regla de uso, para no perder la ventaja del mensaje:**
 
@@ -173,7 +186,7 @@ Nunca invertir el orden. Si en la visita se argumenta precio, se compite contra 
 
 **Los tres diferenciadores, en orden de defendibilidad:**
 
-1. **Alguien te lo deja andando y está el viernes a la noche.** Instalación en el local, carga del menú real con fotos, capacitación al personal, soporte a 15 minutos. **El fee de instalación es la prueba del diferencial, no un costo a disculpar.** Menú Digital se vende como *servicio con software adentro*, no como software con soporte.
+1. **Alguien te lo deja andando y está el viernes a la noche.** Instalación en el local, carga del menú real con fotos, capacitación al personal, soporte a 15 minutos. **El fee de instalación es la prueba del diferencial, no un costo a disculpar.** VivoMenu se vende como *servicio con software adentro*, no como software con soporte.
 2. **Cubre el pedido entero, de la mesa a la cocina.** No es "un menú QR" ni "un tablero": es carta con fotos → carrito → comanda → tablero → pantalla de cocina → stock → ficha de cliente. La mayoría de los competidores hace bien una punta de esa cadena.
 3. **Se instala con la marca del local, no con la nuestra.** La app lleva el nombre, el ícono y el color del negocio. El dueño no está poniendo el cartel de otro en su vidriera.
 
@@ -262,7 +275,7 @@ Nunca invertir el orden. Si en la visita se argumenta precio, se compite contra 
 
 ## 12. Proof Points
 
-**Métricas propias:** ninguna documentada todavía. **Es el bloqueante #1 de todo el marketing.**
+**Métricas propias:** ninguna. **No hay ningún caso real** (2026-11-18). Es el bloqueante #1 de todo el marketing: hasta el primer local, el contenido no puede mostrar resultados, solo el producto andando y la cuenta con números de ejemplo (dicho como ejemplo).
 
 **Los dos números que hay que conseguir del primer cliente** (son los que más venden a otro dueño):
 1. "¿Cuántos pedidos por WhatsApp se te perdían antes, y ahora?"
@@ -282,26 +295,40 @@ Secundarios: ticket promedio antes/después (el menú con fotos y los agregados 
 
 ## 13. Goals
 
-**Objetivo de negocio (90 días):** validar que hay locales dispuestos a pagar todos los meses. Meta: **3–5 locales pagando al día 90.** La restricción de esta etapa es validación, no escala — por eso las metas son de conversaciones y primeros clientes, no de tráfico ni seguidores.
+**Metas (propuestas por Claude el 2026-11-18, Gastón pidió que las decida yo; se confirman en la fase 3).** Pensadas para arrancar de cero: 0 clientes, 23 seguidores, $0 de publicidad, y diciembre y enero son meses raros para vender a gastronómicos (fiestas, vacaciones, calor).
+
+| Para cuándo | Meta | Por qué ese número |
+|---|---|---|
+| **19/12/2026** | **40 conversaciones con dueños** (contestaron un mensaje) y **2 locales funcionando** como fundadores | Con 12 contactos por día de envío, en 4 semanas son ~150 contactos; 25% de respuesta es optimista para frío, se compensa con contactos tibios |
+| **28/2/2027** | **3 locales pagando** (cualquier plan) y **1 caso con números reales** publicado con permiso | Es lo mínimo que valida que alguien paga todos los meses. Es el mismo piso que el plan de julio |
+| **28/2/2027** | Instagram de 23 a **300 seguidores** y **36 reels** publicados (3 por semana) | Sin publicidad y con cuenta fría, el alcance viene de reels que se comparten. 300 es poco pero alcanza para que el que recibe tu mensaje vea una cuenta viva |
+
+**La venta no sale del contenido:** el contenido hace que el dueño que recibe tu mensaje diga "ah, son estos". Los clientes salen de los mensajes y las visitas (fase 10).
+
+**Cómo trabaja Gastón (2026-11-18):** quiere delegar en Claude todo lo que se pueda automatizar y hacer solo lo que necesita su intervención: publicar, mandar los mensajes desde su teléfono, generar voz y clips en sus cuentas, visitar locales. Todo el contenido es **sin cara**: B-roll, motion graphics y voz en off. **3 reels por semana.** El tiempo no es la restricción ("las horas las complemento").
 
 **Acción de conversión clave:** WhatsApp a **`wa.me/543815976357`** → visita presencial con el menú del local **ya cargado** antes de llegar.
 
 **Canal principal declarado:** venta directa presencial. El producto se demuestra en un celular en 90 segundos y ningún competidor nacional puede entrar a una hamburguesería un martes a las 4 de la tarde. Todo el contenido existe para que cuando toques timbre ya te hayan visto.
 
-**Métricas actuales:** sin tracking implementado. Pendiente: GA4 + Search Console sobre el dominio propio de Menú Digital.
+**Métricas actuales:** GA4 instalado en `vivomenu.com.ar` (evento `whatsapp_click` en los botones de la landing). Search Console: sin confirmar.
 
 ### Decisiones abiertas que bloquean la venta
 
 | # | Decisión | Por qué bloquea |
 |---|---|---|
 | 1 | ~~Precio de los tres planes + fee de instalación~~ **Resuelto en `marketing/precios.md`** | Base $34.900/mes + $55.000 instalación · Salón $49.900/mes + $70.000 · Full $64.900/mes sin fee nuevo. Ancla real de mercado: SoyMenu $20.000/mes (el autoservicio más completo verificado), no Pido.club |
-| 2 | **Dominio propio** (hoy vive en una URL de Vercel) | Una URL `.vercel.app` en una tarjeta o un cold email resta credibilidad frente a un dueño que no sabe qué es Vercel |
-| 3 | Nombre definitivo de marca | "Menú Digital" es descriptivo y no registrable; ayuda al SEO, pero no se defiende |
+| 2 | ~~Dominio propio~~ **Resuelto:** `vivomenu.com.ar` (2026-08-06) | — |
+| 3 | ~~Nombre definitivo~~ **Resuelto:** VivoMenu (2026-08-06, ver `marketing/nombres-y-marca.md`) | — |
+| 4 | En qué plan van Caja, Mercado Pago e Impresión | Fase 3 |
+| 5 | Si se vende fuera de Tucumán con instalación a distancia | Fase 3 |
+| 6 | Oferta de lanzamiento (locales fundadores: cuántos, qué se les da y qué se les pide) | Fase 3 |
 
 ---
 
 ## Changelog
 *Newest first. Una línea por revisión: qué cambió y por qué.*
 
+- v3 (2026-11-18) — Rebrand a VivoMenu y dominio propio. Inventario actualizado: Caja, Salón ampliado (mozo, pedir la cuenta desde la mesa), fotos y video con IA, y lo agregado hoy (importar carta con IA, Mercado Pago, impresión de comandas, "ya salió", resumen semanal). MercadoPago e impresión pasan de "no existe" a "existe, sin probar en real". Estado comercial real: 0 clientes, 23 seguidores, pausado de agosto a noviembre. Público ampliado a cualquier negocio gastronómico. Metas nuevas al 19/12 y al 28/2. Decisiones nuevas para la fase 3.
 - v2 (2026-07-28) — Corrección de dato: Pido.club no cobra $29.900/mes (es pago único de instalación + comisión sobre ventas), verificado contra su web real. Reemplazado el ancla de mercado por SoyMenu ($20.000/mes) y Nedify ($7.000–$10.000/mes), ambos verificados. Decisión abierta #1 (precio) resuelta — ver `marketing/precios.md` para los montos definitivos.
 - v1 (2026-07-28) — Documento inicial, **independiente del contexto de Galu**. Definido a partir del producto real ya desplegado (Fases 0–6 + Tandas A–D): inventario verificado de features separando lo que existe de lo que no (MercadoPago e impresión térmica **no existen**, corrigiendo una afirmación errónea que circulaba en el contexto de la agencia), apertura del ICP en dos segmentos tras el módulo de mesas, empaquetado en tres planes derivado del gating de módulos, regla de uso de "sin comisión" (atracción) vs. "instalación presencial" (cierre), y mapa de personas incluyendo al mozo como riesgo de sabotaje en el segmento salón.

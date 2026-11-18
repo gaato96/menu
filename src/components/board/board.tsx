@@ -24,7 +24,9 @@ import { useAudioAlert } from "@/hooks/use-audio-alert";
 import { useOrderRealtime } from "@/hooks/use-order-realtime";
 import { useWakeLock } from "@/hooks/use-wake-lock";
 import { formatMoney } from "@/lib/money";
-import type { BoardOrder } from "@/lib/orders/board-queries";
+import { fetchOrderItems, type BoardOrder } from "@/lib/orders/board-queries";
+import { buildComandaHtml, type PaperWidth, type PrintAuto } from "@/lib/printing/comanda";
+import { printHtml } from "@/lib/printing/print";
 import {
   BOARD_COLUMNS,
   type BoardColumnId,
@@ -44,6 +46,8 @@ export function Board({
   initialOrders,
   zoneNames,
   tableNames,
+  printing,
+  timeZone,
 }: {
   businessId: string;
   businessName: string;
@@ -52,6 +56,9 @@ export function Board({
   initialOrders: BoardOrder[];
   zoneNames: Record<string, string>;
   tableNames: Record<string, string>;
+  /** Null when the kitchen_printing module is off. */
+  printing: { paperMm: PaperWidth; auto: PrintAuto } | null;
+  timeZone: string;
 }) {
   const { orders, setOrders, connected, setOnNewOrder } = useOrderRealtime(
     businessId,
@@ -72,11 +79,31 @@ export function Board({
     useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 8 } }),
   );
 
+  function printOrder(order: BoardOrder) {
+    if (!printing) return;
+    printHtml(
+      buildComandaHtml({
+        order,
+        businessName,
+        currency,
+        paperMm: printing.paperMm,
+        zoneName: order.delivery_zone_id ? zoneNames[order.delivery_zone_id] : null,
+        tableLabel: order.table_id ? tableNames[order.table_id] : null,
+        timeZone,
+      }),
+    );
+  }
+
   useEffect(() => {
     setOnNewOrder((order) => {
       setAlertQueue((prev) => [...prev, order]);
       setEverReceivedOrder(true);
       audio.startAlert();
+      // A Realtime INSERT carries no items, so read them before printing —
+      // a comanda without the dishes is worse than none.
+      if (printing?.auto === "on_new") {
+        void fetchOrderItems(supabase, order.id).then((items) => printOrder({ ...order, items }));
+      }
     });
     // setOnNewOrder just assigns a ref inside the hook; identity is stable.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,9 +141,17 @@ export function Board({
     }
   }
 
+  function maybePrintOnKitchen(order: BoardOrder, target: BoardOrder["status"]) {
+    if (printing?.auto === "on_kitchen" && target === "in_kitchen" && order.status !== "in_kitchen") {
+      printOrder(order);
+    }
+  }
+
   function handleAdvance(order: BoardOrder) {
     const target = nextStatus(order.status, order.fulfillment_type);
-    if (target) void moveOrder(order, target);
+    if (!target) return;
+    maybePrintOnKitchen(order, target);
+    void moveOrder(order, target);
   }
 
   function handleCancel(order: BoardOrder) {
@@ -152,6 +187,7 @@ export function Board({
 
     const target = statusForColumn(columnId, order.fulfillment_type);
     if (target === order.status) return;
+    maybePrintOnKitchen(order, target);
     void moveOrder(order, target);
   }
 
@@ -219,6 +255,7 @@ export function Board({
               onCancel={handleCancel}
               onGoBack={handleGoBack}
               onOpenDetail={setDetailTarget}
+              onPrint={printing ? printOrder : undefined}
             />
           ))}
         </div>

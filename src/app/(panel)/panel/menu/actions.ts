@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { enhanceDishPhoto } from "@/lib/ai/gemini";
 import { AI_IMAGES_MONTHLY_QUOTA } from "@/lib/ai/quota";
 import { requireStaff } from "@/lib/auth/context";
+import { canConfigure } from "@/lib/auth/roles";
 import { parseMoneyToCents } from "@/lib/money";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -42,6 +43,19 @@ async function swapSortOrder(
     supabase.from(table).update({ sort_order: target.sort_order }).eq("id", current.id),
     supabase.from(table).update({ sort_order: current.sort_order }).eq("id", target.id),
   ]);
+}
+
+/**
+ * The media actions below reach Storage (and Gemini) through the ADMIN
+ * client, so RLS on `products` cannot stop them on its own: a mozo can READ
+ * products, the update would silently no-op, and the old file would still be
+ * deleted — leaving the public menu pointing at nothing, or spending the AI
+ * quota. Role is checked here, up front, to match the owner/manager-only
+ * `products_staff_write` policy (audit 2026-11-18).
+ */
+async function requireMediaEditor() {
+  const staff = await requireStaff();
+  return canConfigure(staff.role) ? staff : null;
 }
 
 // --- Categories --------------------------------------------------------
@@ -206,7 +220,8 @@ export async function uploadProductImage(
   productId: string,
   formData: FormData,
 ): Promise<{ ok?: true; error?: string }> {
-  const staff = await requireStaff();
+  const staff = await requireMediaEditor();
+  if (!staff) return { error: "Solo el dueño o el encargado pueden cambiar fotos y videos." };
   const session = await createClient();
 
   // Confirms the product actually belongs to the caller's business —
@@ -235,7 +250,15 @@ export async function uploadProductImage(
 
   const { data: publicUrl } = admin.storage.from("product-images").getPublicUrl(path);
 
-  await session.from("products").update({ image_url: publicUrl.publicUrl }).eq("id", productId);
+  const { data: updated } = await session
+    .from("products")
+    .update({ image_url: publicUrl.publicUrl })
+    .eq("id", productId)
+    .select("id");
+  if (!updated?.length) {
+    await admin.storage.from("product-images").remove([path]);
+    return { error: "No pudimos guardar la imagen." };
+  }
 
   // Best-effort cleanup of the previous file — a failure here just leaves an
   // orphaned object in the bucket, never a broken product.
@@ -268,7 +291,8 @@ export async function generateProductImage(
 ): Promise<
   { ok: true; previewUrl: string; generationId: string; remaining: number } | { error: string }
 > {
-  const staff = await requireStaff();
+  const staff = await requireMediaEditor();
+  if (!staff) return { error: "Solo el dueño o el encargado pueden cambiar fotos y videos." };
   const session = await createClient();
 
   // Same authorization shape as uploadProductImage: RLS on `products` makes
@@ -347,7 +371,8 @@ export async function acceptGeneratedImage(
   productId: string,
   generationId: string,
 ): Promise<{ ok?: true; error?: string }> {
-  const staff = await requireStaff();
+  const staff = await requireMediaEditor();
+  if (!staff) return { error: "Solo el dueño o el encargado pueden cambiar fotos y videos." };
   const session = await createClient();
 
   const { data: product } = await session
@@ -374,7 +399,12 @@ export async function acceptGeneratedImage(
     .from("product-images")
     .getPublicUrl(generation.storage_path);
 
-  await session.from("products").update({ image_url: publicUrl.publicUrl }).eq("id", productId);
+  const { data: updated } = await session
+    .from("products")
+    .update({ image_url: publicUrl.publicUrl })
+    .eq("id", productId)
+    .select("id");
+  if (!updated?.length) return { error: "No pudimos guardar la imagen." };
   await admin.from("ai_image_generations").update({ accepted: true }).eq("id", generationId);
 
   // Same best-effort cleanup as uploadProductImage: an orphan in the bucket
@@ -398,7 +428,8 @@ export async function acceptGeneratedImage(
 export async function discardGeneratedImage(
   generationId: string,
 ): Promise<{ ok?: true; error?: string }> {
-  const staff = await requireStaff();
+  const staff = await requireMediaEditor();
+  if (!staff) return { error: "Solo el dueño o el encargado pueden cambiar fotos y videos." };
   const admin = createAdminClient();
 
   const { data: generation } = await admin
@@ -539,7 +570,8 @@ export async function uploadProductVideo(
   productId: string,
   formData: FormData,
 ): Promise<{ ok?: true; error?: string }> {
-  const staff = await requireStaff();
+  const staff = await requireMediaEditor();
+  if (!staff) return { error: "Solo el dueño o el encargado pueden cambiar fotos y videos." };
   const session = await createClient();
 
   const { data: product } = await session
@@ -567,7 +599,15 @@ export async function uploadProductVideo(
 
   const { data: publicUrl } = admin.storage.from("product-videos").getPublicUrl(path);
 
-  await session.from("products").update({ video_url: publicUrl.publicUrl }).eq("id", productId);
+  const { data: updated } = await session
+    .from("products")
+    .update({ video_url: publicUrl.publicUrl })
+    .eq("id", productId)
+    .select("id");
+  if (!updated?.length) {
+    await admin.storage.from("product-videos").remove([path]);
+    return { error: "No pudimos guardar el video." };
+  }
 
   // Best-effort cleanup, same as the photo: an orphaned object in the bucket
   // is a cost, a broken product is an outage.
@@ -582,6 +622,7 @@ export async function uploadProductVideo(
 }
 
 export async function removeProductVideo(productId: string) {
+  if (!(await requireMediaEditor())) return;
   const session = await createClient();
   const { data: product } = await session
     .from("products")
@@ -590,7 +631,12 @@ export async function removeProductVideo(productId: string) {
     .maybeSingle();
   if (!product) return;
 
-  await session.from("products").update({ video_url: null }).eq("id", productId);
+  const { data: updated } = await session
+    .from("products")
+    .update({ video_url: null })
+    .eq("id", productId)
+    .select("id");
+  if (!updated?.length) return;
 
   if (product.video_url?.includes("/product-videos/")) {
     const admin = createAdminClient();

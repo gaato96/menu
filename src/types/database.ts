@@ -32,7 +32,7 @@ export type OrderStatus =
   | "cancelled";
 
 export type FulfillmentType = "delivery" | "pickup" | "dine_in";
-export type PaymentMethod = "cash" | "transfer";
+export type PaymentMethod = "cash" | "transfer" | "mercadopago";
 export type PaymentStatus = "pending" | "paid" | "failed";
 export type StaffRole = "superadmin" | "owner" | "manager" | "cashier" | "waiter";
 export type SubscriptionStatus = "trial" | "active" | "past_due" | "suspended";
@@ -106,6 +106,12 @@ type BusinessSettings = {
   /** 11 digits, no dashes. Header of the non-fiscal receipt — never a factura. */
   cuit: string | null;
   iva_condition: IvaCondition | null;
+  /** Kitchen ticket paper width (module kitchen_printing). */
+  print_paper_mm: 58 | 80;
+  /** When the board prints by itself. */
+  print_auto: "off" | "on_new" | "on_kitchen";
+  /** Offer Mercado Pago at checkout. Needs module + connected credentials. */
+  mercadopago_enabled: boolean;
   updated_at: string;
 };
 
@@ -309,6 +315,8 @@ type Order = {
   stock_applied: boolean;
   /** Reserved for a future "cuenta de mesa" grouping. Unused today. */
   session_id: string | null;
+  /** Mercado Pago checkout preference, created lazily on the order page. */
+  mp_preference_id: string | null;
 };
 
 type OrderItem = {
@@ -390,6 +398,28 @@ type AiImageGeneration = {
   /** Null once the candidate was discarded and its object removed. */
   storage_path: string | null;
   accepted: boolean;
+  created_at: string;
+};
+
+/** Service-role only (RLS on, no policies). Never select this from a session client. */
+type BusinessMpCredentials = {
+  business_id: string;
+  access_token: string;
+  mp_user_id: string | null;
+  mp_nickname: string | null;
+  connected_at: string;
+};
+
+/** One read of a printed carta by the AI. Platform-paid; see the migration. */
+type MenuImport = {
+  id: string;
+  business_id: string;
+  created_by: string | null;
+  file_count: number;
+  model: string;
+  /** Millionths of a USD, integer. */
+  cost_usd_micros: number;
+  products_found: number;
   created_at: string;
 };
 
@@ -541,6 +571,16 @@ export type Database = {
         AiImageGeneration,
         Insertable<AiImageGeneration, "business_id" | "prompt_variant" | "cost_usd_millis">,
         Partial<AiImageGeneration>
+      >;
+      business_mp_credentials: TableShape<
+        BusinessMpCredentials,
+        Insertable<BusinessMpCredentials, "business_id" | "access_token">,
+        Partial<BusinessMpCredentials>
+      >;
+      menu_imports: TableShape<
+        MenuImport,
+        Insertable<MenuImport, "business_id" | "file_count" | "model">,
+        Partial<MenuImport>
       >;
       cash_sessions: TableShape<
         CashSession,

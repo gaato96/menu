@@ -1,3 +1,4 @@
+import { siteUrl } from "@/lib/site-url";
 import QRCode from "qrcode";
 
 import { requireModule, requireStaff } from "@/lib/auth/context";
@@ -26,11 +27,11 @@ export default async function TableQrPage() {
     .eq("is_active", true)
     .order("sort_order");
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const origin = siteUrl();
 
   const cards = await Promise.all(
     (tables ?? []).map(async (table) => {
-      const url = `${siteUrl}/m/${staff.business.slug}?mesa=${encodeURIComponent(table.label)}`;
+      const url = `${origin}/m/${staff.business.slug}?mesa=${encodeURIComponent(table.label)}`;
       const svg = await QRCode.toString(url, { type: "svg", margin: 1, width: 220 });
       return { table, svg };
     }),
