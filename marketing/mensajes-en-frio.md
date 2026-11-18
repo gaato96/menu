@@ -17,6 +17,8 @@
 4. **El link del demo se manda temprano, no al final.** Es la única prueba que tenemos y no depende de que nadie conteste. Que lo toque es más importante que lo que digamos.
 5. **Cero signos de admiración, cero emojis de vendedor, cero audios.** El tono es de mostrador, no de promoción.
 
+> **Si el local nos sigue en Instagram, no se usa nada de la §1 — se usa la §8.** Es otro tipo de contacto, con otras reglas (entre ellas, que la regla 4 se invierte). Ver §8.
+
 ### Lo que nunca se dice
 "Espero que estés bien" · "Te contacto de parte de" · "Somos una empresa líder" · "solución integral" · "potenciar tu negocio" · "agendemos una reunión de 30 minutos" · "¿cómo estás?" solo para forzar respuesta · nada sobre MercadoPago ni impresión de tickets (**no existen**).
 
@@ -228,3 +230,160 @@ En cuanto el primer local esté instalado y pase un fin de semana, reescribir:
 1. El **toque 2**, cambiando el video genérico por el tablero de ese local en hora pico real.
 2. Agregar una línea de prueba social al **primer contacto**: *"Lo tiene [Local] acá en [barrio], preguntales."* — una frase así vale más que las siete variantes de la §1 juntas.
 3. Reemplazar el link del demo por **el menú del local vecino más parecido al que se le escribe**. Ver el menú de alguien que conoce le pega mucho más fuerte que ver una hamburguesería de ejemplo.
+
+---
+
+## 8. Instagram DM — a los locales que nos siguen
+
+**Fecha:** 2026-08-18
+
+Este es el contacto de mayor calidad que existe hoy, y es distinto a todo lo de la §1. El local ya vio el perfil, entendió más o menos de qué se trata y decidió quedarse. Además hay una diferencia técnica que vale más que cualquier copy: **si te siguen, el DM entra en la bandeja principal.** Si no te siguen, cae en "Solicitudes", que muchos dueños no abren nunca.
+
+### 8.1 Las cuatro reglas propias de este canal
+
+1. **El follow no es el motivo del mensaje, es el permiso para mandarlo.** Se menciona en media línea, sin agradecer de más, y se sigue de largo. Un DM que arranca con "¡gracias por seguirnos!" y sigue con una oferta se lee como venta desde el primer segundo. Lo que sostiene el mensaje sigue siendo una señal vista en *su* perfil (`prospeccion.md` §4).
+2. **La regla 4 se invierte: el link del demo NO va en el primer DM.** Un link de una cuenta desconocida lee como estafa, e Instagram le baja alcance a los DM con links. **El link vive en la bio.** El demo se manda en el segundo mensaje, apenas conteste — ahí sí, temprano y sin vueltas.
+3. **El primer DM no propone nada. Hace una pregunta.** Ni visita, ni demo, ni "¿te muestro?". Una sola pregunta sobre cómo opera hoy, contestable en una línea. El objetivo del primer mensaje es que exista un segundo.
+4. **Antes de mandar el primer DM, el perfil tiene que aguantar la visita.** Van a entrar a mirar. Bio con una línea de qué hace y para quién, link directo al demo (no al home), destacadas armadas. Con el perfil flojo el DM juega en contra: confirma que del otro lado hay alguien improvisado.
+
+### 8.2 Filtro previo — a quién NO se le escribe
+
+Que te sigan no los convierte en prospectos. Se aplica igual el checklist de `prospeccion.md` §3, más estos descartes propios del canal:
+
+| Descartar | Por qué |
+|---|---|
+| Agencias, diseñadores, otros que venden software gastronómico | Te siguen para ver qué hacés, no para comprar |
+| Cuentas de contenido gastronómico, foodies, reseñadores | No tienen local |
+| Cadenas y franquicias | El producto no soporta multi-sucursal |
+| Locales de otra provincia | No hay visita posible, y la visita es lo que cierra |
+| Cuentas sin posteos en 30+ días | Local dudoso o cerrado |
+| Conocidos y allegados que siguieron por apoyo | Ya saben, no hace falta prospectarlos |
+
+**Escribirle a todo el que te sigue es la forma más rápida de arruinar la mejor señal que tenés.**
+
+### 8.3 Timing y volumen
+
+- **Esperar 24–48 h desde el follow.** El DM instantáneo se lee como automático. Más de una semana y ya no se acuerda de por qué te siguió.
+- **Máximo 5–8 DM nuevos por día.** La cuenta es nueva y con pocos seguidores: mandar más es candidatura directa a que Instagram la limite.
+- **Franja: martes a viernes, 15:30–19:00**, núcleo 16:00–18:00 (misma lógica que la §6).
+- **Si subió una historia hoy, se le contesta la historia en vez de mandar DM.** Es el mismo hilo de conversación, pero abre con contexto propio y sin la frialdad de un mensaje nuevo. Es la mejor apertura de todas cuando se puede.
+
+---
+
+### 8.4 Primer DM — según lo que se ve en su perfil
+
+Cada variante corresponde a una señal de `prospeccion.md` §4. **Ninguna lleva link.**
+
+#### 8.4.A — Menú publicado como foto, PDF o Linktree
+*La señal más común y la más fácil de citar.*
+
+> Buenas, ¿hablo con el dueño? Vi que nos empezaste a seguir y me metí a mirar el local.
+>
+> Una curiosidad: tenés el menú subido como foto. ¿Cada vez que cambiás un precio lo tenés que rehacer y volver a subir, o encontraste alguna vuelta más fácil?
+
+---
+
+#### 8.4.B — "Precios por privado" en la bio, o comentarios preguntando precio sin responder
+*Es literalmente el problema del producto, visible desde afuera.*
+
+> Buenas, ¿está el dueño? Los vi entre los que nos siguen y me puse a mirar el perfil.
+>
+> Te quería preguntar algo concreto: en los posteos te preguntan bastante el precio por comentario. ¿Eso lo terminás contestando uno por uno por privado?
+
+---
+
+#### 8.4.C — Salón con mesas, carta impresa
+*Segmento B. La pregunta es sobre el mozo, no sobre el menú.*
+
+> Buenas, ¿hablo con el encargado? Vi que nos siguieron, así que aprovecho y les hago una pregunta.
+>
+> Un sábado a la noche con el salón lleno, ¿cuánto tarda una mesa desde que se sienta hasta que le toman el pedido?
+
+---
+
+#### 8.4.D — Está en PedidosYa o Rappi y además vende directo
+*El único caso con prueba pública de que ya paga comisión. Igual la pregunta no es sobre la comisión: es sobre el pedido directo, que es donde entra el producto.*
+
+> Buenas, ¿está el dueño? Vi que nos empezaron a seguir.
+>
+> Los tengo vistos en PedidosYa. Los pedidos que te entran directo por WhatsApp, sin la app en el medio, ¿los seguís anotando a mano?
+
+---
+
+#### 8.4.E — Local nuevo (abrió hace menos de 6 meses)
+*El más fácil de todos, porque todavía no tiene un hábito instalado que romper.*
+
+> Buenas, felicitaciones por la apertura. Los vi entre los que nos siguen.
+>
+> Te hago una sola pregunta, por curiosidad más que otra cosa: ¿cómo estás tomando los pedidos ahora que arrancaste? ¿WhatsApp a mano?
+
+---
+
+#### 8.4.F — Interactuó con el contenido (comentó, reaccionó a una historia, guardó un posteo)
+*La señal más caliente que puede existir hoy. Se contesta en el mismo hilo, sin abrir un DM nuevo.*
+
+> Che, gracias por bancar el contenido. Te hago la pregunta al revés de lo que hace todo el mundo:
+>
+> de las cosas que venimos publicando, ¿hay alguna que te esté pasando de verdad en el local?
+
+---
+
+#### 8.4.G — Sin señal clara *(último recurso)*
+*Honesto y sin disfraz: se pide opinión, no se vende. Y es verdad — el producto se está armando acá y esa información sirve de verdad.*
+
+> Buenas, ¿está el dueño? Vi que nos empezaron a seguir.
+>
+> Te escribo por algo puntual: estoy armando un sistema de pedidos para locales de acá de Tucumán y estoy hablando con dueños para entender cómo lo resuelven hoy.
+>
+> ¿Cómo le mostrás el menú y los precios al que te escribe por WhatsApp? ¿Se los mandás cada vez?
+
+---
+
+### 8.5 Segundo mensaje — recién acá va el demo
+
+Apenas conteste cualquier cosa, se hace dos cosas en el mismo mensaje: se le devuelve algo sobre *su* respuesta, y se manda el link. **Nunca al revés.**
+
+> Te entiendo, es el caso más común de todos.
+>
+> Justamente eso es lo que hago: el menú queda en un link con las fotos, el cliente arma el pedido con los agregados y te llega armado en un mensaje solo. Los precios los cambiás vos desde el celular.
+>
+> Este es uno real, tocalo como si fueras un cliente: vivomenu.com.ar/m/burger-house-tuc
+
+Y **recién en el tercer mensaje** se propone algo, cuando ya tocó el demo:
+
+> ¿Te muestro cómo se ve del lado tuyo cuando entra el pedido? Son dos minutos.
+
+### 8.6 Si no contesta
+
+**Un solo seguimiento, a los 4–5 días, y con algo nuevo.** Nunca "¿pudiste ver mi mensaje?".
+
+> Te dejo esto y no te jodo más: [reel / video de 15 seg del tablero]
+>
+> Así se ve del lado del mostrador cuando entra un pedido. Si en algún momento te sirve, escribime.
+
+Después de eso no se escribe más por DM. Se anota la fecha y se lo deja como candidato a visita si más adelante aparece una señal nueva.
+
+### 8.7 Respuestas frecuentes en este canal
+
+| Contestan | Se responde |
+|---|---|
+| **"¿Qué es esto? / ¿Qué venden?"** | "Menú digital con tablero de pedidos, para locales de acá. En vez de explicártelo, mirá uno andando: [link]. Armá un pedido como si fueras un cliente." |
+| **"¿Cuánto sale?"** | Igual que en la §5: no se da el número por chat sin haber mostrado nada. "Depende de si querés solo el menú y el tablero, o también las mesas con QR. Cinco minutos de charla y te digo el número exacto. ¿Estás el jueves a la tarde?" |
+| **Contesta la pregunta pero sin entusiasmo** *("sí, lo mando a mano")* | Es una respuesta válida y suficiente. Se pasa directo al 8.5 con el link. La falta de entusiasmo en el DM no predice nada. |
+| **Deja en visto** | No se insiste ese día. Se cuenta como "no contestó" y se aplica el 8.6 a los 4–5 días. |
+| **"Ya tengo algo así"** | "Buenísimo, ¿cuál usás? Te lo pregunto en serio, me sirve saber contra qué compito acá." — y se anota la respuesta. Esa información vale más que la venta. |
+| **Te deja de seguir después del DM** | Señal clara de que el mensaje molestó. No se vuelve a escribir, y se revisa si el guion usado fue el correcto para la señal. |
+
+### 8.8 Qué se registra
+
+En la misma planilla de `prospeccion.md` §12, con dos columnas más:
+
+`canal: IG DM · origen: nos siguió (fecha del follow) · señal usada · variante 8.4.X · contestó sí/no · dejó de seguir sí/no`
+
+**La columna "dejó de seguir" es la métrica de daño del canal.** Si aparece seguido, el problema no es el copy: es que se está escribiendo a gente que no pasa el filtro de la 8.2.
+
+---
+
+## Changelog
+- 2026-08-18 — Agregada la §8: Instagram DM a locales que nos siguen (canal nuevo, con reglas propias — sin link en el primer mensaje, pregunta en vez de propuesta, filtro previo de a quién no escribir).
+- 2026-07-28 — Documento inicial (§1–§7), mensajería en frío por WhatsApp e Instagram DM.

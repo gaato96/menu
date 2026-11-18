@@ -29,19 +29,20 @@
 Elegí una voz argentina de ritmo natural, ni lenta ni de locutor pausado — cuanto más rápido y directo hable, mejor cierra con un video que no puede tener ningún hueco de silencio. Si ElevenLabs te deja tocar la configuración de "stability" o "estilo", bajala un poco para que suene más suelta y menos robótica, no de lectura.
 
 ```
-De cada diez mil pesos que vendés, dos mil quinientos ya no son tuyos. Se los lleva la comisión de la app de delivery. Y no es una vez: es en cada pedido, todos los días del año. Vos ponés la cocina, el local, los empleados y el gas. Ellos se quedan con una parte antes de que la plata te llegue a la caja. Te voy a mostrar exactamente cuánto es eso en un año, y el número te va a sorprender. Dos mil quinientos pesos por cada pedido de diez mil. Con veinte pedidos a la semana ya son cincuenta mil pesos que se van. Al mes, doscientos mil. Al año, dos millones cuatrocientos mil pesos que nunca entraron a tu caja. Con VivoMenu tu cliente pide directo desde tu propia carta digital. El pedido te cae al instante en el tablero, sin comisión y sin intermediario: esos dos millones cuatrocientos mil se quedan en tu bolsillo. Mirá cómo funciona en vivomenu punto com punto ar.
+De cada diez mil pesos que vendés, dos mil quinientos ya no son tuyos. Se los lleva la comisión de la app de delivery, pedido tras pedido, todos los días del año, sin descanso. Vos ponés la cocina, el local, la gente y las horas. Ellos se quedan con una parte antes de que la plata te toque la caja. Multiplicá eso por un año entero, porque el número duele. Dos mil quinientos pesos por cada pedido de diez mil. Veinte pedidos a la semana ya son cincuenta mil pesos que se van. Al mes, doscientos mil. Al año, dos millones cuatrocientos mil pesos que nunca fueron tuyos. Con VivoMenu tu cliente pide directo desde tu propia carta digital, sin ningún intermediario en el medio. El pedido te cae al instante en el tablero, y no hay comisión: esos dos millones cuatrocientos mil se quedan en tu local, no en un servidor ajeno. Mirá un menú real armado con VivoMenu en vivomenu punto com punto ar.
 ```
 
 *Sobre los números: se leen solos, en pesos, ElevenLabs los interpreta bien sin necesidad de escribirlos como cifra.*
 
 ### Por qué este guion y no el anterior
 
-- **Gancho:** arranca con la pérdida, no con una venta — "dos mil quinientos ya no son tuyos" pega más fuerte que "te quedaron siete mil quinientos" porque nombra lo que se perdió, no lo que sobra.
-- **Problema:** nombra quién se lo lleva y por qué duele (todos los días, no una vez) y lo que vos pusiste para ganarlo.
-- **Promesa explícita:** "te voy a mostrar cuánto es eso en un año, y te va a sorprender" — es una promesa real de que se viene un número, no un salto directo al número sin avisar.
-- **Desarrollo:** la escalada de pesos, sin cambios.
-- **Solución:** ya no dice solamente "sin comisión" — cierra la cuenta que se abrió en el desarrollo ("esos dos millones cuatrocientos mil se quedan en tu bolsillo"), conectando el número grande con el beneficio.
-- **CTA con destino real:** "mirá cómo funciona en vivomenu.com.ar" apunta a la página, que es lo único que existe hoy — no hay número de WhatsApp de VivoMenu todavía (Gastón está contactando desde su número personal mientras tanto), así que el reel no puede prometer un canal que no está armado. El día que exista el número, este CTA se actualiza — no antes.
+La primera versión explicaba bien pero no generaba ganas de nada — leía una cuenta en voz alta, no vendía. Esta version tensiona más y remata distinto:
+
+- **Gancho:** arranca con la pérdida, no con una venta — "dos mil quinientos ya no son tuyos" nombra lo que se perdió, no lo que sobra. Es una frase que se puede repetir sola, sin contexto, y sigue pegando.
+- **Problema:** "pedido tras pedido, todos los días del año, sin descanso" — el ritmo de la frase (tres golpes cortos seguidos) imita la sensación de que no para nunca, que es justo el punto.
+- **Desarrollo con orden de urgencia:** "multiplicá eso por un año entero, porque el número duele" reemplaza a la promesa tibia de antes ("te va a sorprender") por una instrucción directa — le da al espectador algo para *hacer* mientras mira (multiplicar en su cabeza), no solo algo para escuchar.
+- **Solución con una imagen, no solo un dato:** "se quedan en tu local, no en un servidor ajeno" — contrasta un lugar concreto y propio (tu local) contra uno abstracto y lejano (un servidor ajeno). Es la clase de contraste que se queda, en vez de otro número más en una lista de números.
+- **CTA on-brand y de bajo riesgo:** "Mirá un menú real" es, literal, el ejemplo de CTA que ya define `manual-de-marca.md` §5 — no lo inventé para este video, es la voz que la marca ya usa en todos lados. Apunta únicamente a `vivomenu.com.ar`, porque es lo único que existe hoy: no hay número de WhatsApp de VivoMenu todavía (Gastón está contactando desde su número personal mientras tanto), así que el reel no puede prometer un canal que no está armado. El día que exista el número, este CTA se actualiza — no antes.
 
 ### Cómo sincronizar el video con este audio
 
@@ -49,12 +50,12 @@ De cada diez mil pesos que vendés, dos mil quinientos ya no son tuyos. Se los l
 
 | Clip | Tramo del audio (por su contenido, no por segundo) |
 |---|---|
-| 1 — Gancho | "De cada diez mil pesos que vendés... comisión de la app de delivery" |
-| 2 — Problema | "Y no es una vez... antes de que la plata te llegue a la caja" |
-| 3 — Promesa | "Te voy a mostrar exactamente cuánto es eso... el número te va a sorprender" |
-| 4 — Desarrollo | "Dos mil quinientos pesos por cada pedido... nunca entraron a tu caja" |
-| 5 — Solución | "Con VivoMenu tu cliente pide directo... se quedan en tu bolsillo" |
-| 6 — CTA | "Mirá cómo funciona en vivomenu punto com punto ar" |
+| 1 — Gancho | "De cada diez mil pesos que vendés... comisión de la app de delivery, pedido tras pedido, todos los días del año, sin descanso" |
+| 2 — Problema | "Vos ponés la cocina... antes de que la plata te toque la caja" |
+| 3 — Promesa | "Multiplicá eso por un año entero, porque el número duele" |
+| 4 — Desarrollo | "Dos mil quinientos pesos por cada pedido... nunca fueron tuyos" |
+| 5 — Solución | "Con VivoMenu tu cliente pide directo... no en un servidor ajeno" |
+| 6 — CTA | "Mirá un menú real armado con VivoMenu en vivomenu punto com punto ar" |
 
 Si un tramo de audio queda más largo que el clip generado en Veo, el clip no se congela para estirarlo — todos los prompts de §2 ya tienen movimiento de cámara continuo (paneo o acercamiento lento), así que estirar el clip un par de segundos de más sigue teniendo movimiento real, no un freeze-frame. Si hace falta más margen, generar ese clip puntual con una duración mayor (8s o 10s en vez de 6s, por ejemplo) es mejor que congelarlo.
 
@@ -170,7 +171,7 @@ Todo lo que no está escrito acá —paleta, tipografía, principio de movimient
 
 ### Clip 3 · Promesa
 
-`¿Cuánto es eso en un año?` en la tipografía display de marca, entrando palabra por palabra con 120ms entre cada una, y con un subrayado que se dibuja de forma continua debajo mientras el clip sigue — el subrayado no termina de dibujarse hasta el corte, así que hay movimiento gráfico corriendo durante todo el clip, no solo en la entrada. Es la pregunta que el clip 4 responde — tiene que quedar claro que lo que sigue es la respuesta.
+`× 1 año entero` en la tipografía display de marca, entrando palabra por palabra con 120ms entre cada una, y con un subrayado que se dibuja de forma continua debajo mientras el clip sigue — el subrayado no termina de dibujarse hasta el corte, así que hay movimiento gráfico corriendo durante todo el clip, no solo en la entrada. Es la instrucción que el clip 4 ejecuta — tiene que quedar claro que lo que sigue es el resultado de multiplicar.
 
 ### Clip 4 · Desarrollo — el centro del reel
 
@@ -196,7 +197,7 @@ Acá entra la única pieza de producto real del video: la captura del tablero (�
 
 ### Clip 6 · CTA
 
-Sobre el tercio superior vacío del clip (dejado libre a propósito en el prompt de Veo), el logo `VivoMenu.png` entra con el fade + subida estándar de marca. Debajo, **`vivomenu.com.ar` es el elemento más grande y con más contraste de todo el video** — es el único destino que se ofrece, así que tiene que leerse sin esfuerzo incluso en un celular chico. `@vivomenu.app` va debajo, más chico, como referencia secundaria. **No poner ningún número de teléfono, ícono de WhatsApp ni texto que sugiera "escribinos" — VivoMenu todavía no tiene ese canal armado.** El texto no se anima más una vez que entró — pero el clip de fondo (el barrio al atardecer, con la cámara en acercamiento lento constante) sigue moviéndose hasta el último frame, así que el cuadro nunca se siente detenido aunque el texto esté quieto.
+Sobre el tercio superior vacío del clip (dejado libre a propósito en el prompt de Veo), el logo `VivoMenu.png` entra con el fade + subida estándar de marca. Debajo, en dos líneas: `Mirá un menú real` (tipografía display, más chica) y, justo abajo, **`vivomenu.com.ar` como el elemento más grande y con más contraste de todo el video** — es el único destino que se ofrece, así que tiene que leerse sin esfuerzo incluso en un celular chico. `@vivomenu.app` va debajo de todo, más chico, como referencia secundaria. **No poner ningún número de teléfono, ícono de WhatsApp ni texto que sugiera "escribinos" — VivoMenu todavía no tiene ese canal armado.** El texto no se anima más una vez que entró — pero el clip de fondo (el barrio al atardecer, con la cámara en acercamiento lento constante) sigue moviéndose hasta el último frame, así que el cuadro nunca se siente detenido aunque el texto esté quieto.
 
 ### Subtítulos dinámicos
 
@@ -215,9 +216,37 @@ El 85% mira sin sonido — acá los subtítulos no son accesibilidad, son el vid
 
 Corte seco en cada cambio de clip, sin transición, sin fundido, sin zoom ni glitch — seis cortes en menos de un minuto ya es un ritmo alto. Dentro del clip 4, único lugar del video con micro-corte dentro de un clip: un leve zoom a 110% en cada número nuevo.
 
-### Audio
+### Audio — instrucciones completas para el editor
 
-Como el guion ahora es un único archivo continuo de ElevenLabs (§1), no hay cortes de silencio que programar entre bloques — la voz no para en todo el video. Música instrumental de fondo al 12%, pulso constante, sin melodía que compita con la voz, sostenida parejo de punta a punta sin bajar de volumen en ningún momento. Ambiente de los clips (cocina, impresora) audible pero bajo, ~20%.
+**1. Voz (ElevenLabs)**
+- Escuchar el archivo entero primero. Si ElevenLabs metió una pausa larga (más de 300ms) entre alguna frase, recortarla en la línea de tiempo — el punto de la sección "sin silencios" de este documento aplica también adentro del propio audio de voz, no solo entre música y voz
+- Normalizar a **-16 LUFS integrado** antes de mezclar con el resto (es el estándar que usa Instagram internamente; si se deja el archivo crudo de ElevenLabs, casi siempre suena más bajo que la música de fondo)
+- Compresión suave, 2:1 a 3:1, solo para parejar picos — no aplastar la voz
+- Un pasa-altos (high-pass) en 90-100Hz para sacar grave innecesario, y un realce chico (+2 a +3dB) entre 3 y 5kHz — es lo que hace que la voz se entienda en el parlante de un celular, que es donde la va a escuchar el 90% de la gente
+
+**2. Música de fondo**
+- **Usar la librería de audio nativa de Instagram/Reels, no un archivo de música importado**, si el editor arma el corte final directo en la app de Instagram o CapCut con integración a Reels. Un audio "original" con pista nativa de la plataforma no corre riesgo de mute por derechos y en general recibe algo más de empuje del algoritmo que un audio subido de afuera
+- Si se usa una pista con licencia (Epidemic Sound, Artlist, etc.), que sea instrumental, de pulso constante, sin voz ni melodía protagonista que compita con la narración
+- Nivel: **-24dB por debajo de la voz**, aproximadamente, sostenido parejo de punta a punta sin bajar en ningún momento — no hay ningún tramo del video donde la música se calle o se apague del todo, ni siquiera un segundo
+- Si el editor tiene forma de aplicar **ducking automático** (que la música baje sola cuando hay voz y suba un poco en los huecos cortitos entre frases), mejor que automatizarlo a mano — queda más natural y no hay riesgo de que se olvide un tramo
+
+**3. Sonido ambiente de los clips** (cocina, impresora, calle)
+- Audible pero bajo, **-18 a -20dB por debajo de la voz** — aporta textura y realismo, no compite
+- En el clip 5 (cocina), subir el ambiente un poco más que en el resto (hasta -14dB aprox.) en el momento del corte — es la única vez que el video "sube de energía" con el sonido, y tiene que sentirse
+
+**4. Mezcla final**
+- Exportar a **48kHz, estéreo, AAC 256kbps** como mínimo — Instagram comprime igual al subir, pero partir de un archivo débil se nota más después de esa segunda compresión
+- **Loudness final del máster: -14 LUFS integrado, true peak por debajo de -1dB** — es el estándar que usan Instagram y la mayoría de las plataformas de video corto; un video más flojo que eso se escucha bajo comparado con el resto del feed, uno más fuerte se distorsiona en la compresión de la plataforma
+- **Escuchar la mezcla final en el parlante del celular, no solo con auriculares**, antes de dar por terminado — la mayoría de la gente ve Reels sin auriculares, y una mezcla que suena perfecta en estudio puede perder la voz completamente en un parlante chico si la música quedó muy presente
+
+**Resumen de niveles, de referencia rápida:**
+
+| Elemento | Nivel relativo a la voz |
+|---|---|
+| Voz (ElevenLabs) | Referencia — normalizada a -16 LUFS antes de mezclar |
+| Música de fondo | -24dB, constante, nunca en cero |
+| Ambiente de clips | -18 a -20dB (sube a -14dB en el clip 5) |
+| Máster final | -14 LUFS integrado, true peak < -1dB |
 
 ### 3.4 — Lo que Gastón le entrega al editor
 
