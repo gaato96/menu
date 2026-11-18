@@ -83,6 +83,8 @@ type Business = {
   currency: string;
   is_open_manual: boolean;
   status: BusinessStatus;
+  /** Last panel render by any staff member, throttled to 30 min (touch_business_activity). */
+  last_activity_at: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -175,6 +177,12 @@ type Subscription = {
   current_period_end: string | null;
   monthly_amount_cents: number | null;
   notes: string | null;
+  /** Last day of the free trial (business-local date). Default: created + 15. */
+  trial_ends_at: string;
+  /** "Ends tomorrow" push already sent to the superadmin. */
+  trial_reminder_sent_at: string | null;
+  /** "Trial ended, follow up" push already sent. */
+  trial_ended_notified_at: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -200,8 +208,21 @@ type Profile = {
   role: StaffRole;
   full_name: string | null;
   is_active: boolean;
+  /** Null until the first-run tour was finished or skipped. */
+  tour_completed_at: string | null;
   created_at: string;
   updated_at: string;
+};
+
+/** Superadmin's own devices for follow-up pushes. Superadmin-only RLS. */
+type AdminPushSubscription = {
+  id: string;
+  profile_id: string;
+  endpoint: string;
+  p256dh: string;
+  auth: string;
+  user_agent: string | null;
+  created_at: string;
 };
 
 type Category = {
@@ -572,6 +593,11 @@ export type Database = {
         Insertable<AiImageGeneration, "business_id" | "prompt_variant" | "cost_usd_millis">,
         Partial<AiImageGeneration>
       >;
+      admin_push_subscriptions: TableShape<
+        AdminPushSubscription,
+        Insertable<AdminPushSubscription, "profile_id" | "endpoint" | "p256dh" | "auth">,
+        Partial<AdminPushSubscription>
+      >;
       business_mp_credentials: TableShape<
         BusinessMpCredentials,
         Insertable<BusinessMpCredentials, "business_id" | "access_token">,
@@ -621,6 +647,8 @@ export type Database = {
       };
       order_status_rank: { Args: { p_status: string }; Returns: number };
       create_priced_order: { Args: { p_business_id: string; p_order: Json }; Returns: Json };
+      touch_business_activity: { Args: Record<string, never>; Returns: undefined };
+      set_tour_completed: { Args: { p_completed: boolean }; Returns: undefined };
       upsert_push_subscription: {
         Args: {
           p_business_id: string;

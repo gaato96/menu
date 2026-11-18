@@ -106,6 +106,9 @@ self.addEventListener("push", (event) => {
     body?: string;
     orderId?: string;
     code?: string;
+    /** Superadmin follow-up pushes carry their own target and tag. */
+    url?: string;
+    tag?: string;
   };
 
   try {
@@ -121,11 +124,13 @@ self.addEventListener("push", (event) => {
       badge: "/icons/badge-72.png",
       // Same tag so ten orders don't bury the screen in ten cards, but
       // renotify so each one still buzzes.
-      tag: "new-order",
+      tag: payload.tag ?? "new-order",
       renotify: true,
       requireInteraction: true,
       vibrate: [300, 120, 300, 120, 300],
-      data: { url: payload.orderId ? `/panel?pedido=${payload.orderId}` : "/panel" },
+      data: {
+        url: payload.url ?? (payload.orderId ? `/panel?pedido=${payload.orderId}` : "/panel"),
+      },
     } as NotificationOptions),
   );
 });
@@ -141,9 +146,11 @@ self.addEventListener("notificationclick", (event) => {
         includeUncontrolled: true,
       });
 
-      // Reuse the board if it is already open instead of stacking windows.
+      // Reuse the board (or the superadmin panel) if it is already open
+      // instead of stacking windows.
+      const area = target.startsWith("/admin") ? "/admin" : "/panel";
       for (const client of clientList) {
-        if (client.url.includes("/panel")) {
+        if (client.url.includes(area)) {
           await client.focus();
           if ("navigate" in client) await client.navigate(target);
           return;

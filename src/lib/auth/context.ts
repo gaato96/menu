@@ -9,6 +9,8 @@ export interface StaffContext {
   userId: string;
   role: StaffRole;
   fullName: string | null;
+  /** Null until this person finished or skipped the first-run tour. */
+  tourCompletedAt: string | null;
   business: Tables<"businesses">;
   settings: Tables<"business_settings">;
   subscription: Tables<"subscriptions">;
@@ -65,7 +67,7 @@ export const requireStaff = cache(async function requireStaff(): Promise<StaffCo
   const [profile, business, settings, subscription, modules] = await Promise.all([
     supabase
       .from("profiles")
-      .select("business_id, role, full_name, is_active")
+      .select("business_id, role, full_name, is_active, tour_completed_at")
       .eq("id", userId)
       .maybeSingle(),
     supabase.from("businesses").select("*").eq("id", claimBusinessId).single(),
@@ -93,6 +95,7 @@ export const requireStaff = cache(async function requireStaff(): Promise<StaffCo
     userId,
     role: profile.data.role,
     fullName: profile.data.full_name,
+    tourCompletedAt: profile.data.tour_completed_at,
     business: business.data,
     settings: settings.data,
     subscription: subscription.data,

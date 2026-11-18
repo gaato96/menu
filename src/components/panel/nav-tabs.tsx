@@ -54,6 +54,7 @@ const MORE_TABS: readonly Tab[] = [
   { href: "/panel/clientes", label: "Clientes", roles: ["owner", "manager"], module: "crm_loyalty" },
   { href: "/panel/config", label: "Configuración", roles: ["owner", "manager"] },
   { href: "/panel/usuarios", label: "Usuarios", roles: ["owner"] },
+  { href: "/panel/guia", label: "Guía de uso", roles: ["owner", "manager", "cashier", "waiter"] },
 ];
 
 function matches(tab: Tab, role: StaffRole, modules: ReadonlySet<ModuleKey>) {
@@ -82,6 +83,7 @@ export function NavTabs({ role, modules }: { role: StaffRole; modules: ModuleKey
         <Link
           key={tab.href}
           href={tab.href}
+          data-tour={`tab-${tab.label.toLowerCase()}`}
           className={cn(
             "flex min-h-touch shrink-0 items-center border-b-2 px-3 text-sm font-medium whitespace-nowrap",
             isActive(pathname, tab.href)
@@ -96,6 +98,7 @@ export function NavTabs({ role, modules }: { role: StaffRole; modules: ModuleKey
       {more.length > 0 && (
         <DropdownMenu.Root>
           <DropdownMenu.Trigger
+            data-tour="tab-mas"
             className={cn(
               "flex min-h-touch shrink-0 items-center gap-1 border-b-2 px-3 text-sm font-medium whitespace-nowrap outline-none",
               moreActive

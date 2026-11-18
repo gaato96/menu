@@ -21,7 +21,10 @@ export function isPushSupported() {
  * order lands (see push-enable-banner.tsx) — asking cold, before the tablet
  * has seen the product work, is the fastest way to get "denied" forever.
  */
-export async function enablePushNotifications(): Promise<
+export async function enablePushNotifications(
+  /** /api/push/subscribe for staff, /api/push/admin-subscribe for the superadmin. */
+  subscribePath = "/api/push/subscribe",
+): Promise<
   { ok: true } | { ok: false; reason: "unsupported" | "denied" | "error" }
 > {
   if (!isPushSupported()) return { ok: false, reason: "unsupported" };
@@ -42,7 +45,7 @@ export async function enablePushNotifications(): Promise<
       applicationServerKey: urlBase64ToUint8Array(publicKey) as BufferSource,
     });
 
-    const response = await fetch("/api/push/subscribe", {
+    const response = await fetch(subscribePath, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(subscription.toJSON()),

@@ -168,3 +168,10 @@ when Serwist ships Turbopack support.
   and were marked applied with `supabase migration repair` on 2026-11-18. Run
   `supabase db push --dry-run` before every push and check the list is only your new files.
 
+- **Trial follow-up runs on a Vercel cron** (`vercel.json` → `/api/cron/seguimiento`, daily 12:00 UTC).
+  It pushes the superadmin's own devices (`admin_push_subscriptions`, registered from `/admin`)
+  once per business per event — the `trial_*_notified_at` markers are what make it idempotent. Set
+  `CRON_SECRET` in Vercel so the route rejects anything but Vercel's own call. Rules live in
+  `src/lib/admin/followup.ts` and are shared with the `/admin` dashboard.
+- **"Último uso" is `businesses.last_activity_at`**, stamped by `touch_business_activity()` from the
+  panel layout and throttled in SQL to once per 30 minutes.

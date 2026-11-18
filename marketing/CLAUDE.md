@@ -10,7 +10,7 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 |---|---|---|
 | Producto, público, objeciones, tono, metas | `../.agents/product-marketing.md` (v3) | ✅ fase 0 |
 | Cómo habla el cliente | `investigacion/voz-del-cliente.md` | ✅ fase 0 (se completa en la 1) |
-| Competencia y cuentas del nicho | `investigacion/competencia-AAAA-MM.md` | fase 1 |
+| Competencia y cuentas del nicho | `investigacion/competencia-2026-11.md` | ✅ fase 1 (falta grupo C) |
 | Qué contenido rinde | `investigacion/matriz-AAAA-MM.md` | fase 2 |
 | A quién, qué y a qué precio | `notas/01-plan.md` | fase 3 |
 | Estado y fechas (cada viernes) | `notas/02-panorama.md` | fase 3 |
@@ -20,12 +20,13 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 | Ideas de reels | `contenido/reels/backlog.md` | fase 5 |
 | Historias y estados | `contenido/historias/` | fase 6 |
 | Recursos que se mandan por DM | `contenido/recursos/` | fase 3 y 5 |
+| Lo que se creía antes | `notas/10-archivo.md` | se suma con cada cambio |
 
 **Los documentos viejos de esta carpeta** (`plan-marketing.md`, `plan-contenido.md`,
 `prospeccion.md`, `sistema-prospeccion-frio.md`, `mensajes-en-frio.md`, `precios.md`,
 `guia-produccion.md`, `progreso.md`, `reel-01-comision.md`, de julio y agosto) **ya no mandan**,
-salvo `precios.md` en los montos (Gastón los dejó igual) y `manual-de-marca.md` /
-`nombres-y-marca.md` en la identidad visual. Se leen como antecedente. Cuando la fase que los
+salvo `manual-de-marca.md` / `nombres-y-marca.md` en la identidad visual. **`precios.md` tampoco
+manda desde el 2026-11-18:** instalación gratis, Base propuesto a $24.900 (ver `notas/10-archivo.md`). Se leen como antecedente. Cuando la fase que los
 reemplaza esté aprobada, se borran y lo que se creía antes pasa a `notas/10-archivo.md` (regla 8).
 **Ojo:** `src/content/internal/*.ts` son copias de esos documentos que muestra
 `/interno-64a0f7d0` (ahora solo para el superadmin). Cuando se reemplacen, hay que actualizar
@@ -60,5 +61,7 @@ semana**. Publicidad: $0. Comparte la semana con Galu (ver `../../Contenido/web-
 
 - Sitio: `vivomenu.com.ar` · demo `vivomenu.com.ar/m/burger-house-tuc` · WhatsApp `wa.me/543815976357`
 - Instagram `@vivomenu.app` al 2026-11-18: 23 seguidores (21 en la captura de ese día), 154 seguidos, 7 publicaciones: 6 carruseles y 1 reel ("Por cada venta de $10.000, −$2.500 se los lleva la app"). Bio: "Menú QR en vivo para mesas y delivery · Menos caos en WhatsApp, más ventas · Tucumán · Probá el demo", link al demo
-- Zona: San Miguel de Tucumán (instalación presencial)
-- Precios: Base $34.900/mes + $55.000 · Salón $49.900 + $70.000 · Full $64.900 (`precios.md`)
+- Zona de arranque: San Miguel de Tucumán, **delivery y mostrador primero** (allá predominan los delivery sin local al público)
+- Modelo (2026-11-18): **instalación gratis hecha por Gastón** (carga la carta con IA), 15 días de prueba, cobro a mano. Base propuesto **$24.900/mes** con todo; adicionales Stock, Mercado Pago y Salón (precios a definir en la fase 3)
+- Cuentas para la matriz: **las elige Gastón** (la búsqueda de la fase 1 le pareció insuficiente)
+- **Apify: nunca pasar el plan gratis** (USD 5/mes). Estimar, topar y, si no entra, partir en tandas

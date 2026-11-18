@@ -1,3 +1,5 @@
+> **⚠️ SUPERADO el 2026-11-18.** Instalación gratis (la hace Gastón), Base propuesto a $24.900 con todo incluido y adicionales Stock, Mercado Pago y Salón. Ver `marketing/notas/10-archivo.md`. Este documento queda como antecedente hasta que la fase 3 escriba `notas/01-plan.md`; después se borra.
+
 # Menú Digital — Estrategia de precios
 
 **Fecha:** 2026-07-28

@@ -130,6 +130,14 @@ export default async function BusinessDetailPage({
                 <option value="suspended">Suspendida</option>
               </Select>
             </Field>
+            <Field label="Fin de la prueba" hint="15 días desde el alta. Si la extendés, los avisos se rearman">
+              <input
+                type="date"
+                name="trialEndsAt"
+                defaultValue={subscription.trial_ends_at}
+                className="min-h-touch w-full rounded-lg border border-ink-200 px-3 text-sm"
+              />
+            </Field>
             <Field label="Vence" hint="El menú público solo se corta con estado Suspendida">
               <input
                 type="date"

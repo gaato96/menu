@@ -89,3 +89,58 @@ export async function sendNewOrderPush(businessId: string, payload: NewOrderPush
     await admin.from("push_subscriptions").delete().in("id", deadIds);
   }
 }
+
+export interface AdminPushPayload {
+  title: string;
+  body: string;
+  /** Where tapping the notification lands, e.g. /admin/negocios/<id>. */
+  url: string;
+  /** Notifications with the same tag replace each other instead of stacking. */
+  tag: string;
+}
+
+/**
+ * Sends to every superadmin device (admin_push_subscriptions). Same dead-
+ * endpoint cleanup as order pushes. Returns how many devices it reached, so
+ * the cron can tell "sent" from "no device registered".
+ */
+export async function sendAdminPush(payload: AdminPushPayload): Promise<number> {
+  if (!process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY) return 0;
+  try {
+    ensureConfigured();
+  } catch (error) {
+    console.error("sendAdminPush: VAPID no configurado", error);
+    return 0;
+  }
+
+  const admin = createAdminClient();
+  const { data: subscriptions } = await admin
+    .from("admin_push_subscriptions")
+    .select("id, endpoint, p256dh, auth");
+  if (!subscriptions || subscriptions.length === 0) return 0;
+
+  const body = JSON.stringify(payload);
+  const deadIds: string[] = [];
+  let delivered = 0;
+
+  await Promise.all(
+    subscriptions.map(async (sub) => {
+      try {
+        await webpush.sendNotification(
+          { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
+          body,
+        );
+        delivered += 1;
+      } catch (error) {
+        const statusCode = (error as { statusCode?: number }).statusCode;
+        if (statusCode === 404 || statusCode === 410) deadIds.push(sub.id);
+        else console.error("sendAdminPush: fallo de envío", statusCode, error);
+      }
+    }),
+  );
+
+  if (deadIds.length > 0) {
+    await admin.from("admin_push_subscriptions").delete().in("id", deadIds);
+  }
+  return delivered;
+}

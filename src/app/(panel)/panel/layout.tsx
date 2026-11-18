@@ -2,15 +2,18 @@ import { AlertTriangle, ExternalLink, LogOut } from "lucide-react";
 import Link from "next/link";
 
 import { NavTabs } from "@/components/panel/nav-tabs";
+import { PanelTour } from "@/components/panel/panel-tour";
 import { TableCallsAlert } from "@/components/panel/table-calls-alert";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { moduleList, requireStaff } from "@/lib/auth/context";
-import { ROLE_LABELS } from "@/lib/auth/roles";
+import { canConfigure, ROLE_LABELS } from "@/lib/auth/roles";
+import { siteUrl } from "@/lib/site-url";
 import { createClient } from "@/lib/supabase/server";
 import { fetchPendingCalls } from "@/lib/tables/calls";
 import { cn } from "@/lib/utils";
 
 import { signOut } from "../../(auth)/login/actions";
+import { completeTour } from "./guia/actions";
 
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
   const staff = await requireStaff();
@@ -18,9 +21,16 @@ export default async function PanelLayout({ children }: { children: React.ReactN
 
   // Only costs a query for businesses that actually have mesas. A local doing
   // delivery only never pays for a feature it cannot use.
-  const pendingCalls = staff.modules.has("tables")
-    ? await fetchPendingCalls(await createClient(), business.id)
-    : [];
+  const supabase = await createClient();
+  const [pendingCalls] = await Promise.all([
+    staff.modules.has("tables") ? fetchPendingCalls(supabase, business.id) : Promise.resolve([]),
+    // "Último uso" in the superadmin dashboard. Throttled in SQL to one write
+    // per 30 minutes, and never allowed to break the panel.
+    supabase.rpc("touch_business_activity").then(
+      () => undefined,
+      () => undefined,
+    ),
+  ]);
 
   const periodEnd = subscription.current_period_end
     ? new Date(`${subscription.current_period_end}T00:00:00`).toLocaleDateString("es-AR", {
@@ -65,6 +75,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
             href={`/m/${business.slug}`}
             target="_blank"
             aria-label="Ver menú público"
+            data-tour="ver-menu"
             className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "shrink-0 px-2 sm:px-3")}
           >
             <span className="hidden sm:inline">Ver menú</span>
@@ -109,6 +120,16 @@ export default async function PanelLayout({ children }: { children: React.ReactN
       </header>
 
       <div className="flex flex-1 flex-col">{children}</div>
+
+      {/* First visit of an owner or manager. Cashiers and mozos get the
+          guide instead: their screens are the board and the floor plan. */}
+      {!staff.tourCompletedAt && canConfigure(staff.role) && (
+        <PanelTour
+          businessName={business.name}
+          menuUrl={`${siteUrl().replace(/^https?:\/\//, "")}/m/${business.slug}`}
+          onDone={completeTour}
+        />
+      )}
     </div>
   );
 }

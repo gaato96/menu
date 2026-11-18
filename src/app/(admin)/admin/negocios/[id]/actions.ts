@@ -57,6 +57,16 @@ export async function updateSubscription(
   const currentPeriodEnd = String(formData.get("currentPeriodEnd") ?? "").trim();
   const monthlyAmountRaw = String(formData.get("monthlyAmount") ?? "").trim();
   const notes = String(formData.get("notes") ?? "").trim();
+  const trialEndsAt = String(formData.get("trialEndsAt") ?? "").trim();
+  if (trialEndsAt && !/^\d{4}-\d{2}-\d{2}$/.test(trialEndsAt)) return { error: "Fecha de fin de prueba inválida." };
+
+  // Moving the trial end re-arms both follow-up pushes for the new date.
+  const { data: current } = await supabase
+    .from("subscriptions")
+    .select("trial_ends_at")
+    .eq("business_id", businessId)
+    .maybeSingle();
+  const trialMoved = Boolean(trialEndsAt && current && current.trial_ends_at !== trialEndsAt);
 
   if (!["trial", "active", "past_due", "suspended"].includes(status)) {
     return { error: "Estado inválido." };
@@ -72,6 +82,9 @@ export async function updateSubscription(
       current_period_end: currentPeriodEnd || null,
       monthly_amount_cents: monthlyAmountCents,
       notes: notes || null,
+      ...(trialMoved
+        ? { trial_ends_at: trialEndsAt, trial_reminder_sent_at: null, trial_ended_notified_at: null }
+        : {}),
     })
     .eq("business_id", businessId);
 

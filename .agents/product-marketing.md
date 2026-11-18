@@ -1,11 +1,19 @@
 # Product Marketing Context — VivoMenu
 
-**Document version:** v3
+**Document version:** v4
 **Last updated:** 2026-11-18
 **Producto:** VivoMenu (SaaS gastronómico) — antes "Menú Digital"; el rebrand es del 2026-08-06
 **Alcance:** este documento cubre **únicamente VivoMenu**. Es una marca independiente con su propia URL (`vivomenu.com.ar`), su propio Instagram (`@vivomenu.app`) y su propio funnel.
 
 > **Regla de marca (heredada de la decisión de arquitectura de Gastón, 2026-07-27):** VivoMenu es una marca separada de Galu. Galu es la agencia que lo construyó. "Creado por Galu" es un sello de confianza al pie del sitio, nunca el protagonista. **Ninguna pieza de VivoMenu habla el idioma de una agencia.** Un dueño de hamburguesería no tiene que traducir jerga de marketing para entender que esto le sirve.
+
+> **Decisiones de Gastón del 2026-11-18 (después de la fase 1). Mandan sobre todo lo que diga lo contrario más abajo, hasta que la fase 3 reescriba esas secciones:**
+> 1. **La instalación la hace Gastón, gratis** *(corregido el mismo 2026-11-18: primero se pensó autoinstalable y se descartó porque sin clientes todavía conviene acompañar a cada uno)*. Gastón carga la carta con la IA, deja andando las funciones y ayuda al local. **No se cobra instalación.** Igual se suman un recorrido guiado y una guía de uso dentro del panel. La prueba dura **15 días**; Gastón cobra la suscripción a mano y hace el seguimiento desde el panel de superadmin.
+> 2. **Precio propuesto: plan Base a $24.900/mes** (a confirmar en la fase 3), con todo incluido: carta, pedidos a WhatsApp, tablero, pantalla de cocina, impresión, caja, ficha de cliente, fotos e importación con IA, resumen semanal. **Adicionales:** Stock, Mercado Pago y Salón (mesas). Los planes Base/Salón/Full de `marketing/precios.md` quedan reemplazados.
+> 3. **"Estar el viernes a la noche" deja de ser el diferenciador.** Gastón lo descartó porque no diferencia. El diferenciador nuevo se elige en la fase 3.
+> 4. **Se entra por delivery y mostrador.** En Tucumán hay más negocios de delivery sin local al público (cocinas que solo venden por WhatsApp) que locales con salón. El salón es un adicional, no la puerta de entrada.
+>
+> **Pendiente de producto:** recorrido guiado y guía de uso en el panel; en el superadmin, fecha de alta, último uso y aviso al vencer los 15 días de prueba. El alta sigue siendo desde el superadmin y el cobro sigue siendo a mano.
 
 > **Regla dura de honestidad:** no se promete nada que no esté en la tabla "Existe hoy" (§2). Prometer una feature que no existe se descubre en la primera visita y quema el diferenciador entero, que justamente es la confianza personal.
 
@@ -22,9 +30,9 @@ El cliente entra a un link o escanea un QR, ve la carta con fotos, arma su pedid
 **Categoría (cómo lo busca el cliente):**
 "menú digital con QR", "sistema de pedidos para restaurantes", "app para tomar pedidos por WhatsApp", "carta QR para restaurante", "comandas para cocina", "alternativa a PedidosYa sin comisión".
 
-**Tipo de producto:** SaaS vertical B2B, nicho gastronomía, mercado local (San Miguel de Tucumán / NOA), con **componente de servicio presencial obligatorio** en el onboarding.
+**Tipo de producto:** SaaS vertical B2B, nicho gastronomía. Gastón instala gratis y da soporte. Mercado de arranque: San Miguel de Tucumán, empezando por delivery y mostrador.
 
-**Modelo de negocio:** fee de instalación y puesta en marcha (visita al local, carga del menú real con fotos, capacitación al personal) + suscripción mensual fija por plan. **Sin comisión por pedido, nunca.**
+**Modelo de negocio (2026-11-18):** suscripción mensual fija, **instalación gratis hecha por Gastón**, 15 días de prueba. Plan Base con todo lo de operar el delivery y el mostrador; Stock, Mercado Pago y Salón se suman aparte. **Sin comisión por pedido, nunca.** *(Antes: fee de instalación presencial + tres planes. Ver `marketing/notas/10-archivo.md`.)*
 
 **Estado técnico:** en producción en `https://vivomenu.com.ar` · Demo público en vivo `/m/burger-house-tuc` · Catálogo vertical `/m/burger-house-tuc/catalogo`.
 
@@ -186,7 +194,7 @@ Nunca invertir el orden. Si en la visita se argumenta precio, se compite contra 
 
 **Los tres diferenciadores, en orden de defendibilidad:**
 
-1. **Alguien te lo deja andando y está el viernes a la noche.** Instalación en el local, carga del menú real con fotos, capacitación al personal, soporte a 15 minutos. **El fee de instalación es la prueba del diferencial, no un costo a disculpar.** VivoMenu se vende como *servicio con software adentro*, no como software con soporte.
+1. ~~**Alguien te lo deja andando y está el viernes a la noche.**~~ **Descartado por Gastón el 2026-11-18: no diferencia.** El nuevo se decide en la fase 3. Texto original, como antecedente: Instalación en el local, carga del menú real con fotos, capacitación al personal, soporte a 15 minutos. **El fee de instalación es la prueba del diferencial, no un costo a disculpar.** VivoMenu se vende como *servicio con software adentro*, no como software con soporte.
 2. **Cubre el pedido entero, de la mesa a la cocina.** No es "un menú QR" ni "un tablero": es carta con fotos → carrito → comanda → tablero → pantalla de cocina → stock → ficha de cliente. La mayoría de los competidores hace bien una punta de esa cadena.
 3. **Se instala con la marca del local, no con la nuestra.** La app lleva el nombre, el ícono y el color del negocio. El dueño no está poniendo el cartel de otro en su vidriera.
 
@@ -320,8 +328,10 @@ Secundarios: ticket promedio antes/después (el menú con fotos y los agregados 
 | 1 | ~~Precio de los tres planes + fee de instalación~~ **Resuelto en `marketing/precios.md`** | Base $34.900/mes + $55.000 instalación · Salón $49.900/mes + $70.000 · Full $64.900/mes sin fee nuevo. Ancla real de mercado: SoyMenu $20.000/mes (el autoservicio más completo verificado), no Pido.club |
 | 2 | ~~Dominio propio~~ **Resuelto:** `vivomenu.com.ar` (2026-08-06) | — |
 | 3 | ~~Nombre definitivo~~ **Resuelto:** VivoMenu (2026-08-06, ver `marketing/nombres-y-marca.md`) | — |
-| 4 | En qué plan van Caja, Mercado Pago e Impresión | Fase 3 |
-| 5 | Si se vende fuera de Tucumán con instalación a distancia | Fase 3 |
+| 4 | ~~En qué plan van Caja, Mercado Pago e Impresión~~ **Resuelto 2026-11-18:** Caja e Impresión en el Base; Mercado Pago, Stock y Salón son adicionales | Faltan los precios de los adicionales |
+| 5 | Si se vende fuera de Tucumán | Abierto: la instalación con la IA se puede hacer a distancia; la prospección arranca en Tucumán | |
+| 7 | **El diferenciador nuevo** | Fase 3 |
+| 8 | Precio final del Base ($24.900 propuesto) y de cada adicional; si hay prueba gratis y de cuántos días | Fase 3 |
 | 6 | Oferta de lanzamiento (locales fundadores: cuántos, qué se les da y qué se les pide) | Fase 3 |
 
 ---
@@ -329,6 +339,8 @@ Secundarios: ticket promedio antes/después (el menú con fotos y los agregados 
 ## Changelog
 *Newest first. Una línea por revisión: qué cambió y por qué.*
 
+- v4.1 (2026-11-18) — Corrección: la instalación la hace Gastón, gratis (no autoinstalable). Prueba de 15 días, cobro a mano, seguimiento desde el superadmin.
+- v4 (2026-11-18) — Decisiones de Gastón tras la fase 1: sin instalación y autoinstalable, Base propuesto a $24.900 con todo incluido salvo Stock, Mercado Pago y Salón, se descarta "el viernes a la noche" como diferenciador, se entra por delivery y mostrador (en Tucumán predominan los delivery sin local al público). Lo reemplazado va a `marketing/notas/10-archivo.md`.
 - v3 (2026-11-18) — Rebrand a VivoMenu y dominio propio. Inventario actualizado: Caja, Salón ampliado (mozo, pedir la cuenta desde la mesa), fotos y video con IA, y lo agregado hoy (importar carta con IA, Mercado Pago, impresión de comandas, "ya salió", resumen semanal). MercadoPago e impresión pasan de "no existe" a "existe, sin probar en real". Estado comercial real: 0 clientes, 23 seguidores, pausado de agosto a noviembre. Público ampliado a cualquier negocio gastronómico. Metas nuevas al 19/12 y al 28/2. Decisiones nuevas para la fase 3.
 - v2 (2026-07-28) — Corrección de dato: Pido.club no cobra $29.900/mes (es pago único de instalación + comisión sobre ventas), verificado contra su web real. Reemplazado el ancla de mercado por SoyMenu ($20.000/mes) y Nedify ($7.000–$10.000/mes), ambos verificados. Decisión abierta #1 (precio) resuelta — ver `marketing/precios.md` para los montos definitivos.
 - v1 (2026-07-28) — Documento inicial, **independiente del contexto de Galu**. Definido a partir del producto real ya desplegado (Fases 0–6 + Tandas A–D): inventario verificado de features separando lo que existe de lo que no (MercadoPago e impresión térmica **no existen**, corrigiendo una afirmación errónea que circulaba en el contexto de la agencia), apertura del ICP en dos segmentos tras el módulo de mesas, empaquetado en tres planes derivado del gating de módulos, regla de uso de "sin comisión" (atracción) vs. "instalación presencial" (cierre), y mapa de personas incluyendo al mozo como riesgo de sabotaje en el segmento salón.
