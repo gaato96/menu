@@ -15,12 +15,13 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 | A quién, qué y a qué precio | `notas/01-plan.md` | ✅ fase 3 (faltan las confirmaciones de §8) |
 | Estado y fechas (cada viernes) | `notas/02-panorama.md` | ✅ se actualiza cada viernes |
 | Cómo se consiguen los clientes | `notas/02b-adquisicion.md` + `ventas/` | fase 10 (va antes que la 4) |
-| Día por día y medición | `notas/03-dia-por-dia.md` | fase 9 |
+| Día por día (seis semanas) | `notas/03-dia-por-dia.md` | 📝 fase 9, borrador |
+| Medición y reglas de cambio | `notas/05-medicion.md` | 📝 fase 9, borrador |
 | Contenido 90 días | `notas/04-contenido.md` | ✅ fase 4 (reemplazó a `plan-contenido.md`) |
 | Ideas de reels | `contenido/reels/backlog.md` | ✅ fase 5 (30 ideas, 12 con fecha) |
 | Historias y estados | `contenido/historias/README.md` | ✅ fase 6 (las de fundadores esperan el §8 del plan) |
 | Cómo se arma cada reel | `../.claude/skills/paquete-reel-vivomenu/` (skill) y `../.claude/skills/radar-contenido/` (radar mensual) | ✅ fase 7 |
-| Cómo se produce cada video | `contenido/reels/PRODUCCION.md` y los moldes de `contenido/reels/moldes/` | 📝 fase 8, borrador |
+| Cómo se produce cada video | `contenido/reels/PRODUCCION.md` (con las reglas de edición de Gastón) y los moldes de `contenido/reels/moldes/` | ✅ fase 8 |
 | Recursos que se mandan por DM | `contenido/recursos/` | fase 3 y 5 |
 | Lo que se creía antes | `notas/10-archivo.md` | se suma con cada cambio |
 

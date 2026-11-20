@@ -9,6 +9,34 @@ mira sin sonido), el primer cuadro ya se mueve y ya tiene el gancho, nada import
 170 px ni abajo de los 1330 px (ahí van la interfaz de Instagram y los subtítulos de TikTok), el
 final empalma con el principio, y las pantallas del sistema son reales, del local de demostración.
 
+## Las reglas de edición de Gastón (2026-11-20, después del borrador del reel 01)
+
+Mandan sobre cualquier otra indicación de esta guía, de los moldes o del prompt de un paquete:
+
+1. **No todo en fondo noche.** VivoMenu tiene tres fondos y se alternan según lo que cuenta cada
+   tramo: **noche** `#100E0C` (el viernes, la presión), **crema** `#F1EBDD` (el papel de la comanda,
+   lo ordenado; texto en tinta `#241B14` y acento ember-tinta `#8A3D0C`) y **verde botella**
+   `#1F4A38` (lo que salió bien, el cierre). Un reel de 60 s cambia de fondo por lo menos tres
+   veces, con una transición que se vea (barrido, máscara, corte con golpe).
+2. **Efectos de sonido en todo el reel**, para llamar la atención: un pop cuando aparece algo, un
+   whoosh en cada transición, una notificación cuando entra un mensaje, un ding o un click en cada
+   comanda, un golpe de bajo en la revelación y en el logo, el tipeo en la caja de comentario.
+   Están en `moldes/sfx/` (Pixabay, uso comercial libre). Por debajo de la voz: entre −14 y −20 dB.
+3. **Nunca más de 1,5 segundos sin que algo pase en pantalla.** Además de los cambios grandes, lo
+   que queda quieto respira: un zoom lento, un ícono que late, un contador que corre, partículas o
+   un brillo que pasa. Se revisa con `snapshot` cada 1,5 s.
+4. **Lo que la voz nombra aparece en el momento en que lo nombra.** Cada elemento entra en el
+   segundo exacto de su palabra (los tiempos de cada palabra están en `tiempos.json`, que escribe
+   `armar.py`). Así la voz va detallando y el motion graphic acentúa lo que dice: "precio" → aparece
+   la burbuja del precio; "doce" → el contador llega a 12.
+5. **Íconos variados.** No se repite el mismo dibujo en dos tramos seguidos ni el mismo recurso
+   visual todo el reel: se combinan íconos de línea, tipografía grande, números, objetos (la
+   comanda, el celular, la moto, la bolsa), mapas, gráficos y pantallas reales.
+6. **El logo de VivoMenu al final**, con una animación de "Seguí a @vivomenu.app": el isotipo
+   (`moldes/marca/logo-vivomenu.png`, el círculo verde con el ticket) entra con un golpe de bajo, se
+   escribe el usuario y aparece un botón "Seguir". Va después del pedido de comentar, en los
+   últimos 2 o 3 segundos, y sigue sin ir al principio del video.
+
 ---
 
 ## El prompt para la sesión de edición

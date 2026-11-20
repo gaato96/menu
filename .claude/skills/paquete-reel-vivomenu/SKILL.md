@@ -346,6 +346,12 @@ que muestren una interfaz.
 
 ### §3 — el prompt de edición
 
+**Las reglas de edición de Gastón mandan** (`marketing/contenido/reels/PRODUCCION.md`, "Las reglas de
+edición"): tres fondos que se alternan (noche, crema, verde), efectos de sonido en todo el reel
+(`moldes/sfx/`), nunca más de 1,5 s sin movimiento, cada elemento entra en el segundo en que la voz lo
+nombra, íconos variados y el logo con "Seguí a @vivomenu.app" al final. El prompt de edición de cada
+paquete las repite, porque se pega solo.
+
 **Parte de un molde:** el prompt dice qué molde copiar de `marketing/contenido/reels/moldes/`
 (`historia-animada`, `corto-texto` o `pantalla-real`) y sigue `marketing/contenido/reels/PRODUCCION.md`.
 En el formato A, además, el guion de la voz va en `guion.txt` (un párrafo por escena) y las palabras
@@ -369,7 +375,9 @@ archivo al lado.** Lleva, en este orden:
    negro. **El último tramo es el pedido:** la palabra escribiéndose sola en una caja de comentario
    genérica (sin logo de ninguna red) y un botón ember.
 6. **Marca.**
-   - Fondo noche `#100E0C` → `#221B15`, grano al 3 %, viñeta suave.
+   - Tres fondos que se alternan según el tramo: noche `#100E0C` (la presión), crema `#F1EBDD` con
+     texto en tinta `#241B14` (lo ordenado, la comanda) y verde `#1F4A38` (lo que salió bien, el
+     cierre). Por lo menos tres cambios de fondo en el reel, con transición.
    - Ember `#F0A04B` solo para el número, la palabra clave y los recuadros de foco. Verde `#1F4A38`
      solo para "salió bien". Texto en crema `#F1EBDD`.
    - Tipografías de Google Fonts: **Big Shoulders Display** 800 para los titulares, **Schibsted
@@ -383,14 +391,16 @@ archivo al lado.** Lleva, en este orden:
    (0,85 → 1,08 → 1,0 en 6 cuadros); una palabra clave por bloque en ember y un 20 % más grande
    (**listá cuáles**); posición entre y = 1300 e y = 1460; zonas seguras: 220 px arriba, 440 abajo,
    130 a la derecha.
-8. **Ritmo.** Un cambio visual cada 2,5 s como máximo; contadores animados en los números; íconos
+8. **Ritmo.** **Nunca más de 1,5 s sin que algo se mueva**; cada elemento entra en el segundo en que la voz lo nombra (`tiempos.json`); íconos variados, sin repetir el mismo dibujo en dos tramos seguidos; contadores animados en los números; íconos
    que se dibujan; recuadros ember que señalan lo que nombra la voz; transiciones de barrido de 6 a
    8 cuadros. **El final engancha con el principio.**
-9. **Sonido.** Música, si hay, a −20 dB con ducking; efectos (pop, ding de pedido, whoosh) entre −12
-   y −18 dB.
+9. **Sonido.** Efectos en todo el reel, de `moldes/sfx/` (pop al aparecer, whoosh en cada transición,
+   notificación en cada mensaje, click o ding en cada comanda, golpe de bajo en la revelación y en el
+   logo, tipeo en la caja de comentario), entre −14 y −20 dB. Música, si hay, a −20 dB con ducking.
 10. **Reglas.** No inventar textos, números ni funciones fuera del guion. Los números de una historia
     inventada llevan "ejemplo" chico al lado. Las grabaciones del sistema llevan "local de
-    demostración" en un costado. Sin intro, sin logo al principio, sin placa final.
+    demostración" en un costado. Sin intro ni logo al principio. **Al final, después del pedido, el logo de VivoMenu
+    (`moldes/marca/logo-vivomenu.png`) con "Seguí a @vivomenu.app" y un botón "Seguir"**, 2 o 3 s.
 11. **Entregables.** Primero un render de los primeros 5 s para aprobarlo. Después
     `reel-NN-⟨slug⟩.mp4` (H.264, 1080×1920, 30 fps, ~15 Mbps, AAC 48 kHz), `portada.jpg` si no hay
     de Nano Banana, `reel-NN.srt` y la lista de lo que faltó.

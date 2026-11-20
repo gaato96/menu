@@ -15,6 +15,8 @@ const root = join(__dirname, "..");
 // Order is the tab order on the page: what governs today first.
 const DOCS: { key: string; label: string; file: string }[] = [
   { key: "panorama", label: "Panorama", file: "marketing/notas/02-panorama.md" },
+  { key: "dia-por-dia", label: "Día por día", file: "marketing/notas/03-dia-por-dia.md" },
+  { key: "medicion", label: "Medición", file: "marketing/notas/05-medicion.md" },
   { key: "plan-2026-11", label: "Plan y oferta", file: "marketing/notas/01-plan.md" },
   { key: "contenido-2026-11", label: "Contenido 90 días", file: "marketing/notas/04-contenido.md" },
   { key: "backlog", label: "Banco de ideas", file: "marketing/contenido/reels/backlog.md" },
@@ -41,7 +43,7 @@ function listMd(dir: string, labelFor: (name: string) => string, only: RegExp = 
   }
 }
 DOCS.splice(
-  4,
+  6,
   0,
   ...listMd("marketing/contenido/reels", (n) => `Reel ${n.slice(0, 2)}`, /^\d/),
   ...listMd("marketing/contenido/recursos", (n) => `Recurso: ${n.replace(/\.md$/, "")}`),

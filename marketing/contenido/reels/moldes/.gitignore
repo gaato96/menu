@@ -4,3 +4,4 @@ renders/
 *.wav
 *.mp3
 pantallas/*.mp4
+!sfx/*.mp3
