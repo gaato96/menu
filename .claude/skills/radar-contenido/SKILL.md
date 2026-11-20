@@ -87,7 +87,7 @@ servicio, una prueba en la demo, un dato con dos fuentes).
 7. **El costo de Apify** de la corrida y lo que queda del ciclo.
 
 **En el backlog**, de 6 a 9 ideas al final de "Las siguientes", `propuesta (radar)`: el gancho
-escrito con `.claude/skills/paquete-reel/referencias/ganchos.md`, la serie, el formato, el rubro
+escrito con `.claude/skills/paquete-reel-vivomenu/referencias/ganchos.md`, la serie, el formato, el rubro
 rotando, lo que hace falta antes, el pedido y, en "Patrón", la cuenta y el mes del radar que la
 inspiró.
 

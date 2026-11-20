@@ -1,0 +1,60 @@
+<!doctype html>
+<html
+  lang="es"
+  data-resolution="portrait"
+  data-composition-variables='[
+    {"id":"gancho","type":"string","label":"Gancho (arriba, fijo)","default":"Preguntaste hasta qué hora toman."},
+    {"id":"hora1","type":"string","label":"Hora del mensaje","default":"21:40"},
+    {"id":"mensaje","type":"string","label":"Mensaje del cliente","default":"¿Hasta qué hora toman pedidos?"},
+    {"id":"hora2","type":"string","label":"Hora de la respuesta","default":"23:10"},
+    {"id":"respuesta","type":"string","label":"La respuesta","default":"¡Hasta las 23! 🙌"},
+    {"id":"vuelta","type":"string","label":"Lo que pasó (aparece al segundo 3)","default":"Ya había pedido en otro lado."},
+    {"id":"puente","type":"string","label":"Puente a la descripción","default":"Lo que conviene contestar, abajo 👇"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Big Shoulders Display"; src: url("assets/fonts/BigShouldersDisplay-800.woff2") format("woff2"); font-weight: 800; }
+      @font-face { font-family: "Schibsted Grotesk"; src: url("assets/fonts/SchibstedGrotesk-var.woff2") format("woff2"); font-weight: 400 900; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #100E0C; }
+      #fondo { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 45%, #2A211A 0%, #1A1511 55%, #100E0C 100%); }
+      .t { position: absolute; left: 150px; right: 150px; color: #F1EBDD; font-family: "Schibsted Grotesk", sans-serif; }
+      #gancho { top: 250px; text-align: center; font-family: "Big Shoulders Display", sans-serif; font-weight: 800; font-size: 104px; line-height: 0.95; text-transform: uppercase; }
+      .msg { position: absolute; font-family: "Schibsted Grotesk", sans-serif; max-width: 700px; padding: 26px 32px 18px; border-radius: 34px; font-size: 52px; font-weight: 700; line-height: 1.15; }
+      .msg small { display: block; margin-top: 10px; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 32px; opacity: 0.7; text-align: right; }
+      #m1 { left: 140px; top: 690px; background: #F1EBDD; color: #100E0C; border-bottom-left-radius: 8px; }
+      #m2 { right: 150px; top: 910px; background: #322820; color: #F1EBDD; border-bottom-right-radius: 8px; border: 2px solid rgba(241,235,221,0.2); }
+      #m2 small { color: #F0A04B; opacity: 1; }
+      #vuelta { top: 1090px; text-align: center; font-size: 54px; line-height: 1.1; font-weight: 800; color: #F0A04B; }
+      #puente { top: 1240px; text-align: center; font-size: 40px; font-weight: 600; color: rgba(241,235,221,0.75); }
+    </style>
+  </head>
+  <body>
+    <!-- Molde "corto de texto" de VivoMenu: 9 s en bucle, sin voz. Se cambian los textos en las variables. -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="9" data-width="1080" data-height="1920">
+      <div id="fondo"></div>
+      <div id="gancho" class="t" data-var-text="gancho">Preguntaste hasta qué hora toman.</div>
+      <div id="m1" class="msg"><span data-var-text="mensaje">¿Hasta qué hora toman pedidos?</span><small data-var-text="hora1">21:40</small></div>
+      <div id="m2" class="msg"><span data-var-text="respuesta">¡Hasta las 23! 🙌</span><small data-var-text="hora2">23:10</small></div>
+      <div id="vuelta" class="t" data-var-text="vuelta">Ya había pedido en otro lado.</div>
+      <div id="puente" class="t" data-var-text="puente">Lo que conviene contestar, abajo 👇</div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      // El gancho está desde el cuadro 1 (sin entrada). Todo se lee entero antes del segundo 4,5.
+      tl.fromTo("#gancho", { scale: 1.04 }, { scale: 1, duration: 9, ease: "none" }, 0);
+      tl.fromTo("#m1", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 0.15);
+      tl.fromTo("#m2", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 1.6);
+      tl.fromTo("#vuelta", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.5)" }, 2.9);
+      tl.fromTo("#puente", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 3.8);
+      // Bucle: todo se va en el último medio segundo, para empalmar con el cuadro 1.
+      tl.to(["#m1", "#m2", "#vuelta", "#puente"], { opacity: 0, duration: 0.35, ease: "power2.in" }, 8.55);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<template>
+  <style>
+    @font-face { font-family: "Schibsted Grotesk"; src: url("assets/fonts/SchibstedGrotesk-var.woff2") format("woff2"); font-weight: 400 900; }
+    #root { position: absolute; inset: 0; }
+    .grupo { position: absolute; left: 0; right: 0; top: 1120px; padding: 0 100px; text-align: center; opacity: 0; visibility: hidden;
+      font-family: "Schibsted Grotesk", sans-serif; font-weight: 800; font-size: 72px; line-height: 1.05; color: #F1EBDD;
+      -webkit-text-stroke: 12px #100E0C; paint-order: stroke fill; text-shadow: 0 6px 18px rgba(0,0,0,0.5); }
+    .w { display: inline-block; }
+    .clave { color: #F0A04B; font-size: 1.2em; }
+  </style>
+  <div id="root" data-composition-id="subtitulos" data-width="1080" data-height="1920">
+<!-- GRUPOS -->
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+// TIEMPOS
+    window.__timelines["subtitulos"] = tl;
+  </script>
+</template>

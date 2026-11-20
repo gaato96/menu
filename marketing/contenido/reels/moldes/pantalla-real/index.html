@@ -1,0 +1,67 @@
+<!doctype html>
+<html
+  lang="es"
+  data-resolution="portrait"
+  data-composition-variables='[
+    {"id":"hora","type":"string","label":"Hora en pantalla","default":"Viernes · 21:34"},
+    {"id":"pedido","type":"string","label":"Número de pedido","default":"Pedido A-07"},
+    {"id":"paso1","type":"string","label":"Paso 1","default":"El cliente abre tu carta"},
+    {"id":"paso2","type":"string","label":"Paso 2","default":"Ve cada plato con foto"},
+    {"id":"paso3","type":"string","label":"Paso 3","default":"Elige la Doble Cheddar"},
+    {"id":"paso4","type":"string","label":"Paso 4","default":"Agregados y «sin tomate»"},
+    {"id":"paso5","type":"string","label":"Paso 5","default":"El total sale solo"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Big Shoulders Display"; src: url("assets/fonts/BigShouldersDisplay-800.woff2") format("woff2"); font-weight: 800; }
+      @font-face { font-family: "Schibsted Grotesk"; src: url("assets/fonts/SchibstedGrotesk-var.woff2") format("woff2"); font-weight: 400 900; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #100E0C; }
+      #pantalla { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; object-position: top; }
+      #franja { position: absolute; left: 0; right: 0; top: 0; height: 420px; background: linear-gradient(#100E0C 0%, #100E0C 78%, rgba(16,14,12,0) 100%); }
+      #franja2 { position: absolute; left: 0; right: 0; top: 1080px; height: 840px; background: linear-gradient(rgba(16,14,12,0) 0%, #100E0C 14%, #100E0C 100%); }
+      #hora { position: absolute; left: 150px; top: 220px; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 64px; color: #F0A04B; }
+      #reloj { position: absolute; right: 150px; top: 226px; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 52px; color: #F1EBDD; }
+      #demo { position: absolute; left: 150px; top: 310px; font-family: "Schibsted Grotesk", sans-serif; font-weight: 600; font-size: 30px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(241,235,221,0.7); }
+      .paso { position: absolute; left: 150px; right: 150px; top: 1170px; text-align: center; font-family: "Schibsted Grotesk", sans-serif; font-weight: 800; font-size: 58px; color: #F1EBDD; line-height: 1.05; }
+      .paso b { color: #F0A04B; font-family: "IBM Plex Mono", monospace; margin-right: 18px; }
+    </style>
+  </head>
+  <body>
+    <!-- Molde "pantalla real" de VivoMenu. La grabación va en pantallas/; se cambia data-media-start
+         (desde qué segundo) y data-playback-rate (velocidad). Los pasos y la hora, en las variables. -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="13" data-width="1080" data-height="1920">
+      <video id="pantalla" class="clip" src="pantallas/p1-menu-demo.mp4" muted playsinline data-start="0" data-duration="13" data-media-start="25" data-playback-rate="1.5" data-track-index="1"></video>
+      <div id="franja"></div>
+      <div id="franja2"></div>
+      <div id="hora" data-var-text="hora">Viernes · 21:34</div>
+      <div id="reloj">00:00</div>
+      <div id="demo">Local de demostración · <span data-var-text="pedido">Pedido A-07</span></div>
+      <div id="p1" class="paso"><b>1</b><span data-var-text="paso1">El cliente abre tu carta</span></div>
+      <div id="p2" class="paso"><b>2</b><span data-var-text="paso2">Ve cada plato con foto</span></div>
+      <div id="p3" class="paso"><b>3</b><span data-var-text="paso3">Elige la Doble Cheddar</span></div>
+      <div id="p4" class="paso"><b>4</b><span data-var-text="paso4">Agregados y «sin tomate»</span></div>
+      <div id="p5" class="paso"><b>5</b><span data-var-text="paso5">El total sale solo</span></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      // El contador corre todo el reel: es la tensión de la hora pico.
+      const reloj = document.querySelector("#reloj");
+      const o = { v: 0 };
+      tl.fromTo(o, { v: 0 }, { v: 13, duration: 13, ease: "none", onUpdate: () => { reloj.textContent = "00:" + String(Math.floor(o.v)).padStart(2, "0"); } }, 0);
+      // Un paso por tramo de la grabación (en segundos del reel, con la velocidad ya aplicada).
+      const pasos = [["#p1", 0], ["#p2", 2.2], ["#p3", 9.6], ["#p4", 10.7], ["#p5", 11.8]];
+      pasos.forEach(([sel, t], i) => {
+        tl.fromTo(sel, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25, ease: "back.out(2)" }, t);
+        const fin = i + 1 < pasos.length ? pasos[i + 1][1] : 13;
+        if (i + 1 < pasos.length) tl.to(sel, { opacity: 0, duration: 0.15 }, fin - 0.15);
+      });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

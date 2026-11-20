@@ -169,7 +169,7 @@ parado.
 ## 5. Los ganchos
 
 **La primera frase se escribe con el método de ganchos de Galu**
-(`../../Contenido/web-galu/.claude/skills/paquete-reel/referencias/ganchos.md`): cuatro opciones con
+(`../../Contenido/web-galu/.claude/skills/paquete-reel-vivomenu/referencias/ganchos.md`): cuatro opciones con
 patrones distintos, la prueba del scroll y el público doble. La skill de la fase 7 lo copia adaptado
 a VivoMenu.
 

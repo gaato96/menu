@@ -5,6 +5,16 @@ acá con fecha. Lo más nuevo, arriba.
 
 ---
 
+## 2026-11-20 — Fase 8: la producción en video (`contenido/reels/PRODUCCION.md`)
+
+| Lo que se creía | Desde | Lo que cambió | Por qué |
+|---|---|---|---|
+| La producción era **una plantilla de carrusel** (Canva/Figma, paleta y tipografía, 15 a 20 minutos por carrusel) | 2026-07-28 (`guia-produccion.md` v2) | **Tres moldes de video en hyperframes** (historia animada, corto de texto, pantalla real), sin cara, con la misma paleta y las mismas tipografías | La fase 4 pasó el contenido a reels; el carrusel queda solo para repartir una pieza que ya anduvo |
+
+`guia-produccion.md` y `src/content/internal/guia-produccion.ts` se borraron (también su pestaña en
+`/interno-64a0f7d0`). El texto completo queda en el historial de git. La paleta y las tipografías
+siguen en `manual-de-marca.md`.
+
 ## 2026-11-19 — Fase 4: el plan de contenido nuevo (`notas/04-contenido.md`)
 
 | Lo que se creía | Desde | Lo que cambió | Por qué |

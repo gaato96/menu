@@ -1,0 +1,6 @@
+# Lo que se regenera o pesa: no va al repo.
+.hyperframes/
+renders/
+*.wav
+*.mp3
+pantallas/*.mp4

@@ -19,6 +19,7 @@ const DOCS: { key: string; label: string; file: string }[] = [
   { key: "contenido-2026-11", label: "Contenido 90 días", file: "marketing/notas/04-contenido.md" },
   { key: "backlog", label: "Banco de ideas", file: "marketing/contenido/reels/backlog.md" },
   { key: "historias", label: "Historias y estados", file: "marketing/contenido/historias/README.md" },
+  { key: "produccion-2026-11", label: "Producción", file: "marketing/contenido/reels/PRODUCCION.md" },
   { key: "matriz", label: "Matriz", file: "marketing/investigacion/matriz-2026-11.md" },
   { key: "competencia", label: "Competencia", file: "marketing/investigacion/competencia-2026-11.md" },
   { key: "voz", label: "Voz del cliente", file: "marketing/investigacion/voz-del-cliente.md" },
@@ -28,10 +29,10 @@ const DOCS: { key: string; label: string; file: string }[] = [
 ];
 
 // Every reel package and DM resource gets its own tab, newest reel first.
-function listMd(dir: string, labelFor: (name: string) => string) {
+function listMd(dir: string, labelFor: (name: string) => string, only: RegExp = /./) {
   try {
     return readdirSync(join(root, dir))
-      .filter((name) => name.endsWith(".md") && !name.startsWith("_") && name !== "backlog.md" && name !== "README.md")
+      .filter((name) => name.endsWith(".md") && !name.startsWith("_") && only.test(name))
       .sort()
       .reverse()
       .map((name) => ({ key: `${dir}/${name}`, label: labelFor(name), file: `${dir}/${name}` }));
@@ -42,7 +43,7 @@ function listMd(dir: string, labelFor: (name: string) => string) {
 DOCS.splice(
   4,
   0,
-  ...listMd("marketing/contenido/reels", (n) => `Reel ${n.slice(0, 2)}`),
+  ...listMd("marketing/contenido/reels", (n) => `Reel ${n.slice(0, 2)}`, /^\d/),
   ...listMd("marketing/contenido/recursos", (n) => `Recurso: ${n.replace(/\.md$/, "")}`),
 );
 

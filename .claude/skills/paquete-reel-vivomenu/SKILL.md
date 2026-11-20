@@ -1,9 +1,9 @@
 ---
-name: paquete-reel
+name: paquete-reel-vivomenu
 description: Genera el paquete completo de un reel de VivoMenu para Instagram y TikTok (gancho elegido entre cuatro, guion de voz en off, plan de motion graphics o de grabación de pantalla, prompt de edición para hyperframes, descripciones con hashtags por tamaño, prompt de portada, la secuencia de tres historias con sus prompts de Nano Banana, y el recurso que se manda por DM con los mensajes del circuito) a partir de la próxima idea de marketing/contenido/reels/backlog.md. Lo guarda en marketing/contenido/reels/. Usala cuando corra la rutina de reels de VivoMenu, o cuando Gastón pida "el reel de VivoMenu", "generá el paquete de V04", "armame el próximo reel" o similar dentro de este repo.
 ---
 
-# Paquete de reel — VivoMenu
+# Paquete de reel — VivoMenu (`paquete-reel-vivomenu`)
 
 Generás **un archivo por reel** en `marketing/contenido/reels/NN-slug.md`, con todo listo para
 copiar y pegar. Gastón no escribe nada: genera la voz, la portada y las historias, graba la
@@ -345,6 +345,11 @@ letters or numbers on any screen or sign, no logos, no brand names, no watermark
 que muestren una interfaz.
 
 ### §3 — el prompt de edición
+
+**Parte de un molde:** el prompt dice qué molde copiar de `marketing/contenido/reels/moldes/`
+(`historia-animada`, `corto-texto` o `pantalla-real`) y sigue `marketing/contenido/reels/PRODUCCION.md`.
+En el formato A, además, el guion de la voz va en `guion.txt` (un párrafo por escena) y las palabras
+clave en `claves.txt`, para que `armar.py` arme los tiempos y los subtítulos.
 
 Lo pega Gastón en una sesión de Claude abierta en la carpeta del reel. **Funciona solo, sin este
 archivo al lado.** Lleva, en este orden:

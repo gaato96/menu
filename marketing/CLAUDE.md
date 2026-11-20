@@ -19,13 +19,14 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 | Contenido 90 días | `notas/04-contenido.md` | ✅ fase 4 (reemplazó a `plan-contenido.md`) |
 | Ideas de reels | `contenido/reels/backlog.md` | ✅ fase 5 (30 ideas, 12 con fecha) |
 | Historias y estados | `contenido/historias/README.md` | ✅ fase 6 (las de fundadores esperan el §8 del plan) |
-| Cómo se arma cada reel | `../.claude/skills/paquete-reel/` (skill) y `../.claude/skills/radar-contenido/` (radar mensual) | 📝 fase 7, borrador |
+| Cómo se arma cada reel | `../.claude/skills/paquete-reel-vivomenu/` (skill) y `../.claude/skills/radar-contenido/` (radar mensual) | ✅ fase 7 |
+| Cómo se produce cada video | `contenido/reels/PRODUCCION.md` y los moldes de `contenido/reels/moldes/` | 📝 fase 8, borrador |
 | Recursos que se mandan por DM | `contenido/recursos/` | fase 3 y 5 |
 | Lo que se creía antes | `notas/10-archivo.md` | se suma con cada cambio |
 
 **Los documentos viejos de esta carpeta** (`plan-marketing.md`,
 `prospeccion.md`, `sistema-prospeccion-frio.md`, `mensajes-en-frio.md`, `precios.md`,
-`guia-produccion.md`, `progreso.md`, `reel-01-comision.md`, de julio y agosto) **ya no mandan**,
+`progreso.md`, `reel-01-comision.md`, de julio y agosto) **ya no mandan**,
 salvo `manual-de-marca.md` / `nombres-y-marca.md` en la identidad visual. **`precios.md` tampoco
 manda desde el 2026-11-18:** instalación gratis, Base propuesto a $24.900 (ver `notas/10-archivo.md`). Se leen como antecedente. Cuando la fase que los
 reemplaza esté aprobada, se borran y lo que se creía antes pasa a `notas/10-archivo.md` (regla 8).

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #100E0C; }
+      #fondo { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 80% 60% at 50% 45%, #2A211A 0%, #1A1511 55%, #100E0C 100%); }
+    </style>
+  </head>
+  <body>
+    <!-- Molde "historia animada" de VivoMenu. Los tiempos de t01…t10, del audio y del total los escribe armar.py. -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="61.11" data-width="1080" data-height="1920">
+      <div id="fondo"></div>
+      <div id="t01" data-composition-id="t01" data-composition-src="compositions/t01.html" data-start="0.0" data-duration="4.66" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="t02" data-composition-id="t02" data-composition-src="compositions/t02.html" data-start="4.66" data-duration="7.62" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="t03" data-composition-id="t03" data-composition-src="compositions/t03.html" data-start="12.28" data-duration="3.01" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="t04" data-composition-id="t04" data-composition-src="compositions/t04.html" data-start="15.29" data-duration="8.57" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="t05" data-composition-id="t05" data-composition-src="compositions/t05.html" data-start="23.86" data-duration="7.15" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="t06" data-composition-id="t06" data-composition-src="compositions/t06.html" data-start="31.01" data-duration="7.12" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="t07" data-composition-id="t07" data-composition-src="compositions/t07.html" data-start="38.13" data-duration="4.33" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="t08" data-composition-id="t08" data-composition-src="compositions/t08.html" data-start="42.46" data-duration="5.28" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="t09" data-composition-id="t09" data-composition-src="compositions/t09.html" data-start="47.74" data-duration="5.23" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="t10" data-composition-id="t10" data-composition-src="compositions/t10.html" data-start="52.97" data-duration="8.14" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="subtitulos" data-composition-id="subtitulos" data-composition-src="compositions/subtitulos.html" data-start="0" data-duration="61.11" data-track-index="3" data-track-kind="captions" data-width="1080" data-height="1920"></div>
+      <audio id="voz" src="voz-borrador.wav" data-start="0" data-duration="60.51" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

@@ -24,9 +24,10 @@ y qué toca. **Última actualización:** jueves 2026-11-19.
 | 4 · Estrategia de contenido | ✅ aprobada | `notas/04-contenido.md` |
 | 5 · Banco de ideas | ✅ aprobada | `contenido/reels/backlog.md` |
 | 6 · Historias y estados | ✅ aprobada | `contenido/historias/README.md` |
-| 7 · Skill de cada reel y radar | 📝 borrador, falta aprobar el paquete del reel 01 | `.claude/skills/paquete-reel/`, `contenido/reels/01-…md` |
+| 7 · Skill de cada reel y radar | ✅ aprobada | `.claude/skills/paquete-reel-vivomenu/` |
+| 8 · Producción con hyperframes | 📝 borrador: moldes y reel 01 con voz de borrador | `contenido/reels/PRODUCCION.md`, `contenido/reels/moldes/` |
 | 10 · Prospección | pendiente | `notas/02b-adquisicion.md` |
-| 8 y 9 | pendientes | — |
+| 9 | pendiente | — |
 
 ## Lo que tiene que hacer Gastón
 
@@ -36,7 +37,7 @@ y qué toca. **Última actualización:** jueves 2026-11-19.
 | 2 | Entrar a `/admin`, tocar "Avisame en este dispositivo" y revisar el tablero | 3 min |
 | 3 | Borrar el local de prueba "Negocio E2E…" desde `/admin` | 1 min |
 | 4 | Confirmar los precios, los fundadores, el IVA y el cobro (`01-plan.md` §8) | 10 min |
-| 5 | Leer el paquete del reel 01 y aprobarlo; elegir los días de la rutina | 15 min |
+| 5 | Mirar el borrador del reel 01; generar su voz en ElevenLabs (§1 del paquete) | 15 min |
 | 6 | Abrir la cuenta de TikTok @vivomenu.app | 5 min |
 | 7 | Anotar las vistas de los 7 posteos actuales (Estadísticas) y mirar el sexto carrusel | 10 min |
 | 8 | Cambiar el logo del local de demostración (hoy es el de Galu) por uno de hamburguesería | 5 min |

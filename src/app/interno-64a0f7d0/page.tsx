@@ -3,7 +3,6 @@ import { marked } from "marked";
 import { requireSuperadmin } from "@/lib/auth/context";
 import type { Metadata } from "next";
 
-import { guiaProduccion } from "@/content/internal/guia-produccion";
 import { manualDeMarca } from "@/content/internal/manual-de-marca";
 import { marketingDocs } from "@/content/internal/marketing-docs";
 import { mensajesEnFrio } from "@/content/internal/mensajes-en-frio";
@@ -32,7 +31,6 @@ const DOCS = [
   ...marketingDocs,
   { key: "manual", label: "Manual de marca", source: manualDeMarca },
   { key: "marca", label: "Nombre y marca", source: nombresYMarca },
-  { key: "produccion", label: "Guía de producción (jul)", source: guiaProduccion },
   { key: "progreso", label: "Progreso (ago)", source: progreso },
   { key: "plan", label: "Plan de marketing (jul)", source: planMarketing },
   { key: "prospeccion", label: "Prospección (jul)", source: prospeccion },

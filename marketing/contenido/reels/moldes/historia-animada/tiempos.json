@@ -1,0 +1,935 @@
+{
+ "total": 61.11,
+ "tramos": [
+  0.0,
+  4.66,
+  12.28,
+  15.29,
+  23.86,
+  31.01,
+  38.13,
+  42.46,
+  47.74,
+  52.97
+ ],
+ "palabras": [
+  {
+   "raw": "Dos",
+   "tramo": 0,
+   "start": 0.1,
+   "end": 0.22
+  },
+  {
+   "raw": "hamburgueserías,",
+   "tramo": 0,
+   "start": 0.22,
+   "end": 1.42
+  },
+  {
+   "raw": "misma",
+   "tramo": 0,
+   "start": 1.42,
+   "end": 1.68
+  },
+  {
+   "raw": "burger.",
+   "tramo": 0,
+   "start": 1.68,
+   "end": 2.27
+  },
+  {
+   "raw": "Cambia",
+   "tramo": 0,
+   "start": 2.77,
+   "end": 3.08
+  },
+  {
+   "raw": "una",
+   "tramo": 0,
+   "start": 3.08,
+   "end": 3.49
+  },
+  {
+   "raw": "sola",
+   "tramo": 0,
+   "start": 3.49,
+   "end": 3.91
+  },
+  {
+   "raw": "cosa.",
+   "tramo": 0,
+   "start": 4.6,
+   "end": 4.81
+  },
+  {
+   "raw": "Son",
+   "tramo": 1,
+   "start": 4.81,
+   "end": 5.02
+  },
+  {
+   "raw": "inventadas,",
+   "tramo": 1,
+   "start": 5.02,
+   "end": 5.85
+  },
+  {
+   "raw": "pero",
+   "tramo": 1,
+   "start": 5.92,
+   "end": 6.05
+  },
+  {
+   "raw": "seguro",
+   "tramo": 1,
+   "start": 6.05,
+   "end": 6.36
+  },
+  {
+   "raw": "conocés",
+   "tramo": 1,
+   "start": 6.46,
+   "end": 7.09
+  },
+  {
+   "raw": "una",
+   "tramo": 1,
+   "start": 7.09,
+   "end": 7.32
+  },
+  {
+   "raw": "de",
+   "tramo": 1,
+   "start": 7.32,
+   "end": 7.71
+  },
+  {
+   "raw": "cada.",
+   "tramo": 1,
+   "start": 7.71,
+   "end": 8.32
+  },
+  {
+   "raw": "Mismo",
+   "tramo": 1,
+   "start": 8.42,
+   "end": 8.68
+  },
+  {
+   "raw": "barrio,",
+   "tramo": 1,
+   "start": 8.68,
+   "end": 9.21
+  },
+  {
+   "raw": "mismo",
+   "tramo": 1,
+   "start": 9.29,
+   "end": 9.54
+  },
+  {
+   "raw": "precio,",
+   "tramo": 1,
+   "start": 9.54,
+   "end": 10.07
+  },
+  {
+   "raw": "mismo",
+   "tramo": 1,
+   "start": 10.07,
+   "end": 10.28
+  },
+  {
+   "raw": "viernes.",
+   "tramo": 1,
+   "start": 10.66,
+   "end": 11.68
+  },
+  {
+   "raw": "Veintiuna",
+   "tramo": 2,
+   "start": 12.43,
+   "end": 12.55
+  },
+  {
+   "raw": "treinta.",
+   "tramo": 2,
+   "start": 12.55,
+   "end": 13.36
+  },
+  {
+   "raw": "A",
+   "tramo": 2,
+   "start": 13.36,
+   "end": 13.42
+  },
+  {
+   "raw": "las",
+   "tramo": 2,
+   "start": 13.42,
+   "end": 13.59
+  },
+  {
+   "raw": "dos",
+   "tramo": 2,
+   "start": 13.59,
+   "end": 13.69
+  },
+  {
+   "raw": "les",
+   "tramo": 2,
+   "start": 13.94,
+   "end": 13.94
+  },
+  {
+   "raw": "entran",
+   "tramo": 2,
+   "start": 13.94,
+   "end": 14.24
+  },
+  {
+   "raw": "doce",
+   "tramo": 2,
+   "start": 14.34,
+   "end": 14.67
+  },
+  {
+   "raw": "pedidos.",
+   "tramo": 2,
+   "start": 14.67,
+   "end": 15.2
+  },
+  {
+   "raw": "A",
+   "tramo": 3,
+   "start": 15.44,
+   "end": 15.44
+  },
+  {
+   "raw": "la",
+   "tramo": 3,
+   "start": 15.58,
+   "end": 15.58
+  },
+  {
+   "raw": "de",
+   "tramo": 3,
+   "start": 15.66,
+   "end": 15.72
+  },
+  {
+   "raw": "la",
+   "tramo": 3,
+   "start": 15.72,
+   "end": 15.86
+  },
+  {
+   "raw": "izquierda",
+   "tramo": 3,
+   "start": 15.86,
+   "end": 16.5
+  },
+  {
+   "raw": "le",
+   "tramo": 3,
+   "start": 16.5,
+   "end": 16.64
+  },
+  {
+   "raw": "llegan",
+   "tramo": 3,
+   "start": 16.93,
+   "end": 17.07
+  },
+  {
+   "raw": "doce",
+   "tramo": 3,
+   "start": 17.17,
+   "end": 17.5
+  },
+  {
+   "raw": "chats.",
+   "tramo": 3,
+   "start": 17.5,
+   "end": 18.15
+  },
+  {
+   "raw": "Precio,",
+   "tramo": 3,
+   "start": 18.15,
+   "end": 18.99
+  },
+  {
+   "raw": "agregados,",
+   "tramo": 3,
+   "start": 19.05,
+   "end": 20.14
+  },
+  {
+   "raw": "dirección,",
+   "tramo": 3,
+   "start": 20.17,
+   "end": 21.31
+  },
+  {
+   "raw": "cómo",
+   "tramo": 3,
+   "start": 21.35,
+   "end": 21.52
+  },
+  {
+   "raw": "paga.",
+   "tramo": 3,
+   "start": 21.6,
+   "end": 22.08
+  },
+  {
+   "raw": "Ocho",
+   "tramo": 3,
+   "start": 22.08,
+   "end": 22.4
+  },
+  {
+   "raw": "mensajes",
+   "tramo": 3,
+   "start": 22.4,
+   "end": 23.05
+  },
+  {
+   "raw": "por",
+   "tramo": 3,
+   "start": 23.05,
+   "end": 23.29
+  },
+  {
+   "raw": "pedido.",
+   "tramo": 3,
+   "start": 23.29,
+   "end": 24.01
+  },
+  {
+   "raw": "A",
+   "tramo": 4,
+   "start": 24.01,
+   "end": 24.09
+  },
+  {
+   "raw": "la",
+   "tramo": 4,
+   "start": 24.25,
+   "end": 24.25
+  },
+  {
+   "raw": "de",
+   "tramo": 4,
+   "start": 24.41,
+   "end": 24.41
+  },
+  {
+   "raw": "la",
+   "tramo": 4,
+   "start": 24.45,
+   "end": 24.57
+  },
+  {
+   "raw": "derecha",
+   "tramo": 4,
+   "start": 24.57,
+   "end": 25.12
+  },
+  {
+   "raw": "le",
+   "tramo": 4,
+   "start": 25.17,
+   "end": 25.29
+  },
+  {
+   "raw": "llegan",
+   "tramo": 4,
+   "start": 25.29,
+   "end": 25.79
+  },
+  {
+   "raw": "doce",
+   "tramo": 4,
+   "start": 26.26,
+   "end": 26.28
+  },
+  {
+   "raw": "comandas.",
+   "tramo": 4,
+   "start": 26.33,
+   "end": 26.95
+  },
+  {
+   "raw": "Armadas,",
+   "tramo": 4,
+   "start": 27.4,
+   "end": 28.04
+  },
+  {
+   "raw": "con",
+   "tramo": 4,
+   "start": 28.04,
+   "end": 28.08
+  },
+  {
+   "raw": "los",
+   "tramo": 4,
+   "start": 28.18,
+   "end": 28.3
+  },
+  {
+   "raw": "agregados,",
+   "tramo": 4,
+   "start": 28.3,
+   "end": 29.04
+  },
+  {
+   "raw": "la",
+   "tramo": 4,
+   "start": 29.25,
+   "end": 29.25
+  },
+  {
+   "raw": "dirección",
+   "tramo": 4,
+   "start": 29.5,
+   "end": 29.92
+  },
+  {
+   "raw": "y",
+   "tramo": 4,
+   "start": 29.92,
+   "end": 29.99
+  },
+  {
+   "raw": "con",
+   "tramo": 4,
+   "start": 29.99,
+   "end": 30.06
+  },
+  {
+   "raw": "cuánto",
+   "tramo": 4,
+   "start": 30.58,
+   "end": 30.65
+  },
+  {
+   "raw": "paga.",
+   "tramo": 4,
+   "start": 30.72,
+   "end": 31.16
+  },
+  {
+   "raw": "Veintidós",
+   "tramo": 5,
+   "start": 31.16,
+   "end": 31.6
+  },
+  {
+   "raw": "en",
+   "tramo": 5,
+   "start": 31.6,
+   "end": 31.74
+  },
+  {
+   "raw": "punto.",
+   "tramo": 5,
+   "start": 31.75,
+   "end": 32.34
+  },
+  {
+   "raw": "La",
+   "tramo": 5,
+   "start": 32.34,
+   "end": 32.49
+  },
+  {
+   "raw": "de",
+   "tramo": 5,
+   "start": 32.49,
+   "end": 32.64
+  },
+  {
+   "raw": "la",
+   "tramo": 5,
+   "start": 32.79,
+   "end": 32.79
+  },
+  {
+   "raw": "izquierda",
+   "tramo": 5,
+   "start": 32.89,
+   "end": 33.45
+  },
+  {
+   "raw": "todavía",
+   "tramo": 5,
+   "start": 33.45,
+   "end": 34.08
+  },
+  {
+   "raw": "está",
+   "tramo": 5,
+   "start": 34.18,
+   "end": 34.31
+  },
+  {
+   "raw": "contestando",
+   "tramo": 5,
+   "start": 34.36,
+   "end": 35.04
+  },
+  {
+   "raw": "el",
+   "tramo": 5,
+   "start": 35.27,
+   "end": 35.27
+  },
+  {
+   "raw": "pedido",
+   "tramo": 5,
+   "start": 35.48,
+   "end": 35.69
+  },
+  {
+   "raw": "siete.",
+   "tramo": 5,
+   "start": 35.69,
+   "end": 36.05
+  },
+  {
+   "raw": "El",
+   "tramo": 5,
+   "start": 36.25,
+   "end": 36.25
+  },
+  {
+   "raw": "sin",
+   "tramo": 5,
+   "start": 36.46,
+   "end": 36.46
+  },
+  {
+   "raw": "cebolla",
+   "tramo": 5,
+   "start": 36.46,
+   "end": 36.95
+  },
+  {
+   "raw": "quedó",
+   "tramo": 5,
+   "start": 37.01,
+   "end": 37.3
+  },
+  {
+   "raw": "en",
+   "tramo": 5,
+   "start": 37.3,
+   "end": 37.44
+  },
+  {
+   "raw": "un",
+   "tramo": 5,
+   "start": 37.44,
+   "end": 37.58
+  },
+  {
+   "raw": "audio.",
+   "tramo": 5,
+   "start": 37.58,
+   "end": 38.0
+  },
+  {
+   "raw": "La",
+   "tramo": 6,
+   "start": 38.28,
+   "end": 38.28
+  },
+  {
+   "raw": "de",
+   "tramo": 6,
+   "start": 38.28,
+   "end": 38.42
+  },
+  {
+   "raw": "la",
+   "tramo": 6,
+   "start": 38.42,
+   "end": 38.56
+  },
+  {
+   "raw": "derecha",
+   "tramo": 6,
+   "start": 38.82,
+   "end": 39.05
+  },
+  {
+   "raw": "ya",
+   "tramo": 6,
+   "start": 39.05,
+   "end": 39.28
+  },
+  {
+   "raw": "despachó",
+   "tramo": 6,
+   "start": 39.28,
+   "end": 39.68
+  },
+  {
+   "raw": "al",
+   "tramo": 6,
+   "start": 39.78,
+   "end": 39.82
+  },
+  {
+   "raw": "cadete,",
+   "tramo": 6,
+   "start": 39.82,
+   "end": 40.38
+  },
+  {
+   "raw": "con",
+   "tramo": 6,
+   "start": 40.38,
+   "end": 40.59
+  },
+  {
+   "raw": "la",
+   "tramo": 6,
+   "start": 40.59,
+   "end": 40.64
+  },
+  {
+   "raw": "dirección",
+   "tramo": 6,
+   "start": 41.01,
+   "end": 41.36
+  },
+  {
+   "raw": "y",
+   "tramo": 6,
+   "start": 41.37,
+   "end": 41.44
+  },
+  {
+   "raw": "el",
+   "tramo": 6,
+   "start": 41.44,
+   "end": 41.58
+  },
+  {
+   "raw": "cambio",
+   "tramo": 6,
+   "start": 41.58,
+   "end": 41.66
+  },
+  {
+   "raw": "justo.",
+   "tramo": 6,
+   "start": 42.37,
+   "end": 42.58
+  },
+  {
+   "raw": "Y",
+   "tramo": 7,
+   "start": 42.61,
+   "end": 42.65
+  },
+  {
+   "raw": "el",
+   "tramo": 7,
+   "start": 42.65,
+   "end": 42.79
+  },
+  {
+   "raw": "que",
+   "tramo": 7,
+   "start": 42.79,
+   "end": 43.0
+  },
+  {
+   "raw": "esperó",
+   "tramo": 7,
+   "start": 43.0,
+   "end": 43.43
+  },
+  {
+   "raw": "cuarenta",
+   "tramo": 7,
+   "start": 43.43,
+   "end": 43.6
+  },
+  {
+   "raw": "minutos",
+   "tramo": 7,
+   "start": 44.36,
+   "end": 44.36
+  },
+  {
+   "raw": "sin",
+   "tramo": 7,
+   "start": 44.49,
+   "end": 44.57
+  },
+  {
+   "raw": "noticias...",
+   "tramo": 7,
+   "start": 44.57,
+   "end": 45.4
+  },
+  {
+   "raw": "el",
+   "tramo": 7,
+   "start": 45.5,
+   "end": 45.55
+  },
+  {
+   "raw": "viernes",
+   "tramo": 7,
+   "start": 45.55,
+   "end": 46.02
+  },
+  {
+   "raw": "que",
+   "tramo": 7,
+   "start": 46.08,
+   "end": 46.31
+  },
+  {
+   "raw": "viene,",
+   "tramo": 7,
+   "start": 46.31,
+   "end": 46.84
+  },
+  {
+   "raw": "¿a",
+   "tramo": 7,
+   "start": 46.84,
+   "end": 46.91
+  },
+  {
+   "raw": "cuál",
+   "tramo": 7,
+   "start": 46.91,
+   "end": 47.2
+  },
+  {
+   "raw": "le",
+   "tramo": 7,
+   "start": 47.21,
+   "end": 47.36
+  },
+  {
+   "raw": "pide?",
+   "tramo": 7,
+   "start": 47.36,
+   "end": 47.89
+  },
+  {
+   "raw": "Misma",
+   "tramo": 8,
+   "start": 47.89,
+   "end": 48.26
+  },
+  {
+   "raw": "burger,",
+   "tramo": 8,
+   "start": 48.33,
+   "end": 48.87
+  },
+  {
+   "raw": "mismo",
+   "tramo": 8,
+   "start": 48.87,
+   "end": 49.17
+  },
+  {
+   "raw": "barrio.",
+   "tramo": 8,
+   "start": 49.24,
+   "end": 49.94
+  },
+  {
+   "raw": "Lo",
+   "tramo": 8,
+   "start": 50.09,
+   "end": 50.09
+  },
+  {
+   "raw": "único",
+   "tramo": 8,
+   "start": 50.21,
+   "end": 50.47
+  },
+  {
+   "raw": "distinto",
+   "tramo": 8,
+   "start": 50.47,
+   "end": 50.83
+  },
+  {
+   "raw": "era",
+   "tramo": 8,
+   "start": 51.32,
+   "end": 51.36
+  },
+  {
+   "raw": "cómo",
+   "tramo": 8,
+   "start": 51.46,
+   "end": 51.68
+  },
+  {
+   "raw": "entraba",
+   "tramo": 8,
+   "start": 51.68,
+   "end": 52.24
+  },
+  {
+   "raw": "el",
+   "tramo": 8,
+   "start": 52.24,
+   "end": 52.32
+  },
+  {
+   "raw": "pedido.",
+   "tramo": 8,
+   "start": 52.64,
+   "end": 53.12
+  },
+  {
+   "raw": "Si",
+   "tramo": 9,
+   "start": 53.12,
+   "end": 53.28
+  },
+  {
+   "raw": "tenés",
+   "tramo": 9,
+   "start": 53.28,
+   "end": 53.68
+  },
+  {
+   "raw": "un",
+   "tramo": 9,
+   "start": 53.68,
+   "end": 53.84
+  },
+  {
+   "raw": "local,",
+   "tramo": 9,
+   "start": 54.24,
+   "end": 54.4
+  },
+  {
+   "raw": "comentá",
+   "tramo": 9,
+   "start": 54.4,
+   "end": 54.95
+  },
+  {
+   "raw": "carta",
+   "tramo": 9,
+   "start": 54.95,
+   "end": 55.27
+  },
+  {
+   "raw": "y",
+   "tramo": 9,
+   "start": 55.44,
+   "end": 55.44
+  },
+  {
+   "raw": "te",
+   "tramo": 9,
+   "start": 55.6,
+   "end": 55.6
+  },
+  {
+   "raw": "armo",
+   "tramo": 9,
+   "start": 55.6,
+   "end": 55.92
+  },
+  {
+   "raw": "la",
+   "tramo": 9,
+   "start": 56.08,
+   "end": 56.08
+  },
+  {
+   "raw": "tuya",
+   "tramo": 9,
+   "start": 56.17,
+   "end": 56.4
+  },
+  {
+   "raw": "en",
+   "tramo": 9,
+   "start": 56.4,
+   "end": 56.56
+  },
+  {
+   "raw": "VivoMenu.",
+   "tramo": 9,
+   "start": 57.12,
+   "end": 57.28
+  },
+  {
+   "raw": "Y",
+   "tramo": 9,
+   "start": 57.34,
+   "end": 57.34
+  },
+  {
+   "raw": "si",
+   "tramo": 9,
+   "start": 57.38,
+   "end": 57.46
+  },
+  {
+   "raw": "no,",
+   "tramo": 9,
+   "start": 57.46,
+   "end": 57.7
+  },
+  {
+   "raw": "mandáselo",
+   "tramo": 9,
+   "start": 57.7,
+   "end": 58.22
+  },
+  {
+   "raw": "a",
+   "tramo": 9,
+   "start": 58.23,
+   "end": 58.24
+  },
+  {
+   "raw": "tu",
+   "tramo": 9,
+   "start": 58.42,
+   "end": 58.42
+  },
+  {
+   "raw": "hamburguesería",
+   "tramo": 9,
+   "start": 58.66,
+   "end": 59.25
+  },
+  {
+   "raw": "de",
+   "tramo": 9,
+   "start": 59.25,
+   "end": 59.26
+  },
+  {
+   "raw": "siempre.",
+   "tramo": 9,
+   "start": 59.84,
+   "end": 59.84
+  }
+ ]
+}

@@ -1,0 +1,81 @@
+<template>
+  <style>
+    @font-face { font-family: "Big Shoulders Display"; src: url("assets/fonts/BigShouldersDisplay-800.woff2") format("woff2"); font-weight: 800; }
+    @font-face { font-family: "Schibsted Grotesk"; src: url("assets/fonts/SchibstedGrotesk-var.woff2") format("woff2"); font-weight: 400 900; }
+    #root { position: absolute; inset: 0; color: #F1EBDD; font-family: "Schibsted Grotesk", sans-serif; }
+    .w100 { position: absolute; inset: 0; transform: scale(0.86); transform-origin: 50% 640px; }
+    .titulo { position: absolute; left: 0; right: 0; text-align: center; font-family: "Big Shoulders Display", sans-serif; font-weight: 800; line-height: 0.92; text-transform: uppercase; letter-spacing: 0.01em; }
+    .ember { color: #F0A04B; }
+    .mono { font-family: "IBM Plex Mono", monospace; font-weight: 600; }
+    .chico { font-size: 34px; font-weight: 600; color: rgba(241,235,221,0.6); letter-spacing: 0.08em; text-transform: uppercase; }
+    .panel { position: absolute; left: 60px; right: 60px; height: 460px; border: 2px solid rgba(241,235,221,0.14); border-radius: 28px; }
+    .pa { top: 200px; } .pb { top: 700px; }
+    .etq { position: absolute; top: 18px; left: 26px; font-size: 34px; font-weight: 700; letter-spacing: 0.14em; color: rgba(241,235,221,0.55); }
+    svg { position: absolute; overflow: visible; }
+    .d { fill: none; stroke: #F1EBDD; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    .de { fill: none; stroke: #F0A04B; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    .burbuja { position: absolute; padding: 8px 18px; border-radius: 18px 18px 18px 4px; background: #F1EBDD; color: #100E0C; font-size: 34px; font-weight: 700; }
+    .ticket { position: absolute; width: 360px; padding: 36px 22px 30px; background: #F1EBDD; color: #241B14; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 27px; line-height: 1.3;
+      clip-path: polygon(0.00% 0%, 8.33% 3.5%, 16.67% 0%, 25.00% 3.5%, 33.33% 0%, 41.67% 3.5%, 50.00% 0%, 58.33% 3.5%, 66.67% 0%, 75.00% 3.5%, 83.33% 0%, 91.67% 3.5%, 100.00% 0%, 100.00% 100%, 91.67% 96.5%, 83.33% 100%, 75.00% 96.5%, 66.67% 100%, 58.33% 96.5%, 50.00% 100%, 41.67% 96.5%, 33.33% 100%, 25.00% 96.5%, 16.67% 100%, 8.33% 96.5%, 0.00% 100%); }
+    .tilde { position: absolute; width: 44px; height: 44px; border-radius: 50%; background: #1F4A38; }
+    .dim { opacity: 0.32; }
+
+  </style>
+  <div id="root" data-composition-id="t01" data-width="1080" data-height="1920">
+    <div id="t01-w" class="w100">
+      <div class="titulo" style="top:250px;font-size:176px">MISMA BURGER.</div>
+      <div class="titulo" style="top:420px;font-size:122px">CAMBIA <span id="t01-una" class="ember" style="display:inline-block">UNA</span> COSA.</div>
+      <svg id="t01-b1" style="left:170px;top:580px;width:220px;height:154px" viewBox="0 0 200 140">
+        <path class="d" d="M22 66 Q100 -6 178 66 Z" />
+        <path class="d" d="M16 82 Q36 70 56 82 T96 82 T136 82 T184 82" />
+        <rect class="d" x="22" y="92" width="156" height="20" rx="10" />
+        <path class="d" d="M22 122 L178 122 Q178 136 162 136 L38 136 Q22 136 22 122 Z" />
+      </svg>
+      <svg id="t01-b2" style="left:690px;top:580px;width:220px;height:154px" viewBox="0 0 200 140">
+        <path class="d" d="M22 66 Q100 -6 178 66 Z" />
+        <path class="d" d="M16 82 Q36 70 56 82 T96 82 T136 82 T184 82" />
+        <rect class="d" x="22" y="92" width="156" height="20" rx="10" />
+        <path class="d" d="M22 122 L178 122 Q178 136 162 136 L38 136 Q22 136 22 122 Z" />
+      </svg>
+      <svg id="t01-f1" class="fachada" style="left:80px;top:730px;width:420px;height:420px" viewBox="0 0 300 300">
+        <path class="d" d="M20 110 L50 55 L250 55 L280 110 Z" />
+        <path class="d" d="M95 55 L85 110 M150 55 L150 110 M205 55 L215 110" />
+        <rect class="d" x="35" y="110" width="230" height="175" />
+        <rect class="d" x="120" y="185" width="60" height="100" />
+        <rect class="d" x="55" y="140" width="45" height="45" />
+        <rect class="d" x="200" y="140" width="45" height="45" />
+      </svg>
+      <svg id="t01-f2" class="fachada" style="left:580px;top:730px;width:420px;height:420px" viewBox="0 0 300 300">
+        <path class="d" d="M20 110 L50 55 L250 55 L280 110 Z" />
+        <path class="d" d="M95 55 L85 110 M150 55 L150 110 M205 55 L215 110" />
+        <rect class="d" x="35" y="110" width="230" height="175" />
+        <rect class="d" x="120" y="185" width="60" height="100" />
+        <rect class="d" x="55" y="140" width="45" height="45" />
+        <rect class="d" x="200" y="140" width="45" height="45" />
+      </svg>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const W = "#t01-w ";
+    // Dibuja los trazos (stroke) de lo que coincide con sel, de `desde` (0 a 1) a completo.
+    function draw(sel, t, d, desde) {
+      document.querySelectorAll(W + sel).forEach((p) => {
+        const L = p.getTotalLength ? p.getTotalLength() : 1000;
+        p.style.strokeDasharray = L + " " + L;
+        tl.fromTo(p, { strokeDashoffset: L * (1 - (desde || 0)) }, { strokeDashoffset: 0, duration: d, ease: "power2.out" }, t);
+      });
+    }
+    // Cuenta un número de a hasta b en el elemento, con formato.
+    function cuenta(sel, a, b, t, d, fmt) {
+      const el = document.querySelector(W + sel);
+      const o = { v: a };
+      tl.fromTo(o, { v: a }, { v: b, duration: d, ease: "power1.inOut", onUpdate: () => { el.textContent = fmt(o.v); } }, t);
+    }
+    const pop = (sel, t) => tl.fromTo(W + sel, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "back.out(2.5)" }, t);
+    const aparece = (sel, t, d) => tl.fromTo(W + sel, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: d || 0.3, ease: "power3.out" }, t);
+    draw("path, rect", 0, 1.1, 0.35);
+    tl.fromTo(W + "#t01-una", { scale: 1 }, { scale: 1.18, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }, 0.9);
+    window.__timelines["t01"] = tl;
+  </script>
+</template>
