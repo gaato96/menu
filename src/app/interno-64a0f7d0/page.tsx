@@ -39,8 +39,9 @@ const DOCS = [
   { key: "precios", label: "Precios (jul)", source: precios },
 ];
 
-export default async function InternalDocsPage() {
+export default async function InternalDocsPage({ searchParams }: { searchParams: Promise<{ doc?: string }> }) {
   await requireSuperadmin();
+  const { doc } = await searchParams;
 
   const docs = await Promise.all(
     DOCS.map(async (doc) => ({
@@ -52,7 +53,7 @@ export default async function InternalDocsPage() {
 
   return (
     <main className="flex min-h-full flex-col bg-ink-50">
-      <DocsReader docs={docs} />
+      <DocsReader docs={docs} initial={doc} />
     </main>
   );
 }

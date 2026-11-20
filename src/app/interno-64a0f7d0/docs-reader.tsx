@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 type Doc = {
@@ -8,13 +9,21 @@ type Doc = {
   html: string;
 };
 
-export function DocsReader({ docs }: { docs: Doc[] }) {
-  const [active, setActive] = useState(docs[0]?.key ?? "");
+export function DocsReader({ docs, initial }: { docs: Doc[]; initial?: string }) {
+  const [active, setActive] = useState(
+    initial && docs.some((d) => d.key === initial) ? initial : (docs[0]?.key ?? ""),
+  );
   const current = docs.find((d) => d.key === active) ?? docs[0];
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col">
       <nav className="sticky top-0 z-10 flex gap-1 overflow-x-auto border-b border-ink-200 bg-ink-50/95 px-3 py-2 backdrop-blur">
+        <Link
+          href="/interno-64a0f7d0/calendario"
+          className="shrink-0 rounded-full bg-brand px-3 py-1.5 text-xs font-semibold tracking-tight text-white"
+        >
+          Calendario
+        </Link>
         {docs.map((doc) => (
           <button
             key={doc.key}

@@ -31,6 +31,7 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 salvo `manual-de-marca.md` / `nombres-y-marca.md` en la identidad visual. **`precios.md` tampoco
 manda desde el 2026-11-18:** instalación gratis, Base propuesto a $24.900 (ver `notas/10-archivo.md`). Se leen como antecedente. Cuando la fase que los
 reemplaza esté aprobada, se borran y lo que se creía antes pasa a `notas/10-archivo.md` (regla 8).
+**El calendario de contenido** (`/interno-64a0f7d0/calendario`) sale de `src/content/internal/calendario-contenido.ts`: cuando cambia el backlog o el día por día, se cambia ahí también.
 **El panel interno** (`/interno-64a0f7d0`, solo superadmin) muestra las notas vigentes, generadas con `npm run docs:internal` (correrlo y commitear después de cada cambio). Los `src/content/internal/*.ts` viejos son copias de los documentos de julio y agosto que muestra
 `/interno-64a0f7d0` (ahora solo para el superadmin). Cuando se reemplacen, hay que actualizar
 también esa página.
