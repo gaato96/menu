@@ -22,9 +22,10 @@ y qué toca. **Última actualización:** jueves 2026-11-19.
 | 2 · Matriz | ✅ hecha (USD 0,30 de Apify) | `investigacion/matriz-2026-11.md` |
 | 3 · Plan y oferta | ✅ aprobada (faltan las confirmaciones de §8) | `notas/01-plan.md` |
 | 4 · Estrategia de contenido | ✅ aprobada | `notas/04-contenido.md` |
-| 5 · Banco de ideas | 📝 borrador, falta aprobar | `contenido/reels/backlog.md` |
+| 5 · Banco de ideas | ✅ aprobada | `contenido/reels/backlog.md` |
+| 6 · Historias y estados | 📝 borrador, falta aprobar | `contenido/historias/README.md` |
 | 10 · Prospección | pendiente | `notas/02b-adquisicion.md` |
-| 6 a 9 | pendientes | — |
+| 7 a 9 | pendientes | — |
 
 ## Lo que tiene que hacer Gastón
 
@@ -34,9 +35,11 @@ y qué toca. **Última actualización:** jueves 2026-11-19.
 | 2 | Entrar a `/admin`, tocar "Avisame en este dispositivo" y revisar el tablero | 3 min |
 | 3 | Borrar el local de prueba "Negocio E2E…" desde `/admin` | 1 min |
 | 4 | Confirmar los precios, los fundadores, el IVA y el cobro (`01-plan.md` §8) | 10 min |
-| 5 | Leer el banco de ideas (`contenido/reels/backlog.md`) y aprobarlo | 10 min |
+| 5 | Leer las historias (`contenido/historias/README.md`) y aprobarlas | 10 min |
 | 6 | Abrir la cuenta de TikTok @vivomenu.app | 5 min |
 | 7 | Anotar las vistas de los 7 posteos actuales (Estadísticas) y mirar el sexto carrusel | 10 min |
+| 8 | Cambiar el logo del local de demostración (hoy es el de Galu) por uno de hamburguesería | 5 min |
+| 9 | Sacar la captura del tablero de la demo con pedidos de prueba (`contenido/historias/capturas/tablero.png`) | 10 min |
 
 ## Producto: lo que falta probar en real
 

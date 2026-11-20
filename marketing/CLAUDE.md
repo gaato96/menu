@@ -17,8 +17,8 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 | Cómo se consiguen los clientes | `notas/02b-adquisicion.md` + `ventas/` | fase 10 (va antes que la 4) |
 | Día por día y medición | `notas/03-dia-por-dia.md` | fase 9 |
 | Contenido 90 días | `notas/04-contenido.md` | ✅ fase 4 (reemplazó a `plan-contenido.md`) |
-| Ideas de reels | `contenido/reels/backlog.md` | 📝 fase 5, borrador (30 ideas, 12 con fecha) |
-| Historias y estados | `contenido/historias/` | fase 6 |
+| Ideas de reels | `contenido/reels/backlog.md` | ✅ fase 5 (30 ideas, 12 con fecha) |
+| Historias y estados | `contenido/historias/README.md` | 📝 fase 6, borrador (las de fundadores esperan el §8 del plan) |
 | Recursos que se mandan por DM | `contenido/recursos/` | fase 3 y 5 |
 | Lo que se creía antes | `notas/10-archivo.md` | se suma con cada cambio |
 
@@ -28,7 +28,7 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 salvo `manual-de-marca.md` / `nombres-y-marca.md` en la identidad visual. **`precios.md` tampoco
 manda desde el 2026-11-18:** instalación gratis, Base propuesto a $24.900 (ver `notas/10-archivo.md`). Se leen como antecedente. Cuando la fase que los
 reemplaza esté aprobada, se borran y lo que se creía antes pasa a `notas/10-archivo.md` (regla 8).
-**Ojo:** `src/content/internal/*.ts` son copias de esos documentos que muestra
+**El panel interno** (`/interno-64a0f7d0`, solo superadmin) muestra las notas vigentes, generadas con `npm run docs:internal` (correrlo y commitear después de cada cambio). Los `src/content/internal/*.ts` viejos son copias de los documentos de julio y agosto que muestra
 `/interno-64a0f7d0` (ahora solo para el superadmin). Cuando se reemplacen, hay que actualizar
 también esa página.
 
