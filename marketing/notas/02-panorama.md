@@ -38,7 +38,7 @@ y qué toca. **Última actualización:** jueves 2026-11-19.
 | 3 | Borrar el local de prueba "Negocio E2E…" desde `/admin` | 1 min |
 | 4 | Confirmar los precios, los fundadores, el IVA y el cobro (`01-plan.md` §8) | 10 min |
 | 5 | Leer la prospección (`02b-adquisicion.md`) y los mensajes (`ventas/`) | 15 min |
-| 11 | Probar el CRM en producción: abrir un local de la lista "Delivery y mostrador", escanearlo y mirar el mensaje que arma | 10 min |
+| 11 | Abrir en el celular CRM → Prospección → VivoMenu → "VivoMenu · Locales" y mirar los del día, todavía sin mandar | 10 min |
 | 12 | Escribirles a 5 conocidos con un local de comida (`ventas/mensajes.md` §9) | 15 min |
 | 10 | Generar la voz del reel 01 en ElevenLabs (§1 del paquete) para rehacerlo | 5 min |
 | 6 | Abrir la cuenta de TikTok @vivomenu.app | 5 min |

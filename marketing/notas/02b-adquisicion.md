@@ -12,23 +12,28 @@ Galu CRM, sistema **VivoMenu**.
 
 ## 0. En una pantalla
 
-- **La lista ya existe:** 575 locales de comida de Tucumán importados en agosto, que el 2026-11-20 se
-  repartieron en cuatro listas del CRM. **La que se trabaja es "VivoMenu · Tucumán · Delivery y
-  mostrador": 244 locales.**
-- **Lo que se manda primero es su carta andando.** A los 2 o 3 de score más alto de cada día,
-  Gastón les arma la carta en VivoMenu con la importación por IA antes de escribirles. Al resto, el
-  menú de demostración y la oferta de armarles la suya.
-- **Tres mensajes en ocho días:** el primero, el día 3 (lo que se ve de afuera) y el día 8 (el
-  cierre). Después, nada hasta que el local conteste o pida que le escriban más adelante.
-- **La cuota sube de a poco** (lo cuenta el CRM): 5 por día la primera semana, 8 la segunda, 10 la
-  tercera y 12 desde la cuarta. De lunes a viernes; el sábado y el domingo no se escribe en frío.
-- **Control a los 40 contactos** y **lectura a los 100**, con tres caminos según lo que pase (§6).
+> **Corregido el 2026-11-20** después de que Gastón leyó la primera versión: las listas no confirman
+> que los locales hagan delivery (salen de la categoría de Google), los mensajes sonaban armados, se
+> daba por hecho que teníamos la carta de cada local y el flujo del CRM no servía para el celular.
+> Lo que sigue ya está corregido, y el CRM tiene la pantalla nueva.
+
+- **Se trabaja desde el celular**, en el CRM: **Prospección → VivoMenu → "VivoMenu · Locales"**
+  (`/prospeccion/vivomenu`). Tres pestañas: **Hoy, Seguir, Contestaron**.
+- **No hay que escanear ni completar nada.** Al abrir, la pantalla lee sola la ficha de Google de los
+  que tocan hoy: el teléfono (y si es celular, porque un fijo no abre WhatsApp), si hace delivery, para
+  llevar o tiene salón, y si cerró. Los ordena: primero los que hacen delivery o para llevar.
+- **Cada local es una tarjeta con el mensaje escrito y un botón:** "Mandar por WhatsApp" abre el chat
+  con el texto y lo marca como enviado. Si Google no tiene su WhatsApp, la tarjeta ofrece buscar su
+  Instagram.
+- **Lo que se manda es el menú de muestra y la oferta de armarle el suyo gratis con una foto de su
+  carta.** No se da por hecho que tenemos su carta.
+- **Tres mensajes en ocho días** (el primero, el día 3 y el día 8) y se cierra solo.
+- **La cuota sube de a poco** (la calcula el CRM): 5 por día la primera semana, 8, 10 y 12 desde la
+  cuarta. De lunes a viernes, de 15 a 18.
 
 **Lo que tiene que estar antes del primer mensaje:**
-1. El logo del local de demostración cambiado (hoy es el de Galu).
-2. El §8 del plan confirmado (precio, fundadores, IVA, cobro). **Sin eso no se puede ofrecer nada
-   en la visita.**
-3. El CRM actualizado en producción (los mensajes nuevos se subieron el 2026-11-20).
+1. El logo del local de demostración cambiado (hoy es el de Galu): es lo primero que ven.
+2. El §8 del plan confirmado (precio, fundadores, IVA, cobro), para la visita.
 
 ---
 
@@ -63,28 +68,23 @@ proyectos que no abrieron, y los locales con salón hasta tener 3 casos de deliv
 
 ### Lo que ya está en el CRM
 
-| Lista | Locales | Qué se hace |
+Los 575 locales de comida de Tucumán importados en agosto, repartidos el 2026-11-20 en cuatro listas
+**por la categoría de Google Maps**. La categoría no confirma si un local hace delivery: eso lo dice
+la ficha de cada uno, que la pantalla lee antes de escribirle.
+
+| Lista | Locales | Qué pasa |
 |---|---|---|
-| **VivoMenu · Tucumán · Delivery y mostrador** | 244 | **Se trabaja desde la semana 1** |
-| VivoMenu · Tucumán · Salón (después) | 308 | Se espera a tener 3 casos. Si al escanear uno resulta hacer mucho delivery, se pasa a la de arriba |
-| VivoMenu · Tucumán · Fuera del público | 16 | Tiendas, carnicerías, hotel, casino: no se les escribe |
-| VivoMenu · Tucumán · Revisar rubro | 7 | La importación puso una dirección en el rubro: se mira la ficha y se pasan a la que corresponda |
+| **Comida rápida y para llevar** (hamburguesas, pizza, comida rápida, para llevar, pollo, sushi, sándwiches…) | 244 | Entran primero a la cola |
+| **Restaurantes, bares y cafés** | 308 | También están en la cola, después. Muchos hacen delivery: si la ficha lo dice, suben |
+| Fuera del público (tiendas, carnicerías, hotel, casino) | 16 | No entran a la cola |
+| Revisar rubro (la importación puso una dirección en el rubro) | 7 | No entran a la cola hasta revisarlos |
 
-Las listas se armaron por la categoría de Google Maps. **Casi ninguno tiene teléfono ni Instagram
-cargado** (vienen de una planilla de agosto con el link de Maps): **el escaneo del CRM los completa**.
+**Lo que dice la ficha y cómo pesa:** hace delivery (+40), para llevar (+25), solo salón (−30), las
+reseñas (hasta +20) y si tiene un celular para WhatsApp (+10). Si cerró, sale de la cola solo.
 
-### Cómo se prepara cada día (el escaneo)
-
-1. En el CRM, Prospección → sistema VivoMenu → lista "Delivery y mostrador".
-2. **Escanear** a los que toca escribir mañana: el CRM lee la ficha de Google (teléfono, si hace
-   delivery, reseñas y su texto, horarios) y busca su Instagram. Con eso calcula el score y sugiere
-   el dato para la primera línea.
-3. Se ordena por score y se toman los del día.
-
-**Costo:** el escaneo usa la API de Google Places con la cuenta del CRM, la misma que usa Sarvo, y
-Google cobra cada consulta que pasa del uso gratis del mes. **Se escanea de a 10 o 15 por día, nunca
-los 244 de una vez**, y una vez por semana se mira el uso en la consola de Google Cloud (es la misma
-cuenta para VivoMenu y Sarvo).
+**Costo:** cada ficha leída es una consulta a la API de Google Places de la cuenta del CRM (la misma
+que usa Sarvo). La pantalla lee solo las del día y unas pocas más, nunca las 575 juntas. Una vez por
+semana conviene mirar el uso en la consola de Google Cloud.
 
 ### Para sumar locales nuevos (cuando se terminen los 244)
 
@@ -107,27 +107,17 @@ Negocio | Rubro | Teléfono | Instagram | Dirección | Ciudad | Sitio web | Goog
 
 ## 3. Qué se le manda
 
-**Su caso andando antes que una explicación.** Dos formas, según el score:
+**El menú de muestra y la oferta de armarle el suyo.** Casi ningún local publica su carta entera, así
+que no se le arma antes de escribirle: se le pide una foto cuando contesta. Si alguno la tiene
+publicada completa (en Instagram o en las fotos de Google) y Gastón quiere armarla antes, pega el link
+en "Más opciones" de la tarjeta y el mensaje cambia solo.
 
-| Quiénes | Qué se manda | Cuánto le lleva a Gastón |
-|---|---|---|
-| **Los 2 o 3 de score más alto de cada día** | **Su carta armada en VivoMenu.** Gastón crea el local de demostración desde `/admin` ("Demo · nombre del local"), importa la carta desde la foto de su Instagram con la IA, revisa precios y agregados, y pega el link en el campo "revisión" del prospecto en el CRM. El mensaje 1 sale con ese link | 10 a 15 min cada uno |
-| **El resto de la cuota** | El menú de demostración (Burger House) y la oferta de armarle la suya | 2 min cada uno |
+**Cuando pide la suya:** Gastón crea el local de demostración desde `/admin` de VivoMenu ("Demo ·
+nombre del local"), importa la carta desde la foto con la IA, revisa precios y agregados, pega el link
+en la tarjeta de "Contestaron" y toca "Mandarle su carta". Los de demostración que no sigan en 30
+días se borran.
 
-**Los locales de demostración** que no contesten en 30 días se borran desde `/admin`, para que no
-se acumulen ni los cuente el seguimiento de pruebas del superadmin.
-
-**Los mensajes** (palabra por palabra en `ventas/mensajes.md`; el CRM los arma solos con el dato
-del escaneo):
-1. **El primero** (día 0): quién es Gastón, lo que vio de su local (una reseña, su carta en foto) si
-   hay algo verdadero, y el link. Termina preguntando si el WhatsApp lo lleva el dueño.
-2. **El del día 3:** lo que se ve de afuera cuando alguien quiere pedirle (de uno a tres hallazgos
-   reales del escaneo, nunca inventados).
-3. **El del día 8:** el cierre. Deja la carta (o la oferta de armarla) y se despide.
-
-**La primera línea es verdad solo de ese local.** Si el escaneo no encontró nada verdadero, el
-mensaje no inventa: se presenta y muestra el link. Sin "IA", sin "sistema de gestión", sin
-"solución": se habla de la carta, el pedido y el WhatsApp.
+**Los mensajes**, palabra por palabra, en `ventas/mensajes.md`.
 
 ## 4. Cuando contestan
 
@@ -171,15 +161,13 @@ viernes después de las 19, nunca el sábado ni el domingo (el CRM lo avisa).
 
 ## 7. Dónde entra en el día
 
-Es el punto 2 del orden del día de `03-dia-por-dia.md` (después de contestar):
+Es el punto 2 del orden del día de `03-dia-por-dia.md` (después de contestar), desde el celular:
 
 | Qué | Tiempo |
 |---|---|
-| Contestar a los que respondieron | 10 min |
-| Escanear los de mañana y ordenar por score | 10 min |
-| Armar 2 o 3 cartas para los de score más alto | 30 a 45 min |
-| Mandar la cuota del día (el CRM arma el mensaje) | 15 a 25 min |
-| Los seguimientos del día 3 y del día 8 que vencen | 10 min |
+| Abrir "VivoMenu · Locales" y contestar lo que haya en "Contestaron" | 10 min |
+| "Hoy": mandar la cuota (un toque por local; los que no tienen WhatsApp, buscar su Instagram) | 10 a 20 min |
+| "Seguir": los del día 3 y del día 8 | 5 min |
+| Armar las cartas que pidieron (en la computadora o el celular, desde `/admin` de VivoMenu) | 10 min cada una |
 
-**Unos 75 a 100 minutos por día hábil**, de 15 a 18. **Si el día se cae, se contesta y se manda la
-cuota con el menú de demostración, sin cartas armadas.** Nunca se arman cartas a costa de contestar.
+**Unos 30 a 45 minutos por día hábil**, de 15 a 18, más las cartas que pidan.

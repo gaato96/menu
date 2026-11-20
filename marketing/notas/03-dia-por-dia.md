@@ -6,7 +6,7 @@ y `04-contenido.md` (qué se publica y por qué). Las ideas de cada reel, en
 `contenido/reels/backlog.md`. Los números, en `05-medicion.md`.
 
 > **La venta** (los contactos por día, los seguimientos y las visitas) está en `02b-adquisicion.md`:
-> de lunes a viernes, de 15 a 18, unos 75 a 100 minutos. Es el punto 2 del orden del día.
+> de lunes a viernes, de 15 a 18, unos 30 a 45 minutos desde el celular (CRM → VivoMenu · Locales). Es el punto 2 del orden del día.
 
 ---
 
@@ -27,7 +27,7 @@ y `04-contenido.md` (qué se publica y por qué). Las ideas de cada reel, en
 
 > 1. **Contestar a todo el que comentó CARTA o respondió una historia.** En menos de una hora si se
 >    puede, y siempre el mismo día.
-> 2. **Ventas** (`02b-adquisicion.md`): la cuota del día en el CRM y los seguimientos del día 3 y 8.
+> 2. **Ventas** (`02b-adquisicion.md`): en el CRM, VivoMenu · Locales → Hoy y Seguir.
 > 3. **El reel de mañana:** la voz y la revisión.
 > 4. **Las historias** del día.
 > 5. **Los 15 minutos de comentarios** en cuentas de dueños.

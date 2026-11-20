@@ -5,6 +5,13 @@ acá con fecha. Lo más nuevo, arriba.
 
 ---
 
+## 2026-11-20 — Lo de julio y agosto, al archivo
+
+A pedido de Gastón, el panel interno muestra solo lo vigente. `plan-marketing.md`, `prospeccion.md`,
+`sistema-prospeccion-frio.md`, `mensajes-en-frio.md`, `precios.md`, `progreso.md` y
+`reel-01-comision.md` pasaron a `marketing/archivo/2026-07-08/` y sus copias del panel se borraron.
+Los reemplazan `notas/01-plan.md`, `02b-adquisicion.md`, `ventas/` y `02-panorama.md`.
+
 ## 2026-11-20 — Fase 8: la producción en video (`contenido/reels/PRODUCCION.md`)
 
 | Lo que se creía | Desde | Lo que cambió | Por qué |

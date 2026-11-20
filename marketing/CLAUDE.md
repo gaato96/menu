@@ -27,16 +27,16 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 
 **El CRM:** la prospección de VivoMenu se trabaja en el Galu CRM (`D:\Gutmark\Diseño Web\SaaS\Galuweb CRM\galuweb-crm`), módulo Prospección, sistema VivoMenu. Los mensajes viven en su `src/lib/vivomenu-mensajes.ts`: si cambian acá, se cambian allá.
 
-**Los documentos viejos de esta carpeta** (`plan-marketing.md`,
-`prospeccion.md`, `sistema-prospeccion-frio.md`, `mensajes-en-frio.md`, `precios.md`,
-`progreso.md`, `reel-01-comision.md`, de julio y agosto) **ya no mandan**,
-salvo `manual-de-marca.md` / `nombres-y-marca.md` en la identidad visual. **`precios.md` tampoco
-manda desde el 2026-11-18:** instalación gratis, Base propuesto a $24.900 (ver `notas/10-archivo.md`). Se leen como antecedente. Cuando la fase que los
-reemplaza esté aprobada, se borran y lo que se creía antes pasa a `notas/10-archivo.md` (regla 8).
-**El calendario de contenido** (`/interno-64a0f7d0/calendario`) sale de `src/content/internal/calendario-contenido.ts`: cuando cambia el backlog o el día por día, se cambia ahí también.
-**El panel interno** (`/interno-64a0f7d0`, solo superadmin) muestra las notas vigentes, generadas con `npm run docs:internal` (correrlo y commitear después de cada cambio). Los `src/content/internal/*.ts` viejos son copias de los documentos de julio y agosto que muestra
-`/interno-64a0f7d0` (ahora solo para el superadmin). Cuando se reemplacen, hay que actualizar
-también esa página.
+**Lo de julio y agosto** (plan de marketing, prospección, mensajes en frío, precios, progreso y el
+reel de la comisión) está en `archivo/2026-07-08/` desde el 2026-11-20: no manda y no se muestra en el
+panel. `manual-de-marca.md` y `nombres-y-marca.md` siguen mandando en la identidad visual (paleta,
+tipografías, logo), aunque no estén en el panel.
+
+**El panel interno** (`/interno-64a0f7d0`, solo superadmin) muestra solo las notas vigentes,
+generadas con `npm run docs:internal` (correrlo y commitear después de cada cambio). Los paquetes de
+reel no son pestañas: se abren de a uno desde el calendario (`/interno-64a0f7d0/reel/<archivo>`).
+El calendario (`/interno-64a0f7d0/calendario`) sale de `src/content/internal/calendario-contenido.ts`:
+cuando cambia el backlog o el día por día, se cambia ahí también.
 
 ## Las reglas (del prompt maestro, no se negocian)
 

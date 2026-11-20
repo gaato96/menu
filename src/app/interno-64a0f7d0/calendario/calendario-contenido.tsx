@@ -23,7 +23,7 @@ const COLOR_HISTORIA: Record<Historia["clase"], string> = {
 };
 
 function paqueteHref(archivo: string) {
-  return `/interno-64a0f7d0?doc=${encodeURIComponent(`marketing/contenido/reels/${archivo}`)}`;
+  return `/interno-64a0f7d0/reel/${encodeURIComponent(archivo)}`;
 }
 
 export function CalendarioContenido({ dias, hoy }: { dias: Dia[]; hoy: string }) {
