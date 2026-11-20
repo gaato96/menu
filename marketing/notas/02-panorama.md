@@ -26,8 +26,8 @@ y qué toca. **Última actualización:** jueves 2026-11-19.
 | 6 · Historias y estados | ✅ aprobada | `contenido/historias/README.md` |
 | 7 · Skill de cada reel y radar | ✅ aprobada | `.claude/skills/paquete-reel-vivomenu/` |
 | 8 · Producción con hyperframes | ✅ aprobada (el reel 01 se rehace con las reglas de edición nuevas) | `contenido/reels/PRODUCCION.md`, `contenido/reels/moldes/` |
-| 9 · Día por día y medición | 📝 borrador, falta aprobar | `notas/03-dia-por-dia.md`, `notas/05-medicion.md` |
-| 10 · Prospección | pendiente | `notas/02b-adquisicion.md` |
+| 9 · Día por día y medición | ✅ aprobada | `notas/03-dia-por-dia.md`, `notas/05-medicion.md` |
+| 10 · Prospección | 📝 borrador: 4 listas en el CRM (244 de delivery), mensajes nuevos en el CRM | `notas/02b-adquisicion.md`, `ventas/` |
 
 ## Lo que tiene que hacer Gastón
 
@@ -37,7 +37,9 @@ y qué toca. **Última actualización:** jueves 2026-11-19.
 | 2 | Entrar a `/admin`, tocar "Avisame en este dispositivo" y revisar el tablero | 3 min |
 | 3 | Borrar el local de prueba "Negocio E2E…" desde `/admin` | 1 min |
 | 4 | Confirmar los precios, los fundadores, el IVA y el cobro (`01-plan.md` §8) | 10 min |
-| 5 | Leer el día por día y decidir en qué momento del día entra VivoMenu (`03-dia-por-dia.md` §1) | 10 min |
+| 5 | Leer la prospección (`02b-adquisicion.md`) y los mensajes (`ventas/`) | 15 min |
+| 11 | Probar el CRM en producción: abrir un local de la lista "Delivery y mostrador", escanearlo y mirar el mensaje que arma | 10 min |
+| 12 | Escribirles a 5 conocidos con un local de comida (`ventas/mensajes.md` §9) | 15 min |
 | 10 | Generar la voz del reel 01 en ElevenLabs (§1 del paquete) para rehacerlo | 5 min |
 | 6 | Abrir la cuenta de TikTok @vivomenu.app | 5 min |
 | 7 | Anotar las vistas de los 7 posteos actuales (Estadísticas) y mirar el sexto carrusel | 10 min |

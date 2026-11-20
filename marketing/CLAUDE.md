@@ -14,9 +14,9 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 | Qué contenido rinde | `investigacion/matriz-2026-11.md` | ✅ fase 2 |
 | A quién, qué y a qué precio | `notas/01-plan.md` | ✅ fase 3 (faltan las confirmaciones de §8) |
 | Estado y fechas (cada viernes) | `notas/02-panorama.md` | ✅ se actualiza cada viernes |
-| Cómo se consiguen los clientes | `notas/02b-adquisicion.md` + `ventas/` | fase 10 (va antes que la 4) |
-| Día por día (seis semanas) | `notas/03-dia-por-dia.md` | 📝 fase 9, borrador |
-| Medición y reglas de cambio | `notas/05-medicion.md` | 📝 fase 9, borrador |
+| Cómo se consiguen los clientes | `notas/02b-adquisicion.md` + `ventas/mensajes.md` y `ventas/respuestas.md` (y el Galu CRM, sistema VivoMenu) | 📝 fase 10, borrador |
+| Día por día (seis semanas) | `notas/03-dia-por-dia.md` (y el calendario en `/interno-64a0f7d0/calendario`) | ✅ fase 9 |
+| Medición y reglas de cambio | `notas/05-medicion.md` | ✅ fase 9 |
 | Contenido 90 días | `notas/04-contenido.md` | ✅ fase 4 (reemplazó a `plan-contenido.md`) |
 | Ideas de reels | `contenido/reels/backlog.md` | ✅ fase 5 (30 ideas, 12 con fecha) |
 | Historias y estados | `contenido/historias/README.md` | ✅ fase 6 (las de fundadores esperan el §8 del plan) |
@@ -24,6 +24,8 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 | Cómo se produce cada video | `contenido/reels/PRODUCCION.md` (con las reglas de edición de Gastón) y los moldes de `contenido/reels/moldes/` | ✅ fase 8 |
 | Recursos que se mandan por DM | `contenido/recursos/` | fase 3 y 5 |
 | Lo que se creía antes | `notas/10-archivo.md` | se suma con cada cambio |
+
+**El CRM:** la prospección de VivoMenu se trabaja en el Galu CRM (`D:\Gutmark\Diseño Web\SaaS\Galuweb CRM\galuweb-crm`), módulo Prospección, sistema VivoMenu. Los mensajes viven en su `src/lib/vivomenu-mensajes.ts`: si cambian acá, se cambian allá.
 
 **Los documentos viejos de esta carpeta** (`plan-marketing.md`,
 `prospeccion.md`, `sistema-prospeccion-frio.md`, `mensajes-en-frio.md`, `precios.md`,
