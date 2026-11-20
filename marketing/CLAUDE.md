@@ -18,7 +18,8 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 | Día por día y medición | `notas/03-dia-por-dia.md` | fase 9 |
 | Contenido 90 días | `notas/04-contenido.md` | ✅ fase 4 (reemplazó a `plan-contenido.md`) |
 | Ideas de reels | `contenido/reels/backlog.md` | ✅ fase 5 (30 ideas, 12 con fecha) |
-| Historias y estados | `contenido/historias/README.md` | 📝 fase 6, borrador (las de fundadores esperan el §8 del plan) |
+| Historias y estados | `contenido/historias/README.md` | ✅ fase 6 (las de fundadores esperan el §8 del plan) |
+| Cómo se arma cada reel | `../.claude/skills/paquete-reel/` (skill) y `../.claude/skills/radar-contenido/` (radar mensual) | 📝 fase 7, borrador |
 | Recursos que se mandan por DM | `contenido/recursos/` | fase 3 y 5 |
 | Lo que se creía antes | `notas/10-archivo.md` | se suma con cada cambio |
 

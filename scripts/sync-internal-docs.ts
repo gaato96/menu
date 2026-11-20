@@ -7,7 +7,7 @@
  * instead. Run `npm run docs:internal` after editing any of these notes, and
  * commit the generated file with them.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = join(__dirname, "..");
@@ -26,6 +26,25 @@ const DOCS: { key: string; label: string; file: string }[] = [
   { key: "indice", label: "Qué manda", file: "marketing/CLAUDE.md" },
   { key: "archivo", label: "Archivo", file: "marketing/notas/10-archivo.md" },
 ];
+
+// Every reel package and DM resource gets its own tab, newest reel first.
+function listMd(dir: string, labelFor: (name: string) => string) {
+  try {
+    return readdirSync(join(root, dir))
+      .filter((name) => name.endsWith(".md") && !name.startsWith("_") && name !== "backlog.md" && name !== "README.md")
+      .sort()
+      .reverse()
+      .map((name) => ({ key: `${dir}/${name}`, label: labelFor(name), file: `${dir}/${name}` }));
+  } catch {
+    return [];
+  }
+}
+DOCS.splice(
+  4,
+  0,
+  ...listMd("marketing/contenido/reels", (n) => `Reel ${n.slice(0, 2)}`),
+  ...listMd("marketing/contenido/recursos", (n) => `Recurso: ${n.replace(/\.md$/, "")}`),
+);
 
 const entries = DOCS.flatMap((doc) => {
   let source: string;
