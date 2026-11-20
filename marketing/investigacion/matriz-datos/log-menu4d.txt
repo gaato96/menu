@@ -1,0 +1,11 @@
+-> apify/instagram-reel-scraper · @menu4d · 40 piezas · tope $0.50
+   run xSEfIaEByyu8uhwIo · https://console.apify.com/actors/runs/xSEfIaEByyu8uhwIo
+   costo real: $0.0946
+   piezas normalizadas: 37
+   views         37 con dato · 0 s/d
+   likes         37 con dato · 0 s/d
+   comentarios   37 con dato · 0 s/d
+   shares         0 con dato · 37 s/d
+   duracion      37 con dato · 0 s/d
+   urlVideo      37 con dato · 0 s/d
+   crudo guardado en D:\Gutmark\Diseño Web\Claude Proyectos\Contenido\matriz-viralidad\fuentes\instagram-reels-menu4d-posts-20261119-172510.json

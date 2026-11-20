@@ -11,18 +11,18 @@ El `CLAUDE.md` de la raíz del repo es del código y no se mezcla con este.
 | Producto, público, objeciones, tono, metas | `../.agents/product-marketing.md` (v3) | ✅ fase 0 |
 | Cómo habla el cliente | `investigacion/voz-del-cliente.md` | ✅ fase 0 (se completa en la 1) |
 | Competencia y cuentas del nicho | `investigacion/competencia-2026-11.md` | ✅ fase 1 (falta grupo C) |
-| Qué contenido rinde | `investigacion/matriz-AAAA-MM.md` | fase 2 |
-| A quién, qué y a qué precio | `notas/01-plan.md` | fase 3 |
-| Estado y fechas (cada viernes) | `notas/02-panorama.md` | fase 3 |
+| Qué contenido rinde | `investigacion/matriz-2026-11.md` | ✅ fase 2 |
+| A quién, qué y a qué precio | `notas/01-plan.md` | ✅ fase 3 (faltan las confirmaciones de §8) |
+| Estado y fechas (cada viernes) | `notas/02-panorama.md` | ✅ se actualiza cada viernes |
 | Cómo se consiguen los clientes | `notas/02b-adquisicion.md` + `ventas/` | fase 10 (va antes que la 4) |
 | Día por día y medición | `notas/03-dia-por-dia.md` | fase 9 |
-| Contenido 90 días | `notas/04-contenido.md` | fase 4 |
-| Ideas de reels | `contenido/reels/backlog.md` | fase 5 |
+| Contenido 90 días | `notas/04-contenido.md` | ✅ fase 4 (reemplazó a `plan-contenido.md`) |
+| Ideas de reels | `contenido/reels/backlog.md` | 📝 fase 5, borrador (30 ideas, 12 con fecha) |
 | Historias y estados | `contenido/historias/` | fase 6 |
 | Recursos que se mandan por DM | `contenido/recursos/` | fase 3 y 5 |
 | Lo que se creía antes | `notas/10-archivo.md` | se suma con cada cambio |
 
-**Los documentos viejos de esta carpeta** (`plan-marketing.md`, `plan-contenido.md`,
+**Los documentos viejos de esta carpeta** (`plan-marketing.md`,
 `prospeccion.md`, `sistema-prospeccion-frio.md`, `mensajes-en-frio.md`, `precios.md`,
 `guia-produccion.md`, `progreso.md`, `reel-01-comision.md`, de julio y agosto) **ya no mandan**,
 salvo `manual-de-marca.md` / `nombres-y-marca.md` en la identidad visual. **`precios.md` tampoco

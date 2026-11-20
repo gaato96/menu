@@ -5,12 +5,11 @@ import type { Metadata } from "next";
 
 import { guiaProduccion } from "@/content/internal/guia-produccion";
 import { manualDeMarca } from "@/content/internal/manual-de-marca";
+import { marketingDocs } from "@/content/internal/marketing-docs";
 import { mensajesEnFrio } from "@/content/internal/mensajes-en-frio";
 import { nombresYMarca } from "@/content/internal/nombres-y-marca";
-import { planContenido } from "@/content/internal/plan-contenido";
 import { planMarketing } from "@/content/internal/plan-marketing";
 import { precios } from "@/content/internal/precios";
-import { productMarketing } from "@/content/internal/product-marketing";
 import { progreso } from "@/content/internal/progreso";
 import { prospeccion } from "@/content/internal/prospeccion";
 import { sistemaProspeccionFrio } from "@/content/internal/sistema-prospeccion-frio";
@@ -26,18 +25,20 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// The current notes come generated from marketing/ (npm run docs:internal).
+// The hand-copied July/August documents after them are history: they no
+// longer govern, except the brand manual and the name/brand note.
 const DOCS = [
-  { key: "progreso", label: "Progreso", source: progreso },
-  { key: "plan", label: "Plan de marketing", source: planMarketing },
-  { key: "contexto", label: "Contexto de producto", source: productMarketing },
-  { key: "prospeccion", label: "Prospección", source: prospeccion },
-  { key: "sistema-frio", label: "Sistema en frío", source: sistemaProspeccionFrio },
-  { key: "mensajes", label: "Mensajes en frío", source: mensajesEnFrio },
-  { key: "contenido", label: "Plan de contenido", source: planContenido },
-  { key: "produccion", label: "Guía de producción", source: guiaProduccion },
-  { key: "precios", label: "Precios", source: precios },
-  { key: "marca", label: "Nombre y marca", source: nombresYMarca },
+  ...marketingDocs,
   { key: "manual", label: "Manual de marca", source: manualDeMarca },
+  { key: "marca", label: "Nombre y marca", source: nombresYMarca },
+  { key: "produccion", label: "Guía de producción (jul)", source: guiaProduccion },
+  { key: "progreso", label: "Progreso (ago)", source: progreso },
+  { key: "plan", label: "Plan de marketing (jul)", source: planMarketing },
+  { key: "prospeccion", label: "Prospección (jul)", source: prospeccion },
+  { key: "sistema-frio", label: "Sistema en frío (ago)", source: sistemaProspeccionFrio },
+  { key: "mensajes", label: "Mensajes en frío (ago)", source: mensajesEnFrio },
+  { key: "precios", label: "Precios (jul)", source: precios },
 ];
 
 export default async function InternalDocsPage() {

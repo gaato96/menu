@@ -1,0 +1,11 @@
+-> apify/instagram-reel-scraper · @dougmenu.app · 40 piezas · tope $0.50
+   run UYcLIdTMoPBr2VLLg · https://console.apify.com/actors/runs/UYcLIdTMoPBr2VLLg
+   costo real: $0.0374
+   piezas normalizadas: 14
+   views         14 con dato · 0 s/d
+   likes         12 con dato · 2 s/d
+   comentarios   14 con dato · 0 s/d
+   shares         0 con dato · 14 s/d
+   duracion      14 con dato · 0 s/d
+   urlVideo      14 con dato · 0 s/d
+   crudo guardado en D:\Gutmark\Diseño Web\Claude Proyectos\Contenido\matriz-viralidad\fuentes\instagram-reels-dougmenu.app-posts-20261119-172417.json

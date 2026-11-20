@@ -1,0 +1,11 @@
+-> apify/instagram-reel-scraper · @menuly.ar · 40 piezas · tope $0.50
+   run 4u5qF3zKJeVvxyVML · https://console.apify.com/actors/runs/4u5qF3zKJeVvxyVML
+   costo real: $0.0608
+   piezas normalizadas: 24
+   views         24 con dato · 0 s/d
+   likes         24 con dato · 0 s/d
+   comentarios   24 con dato · 0 s/d
+   shares         0 con dato · 24 s/d
+   duracion      24 con dato · 0 s/d
+   urlVideo      24 con dato · 0 s/d
+   crudo guardado en D:\Gutmark\Diseño Web\Claude Proyectos\Contenido\matriz-viralidad\fuentes\instagram-reels-menuly.ar-posts-20261119-172252.json

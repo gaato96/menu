@@ -1,0 +1,11 @@
+-> apify/instagram-reel-scraper · @lacarta.app · 40 piezas · tope $0.50
+   run NjmN5KVMcgupvr4he · https://console.apify.com/actors/runs/NjmN5KVMcgupvr4he
+   costo real: $0.1050
+   piezas normalizadas: 40
+   views         40 con dato · 0 s/d
+   likes         40 con dato · 0 s/d
+   comentarios   40 con dato · 0 s/d
+   shares         0 con dato · 40 s/d
+   duracion      40 con dato · 0 s/d
+   urlVideo      40 con dato · 0 s/d
+   crudo guardado en D:\Gutmark\Diseño Web\Claude Proyectos\Contenido\matriz-viralidad\fuentes\instagram-reels-lacarta.app-posts-20261119-172336.json

@@ -5,6 +5,18 @@ acá con fecha. Lo más nuevo, arriba.
 
 ---
 
+## 2026-11-19 — Fase 4: el plan de contenido nuevo (`notas/04-contenido.md`)
+
+| Lo que se creía | Desde | Lo que cambió | Por qué |
+|---|---|---|---|
+| **Carrusel como formato principal**; reels "solo como repurposing ocasional" (5 %) | 2026-07-28 (`plan-contenido.md` v2) | **Reels como formato principal**, 3 por semana, sin cara, en tres formatos (historia animada, pantalla real, corto de texto) | Con 15 a 23 seguidores el carrusel casi no llega a nadie (lo decía el mismo plan en su §3.1), y la matriz del 19/11 muestra que en el rubro rinde la escena animada |
+| Pilares "Errores que cuestan plata", "Cómo se hace", "La cuenta simple", "Lecciones de locales reales" | 2026-07-28 | **Seis series** con patrón de la matriz: Dos deliverys, El dato, Viernes 21:30, ¿Y si…? Probé, El chat del viernes, Tu carta de Instagram | Cada serie sale de un patrón medido contra la mediana de su cuenta |
+| "Filmar el tablero en hora pico es una demo, no contenido" | 2026-07-28 (`plan-contenido.md` §0) | **El tablero vuelve, pero dentro de una escena con hora y contador** ("Viernes 21:30") | En la matriz, el producto mostrado así rinde de 6,8 a 27 veces (Menu4D); lo que no rinde es la autopromoción sin escena |
+| Seguir 20 a 30 gastronómicos por día y buscar colaboraciones con locales | 2026-07-28 (`plan-contenido.md` §3.1) | **15 minutos de comentarios por día** donde está el dueño; las colaboraciones, con los fundadores y con permiso | El método que se usa en @galu.web; seguir en masa no trae al que compra |
+
+`plan-contenido.md` y `src/content/internal/plan-contenido.ts` se borraron (también su pestaña en
+`/interno-64a0f7d0`). El texto completo queda en el historial de git.
+
 ## 2026-11-18 — Decisiones de Gastón después de la fase 1
 
 | Lo que se creía | Desde | Lo que cambió | Por qué |
